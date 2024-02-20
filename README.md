@@ -2,7 +2,7 @@
 
 This project is a web discussion forum based on the 17 UN objectives.
 
-![UN Objectives Forum](assets/readme_img.png)
+![UN Objectives Forum](src/assets/readme_img.png)
 
 ## Technologies Used
 
