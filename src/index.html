@@ -24,9 +24,10 @@
             <!-- ADD BUTTON -->
             <li class="rounded-lg bg-blue-400 text-center"><a class=" text-4xl text-white" href="#">+</a></li>
         </ul>
+        <br>
         <ul class="flex flex-col">
-            <li><a href="#" class="text-white">Login</a></li>
-            <li><a href="#" class="text-white">Register</a></li>
+            <li><a href="#" class="text">Login</a></li>
+            <li><a href="#" class="text">Register</a></li>
         </ul>
     </nav>
 
@@ -37,19 +38,16 @@
 
         <!-- HEADER -->
         <header class="flex justify-between items-center">
-            <h1 class="text-black flex justify-center w-full text-3xl font-bold mt-5">FOR<span class="text-blue-500">ONU</span> HUB</h1>
+            <h1 class="text-black flex justify-center w-full text-3xl font-bold mt-5">FOR<span class="text-blue-500">US</span></h1>
             <div class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5"></div>
         </header>
     
-
         <!-- MAIN -->
-        <main class="flex justify-between items-center mt-20">
-
+        <main class="flex justify-between items-center mt-10">
             <!-- INITIAL CARD -->
             <div id="initial-card" class="bg-gray-100 shadow-lg ml-20 mr-10 w-9/12 h-52 flex justify-start items-start relative rounded-xl">
-                <div class="w-12 h-11 bg-blue-500 rounded-full absolute top-8 left-8"></div>
-                <textarea class="relative top-10 left-28 text-2xl text-gray-400 font-normal bg-gray-100 w-10/12 resize-none outline-none -h-28" rows="5" maxlength="380">Cuéntanos qué opinas...</textarea>
-
+                <div class="w-12 h-11 bg-blue-500 rounded-full absolute top-6 left-8"></div>
+                <textarea class="relative rounded-lg px-6 py-2 top-5 left-20 text-2xl text-gray-400 font-normal bg-gray-100 w-6/12 resize-none outline-none -h-28" rows="5" maxlength="380" placeholder="¿Qué piensas?"></textarea>
                 <div class="flex absolute bottom-3 left-8 gap-2">
                     <a class="text-white font-semibold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#NomasHambre</a>
                     <a class="text-white font-semibold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#Acabemos</a>
@@ -72,14 +70,14 @@
                     })
 
                     textArea.addEventListener("focus", (e) =>{
-                        if (e.target.value === "Cuentanos que opinas...") {
+                        if (e.target.value === "¿Qué piensas?") {
                             e.target.value = "";
                         }
                     })
 
                     textArea.addEventListener('blur', function() {
                         if (this.value === '') {
-                            this.value = 'Cuentanos que opinas...';
+                            this.value = '¿Qué piensas?';
                         }
                     });
 
