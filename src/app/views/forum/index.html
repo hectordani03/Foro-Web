@@ -13,13 +13,13 @@
     <!-- NAV -->
     <div class="bg-gray-200 min-h-screen">
         <nav class="flex flex-col bg-gray-200 w-24 p-4 justify-start items-center sticky top-0 min-h-screen">
-            <img class="w-12 h-10 mt-2" src="/src/assets/logo.png" alt="">
+            <img class="w-12 h-10 mt-2" src="../../../assets/logo.png" alt="">
             <ul class="flex flex-col gap-7 justify-between mt-10">
-                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="/src/assets/objetivos_img/obj2.jpg" alt="" class="w-full"></a></li>
-                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="/src/assets/objetivos_img/obj4.png" alt="" class="w-full"></a></li>
-                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="/src/assets/objetivos_img/obj13.png" alt="" class="w-full"></a></li>
-                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="/src/assets/objetivos_img/obj14.png" alt="" class="w-full"></a></li>
-                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="/src/assets/objetivos_img/obj10.png" alt="" class="w-full"></a></li>
+                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="../../../assets/objetivos_img/obj2.jpg" alt="" class="w-full"></a></li>
+                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="../../../assets/objetivos_img/obj4.png" alt="" class="w-full"></a></li>
+                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="../../../assets/objetivos_img/obj13.png" alt="" class="w-full"></a></li>
+                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="../../../assets/objetivos_img/obj14.png" alt="" class="w-full"></a></li>
+                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="../../../assets/objetivos_img/obj10.png" alt="" class="w-full"></a></li>
                 
                 <!-- ADD BUTTON -->
                 <li class="rounded-lg bg-blue-400 text-center"><a class=" text-4xl text-white" href="#">+</a></li>
@@ -46,17 +46,17 @@
         <!-- HEADER -->
         <header class="flex justify-between items-center">
             <h1 class="text-black flex justify-center w-full text-3xl font-bold mt-5">FOR <span class="text-blue-500 ml-2">US</span></h1>
-            <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="/src/assets/person-1.jpg" alt="">
+            <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="../../../assets/person-1.jpg" alt="">
         </header>
     
 
         <!-- MAIN -->
-        <main class="flex justify-between items-center mt-20">
+        <main class="flex justify-between items-center mt-10">
 
             <!-- INITIAL CARD -->
             <div id="initial-card" class="bg-gray-100 shadow-lg ml-20 mr-10 w-9/12 h-52 flex justify-start items-start relative rounded-xl">
-                <img class="w-12 h-11 bg-blue-500 rounded-full absolute top-8 left-8" src="/src/assets/person-1.jpg" alt="">
-                <textarea class="relative top-10 left-28 text-2xl text-gray-400 font-normal bg-gray-100 w-10/12 resize-none outline-none -h-28" rows="5" maxlength="380">Cuéntanos qué opinas...</textarea>
+                <img class="w-12 h-11 bg-blue-500 rounded-full absolute top-8 left-8" src="../../../assets/person-1.jpg" alt="">
+                <textarea class="relative rounded-lg px-6 py-2 top-5 left-20 text-2xl text-gray-400 font-normal bg-gray-100 w-6/12 resize-none outline-none -h-28" rows="5" maxlength="380" placeholder="¿Qué piensas?"></textarea>
 
                 <div class="flex absolute bottom-3 left-8 gap-2">
                     <a class="text-white font-semibold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#NomasHambre</a>
@@ -80,13 +80,13 @@
                     })
 
                     textArea.addEventListener("focus", function () {
-                        if (this.value === "Cuéntanos qué opinas...") {
+                        if (this.value === '¿Qpiensas?') {
                             this.value = "";
                         }
                     });
                     textArea.addEventListener('blur', function () {
                         if (this.value === '') {
-                            this.value = 'Cuéntanos qué opinas...';
+                            this.value = '¿Qué piensas?';
                         }
                     });
 
@@ -103,7 +103,7 @@
             </div>
 
             <!-- OBJETIVE CARD -->
-            <a class=" mr-10" href="#"><img class="rounded-lg w-48 h-52" src="/src/assets/objetivos_img/obj2.jpg" alt="" class="w-full"></a>
+            <a class=" mr-10" href="#"><img class="rounded-lg w-48 h-52" src="../../../assets/objetivos_img/obj2.jpg" alt="" class="w-full"></a>
 
         </main>
 
@@ -118,7 +118,7 @@
             <div class="bg-gray-100 shadow-lg w-full rounded-xl flex flex-col relative mt-5 h-fit self-start">
                 <!-- TOP CARD CONTENT -->
                 <div class="flex mt-5 ml-5">
-                    <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="/src/assets/person-1.jpg" alt="">
+                    <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="../../../assets/person-1.jpg" alt="">
                     <div class="flex flex-col ml-5">
                         <h2 class="text-xl text-gray-400 font-semibold">Jose Joshua</h2>
                         <p class="text-gray-400">08:04 p.m</p>
