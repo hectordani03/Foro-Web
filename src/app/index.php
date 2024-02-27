@@ -1,7 +1,7 @@
 <?php
-    require_once './config/app.php';
-    require_once './autoload.php';
-    require_once './app/views/inc/session_start.php';
+require_once './config/app.php';
+require_once './autoload.php';
+require_once './app/views/inc/session_start.php';
 
     if (isset($_GET['views'])) {
 
@@ -19,15 +19,17 @@
 
 <body>
 
-<?php
+    <?php
 
     use app\controllers\viewsController;
 
     $viewsController = new viewsController();
     $views = $viewsController->getViewsController($url[0]);
 
-    if ($views == "login" || $views == "404") {
+    if ($views == "login") {
 
+        require_once "../forum/" . $views . "-view.php";
+    } elseif ($views == "404") {
         require_once "./app/views/content/" . $views . "-view.php";
     } else {
         require_once $views;
@@ -35,7 +37,7 @@
     }
     require_once "./app/views/inc/script.php";
 
-?>
+    ?>
 </body>
 
 </html>
