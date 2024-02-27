@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="/src/css/index.css">
 </head>
 
 
@@ -56,7 +57,7 @@
             <!-- INITIAL CARD -->
             <div id="initial-card" class="bg-gray-100 shadow-lg ml-20 mr-10 w-9/12 h-52 flex justify-start items-start relative rounded-xl">
                 <img class="w-12 h-11 bg-blue-500 rounded-full absolute top-8 left-8" src="/src/assets/person-1.jpg" alt="">
-                <textarea class="relative top-10 left-28 text-2xl text-gray-400 font-normal bg-gray-100 w-10/12 resize-none outline-none -h-28" rows="5" maxlength="380">Cuéntanos qué opinas...</textarea>
+                <textarea class="relative rounded-lg px-6 py-2 top-5 left-20 text-2xl text-gray-400 font-normal bg-gray-100 w-10/12 resize-none outline-none -h-28" rows="5" maxlength="380">Cuéntanos qué opinas...</textarea>
 
                 <div class="flex absolute bottom-3 left-8 gap-2">
                     <a class="text-white font-semibold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#NomasHambre</a>
@@ -107,14 +108,15 @@
 
         </main>
 
+        <div class="flex">
 
-        <!-- PUBLICATIONS SECTION -->
-        <section class="grid grid-cols-2 ml-20 mt-16 w-9/12 gap-8">
+            <!-- PUBLICATIONS SECTION -->
+            <section class="grid grid-cols-2 ml-20 mt-16 w-9/12 gap-8">
+                
+                
+                <!-- PROTOTIPO DE CARD -  RETIRAR DEL CODIGO Y USAR EN PHP PARA COMPONETIZAR -->
 
-
-            <!-- PROTOTIPO DE CARD -  RETIRAR DEL CODIGO Y USAR EN PHP PARA COMPONETIZAR -->
-
-            <!-- CARD -->
+                <!-- CARD -->
             <div class="bg-gray-100 shadow-lg w-full rounded-xl flex flex-col relative mt-5 h-fit self-start">
                 <!-- TOP CARD CONTENT -->
                 <div class="flex mt-5 ml-5">
@@ -131,9 +133,7 @@
 
                 <!-- CARD CONTENT -->
                 <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">"Creo firmemente que la acción climática debe ser una prioridad mundial. proteger nuestro planeta para las generaciones futuras. ¡Es hora de que todos nos comprometamos a tomar medidas concretas y significativas!"</p>
-                <a class="text-blue-500 underline text-xl w-10/12 mx-auto mt-2 mb-1" href="https://google.com">Naciones Unidas</a>
-                <img class="w-10/12 mx-auto rounded-xl mt-5" src="/src/assets/card_img/obj2_img.jpg" alt="">
-
+                
                 <!-- CARD HASHTAGS -->
                 <div class="flex gap-4 w-10/12 mx-auto mt-5">
                     <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#NomasHambre</a>
@@ -149,7 +149,7 @@
                             <path class="fill-current" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/>
                         </svg>
                     </div>
-
+                    
                     <div class="text-gray-400 w-7 h-7 ml-5 mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path class="fill-current" d="M64 0C28.7 0 0 28.7 0 64V352c0 35.3 28.7 64 64 64h96v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64z"/>
@@ -163,9 +163,73 @@
                     </div>
                 </div>
             </div>
-        
+
+                <!-- ************************************************************* -->
+                <!-- CARD -->
+
+            <div class="bg-gray-100 shadow-lg w-full rounded-xl flex flex-col relative mt-5 h-fit self-start">
+                <!-- TOP CARD CONTENT -->
+                <div class="flex mt-5 ml-5">
+                    <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="/src/assets/person-1.jpg" alt="">
+                    <div class="flex flex-col ml-5">
+                        <h2 class="text-xl text-gray-400 font-semibold">Jose Joshua</h2>
+                        <p class="text-gray-400">08:04 p.m</p>
+                    </div>
+                    <!-- CARD MENU -->
+                    <div class="absolute right-5 top-0">
+                        <p class="text-5xl text-gray-400">...</p>
+                    </div>
+                </div>
+
+                <!-- CARD CONTENT -->
+                <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">"Creo firmemente que la acción climática debe ser una prioridad mundial. proteger nuestro planeta para las generaciones futuras. ¡Es hora de que todos nos comprometamos a tomar medidas concretas y significativas!"</p>
+                <!-- <a class="text-blue-500 underline text-xl w-10/12 mx-auto mt-2 mb-1" href="https://google.com">Naciones Unidas</a> -->
+                <img class="w-10/12 mx-auto rounded-xl mt-5" src="/src/assets/card_img/obj2_img.jpg" alt="">
+                
+                <!-- CARD HASHTAGS -->
+                <div class="flex gap-4 w-10/12 mx-auto mt-5">
+                    <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#NomasHambre</a>
+                    <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#Acabemos</a>
+                </div>
+
+                <!-- FOOTER CARD -->
+                <div class="flex w-10/12 relative mt-10 mb-5 mx-auto">
+
+                    <!-- BUTTONS FOOTER CARD -->
+                    <div class="text-gray-400 w-8 h-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path class="fill-current" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="text-gray-400 w-7 h-7 ml-5 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path class="fill-current" d="M64 0C28.7 0 0 28.7 0 64V352c0 35.3 28.7 64 64 64h96v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64z"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="text-gray-400 w-6 h-6 absolute right-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path class="fill-current" d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
         </section>
 
+        <!-- SEARCHER -->
+        <div class="searcher mt-20 mx-auto bg-gray-100 w-2/12 rounded-xl">
+            <input type="text" name="text" class="input bg-gray-300 shadow-lg  font-bold" required="" placeholder="Type to search...">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                    <title>Search</title>
+                    <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+        
     </section>
 </body>
 
