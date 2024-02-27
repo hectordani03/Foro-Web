@@ -6,7 +6,6 @@
     if (isset($_GET['views'])) {
 
         $url = explode("/", $_GET['views']);
-        echo $url;
     } else {
         $url = ["login"];
     }
@@ -29,7 +28,7 @@
 
     if ($views == "login" || $views == "404") {
 
-        require_once "./app/views/content/" . $views . ".php";
+        require_once "./app/views/content/" . $views . "-view.php";
     } else {
         require_once $views;
         require_once "./app/views/inc/navbar.php";
