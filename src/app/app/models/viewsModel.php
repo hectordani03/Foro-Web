@@ -8,7 +8,7 @@ class viewsModel {
     protected function getModelViews($views)
     {
 
-        $whiteList = ["dashboard"];
+        $whiteList = ["dashboard","user"];
         if (in_array($views, $whiteList)) {
             if (is_file("./app/views/content/" . $views . "-view.php")) {
                 $content = "./app/views/content/" . $views . "-view.php";
