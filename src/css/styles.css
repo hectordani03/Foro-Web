@@ -558,3 +558,101 @@ video {
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif; /* Selecciona una fuente más gruesa */
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.background-overlay {
+    position: absolute;
+    z-index: 990;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .7); /* Ajusta la opacidad para oscurecer la imagen */
+}
+
+.login-form {
+    z-index: 999; /* Asegura que el formulario aparezca encima de la imagen de fondo */
+    padding: 50px; /* Aumenta el espacio interno del formulario */
+    border-radius: 5px;
+    text-align: center;
+
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form button {
+    width: 70%;
+    padding: 15px; /* Aumenta el espacio interno de los campos y el botón */
+    margin: 10px 0; /* Aumenta el margen entre los campos */
+    border: none;
+    border-radius: 15px; /* Redondea los bordes de los campos */
+    box-sizing: border-box;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1); /* Añade una ligera sombra a los campos */
+    font-weight: bold; /* Hace el texto en negrita */
+    font-size: 18px; /* Ajusta el tamaño de la fuente */
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    background-color: rgba(255, 255, 255, 1); /* Color de fondo para campos de texto */
+}
+
+.login-form button {
+    background-color: #87CEEB; /* Color azul cielo para el botón */
+    color: white;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: #1E90FF; /* Cambia el color al pasar el ratón por encima */
+}
+
+h1 {
+    font-size: 55px; /* Aumenta el tamaño de la fuente del título */
+    color: white; /* Color blanco */
+
+}
+
+.blue-text {
+    color: #007bff; /* Color azul */
+}
+
+.background {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    width: 100%;
+    height: 100%;
+}
+
+.image {
+    background-size: cover;
+    background-position: center;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 1280px) {
+    .background {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(212px, 1fr));
+    }
+}
