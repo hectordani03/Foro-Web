@@ -1,7 +1,7 @@
 <?php
 require_once './config/app.php';
 require_once './autoload.php';
-require_once './app/views/inc/session_start.php';
+require_once './app/layouts/inc/session_start.php';
 
     if (isset($_GET['views'])) {
 
@@ -14,7 +14,7 @@ require_once './app/views/inc/session_start.php';
 <html lang="en">
 
 <head>
-    <?php require_once "./app/views/inc/header.php"; ?>
+    <?php require_once "./app/layouts/inc/header.php"; ?>
 </head>
 
 <body>
@@ -27,15 +27,16 @@ require_once './app/views/inc/session_start.php';
     $views = $viewsController->getViewsController($url[0]);
 
     if ($views == "login") {
+        // header ("Location: ../forum/" . $views . ".php");
+        require_once "./app/layouts/views/" . $views . "-view.php";
 
-        require_once "../forum/" . $views . "-view.php";
     } elseif ($views == "404") {
-        require_once "./app/views/content/" . $views . "-view.php";
+        require_once "./app/layouts/views/" . $views . "-view.php";
     } else {
         require_once $views;
-        require_once "./app/views/inc/navbar.php";
+        // require_once "./app/layouts/inc/navbar.php";
     }
-    require_once "./app/views/inc/script.php";
+    require_once "./app/layouts/inc/footer.php";
 
     ?>
 </body>

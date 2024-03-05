@@ -1,3 +1,15 @@
+<?php
+require './db.php';
+if (!empty($_SESSION["id"])) { 
+    $user_id = $_SESSION["id"];
+    $result = mysqli_query($conn, "SELECT * FROM user WHERE id_user=$user_id");
+    $row = mysqli_fetch_assoc($result);
+    
+}else {
+    header("Location: ./login.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,6 +61,11 @@
             <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="/src/assets/person-1.jpg" alt="">
         </header>
     
+<a href="logout.php"> CERRAR SESION</a>
+
+
+<h1 class="display-3">Bienvenid@ <?php echo $row["username"]; ?> </h1>
+
 
         <!-- MAIN -->
         <main class="flex justify-between items-center mt-20">

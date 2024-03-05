@@ -8,10 +8,10 @@ class viewsModel {
     protected function getModelViews($views)
     {
 
-        $whiteList = ["dashboard","user"];
+        $whiteList = ["dashboard","userNew","userList","userUpdate","userSearch","userPhoto","logOut"];;
         if (in_array($views, $whiteList)) {
-            if (is_file("./app/views/content/" . $views . "-view.php")) {
-                $content = "./app/views/content/" . $views . "-view.php";
+            if (is_file("./app/layouts/views/" . $views . "-view.php")) {
+                $content = "./app/layouts/views/" . $views . "-view.php";
             } else {
                 $content = "404";
             }
