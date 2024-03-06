@@ -90,8 +90,9 @@
                     </span>
                 </div>
             </li>
+
             <li class="">
-                <a href="../config/logout.php">
+                <a href="<?php echo APP_URL; ?>logout.php ">
                     <i class='bx bxs-log-out icon'></i>
                     <span class="text nav-text">Log out</span>
                 </a>

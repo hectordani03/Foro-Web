@@ -4,8 +4,7 @@ namespace app\controllers;
 
 use app\models\mainModel;
 
-class userController extends mainModel
-{
+class userController extends mainModel {
 
     //Controlador Registro de Usuario
     public function register_user()
@@ -88,9 +87,8 @@ class userController extends mainModel
             $encrypt_password = password_hash($password, PASSWORD_BCRYPT, ["cost" => 10]);
         }
 
-        $img_dir = "../layouts/img";
+        $img_dir = "../layouts/img/";
         if ($_FILES['user_profile_photo']['name'] != "" && $_FILES['user_profile_photo']['size'] > 0) {
-            //  Crear directorio 
             if (!file_exists($img_dir)) {
                 if (!mkdir($img_dir, 0777)) {
                     $alert = [
@@ -104,7 +102,6 @@ class userController extends mainModel
                 }
             }
 
-            //  Verificar formato de imagenes 
             if (mime_content_type($_FILES['user_profile_photo']['tmp_name']) != "image/jpeg" && mime_content_type($_FILES['user_profile_photo']['tmp_name']) != "image/png") {
                 $alert = [
                     "type" => "simple",
@@ -116,7 +113,6 @@ class userController extends mainModel
                 exit();
             }
 
-            //  Verificar kilobytes de la imagen 
             if (($_FILES['user_profile_photo']['size'] / 1024) > 5120) {
                 $alert = [
                     "type" => "simple",
@@ -128,11 +124,9 @@ class userController extends mainModel
                 exit();
             }
 
-            //  Nombre de la imagen
             $img = str_ireplace(" ", "_", $username);
             $img = $img . "_" . rand(0, 100);
 
-            # Extension de la imagen #
             switch (mime_content_type($_FILES['user_profile_photo']['tmp_name'])) {
 
                 case 'image/jpeg':
@@ -145,7 +139,6 @@ class userController extends mainModel
 
             chmod($img_dir, 0777);
 
-            //  Moviendo imagen al directorio 
             if (!move_uploaded_file($_FILES['user_profile_photo']['tmp_name'], $img_dir . $img)) {
                 $alert = [
                     "type" => "simple",
