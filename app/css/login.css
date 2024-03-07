@@ -1,0 +1,372 @@
+body,
+html {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif; /* Selecciona una fuente más gruesa */
+    overflow: hidden;
+}
+
+.container-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.background-overlay {
+    position: absolute;
+    z-index: 990;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .7); /* Ajusta la opacidad para oscurecer la imagen */
+}
+
+.login-form {
+    z-index: 999; /* Asegura que el formulario aparezca encima de la imagen de fondo */
+    padding: 50px; /* Aumenta el espacio interno del formulario */
+    border-radius: 5px;
+    text-align: center;
+    width: 30%; /* Ajusta el ancho del formulario */
+    max-width: 600px; /* Establece un ancho máximo para el formulario */
+    margin: auto; /* Centra el formulario horizontalmente */
+
+}
+
+.login-form a {
+    color: white;
+    text-decoration: none;
+    margin-right: calc((100% - 60%) / 2); /* Calcula el margen derecho para centrar */
+    /* Animación específica para el campo de texto */
+    opacity: 0;
+    animation: appeardown 4s ease-out forwards;
+}
+
+.login-form a:hover {
+    color: lightgray; /* Cambia el color al pasar el ratón por encima */
+}
+
+.login-form a:nth-child(2){
+    color: #007bff;
+}
+.login-form a:nth-child(2):hover{
+    color: blue;
+}
+.login-form a:last-child {
+    margin-right: 0px;
+}
+
+
+.login-form input[type="text"] {
+  /* Estilos comunes */
+  width: 199%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 1);
+  /* Animación específica para el campo de texto */
+  opacity: 0;
+  animation: appeardown 0.7s ease-out forwards;
+}
+
+/* Animación para el campo de contraseña */
+.login-form input[type="password"] {
+  /* Estilos comunes */
+  margin-bottom: 20px;
+  width: 70%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 1);
+  /* Animación específica para el campo de contraseña */
+  opacity: 0;
+  animation: appeardown 0.7s ease-out forwards;
+  animation-delay: .1s;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form button {
+    width: 100%;
+    padding: 15px; /* Aumenta el espacio interno de los campos y el botón */
+    margin: 10px 0; /* Aumenta el margen entre los campos */
+    border: none;
+    border-radius: 15px; /* Redondea los bordes de los campos */
+    box-sizing: border-box;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1); /* Añade una ligera sombra a los campos */
+    font-weight: bold; /* Hace el texto en negrita */
+    font-size: 18px; /* Ajusta el tamaño de la fuente */
+
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    background-color: rgba(255, 255, 255, 1); /* Color de fondo para campos de texto */
+
+}
+
+.login-form button {
+    background-color: #46a2da; /* Color azul cielo para el botón */
+    color: white;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    margin-top: 20px;
+    opacity: 0;
+    animation: appeardown 1.2s ease-out forwards;
+    animation-delay: .17s;
+}
+
+.login-form button:hover {
+    background-color: #1E90FF; /* Cambia el color al pasar el ratón por encima */
+}
+
+h1 {
+    font-size: 55px; /* Aumenta el tamaño de la fuente del título */
+    color: white; /* Color blanco */
+    animation: appearup ease-out 1.2s;
+
+}
+
+.blue-text {
+    color: #007bff; /* Color azul */
+}
+
+.background {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    width: 100%;
+    height: 100%;
+}
+
+.image {
+    background-size: cover;
+    background-position: center;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.image:nth-child(1) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+}
+.image:nth-child(2) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .1s;
+}
+.image:nth-child(3) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .2s;
+}
+.image:nth-child(4) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .3s;
+}
+.image:nth-child(5) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .4s;
+}
+.image:nth-child(6) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .5s;
+}
+.image:nth-child(7) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .6s;
+}
+.image:nth-child(8) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .7s;
+}
+.image:nth-child(9) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .8s;
+}
+.image:nth-child(10) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .9s;
+}
+.image:nth-child(11) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1s;
+}
+.image:nth-child(12) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.1s;
+}
+.image:nth-child(13) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.2s;
+}
+.image:nth-child(14) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.3s;
+}
+.image:nth-child(15) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.4s;
+}
+.image:nth-child(16) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.5s;
+}
+.image:nth-child(17) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.6s;
+}
+.image:nth-child(18) {
+  /* Define la animación para la primera imagen */
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.7s;
+}
+
+@keyframes appeardown {
+  from {
+      opacity: 0;
+      transform: translateY(100px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes appearup {
+  from{
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes imagen {
+  from{
+    opacity: 0;
+    transform: translatey(100px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes appear {
+  from{
+    opacity: 0;
+    transform: scale(0);
+  }
+  to{
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+}
+
+@media screen and (max-width: 767px) {
+  .login-form{
+      width: 60%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .login-form{
+      width: 90%;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .login-form{
+      width: 40%;
+  }
+}
+
+@media screen and (max-width: 1130px) {
+  .login-form{
+      width: 45%;
+  }
+}
+
+@media screen and (max-width: 1005px) {
+  .login-form{
+      width: 60%;
+  }
+}
+
+@media screen and (max-width: 905px) {
+  .login-form{
+      width: 55%;
+  }
+}
+
+@media screen and (max-width: 823px) {
+  .login-form{
+      width: 60%;
+  }
+}
+
+@media screen and (max-width: 753px) {
+  .login-form{
+      width: 65%;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .login-form{
+      width: 84%;
+  }
+}
+
