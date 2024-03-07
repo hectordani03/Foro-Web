@@ -7,8 +7,7 @@ use app\models\mainModel;
 class userController extends mainModel {
 
     //Controlador Registro de Usuario
-    public function register_user()
-    {
+    public function registerUser() {
 
         $username = $this->sanitizeString($_POST['username']);
         $email = $this->sanitizeString($_POST['email']);
@@ -217,4 +216,5 @@ class userController extends mainModel {
 
         return json_encode($alert);
     }
+
 }

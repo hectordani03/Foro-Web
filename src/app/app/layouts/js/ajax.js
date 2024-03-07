@@ -3,7 +3,7 @@ const forms_ajax = document.querySelectorAll(".ajaxForm");
 
 forms_ajax.forEach(form => {
 
-    form.addEventListener("submit",function(e){
+    form.addEventListener("submit",function(e) {
         
         e.preventDefault();
 
@@ -45,7 +45,7 @@ forms_ajax.forEach(form => {
 
 });
 
-function ajax_alerts(alert){
+function ajax_alerts(alert) {
     if(alert.type=="simple"){
         Swal.fire({
             icon: alert.icon,
@@ -84,3 +84,28 @@ function ajax_alerts(alert){
         window.location.href=alert.url;
     }
 }
+
+/* Boton cerrar sesion */
+let btn_exit=document.getElementById("btn_logout");
+
+btn_exit.addEventListener("click", function(e){
+
+    e.preventDefault();
+    
+    Swal.fire({
+        title: 'Do you want to log out?',
+        text: "The current session will be closed and you will log out",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, exit',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let url=this.getAttribute("href");
+            window.location.href=url;
+        }
+    });
+
+});

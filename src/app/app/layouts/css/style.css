@@ -61,6 +61,7 @@ body.dark {
 }
 .sidebar.close .text {
   opacity: 0;
+  pointer-events: none;
   transition: var(--tran-02);
 }
 .sidebar .image {

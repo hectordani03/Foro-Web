@@ -34,9 +34,13 @@ if (isset($_GET['views'])) {
         require_once "./app/layouts/views/" . $views . "-view.php";
     } else {
         session_start();
-        if (empty($_SESSION['id']) || empty($_SESSION['username'])) {
+        if (empty($_SESSION['id']) || empty($_SESSION['username']) || empty($_SESSION['role'])) {
+
             $insLogin->logoutController();
-        }
+
+        } elseif ($_SESSION['role'] == 3) {
+                $insLogin->logoutController();
+            }
         require_once $views;
         require_once "./app/layouts/inc/navbar.php";
 

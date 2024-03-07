@@ -55,6 +55,7 @@ class loginController extends mainModel
 					    		$_SESSION['id'] = $row_user['id_user'];
 					            $_SESSION['username'] = $row_user['username'];
 					            $_SESSION['email'] = $row_user['email'];
+					            $_SESSION['role'] = $row_user['id_role'];
 					            $_SESSION['photo'] = $row_user['profile_picture'];
 
                                 if ($row_user['id_role'] == 1 || $row_user['id_role'] == 2) {

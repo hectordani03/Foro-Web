@@ -15,11 +15,11 @@
         <div class="menu">
             <li class="search-box">
                 <i class='bx bx-search-alt-2 icon'></i>
-                <input type="text" class="search" placeholder="Search...">
+                <input type="text" class="search text" placeholder="Search...">
             </li>
             <ul class="menu-links">
                 <li class="nav-link">
-                    <a href="dashboard">
+                    <a href="<?php echo APP_URL; ?>dashboard">
                         <i class='bx bxs-home icon'></i>
                         <span class="text nav-text">Dashboard</span>
                     </a>
@@ -50,7 +50,7 @@
                 </div>
 
                 <li class="nav-link">
-                    <a href="userNew">
+                <a href="<?php echo APP_URL; ?>user">
                         <i class='bx bxs-user icon'></i>
                         <span class="text nav-text">Users</span>
                     </a>
@@ -74,6 +74,22 @@
                         <span class="text nav-text">Notifications</span>
                     </a>
                 </li>
+                <li class="nav-link">
+                <a href="<?php echo APP_URL . "userUpdate/" . $_SESSION['id'] . "/" ;?>">
+                        <i class='bx bxs-user-circle icon'></i>
+                        <span class="text nav-text">My account</span>
+                    </a>
+                </li> 
+
+
+                <li class="nav-link">
+                <a href="<?php echo APP_URL . "userPhoto/" . $_SESSION['id'] . "/" ;?>">
+                        <i class='bx bxs-photo-album icon'></i>
+                        <span class="text nav-text">Photo</span>
+                    </a>
+                </li>
+
+
             </ul>
         </div>
         <div class="bottom-content">
@@ -91,8 +107,8 @@
                 </div>
             </li>
 
-            <li class="">
-                <a href="<?php echo APP_URL; ?>logout.php ">
+            <li  class="">
+                <a id="btn_logout" href="<?php echo APP_URL; ?>logout.php ">
                     <i class='bx bxs-log-out icon'></i>
                     <span class="text nav-text">Log out</span>
                 </a>
