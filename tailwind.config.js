@@ -1,12 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./app/**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      textShadow: {
+        'default': '2px 2px 4px rgba(0, 0, 0, 0.5)',
+      },
+    },
   },
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/peer'),
+    // require('@tailwindcss/forms'),
+    // require('@tailwindcss/peer'),
+    // require('@tailwindcss/transition'),
   ],
 }
 

@@ -8,3 +8,18 @@
     top: -0.75rem; /* Mover el label hacia arriba */
     color: #718096; /* Cambiar el color del texto */
 }
+
+
+.swal-container {
+  padding: 0;
+}
+
+.swal-popup {
+  width: 70%; /* Ancho del modal */
+  max-width: 800px; /* Ancho máximo del modal */
+  border-radius: 10px;
+}
+
+.swal-close-button {
+  color: #000; /* Color del botón de cerrar */
+}
