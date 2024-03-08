@@ -1,11 +1,11 @@
 body,
 html {
-    background-color: black;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif; /* Selecciona una fuente más gruesa */
-    overflow: hidden;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
 .container-form {
@@ -18,13 +18,13 @@ html {
   overflow: hidden;
 }
 .login-form {
-    z-index: 999; /* Asegura que el formulario aparezca encima de la imagen de fondo */
-    padding: 50px; /* Aumenta el espacio interno del formulario */
-    border-radius: 5px;
-    text-align: center;
-    width: 30%; /* Ajusta el ancho del formulario */
-    max-width: 600px; /* Establece un ancho máximo para el formulario */
-    margin: auto; /* Centra el formulario horizontalmente */
+  z-index: 999;
+  padding: 50px;
+  border-radius: 5px;
+  text-align: center;
+  width: 30%;
+  max-width: 600px;
+  margin: auto;
 }
 
 video {
@@ -37,31 +37,28 @@ video {
 }
 
 .login-form a {
-    color: white;
-    text-decoration: none;
-    margin-right: calc((100% - 60%) / 2); /* Calcula el margen derecho para centrar */
-    /* Animación específica para el campo de texto */
-    opacity: 0;
-    animation: appeardown 4s ease-out forwards;
+  color: white;
+  text-decoration: none;
+  margin-right: calc((100% - 60%) / 2);
+  opacity: 0;
+  animation: appeardown 4s ease-out forwards;
 }
 
 .login-form a:hover {
-    color: lightgray; /* Cambia el color al pasar el ratón por encima */
+  color: lightgray;
 }
 
-.login-form a:nth-child(2){
-    color: #007bff;
+.login-form a:nth-child(2) {
+  color: #007bff;
 }
-.login-form a:nth-child(2):hover{
-    color: blue;
+.login-form a:nth-child(2):hover {
+  color: blue;
 }
 .login-form a:last-child {
-    margin-right: 0px;
+  margin-right: 0px;
 }
 
-
 .login-form input[type="text"] {
-  /* Estilos comunes */
   width: 199%;
   padding: 15px;
   margin: 10px 0;
@@ -72,20 +69,17 @@ video {
   font-weight: bold;
   font-size: 18px;
   background-color: rgba(255, 255, 255, 1);
-  /* Animación específica para el campo de texto */
   opacity: 0;
   animation: appeardown 0.7s ease-out forwards;
 }
 
-.login-form input[type="email"]{
-    opacity: 0;
-    animation: appeardown 0.7s ease-out forwards;
-    animation-delay: .1s;
+.login-form input[type="email"] {
+  opacity: 0;
+  animation: appeardown 0.7s ease-out forwards;
+  animation-delay: 0.1s;
 }
 
-/* Animación para el campo de contraseña */
 .login-form input[type="password"] {
-  /* Estilos comunes */
   margin-bottom: 20px;
   width: 70%;
   padding: 15px;
@@ -97,112 +91,107 @@ video {
   font-weight: bold;
   font-size: 18px;
   background-color: rgba(255, 255, 255, 1);
-  /* Animación específica para el campo de contraseña */
   opacity: 0;
   animation: appeardown 0.7s ease-out forwards;
-  animation-delay: .13s;
+  animation-delay: 0.13s;
 }
 
 .login-form input[type="text"],
 .login-form input[type="password"],
 .login-form input[type="email"],
 .login-form button {
-    width: 100%;
-    padding: 15px; /* Aumenta el espacio interno de los campos y el botón */
-    margin: 10px 0; /* Aumenta el margen entre los campos */
-    border: none;
-    border-radius: 15px; /* Redondea los bordes de los campos */
-    box-sizing: border-box;
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1); /* Añade una ligera sombra a los campos */
-    font-weight: bold; /* Hace el texto en negrita */
-    font-size: 18px; /* Ajusta el tamaño de la fuente */
-
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .login-form input[type="text"],
 .login-form input[type="password"] {
-    background-color: rgba(255, 255, 255, 1); /* Color de fondo para campos de texto */
-
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .login-form button {
-    background-color: #46a2da; /* Color azul cielo para el botón */
-    color: white;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-    margin-top: 20px;
-    opacity: 0;
-    animation: appeardown 1.2s ease-out forwards;
-    animation-delay: .17s;
+  background-color: #46a2da;
+  color: white;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin-top: 20px;
+  opacity: 0;
+  animation: appeardown 1.2s ease-out forwards;
+  animation-delay: 0.17s;
 }
 
 .login-form button:hover {
-    background-color: #1E90FF; /* Cambia el color al pasar el ratón por encima */
+  background-color: #1e90ff;
 }
 
 h1 {
-    font-size: 55px; /* Aumenta el tamaño de la fuente del título */
-    color: white; /* Color blanco */
-    animation: appearup ease-out 1.2s;
-
+  font-size: 55px;
+  color: white;
+  animation: appearup ease-out 1.2s;
 }
 
 .blue-text {
-    color: #007bff; /* Color azul */
+  color: #007bff;
 }
 
 .background {
-    position: absolute;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  width: 100%;
+  height: 100%;
 }
 
 @media screen and (max-width: 1280px) {
-    .background {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(212px, 1fr));
-    }
+  .background {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(212px, 1fr));
+  }
 }
 
 @media screen and (max-width: 1000px) {
   .background {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }
 
 @keyframes appeardown {
   from {
-      opacity: 0;
-      transform: translateY(100px);
+    opacity: 0;
+    transform: translateY(100px);
   }
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes appearup {
-  from{
+  from {
     opacity: 0;
     transform: translateY(-70px);
   }
-  to{
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
 @keyframes appear {
-  from{
+  from {
     opacity: 0;
     transform: scale(0);
   }
-  to{
+  to {
     opacity: 1;
     transform: scale(1);
   }
-  
 }

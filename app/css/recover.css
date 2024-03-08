@@ -4,7 +4,7 @@ html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: Arial, sans-serif; /* Selecciona una fuente más gruesa */
+    font-family: Arial, sans-serif; 
     overflow: hidden;
 }
 
@@ -27,13 +27,13 @@ video {
   }
 
 .login-form {
-    z-index: 999; /* Asegura que el formulario aparezca encima de la imagen de fondo */
-    padding: 50px; /* Aumenta el espacio interno del formulario */
+    z-index: 999;
+    padding: 50px; 
     border-radius: 5px;
     text-align: center;
-    width: 30%; /* Ajusta el ancho del formulario */
-    max-width: 600px; /* Establece un ancho máximo para el formulario */
-    margin: auto; /* Centra el formulario horizontalmente */
+    width: 30%; 
+    max-width: 600px; 
+    margin: auto; 
 
 }
 
@@ -56,14 +56,13 @@ form h1{
 .login-form a {
     color: white;
     text-decoration: none;
-    margin-right: calc((100% - 60%) / 2); /* Calcula el margen derecho para centrar */
-    /* Animación específica para el campo de texto */
+    margin-right: calc((100% - 60%) / 2);
     opacity: 0;
     animation: appeardown 4s ease-out forwards;
 }
 
 .login-form a:hover {
-    color: lightgray; /* Cambia el color al pasar el ratón por encima */
+    color: lightgray;
 }
 
 .login-form a:nth-child(2){
@@ -78,7 +77,6 @@ form h1{
 
 
 .login-form input[type="text"] {
-  /* Estilos comunes */
   width: 199%;
   padding: 15px;
   margin: 10px 0;
@@ -89,7 +87,6 @@ form h1{
   font-weight: bold;
   font-size: 18px;
   background-color: rgba(255, 255, 255, 1);
-  /* Animación específica para el campo de texto */
   opacity: 0;
   animation: appeardown 0.7s ease-out forwards;
 }
@@ -105,15 +102,12 @@ form h1{
     font-weight: bold;
     font-size: 18px;
     background-color: rgba(255, 255, 255, 1);
-    /* Animación específica para el campo de texto */
     opacity: 0;
     animation: appeardown 1.2s ease-out forwards;
     animation-delay: .1s;
 }
 
-/* Animación para el campo de contraseña */
 .login-form input[type="password"] {
-  /* Estilos comunes */
   margin-bottom: 20px;
   width: 70%;
   padding: 15px;
@@ -125,7 +119,6 @@ form h1{
   font-weight: bold;
   font-size: 18px;
   background-color: rgba(255, 255, 255, 1);
-  /* Animación específica para el campo de contraseña */
   opacity: 0;
   animation: appeardown 0.7s ease-out forwards;
   animation-delay: .13s;
@@ -136,25 +129,25 @@ form h1{
 .login-form input[type="email"],
 .login-form button {
     width: 100%;
-    padding: 15px; /* Aumenta el espacio interno de los campos y el botón */
-    margin: 10px 0; /* Aumenta el margen entre los campos */
+    padding: 15px; 
+    margin: 10px 0; 
     border: none;
-    border-radius: 15px; /* Redondea los bordes de los campos */
+    border-radius: 15px;
     box-sizing: border-box;
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1); /* Añade una ligera sombra a los campos */
-    font-weight: bold; /* Hace el texto en negrita */
-    font-size: 18px; /* Ajusta el tamaño de la fuente */
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    font-size: 18px; 
 
 }
 
 .login-form input[type="text"],
 .login-form input[type="password"] {
-    background-color: rgba(255, 255, 255, 1); /* Color de fondo para campos de texto */
+    background-color: rgba(255, 255, 255, 1); 
 
 }
 
 .login-form .send-btn {
-    background-color: #46a2da; /* Color azul cielo para el botón */
+    background-color: #46a2da;
     color: white;
     transition: background-color 0.3s ease;
     cursor: pointer;
@@ -165,7 +158,7 @@ form h1{
 }
 
 .login-form .cancel-btn {
-    background-color: lightgray; /* Color azul cielo para el botón */
+    background-color: lightgray; 
     color: rgb(0, 0, 0);
     font-weight: bold;
     transition: background-color 0.3s ease;
@@ -179,16 +172,16 @@ form h1{
 
 
 .send-btn:hover{
-    background-color: #1E90FF; /* Cambia el color al pasar el ratón por encima */
+    background-color: #1E90FF;
 }
 
 .cancel-btn:hover{
-    background-color: rgb(176, 176, 176); /* Cambia el color al pasar el ratón por encima */
+    background-color: rgb(176, 176, 176); 
 }
 
 h1 {
-    font-size: 55px; /* Aumenta el tamaño de la fuente del título */
-    color: white; /* Color blanco */
+    font-size: 55px; 
+    color: white; 
     animation: appearup ease-out 1.2s;
 
 }
@@ -198,9 +191,8 @@ h1 {
 }
 
 .blue-text {
-    color: #007bff; /* Color azul */
+    color: #007bff; 
 }
-
 .background {
     position: absolute;
     display: grid;

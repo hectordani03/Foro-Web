@@ -1,43 +1,49 @@
 <?php
 require_once './config/app.php';
 require_once './autoload.php';
-require_once './app/views/inc/session_start.php';
 
-    if (isset($_GET['views'])) {
+if (isset($_GET['views'])) {
 
-        $url = explode("/", $_GET['views']);
-    } else {
-        $url = ["login"];
-    }
-?>
-<!DOCTYPE html>
-<html lang="en">
+    $url = explode("/", $_GET['views']);
+} else {
+    $url = ["login"];
+}
+require_once "./app/views/inc/header.php";
 
-<head>
-    <?php require_once "./app/views/inc/header.php"; ?>
-</head>
+use app\controllers\viewsController;
+use app\controllers\loginController;
 
-<body>
+$viewsController = new viewsController();
+$insLogin = new loginController();
 
-    <?php
+$views = $viewsController->getViewsController($url[0]);
 
-    use app\controllers\viewsController;
+if ($views == "login" || $views == "404") {
+    require_once "./app/views/content/" . $views . ".php";
+} else {
+    
+    session_start();
 
-    $viewsController = new viewsController();
-    $views = $viewsController->getViewsController($url[0]);
-
-    if ($views == "login") {
-
-        require_once "../forum/" . $views . "-view.php";
-    } elseif ($views == "404") {
-        require_once "./app/views/content/" . $views . "-view.php";
-    } else {
-        require_once $views;
-        require_once "./app/views/inc/navbar.php";
-    }
-    require_once "./app/views/inc/script.php";
-
-    ?>
-</body>
-
-</html>
+    // Verificar si el archivo existe
+    if (file_exists($views)) {
+        // Obtener la ruta del directorio que contiene el archivo
+        $directory = dirname($views);
+    
+        // Verificar si el directorio es 'adminviews'
+        if (strpos($directory, 'adminviews') !== false) {
+            // Es un archivo dentro de 'adminviews', realizar las validaciones necesarias
+            if (empty($_SESSION['id']) || empty($_SESSION['username']) || empty($_SESSION['role'])) {
+                $insLogin->logoutController();
+            } elseif ($_SESSION['role'] != 3) {
+                require_once $views;
+                require_once "./app/views/inc/navbar.php";
+            } else {
+                $insLogin->logoutController();
+            }
+        } else {
+            // Es un archivo fuera de 'adminviews', simplemente cargar el archivo sin el navbar
+            require_once $views;
+        }
+    } 
+}
+require_once "./app/views/inc/footer.php";
