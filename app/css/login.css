@@ -1,0 +1,347 @@
+body,
+html {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif; 
+    overflow: hidden;
+}
+
+.container-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.background-overlay {
+    position: absolute;
+    z-index: 990;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .7); 
+}
+
+.login-form {
+    z-index: 999; 
+    padding: 50px; 
+    border-radius: 5px;
+    text-align: center;
+    width: 30%; 
+    max-width: 600px;
+    margin: auto; 
+
+}
+
+.login-form a {
+    color: white;
+    text-decoration: none;
+    margin-right: calc((100% - 60%) / 2); 
+    opacity: 0;
+    animation: appeardown 4s ease-out forwards;
+}
+
+.login-form a:hover {
+    color: lightgray; 
+}
+
+.login-form a:nth-child(2){
+    color: #007bff;
+}
+.login-form a:nth-child(2):hover{
+    color: blue;
+}
+.login-form a:last-child {
+    margin-right: 0px;
+}
+
+
+.login-form input[type="text"] {
+  width: 199%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 1);
+  opacity: 0;
+  animation: appeardown 0.7s ease-out forwards;
+}
+
+.login-form input[type="password"] {
+  margin-bottom: 20px;
+  width: 70%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 1);
+  opacity: 0;
+  animation: appeardown 0.7s ease-out forwards;
+  animation-delay: .1s;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form button {
+    width: 100%;
+    padding: 15px; 
+    margin: 10px 0; 
+    border: none;
+    border-radius: 15px; 
+    box-sizing: border-box;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1); 
+    font-weight: bold; 
+    font-size: 18px; 
+
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    background-color: rgba(255, 255, 255, 1); 
+
+}
+
+.login-form button {
+    background-color: #46a2da;
+    color: white;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    margin-top: 20px;
+    opacity: 0;
+    animation: appeardown 1.2s ease-out forwards;
+    animation-delay: .17s;
+}
+
+.login-form button:hover {
+    background-color: #1E90FF; 
+}
+
+h1 {
+    font-size: 55px; 
+    color: white; 
+    animation: appearup ease-out 1.2s;
+
+}
+
+.blue-text {
+    color: #007bff; 
+}
+
+.background {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    width: 100%;
+    height: 100%;
+}
+
+.image {
+    background-size: cover;
+    background-position: center;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.image:nth-child(1) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+}
+.image:nth-child(2) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .1s;
+}
+.image:nth-child(3) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .2s;
+}
+.image:nth-child(4) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .3s;
+}
+.image:nth-child(5) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .4s;
+}
+.image:nth-child(6) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .5s;
+}
+.image:nth-child(7) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .6s;
+}
+.image:nth-child(8) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .7s;
+}
+.image:nth-child(9) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .8s;
+}
+.image:nth-child(10) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: .9s;
+}
+.image:nth-child(11) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1s;
+}
+.image:nth-child(12) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.1s;
+}
+.image:nth-child(13) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.2s;
+}
+.image:nth-child(14) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.3s;
+}
+.image:nth-child(15) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.4s;
+}
+.image:nth-child(16) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.5s;
+}
+.image:nth-child(17) {
+  opacity: 0;
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.6s;
+}
+.image:nth-child(18) {
+  opacity: 0;
+  animation: imagen .2s ease-out forwards;
+  animation-delay: 1.7s;
+}
+
+@keyframes appeardown {
+  from {
+      opacity: 0;
+      transform: translateY(100px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes appearup {
+  from{
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes imagen {
+  from{
+    opacity: 0;
+    transform: translatey(100px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes appear {
+  from{
+    opacity: 0;
+    transform: scale(0);
+  }
+  to{
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+}
+
+@media screen and (max-width: 767px) {
+  .login-form{
+      width: 60%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .login-form{
+      width: 90%;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .login-form{
+      width: 40%;
+  }
+}
+
+@media screen and (max-width: 1130px) {
+  .login-form{
+      width: 45%;
+  }
+}
+
+@media screen and (max-width: 1005px) {
+  .login-form{
+      width: 60%;
+  }
+}
+
+@media screen and (max-width: 905px) {
+  .login-form{
+      width: 55%;
+  }
+}
+
+@media screen and (max-width: 823px) {
+  .login-form{
+      width: 60%;
+  }
+}
+
+@media screen and (max-width: 753px) {
+  .login-form{
+      width: 65%;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .login-form{
+      width: 84%;
+  }
+}
