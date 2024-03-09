@@ -32,7 +32,7 @@ class userController extends mainModel
             exit();
         }
 
-        if ($this->verifyData("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}", $username)) {
+        if ($this->verifyData("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,20}", $username)) {
             $alert = [
                 "type" => "simple",
                 "title" => "An unexpected error occurred",
@@ -184,12 +184,17 @@ class userController extends mainModel
             [
                 "table_field" => "state",
                 "param" => ":Status",
-                "field_value" => '0'
+                "field_value" => '1'
             ],
             [
                 "table_field" => "registration",
                 "param" => ":Register",
                 "field_value" => date("Y-m-d")
+            ],
+            [
+                "table_field" => "last_login",
+                "param" => ":lastLogin",
+                "field_value" => NULL
             ],
             [
                 "table_field" => "profile_picture",
@@ -225,8 +230,7 @@ class userController extends mainModel
         return json_encode($alert);
     }
 
-    public function deleteUser()
-    {
+    public function deleteUser() {
 
         $id = $this->sanitizeString($_POST['id_user']);
         if ($id == '1') {

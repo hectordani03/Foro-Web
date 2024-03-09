@@ -7,7 +7,7 @@ class viewsModel
     //get value from viewsController = url name
     protected function getModelViews($views)
     {
-        $whiteList = ["dashboard", "userNew", "userList", "userUpdate", "userSearch", "userPhoto", "post", "comment"];
+        $whiteList = ["dashboard", "users", "userNew", "userList", "userUpdate", "userSearch", "userPhoto", "post", "comment"];
 
         if (in_array($views, $whiteList)) {
             if (is_file("./user/views/adminviews/" . $views . "-view.php")) {

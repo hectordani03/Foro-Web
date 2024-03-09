@@ -20,7 +20,7 @@
             <form class="ajaxForm" action="<?php echo APP_URL; ?>user/ajax/ajaxUser.php" method="POST" autocomplete="off" enctype="multipart/form-data">
                 <input type="hidden" name="user_module" value="user_registration">
 
-                <input placeholder="Username" class="input" type="text" name="username" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}" maxlength="40" required>
+                <input placeholder="Username" class="input" type="text" name="username" pattern="[a-zA-Z0-9]{4,20}" maxlength="20" maxlength="40" required>
                 <input placeholder="Email" class="input" type="email" name="email" maxlength="70" required>
                 <input placeholder="Password" class="input" type="password" name="password" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required>
                 <input placeholder="Confirm Password" class="input" type="password" name="confirm_password" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required>

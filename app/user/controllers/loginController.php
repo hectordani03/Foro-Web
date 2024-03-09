@@ -12,7 +12,6 @@ class loginController extends mainModel
 		$username = $this->sanitizeString($_POST['username']);
 		$password = $this->sanitizeString($_POST['password']);
 
-		# Verificando campos obligatorios #
 		if ($username == "" || $password == "") {
 			echo "<script>
 				Swal.fire({
@@ -23,7 +22,6 @@ class loginController extends mainModel
 			</script>";
 		} else {
 
-			# Verificando integridad de los datos #
 			if ($this->verifyData("[a-zA-Z0-9]{4,20}", $username)) {
 				echo "<script>
 					Swal.fire({
@@ -34,7 +32,6 @@ class loginController extends mainModel
 				</script>";
 			} else {
 
-				# Verificando integridad de los datos #
 				if ($this->verifyData("[a-zA-Z0-9$@.-]{7,100}", $password)) {
 					echo "<script>
 						Swal.fire({

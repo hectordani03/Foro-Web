@@ -86,12 +86,7 @@ function ajax_alerts(alert) {
 }
 
 /* Boton cerrar sesion */
-let btn_exit=document.getElementById("btn_logout");
-
-btn_exit.addEventListener("click", function(e){
-
-    e.preventDefault();
-    
+function logout() {
     Swal.fire({
         title: 'Do you want to log out?',
         text: "The current session will be closed and you will log out",
@@ -103,9 +98,17 @@ btn_exit.addEventListener("click", function(e){
         cancelButtonText: 'Cancel'
     }).then((result) => {
         if (result.isConfirmed) {
-            let url=this.getAttribute("href");
-            window.location.href=url;
+            let url = document.getElementById('btn_logout').getAttribute('href');
+            window.location.href = url;
         }
     });
+}
 
-});
+// Verificar si el botón de cerrar sesión existe antes de agregar el event listener
+let btn_logout = document.getElementById('btn_logout');
+if (btn_logout) {
+    btn_logout.addEventListener('click', function(e) {
+        e.preventDefault();
+        logout();
+    });
+}
