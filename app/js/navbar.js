@@ -30,6 +30,7 @@ document.querySelectorAll('.dropdown').forEach(function(dropdown) {
 
 toggle.addEventListener("click", () => {
   sidebar.classList.toggle("close");
+  body.classList.toggle("side");
   closeAllSubmenus(); // Cierra todos los submenús cuando abres/cierras la barra lateral
 });
 
@@ -37,6 +38,7 @@ document.addEventListener('click', function(event) {
   var clicksidebar = sidebar.contains(event.target);
   if (!clicksidebar) {
     sidebar.classList.add("close");
+    body.classList.remove("side");
     closeAllSubmenus(); // Cierra todos los submenús cuando haces clic fuera de la barra lateral
   }
 });
@@ -50,6 +52,7 @@ function closeAllSubmenus() {
 
 searchBtn.addEventListener("click", () => {
   sidebar.classList.remove("close");
+  body.classList.add("side");
   search.focus();
 });
 

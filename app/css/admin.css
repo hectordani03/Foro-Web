@@ -24,9 +24,14 @@
 body {
   height: 100vh;
   background: var(--body-color);
+  transition: margin-left var(--tran-04);
+  margin-left: 6%;
   transition: var(--tran-04);
 }
-
+/* body.side{
+  margin-left: 18%;
+  transition: var(--tran-04);
+} */
 body.dark {
   --body-color: #18191a;
   --sidebar-color: #242526;
@@ -42,12 +47,16 @@ body.dark {
   top: 0;
   left: 0;
   height: 100%;
-  width: 250px;
+  /* width: 18%;  */
+  width: 250px; 
   padding: 10px 14px;
   background: var(--sidebar-color);
   transition: var(--tran-04);
   z-index: 100;
 }
+/* .sidebar.close {
+  width: 6%;
+} */
 .sidebar.close {
   width: 88px;
 }
