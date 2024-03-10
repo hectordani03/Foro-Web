@@ -4,30 +4,25 @@
     document.addEventListener('DOMContentLoaded', function() {
         const dataTable = $('#datatable').DataTable({
             ajax: {
-                url: 'http://localhost/For-Us/app/user/ajax/comments_json.php',
+                url: 'http://localhost/For-Us/app/user/ajax/reports/reporteduser.php',
                 dataSrc: json => json.data
             },
-
             columns: [
                 {
-                    title: 'ID',
-                    data: 'id_comment'
-                },
-                {
-                    title: 'User id',
+                    title: 'User',
                     data: 'id_user'
                 },
                 {
-                    title: 'Post id',
-                    data: 'id_post'
+                    title: 'Reporting user',
+                    data: 'id_reporting_user'
                 },
                 {
-                    title: 'Content ',
-                    data: 'content'
+                    title: 'Report',
+                    data: 'reason'
                 },
                 {
-                    title: 'Date',
-                    data: 'date'
+                    title: 'State',
+                    data: 'state'
                 },
             ],
             drawCallback: function() {

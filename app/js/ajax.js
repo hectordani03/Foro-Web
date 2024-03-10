@@ -36,7 +36,9 @@ forms_ajax.forEach(form => {
                 fetch(action,config)
                 .then(res => res.json())
                 .then(res =>{ 
-                    return ajax_alerts(res);
+                    ajax_alerts(res);
+                    closeModal(); // Cierra el modal
+
                 });
             }
         });
@@ -45,6 +47,10 @@ forms_ajax.forEach(form => {
 
 });
 
+function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+}
 function ajax_alerts(alert) {
     if(alert.type=="simple"){
         Swal.fire({

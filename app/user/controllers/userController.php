@@ -32,7 +32,7 @@ class userController extends mainModel
             exit();
         }
 
-        if ($this->verifyData("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,20}", $username)) {
+        if ($this->verifyData("[a-zA-Z0-9]{4,20}", $username)) {
             $alert = [
                 "type" => "simple",
                 "title" => "An unexpected error occurred",
@@ -62,7 +62,7 @@ class userController extends mainModel
                     $alert = [
                         "type" => "simple",
                         "title" => "An unexpected error occurred",
-                        "texto" => "The EMAIL you just entered is already registered in the system, please check and try again",
+                        "text" => "The EMAIL you just entered is already registered in the system, please check and try again",
                         "icon" => "error"
                     ];
                     return json_encode($alert);
@@ -92,7 +92,7 @@ class userController extends mainModel
             $encrypt_password = password_hash($password, PASSWORD_BCRYPT, ["cost" => 10]);
         }
 
-        if ($user == "admin") {
+        if ($user == "admin" && $_FILES['user_profile_photo']['name'] != "") {
             $img_dir = "../../assets/profile_picture/";
             if ($_FILES['user_profile_photo']['name'] != "" && $_FILES['user_profile_photo']['size'] > 0) {
                 if (!file_exists($img_dir)) {
@@ -156,7 +156,7 @@ class userController extends mainModel
                     exit();
                 }
             }
-        } elseif ($user == "user") {
+        } else {
             $img = "default.png";
         }
 
@@ -190,11 +190,6 @@ class userController extends mainModel
                 "table_field" => "registration",
                 "param" => ":Register",
                 "field_value" => date("Y-m-d")
-            ],
-            [
-                "table_field" => "last_login",
-                "param" => ":lastLogin",
-                "field_value" => NULL
             ],
             [
                 "table_field" => "profile_picture",

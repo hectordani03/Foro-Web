@@ -1,12 +1,11 @@
-
 <?php
-	require_once "../../config/app.php";
-	require_once "../../autoload.php";
-	
+require_once "../../config/app.php";
+require_once "../../autoload.php";
+
 use user\controllers\dataController;
+
 $data = new dataController();
 
-$json_data = $data->fetchJoinData("publications", "interactions", "entity_type", "entity_type");
-echo $json_data;
-
-?>
+$fields_users = array("id_post", "id_user", "content", "category", "state", "img");
+$json_users = $data->fetchData("posts", $fields_users);
+echo $json_users;

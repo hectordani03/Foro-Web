@@ -52,9 +52,9 @@
                     </a>
                 </li>
                 <div class="sub-menu">
-                    <a href="" class="text sub-item">Users</a>
-                    <a href="" class="text sub-item">Publications</a>
-                    <a href="" class="text sub-item">Commets</a>
+                    <a href="<?php echo APP_URL; ?>reporteduser" class="text sub-item">Users</a>
+                    <a href="<?php echo APP_URL; ?>reportedpost" class="text sub-item">Post</a>
+                    <a href="<?php echo APP_URL; ?>reportedcomt" class="text sub-item">Commets</a>
                 </div>
 
                 <li class="nav-link">

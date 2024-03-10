@@ -4,23 +4,16 @@ namespace user\models;
 
 class viewsModel
 {
-    //get value from viewsController = url name
     protected function getModelViews($views)
     {
-        $whiteList = ["dashboard", "users", "userNew", "userList", "userUpdate", "userSearch", "userPhoto", "post", "comment"];
+        $whiteList = ["dashboard", "users", "userList", "userUpdate", "userSearch", "userPhoto", "post", "comment", "reportedpost", "reportedcomt", "reporteduser"];
 
         if (in_array($views, $whiteList)) {
             if (is_file("./user/views/adminviews/" . $views . "-view.php")) {
                 $content = "./user/views/adminviews/" . $views . "-view.php";
             } elseif (is_file("./user/views/content/404.php")) {
                 $content = "./user/views/content/404.php";
-            }
-            // elseif (is_file("./user/views/content/" . $views . ".php")) {
-            //     $content = "./user/views/content/" . $views . ".php";
-            // } elseif (is_file("./user/views/userviews/" . $views . ".php")) {
-            //     $content = "./user/views/userviews/" . $views . ".php";
-            // }
-            else {
+            } else {
                 $content = "404";
             }
         } elseif ($views == "index") {

@@ -10,10 +10,10 @@
             columns: [
                 {
                     title: 'ID',
-                    data: 'id_publication'
+                    data: 'id_post'
                 },
                 {
-                    title: 'User',
+                    title: 'User id',
                     data: 'id_user'
                 },
                 {
@@ -29,15 +29,9 @@
                     data: 'state'
                 },
                 {
-                    title: 'Interaction',
-                    data: 'interaction_type'
+                    title: 'Img',
+                    data: 'img'
                 },
-                {
-                    title: 'Reports',
-                    data: 'reports'
-                },
-
-
             ],
             drawCallback: function() {
                 $('#datatable thead th, tbody td').css('text-align', 'center');

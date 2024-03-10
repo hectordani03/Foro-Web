@@ -360,3 +360,118 @@ body.dark table.dataTable.display > tbody > tr > td {
   border-top: 1px solid;
   border-color: #fff;
 }
+
+/* ============================== Modal ============================== */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  max-width: 400px;
+  animation: growModal 0.5s;
+}
+
+@keyframes growModal {
+  0% { transform: scale(0.8); }
+  100% { transform: scale(1); }
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header, .modal-footer {
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+  text-align: center;
+}
+
+.modal-body {
+  padding: 10px 0;
+  overflow-y: auto;
+  max-height: 250px; 
+}
+
+.modal-footer button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-footer button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para los inputs y labels */
+.modal-content label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="password"],
+.modal-content input[type="email"],
+.modal-content select {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.modal-content select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.modal-content input[type="file"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.modal-content input[type="file"]::file-selector-button {
+  border: 1px solid #007bff;
+  color: #007bff;
+  background-color: #fff;
+  padding: 8px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content input[type="file"]::file-selector-button:hover {
+  background-color: #007bff;
+  color: #fff;
+}

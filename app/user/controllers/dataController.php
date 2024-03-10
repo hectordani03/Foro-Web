@@ -26,13 +26,15 @@ class dataController extends mainModel {
     }
 
 
-    public function fetchjoinData($table, $jointable, $field, $field2) {
+    public function fetchjoinData($table, $jointable, $field, $field2, $jointable2, $field3, $field4) {
         $firstable= "$table.*";
         $secondtable = "$jointable.*";
-        $sql = $this->selectData("Join", $table, "$firstable, $secondtable", "$jointable", "$jointable.$field = $table.$field2");
+        $thirdtable = "$jointable2.*";
+        $sql = $this->selectData("Join", $table, "$firstable, $secondtable, $thirdtable", "$jointable", "$jointable.$field2 = $table.$field", "$jointable2", "$jointable.$field4 = $jointable2.$field3");
         $data = $sql->fetchAll(PDO::FETCH_ASSOC);
     
         return json_encode(array('data' => $data));
+        
     }
-    
+
 }

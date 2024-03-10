@@ -100,7 +100,7 @@ class mainModel
         return $sql;
     }
 
-    public function selectData($type, $table, $fields = "*", $joinTable = null, $joinCondition = null, $conditions = array()) {
+    public function selectData($type, $table, $fields = "*", $joinTable = null, $joinCondition = null,  $joinTable2 = null, $joinCondition2 = null, $conditions = array()) {
 
         $type = $this->sanitizeString($type);
         $table = $this->sanitizeString($table);
@@ -109,7 +109,7 @@ class mainModel
         $sql = "SELECT $fields FROM $table";
 
         if ($type == "Join" && $joinTable !== null && $joinCondition !== null) {
-            $sql .= " INNER JOIN $joinTable ON $joinCondition";
+            $sql .= " INNER JOIN $joinTable ON $joinCondition INNER JOIN $joinTable2 ON $joinCondition2";
         }
 
         if ($type != "Join" && !empty($conditions)) {
