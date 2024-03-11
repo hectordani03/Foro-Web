@@ -84,13 +84,6 @@
                     </a>
                 </li>
 
-                <li class="nav-link">
-                    <a href="<?php echo APP_URL . "userPhoto/" . $_SESSION['id'] . "/"; ?>">
-                        <i class='bx bxs-photo-album icon'></i>
-                        <span class="text nav-text">Photo</span>
-                    </a>
-                </li>
-
             </ul>
         </div>
         <div class="bottom-content">

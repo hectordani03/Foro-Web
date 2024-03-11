@@ -8,7 +8,6 @@ if (file_exists(__DIR__ . "/../../config/server.php")) {
     require_once __DIR__ . "/../../config/server.php";
 }
 
-
 class mainModel
 {
 
@@ -100,62 +99,49 @@ class mainModel
         return $sql;
     }
 
-    public function selectData($type, $table, $fields = "*", $joinTable = null, $joinCondition = null,  $joinTable2 = null, $joinCondition2 = null, $conditions = array()) {
+    public function selectData($type, $table, $field, $id = "") {
+        $type=$this->sanitizeString($type);
+        $table=$this->sanitizeString($table);
+        $field=$this->sanitizeString($field);
+        $id=$this->sanitizeString($id);
 
-        $type = $this->sanitizeString($type);
-        $table = $this->sanitizeString($table);
-        $fields = $this->sanitizeString($fields);
-
-        $sql = "SELECT $fields FROM $table";
-
-        if ($type == "Join" && $joinTable !== null && $joinCondition !== null) {
-            $sql .= " INNER JOIN $joinTable ON $joinCondition INNER JOIN $joinTable2 ON $joinCondition2";
+        if($type=="unique"){
+            $sql=$this->connect()->prepare("SELECT * FROM $table WHERE $field=:id");
+            $sql->bindParam(":id",$id);
+        }elseif($type=="normal"){
+            $sql=$this->connect()->prepare("SELECT $field FROM $table");
         }
+        $sql->execute();
 
-        if ($type != "Join" && !empty($conditions)) {
-            $sql .= " WHERE ";
-            foreach ($conditions as $field => $value) {
-                $sql .= "$field = :$field AND ";
-            }
-            $sql = rtrim($sql, " AND ");
-        }
-
-        $stmt = $this->connect()->prepare($sql);
-
-        if ($type != "Join" && !empty($conditions)) {
-            foreach ($conditions as $field => &$value) {
-                $stmt->bindParam(":$field", $value);
-            }
-        }
-
-        $stmt->execute();
-
-        return $stmt;
+        return $sql;
     }
 
-    protected function updateData($table, $field, $cond) {
+    protected function updateData($table, $data, $cond) {
 
-        $query = "UPDATE $table SET";
+        $query = "UPDATE $table SET ";
+
         $counter = 0;
-        foreach ($field as $row) {
-
+        foreach ($data as $row) {
             if ($counter >= 1) {
                 $query .= ",";
             }
             $query .= $row["table_field"] . "=" . $row["param"];
             $counter++;
         }
-        $query .= "WHERE " . $cond["field_cond"] . "=" . $cond["param_cond"];
-        $sql = $this->connect()->prepare($query);
-        foreach ($field as $row) {
 
+        $query .= " WHERE " . $cond["field_cond"] . "=" . $cond["param_cond"];
+
+        $sql = $this->connect()->prepare($query);
+
+        foreach ($data as $row) {
             $sql->bindParam($row["param"], $row["field_value"]);
         }
 
         $sql->bindParam($cond["param_cond"], $cond["cond_value"]);
+        
         $sql->execute();
 
-        return $sql;
+        return $sql; 
     }
 
     protected function deleteData($table, $field, $id) {

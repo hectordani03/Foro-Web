@@ -4,7 +4,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const dataTable = $('#datatable').DataTable({
             ajax: {
-                url: 'http://localhost/For-Us/app/user/ajax/publications_json.php',
+                url: 'http://localhost/For-Us/app/user/ajax/posts_json.php',
                 dataSrc: json => json.data
             },
             columns: [

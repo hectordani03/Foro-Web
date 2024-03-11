@@ -6,6 +6,5 @@ use user\controllers\dataController;
 
 $data = new dataController();
 
-$fields_users = array("id_post", "id_user", "content", "category", "state", "img");
-$json_users = $data->fetchData("posts", $fields_users);
+$json_users = $data->fetchData("posts");
 echo $json_users;

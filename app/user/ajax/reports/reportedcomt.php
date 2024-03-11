@@ -7,7 +7,7 @@ use user\controllers\dataController;
 
 $data = new dataController();
 
-$json_data = $data->fetchJoinData("comments", "reportedcomments", "id_comment", "id_comment", "reports", "id_report", "id_report");
+$json_data = $data->fetchJoinData("comments", "reportedcomments", "reports", "id_comment", "id_comment", "id_report", "id_report");
 echo $json_data;
 
 ?>
