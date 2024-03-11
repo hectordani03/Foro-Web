@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const menuCard = document.getElementById('menu-card');
     const customModal = document.getElementById('custom-modal');
     const content = document.getElementById('content');
-    const capa = document.getElementById('capa');
+    const capa1 = document.getElementById('capa1');
 
     // Variable para mantener el estado del modal
     let modalVisible = false;
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Si el modal está visible, ocultarlo
         if (modalVisible) {
             customModal.style.display = 'none';
-            capa.classList.add("hidden");
+            capa1.classList.add("hidden");
             modalVisible = false;
         } else {
             // Contenido del modal
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Mostrar el modal
             customModal.style.display = 'flex';
 
-            capa.classList.remove("hidden");
+            capa1.classList.remove("hidden");
             modalVisible = true;
         }
     });
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
     customModal.addEventListener('click', function(event) {
         if (event.target === customModal) {
             customModal.style.display = 'none';
-            capa.classList.add("hidden");
+            capa1.classList.add("hidden");
             modalVisible = false;
         }
     });
