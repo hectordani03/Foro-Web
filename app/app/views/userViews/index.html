@@ -13,7 +13,7 @@
 <body id="body-content" class="flex">
     <!-- NAV -->
     <div class="bg-gray-200 min-h-screen">
-        <nav class="flex flex-col bg-gray-200 w-24 p-4 justify-start items-center sticky top-0 min-h-screen">
+        <nav class="flex flex-col bg-gray-200 w-24 p-4 justify-start items-center sticky top-0 min-h-screen overflow-y-scroll">
             <img class="w-12 h-10 mt-2" src="/app/assets/logo.png" alt="">
             <ul class="flex flex-col gap-7 justify-between mt-10">
                 <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="/app/assets/resources/obj2.png" alt="" class="w-full"></a></li>
@@ -38,15 +38,26 @@
             </div>
         </nav>
     </div>
+<!-- 
+    <section id="section" class="absolute opacity-100 transition ease-in z-50 "></section>
+    <!-- <section id="section" class="opacity-100 transition ease-in z-50 bg-gray-100 rounded-xl w-7/12 mx-auto h-screen flex flex-col relative"></section>
+    <div id="capa-comments" class="bg-gray-500 opacity-30 w-full h-full absolute hidden rounded-xl transition ease-in z-50"></div> -->
 
-    <section id="section" class="absolute opacity-100 transition ease-in z-50"></section>
-    <div id="capa-comments" class="bg-gray-500 opacity-30 w-full h-full absolute hidden rounded-xl transition ease-in z-50"></div>
+    <!-- MODALS --------------------------------------------------------------------->
+    <!-- COMMENT MODAL -->
+    <div id="modalId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    </div>
+
+
+
     <section id="content" class="w-full">
 
         <!-- HEADER -->
         <header class="flex justify-between items-center">
             <h1 class="text-black flex justify-center w-full text-4xl font-bold mt-5">FOR <span class="text-blue-500 ml-2">US</span></h1>
-            <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="/app/assets/person-1.jpg" alt="">
+            <a href="./profile.html">
+                <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="/app/assets/person-1.jpg" alt="">
+            </a>
         </header>
     
 
@@ -103,12 +114,11 @@
             </div>
 
             <!-- OBJETIVE CARD -->
-            <a class=" mr-10" href="#"><img class="rounded-lg w-50 h-52" src="/app/assets/resources/obj2.png" alt="" class="w-full"></a>
+            <a class=" mr-10" href="#"><img class="rounded-lg w-50 h-52" src="/app/assets/gifs/obj2.gif" alt="" class="w-full"></a>
 
         </main>
 
         <div class="flex">
-
             <!-- PUBLICATIONS SECTION -->
             <section class="grid grid-cols-2 ml-20 mt-16 w-9/12 gap-8">
                 
@@ -174,7 +184,8 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="fill-current" d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z"/></svg>
                     </div>
                 </div>
-            </div>      
+            </div>
+                  
         </section>
 
         <!-- SEARCHER -->
@@ -195,19 +206,23 @@
             </div>
         </div>
 
+    
+  
+        
+
         <script>
             const $input = document.getElementById('input_id')
             const $label = document.querySelector('.searcher label')
             $input.addEventListener('focus', () => {
                 $label.classList.add('text-xs')
-                $label.classList.add('-top-5')
+                $label.classList.add('-top-6')
                 $label.classList.add('text-gray-400')
             })
 
             $input.addEventListener('blur', () => {
                 if ($input.value === ''){
                     $label.classList.remove('text-xs')
-                    $label.classList.remove('-top-5')
+                    $label.classList.remove('-top-6')
                 }
             })
         </script>
@@ -216,6 +231,7 @@
     </div>
         
     </section>
+
     <!-- <script src="/app/JS/comment-btn.js"></script> -->
     <script src="/app/JS/card-menu.js"></script>
     <script src="/app/JS/card-comment.js"></script>

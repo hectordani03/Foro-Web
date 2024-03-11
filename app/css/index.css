@@ -23,3 +23,25 @@
 .swal-close-button {
   color: #000; /* Color del botón de cerrar */
 }
+ /* Estilos para el enlace */
+ .link-underline {
+  text-decoration: none;
+  position: relative;
+}
+
+/* Estilo inicial del subrayado */
+.link-underline::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 4px;
+  bottom: -3px;
+  left: 0;
+  background-color: #4299e1; /* Color del subrayado */
+  transition: width 0.3s ease; /* Transición de la propiedad width */
+}
+
+/* Cambio del subrayado al hacer hover */
+.link-underline:hover::before {
+  width: 100%;
+}

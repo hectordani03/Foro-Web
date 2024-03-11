@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    const commentBtn = document.getElementById('comment-button');
-    const $section = document.getElementById('modalId');
-    const content = document.getElementById('body-content');
+    const editProfile = document.getElementById('edit-profile');
+    // const $section = document.getElementById('modalId');
+    // const content = document.getElementById('body-content');
 
-    commentBtn.addEventListener('click', e => {
+    editProfile.addEventListener('click', e => {
         $section.innerHTML = `
-            <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-30 transition-opacity"></div>
+            <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-30 transition-opacity z-50"></div>
       
             <section id="modal" class="bg-gray-100 rounded-xl w-7/12 mx-auto h-screen flex flex-col fixed">
 

@@ -3,14 +3,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const menuCard = document.getElementById('menu-card');
     const customModal = document.getElementById('custom-modal');
     const content = document.getElementById('content');
-    const capa = document.getElementById('capa');
+    const capa1 = document.getElementById('capa1');
 
     let modalVisible = false;
 
     menuCard.addEventListener('click', function() {
         if (modalVisible) {
             customModal.style.display = 'none';
-            capa.classList.add("hidden");
+            capa1.classList.add("hidden");
             modalVisible = false;
         } else {
             const modalContent = '<div class="rounded-3xl flex flex-col justify-center items-center gap-5 h-fit self-start w-10/12 shadow-lg bg-gray-100 ml-10 opacity-100">' +
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Mostrar el modal
             customModal.style.display = 'flex';
 
-            capa.classList.remove("hidden");
+            capa1.classList.remove("hidden");
             modalVisible = true;
         }
     });
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
     customModal.addEventListener('click', function(event) {
         if (event.target === customModal) {
             customModal.style.display = 'none';
-            capa.classList.add("hidden");
+            capa1.classList.add("hidden");
             modalVisible = false;
         }
     });

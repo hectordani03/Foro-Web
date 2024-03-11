@@ -6,55 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"> -->
-    <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body class="flex">
+
+<?php
+    // Incluir la cabecera
+    include './app/views/inc/cabeceraUser.php';
+?>
+<body id="body-content" class="flex">
     <!-- NAV -->
-    <div class="bg-gray-200 min-h-screen">
-        <nav class="flex flex-col bg-gray-200 w-24 p-4 justify-start items-center sticky top-0 min-h-screen">
-            <img class="w-12 h-10 mt-2" src="/app/assets/logo.png" alt="">
-            <ul class="flex flex-col gap-7 justify-between mt-10">
-                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="./assets/resources/obj2.png" alt="" class="w-full"></a></li>
-                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="./assets/resources/obj4.png" alt="" class="w-full"></a></li>
-                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="./assets/resources/obj13.png" alt="" class="w-full"></a></li>
-                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="./assets/resources/obj14.png" alt="" class="w-full"></a></li>
-                <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="./assets/resources/obj10.png" alt="" class="w-full"></a></li>
-                
-                <!-- ADD BUTTON -->
-                <li class="rounded-lg bg-blue-400 text-center"><a class=" text-4xl text-white" href="#">+</a></li>
-            </ul>
-            <div class=" flex flex-col gap-5 absolute bottom-5">
-                <div class="text-gray-400 w-7 h-7">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path class="fill-current" d="M272 384c9.6-31.9 29.5-59.1 49.2-86.2l0 0c5.2-7.1 10.4-14.2 15.4-21.4c19.8-28.5 31.4-63 31.4-100.3C368 78.8 289.2 0 192 0S16 78.8 16 176c0 37.3 11.6 71.9 31.4 100.3c5 7.2 10.2 14.3 15.4 21.4l0 0c19.8 27.1 39.7 54.4 49.2 86.2H272zM192 512c44.2 0 80-35.8 80-80V416H112v16c0 44.2 35.8 80 80 80zM112 176c0 8.8-7.2 16-16 16s-16-7.2-16-16c0-61.9 50.1-112 112-112c8.8 0 16 7.2 16 16s-7.2 16-16 16c-44.2 0-80 35.8-80 80z"/></svg>
-                </div>
-                <div class="text-gray-400 w-8 h-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="fill-current" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/></svg>
-                </div>
-                <div class="text-gray-400 w-8 h-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="fill-current" d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
-                </div>
-            </div>
-        </nav>
+
+    
+    
+    <!-- MODALS --------------------------------------------------------------------->
+    <!-- COMMENT MODAL -->
+    <div id="modalId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     </div>
-        
-    <!-- ALL CONTENT -->
-    <section id="content" class="w-full">
+
+
+
+    <section id="content" class="w-11/12 relative left-28">
 
         <!-- HEADER -->
         <header class="flex justify-between items-center">
             <h1 class="text-black flex justify-center w-full text-4xl font-bold mt-5">FOR <span class="text-blue-500 ml-2">US</span></h1>
-            <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="/app/assets/person-1.jpg" alt="">
+            <a href="profile">
+                <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="./assets/person-1.jpg" alt="">
+            </a>
         </header>
     
 
         <!-- MAIN -->
-        <main class="flex justify-between items-center mt-20">
+        <main class="flex justify-between items-center mt-20 z-30">
 
             <!-- INITIAL CARD -->
             <div id="initial-card" class="bg-gray-100 shadow-lg ml-20 mr-10 w-9/12 h-52 flex justify-start items-start relative rounded-xl">
-                <img class="w-12 h-11 bg-blue-500 rounded-full absolute top-8 left-8" src="/app/assets/person-1.jpg" alt="">
+                <img class="w-12 h-11 bg-blue-500 rounded-full absolute top-8 left-8" src="./assets/person-1.jpg" alt="">
                 <textarea class="relative rounded-lg px-6 py-2 top-7 left-20 text-2xl text-gray-400 bg-gray-100 w-10/12 resize-none outline-none -h-28 font-semibold" rows="5" maxlength="380">What's in your mind?</textarea>
 
                 <div class="flex absolute bottom-3 left-8 gap-2">
@@ -102,12 +88,11 @@
             </div>
 
             <!-- OBJETIVE CARD -->
-            <a class=" mr-10" href="#"><img class="rounded-lg w-50 h-52" src="/app/assets/resources/obj2.png" alt="" class="w-full"></a>
+            <a class=" mr-5 w-2/12" href="#"><img class="rounded-lg w-64 h-56 mx-auto" src="./assets/gifs/obj2.gif" alt=""></a>
 
         </main>
 
         <div class="flex">
-
             <!-- PUBLICATIONS SECTION -->
             <section class="grid grid-cols-2 ml-20 mt-16 w-9/12 gap-8">
                 
@@ -115,13 +100,13 @@
                 <!-- CARD -->
                 
                 <div class="bg-gray-100 shadow-lg w-full rounded-xl flex flex-col relative mt-5 h-fit self-start opacity-100">
-                    <div id="capa" class="bg-gray-500 opacity-30 w-full h-full absolute hidden rounded-xl transition ease-in"></div>
+                    <div id="capa1" class="bg-gray-500 opacity-30 w-full h-full absolute hidden rounded-xl transition ease-in"></div>
                     <div id="custom-modal" class="absolute w-full h-full flex flex-col justify-center items-center opacity-100 transition ease-in">
                     <!-- Contenido del modal -->
                 </div>
                 <!-- TOP CARD CONTENT -->
                 <div class="flex mt-5 ml-5">
-                    <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="/app/assets/person-1.jpg" alt="">
+                    <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="./assets/person-1.jpg" alt="">
                     <div class="flex flex-col ml-5">
                         <h2 class="text-xl text-gray-400 font-semibold">Jose Joshua</h2>
                         <p class="text-gray-400">08:04 p.m</p>
@@ -136,7 +121,7 @@
                 <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">"I firmly believe that climate action should be a global priority. Protecting our planet for future generations. It's time for all of us to commit to concrete and meaningful actions!"</p>
 
                 <!-- <a class="text-blue-500 underline text-xl w-10/12 mx-auto mt-2 mb-1" href="https://google.com">Naciones Unidas</a> -->
-                <img class="w-10/12 mx-auto rounded-xl mt-7" src="/app/assets/card_img/obj2_img.jpg" alt="">
+                <img class="w-10/12 mx-auto rounded-xl mt-7" src="./assets/card_img/obj2_img.jpg" alt="">
 
                 <!-- CARD HASHTAGS -->
                 <div class="flex gap-4 w-10/12 mx-auto mt-5">
@@ -167,19 +152,20 @@
                             <path class="fill-current" d="M64 0C28.7 0 0 28.7 0 64V352c0 35.3 28.7 64 64 64h96v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64z"/>
                         </svg>
                     </div>
-                    <div id="custom-modal2" class="absolute w-full h-full flex flex-col justify-center items-center opacity-100 transition ease-in"></div>
+
 
                     <div class="text-gray-400 w-8 h-8 absolute right-3 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="fill-current" d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z"/></svg>
                     </div>
                 </div>
-            </div>      
+            </div>
+                  
         </section>
 
         <!-- SEARCHER -->
 
-        <div class="searcher bg-gray-100 relative w-2/12 mt-20 rounded-xl mx-auto flex justify-center">
-            <div class="absolute top-7 w-11/12 2xl:w-full mx-auto flex justify-center">
+        <div class="searcher bg-gray-100 relative w-2/12 mt-20 rounded-xl mx-auto flex justify-center shadow-lg">
+            <div class="absolute top-8 w-11/12 2xl:w-full mx-auto flex justify-center">
                 <input
                 id="input_id"
                 name="input"
@@ -194,19 +180,23 @@
             </div>
         </div>
 
+    
+  
+        
+
         <script>
             const $input = document.getElementById('input_id')
             const $label = document.querySelector('.searcher label')
             $input.addEventListener('focus', () => {
                 $label.classList.add('text-xs')
-                $label.classList.add('-top-5')
+                $label.classList.add('-top-7')
                 $label.classList.add('text-gray-400')
             })
 
             $input.addEventListener('blur', () => {
                 if ($input.value === ''){
                     $label.classList.remove('text-xs')
-                    $label.classList.remove('-top-5')
+                    $label.classList.remove('-top-7')
                 }
             })
         </script>
@@ -215,6 +205,7 @@
     </div>
         
     </section>
+
     <!-- <script src="/app/JS/comment-btn.js"></script> -->
     <script src="./js/card-menu.js"></script>
     <script src="./js/card-comment.js"></script>
