@@ -5,18 +5,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const content = document.getElementById('content');
     const capa = document.getElementById('capa');
 
-    // Variable para mantener el estado del modal
     let modalVisible = false;
 
-    // Agregar un evento de clic al elemento del menú
     menuCard.addEventListener('click', function() {
-        // Si el modal está visible, ocultarlo
         if (modalVisible) {
             customModal.style.display = 'none';
             capa.classList.add("hidden");
             modalVisible = false;
         } else {
-            // Contenido del modal
             const modalContent = '<div class="rounded-3xl flex flex-col justify-center items-center gap-5 h-fit self-start w-10/12 shadow-lg bg-gray-100 ml-10 opacity-100">' +
                 '<div class="flex mt-10">' +
                 '<div class="text-gray-400 w-7 h-7 cursor-pointer mb-2">' +
