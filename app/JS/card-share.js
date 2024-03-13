@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         $section.innerHTML = `
         <!DOCTYPE html>
 <html lang="en">
-
+git push origin your-branch-name
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             margin-top: 280px;
             transform: scaleY(.9); /* Ajusta este valor según tus necesidades */
             width: 1300px;
-            padding-left: 370px;
+            padding-left: 270px;
             
         }
 
