@@ -17,8 +17,9 @@
     <!-- COMMENT MODAL -->
     <div id="modalId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     </div>
-
     <!-- SHARE MODAL -->
+    <div id="shareId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    </div>
 
     <!-- --------------------------------------------------------------------------- -->
 
@@ -81,7 +82,7 @@
                     $label.classList.remove('-top-7')
                 }
             })
-        </script>
+           </script>
         
           
     </div>
@@ -90,6 +91,7 @@
 
     <script src="./js/card-menu.js"></script>
     <script src="./js/card-comment.js"></script>
+    <script src="./js/card-share.js"></script>
 </body>
 
 </html>
