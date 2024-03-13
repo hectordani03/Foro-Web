@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
     <style>
 
         .escalado {
-            margin-top: 280px;
+            margin-top: 25cle0px;
             transform: scaleY(.9); /* Ajusta este valor según tus necesidades */
             width: 1300px;
-            padding-left: 270px;
+            padding-left: 370px;
             
         }
 
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
             textArea.addEventListener('blur', function () {
                 if (this.value === '') {
                     this.value = "Write a Comment...";
-                }
+                } 
             });
 
             const closeM = document.getElementById('close');
