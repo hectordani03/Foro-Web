@@ -1,24 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
-
-    const commentBtn = document.getElementById('share-button');
-    const $section = document.getElementById('shareId');
-    const content = document.getElementById('body-content');
-
-    commentBtn.addEventListener('click', e => {
-        $section.innerHTML = `
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../app/css/styles.css">
+    <link rel="stylesheet" href="/app/css/styles.css">
     <title>Document</title>
 
     <style>
 
         .escalado {
-            margin-top: 280px;
+            margin-top: -10px;
             transform: scaleY(.9); /* Ajusta este valor según tus necesidades */
             width: 1300px;
             padding-left: 370px;
@@ -87,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <!-- TOP CARD CONTENT -->
                     <div class="flex mt-5 w-full">
-                        <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="../app/assets/person-1.jpg" alt="">
+                        <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="/app/assets/person-1.jpg" alt="">
                         <div class="flex flex-col ml-5 w-full">
                             <div class="flex items-center w-full">
                                 <h2 class="text-xl text-gray-400 font-semibold">Jose Joshua</h2>
@@ -110,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <hr class="w-full mt-5">
                     
                     <div class="flex mt-5  w-full">
-                        <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="../app/assets/person-1.jpg" alt="">
+                        <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="/app/assets/person-1.jpg" alt="">
                         <div class="flex flex-col ml-5 w-full">
                             <div class="flex items-center w-full">
                                 <h2 class="text-xl text-gray-400 font-semibold">Jose Joshua</h2>
@@ -122,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <p class="text-gray-400 w-12/12 mx-auto text-xl mt-8">"I firmly believe that climate action should be a global priority. Protecting our planet for future generations. It's time for all of us to commit to concrete and meaningful actions!"</p>
 
-                    <img class="w-12/12 mx-auto rounded-xl mt-7" src="../app/assets/card_img/obj2_img.jpg" alt="">
+                    <img class="w-12/12 mx-auto rounded-xl mt-7" src="/app/assets/card_img/obj2_img.jpg" alt="">
 
                     <!-- CARD HASHTAGS -->
                     <div class="flex gap-4 w-12/12 mx-auto mt-5">
@@ -160,20 +152,4 @@ document.addEventListener('DOMContentLoaded', function() {
     </section>
 </body>
 
-</html>` 
-
-            const closeM = document.getElementById('close');
-            const modal = document.getElementById('modal');
-            const capa = document.getElementById('capa');
-            document.body.appendChild($section);
-            content.classList.remove('overflow-hidden');
-            content.classList.add("overflow-hidden")
-            closeM.addEventListener('click', () => {
-                console.log('clicked')
-                modal.classList.add('hidden');
-                capa.classList.toggle('hidden');
-                content.classList.remove("overflow-hidden")
-                content.classList.add("overflow-auto")
-            });
-    })
-})
+</html>
