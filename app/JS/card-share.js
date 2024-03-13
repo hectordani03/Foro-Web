@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
         $section.innerHTML = `
         <!DOCTYPE html>
 <html lang="en">
-git push origin your-branch-name
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -138,21 +137,7 @@ git push origin your-branch-name
                 <!-- Reemplaza el párrafo con el input -->
                 <!-- <input type="text" class="px-5 mt-2 text-gray-600 w-full focus:outline-none bg-gray-200" placeholder="Write a comment..." style="white-space: pre-wrap;"> -->
 
-                <script>
-                    const textArea = document.querySelector('textarea')
-
-                    textArea.addEventListener("focus", function () {
-                        if (this.value === "What's in your mind?") {
-                            this.value = "";
-                        }
-                    });
-                    textArea.addEventListener('blur', function () {
-                        if (this.value === '') {
-                            this.value = "What's in your mind?";
-                        }
-                    });
-
-                </script>
+                
             </div>
             <!-- Boton de compartir -->
 
@@ -161,6 +146,18 @@ git push origin your-branch-name
 </body>
 
 </html>` 
+            const textArea = document.querySelector('textarea')
+
+            textArea.addEventListener("focus", function () {
+                if (this.value === "Write a Comment...") {
+                    this.value = "";
+                }
+            });
+            textArea.addEventListener('blur', function () {
+                if (this.value === '') {
+                    this.value = "Write a Comment...";
+                }
+            });
 
             const closeM = document.getElementById('close');
             const modal = document.getElementById('modal');
