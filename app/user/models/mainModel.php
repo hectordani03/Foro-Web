@@ -16,7 +16,8 @@ class mainModel
     private $db_user = DB_USER;
     private $db_pass = DB_PASS;
 
-    protected function connect() {
+    protected function connect()
+    {
 
         $conne = new PDO("mysql:host=" . $this->server . ";dbname=" . $this->db, $this->db_user, $this->db_pass);
         $conne->exec("SET CHARACTER SET utf8");
@@ -24,7 +25,8 @@ class mainModel
         return $conne;
     }
 
-    public function run_query($query) {
+    public function run_query($query)
+    {
 
         $sql = $this->connect()->prepare($query);
         $sql->execute();
@@ -32,7 +34,8 @@ class mainModel
         return $sql;
     }
 
-    public function sanitizeString($string) {
+    public function sanitizeString($string)
+    {
 
         $strs = ["<script>", "</script>", "<script src", "<script type=", "SELECT * FROM", "SELECT ", " SELECT ", "DELETE FROM", "INSERT INTO", "DROP TABLE", "DROP DATABASE", "TRUNCATE TABLE", "SHOW TABLES", "SHOW DATABASES", "<?php", "?>", "--", "^", "<", ">", "==", "=", ";", "::"];
 
@@ -50,7 +53,8 @@ class mainModel
         return $string;
     }
 
-    protected function verifyData($filter, $string) {
+    protected function verifyData($filter, $string)
+    {
 
         if (preg_match("/^" . $filter . "$/", $string)) {
 
@@ -61,7 +65,8 @@ class mainModel
         }
     }
 
-    protected function insertData($table, $field) {
+    protected function insertData($table, $field)
+    {
 
         $query = "INSERT INTO $table (";
         $counter = 0;
@@ -95,28 +100,31 @@ class mainModel
         }
 
         $sql->execute();
-
+        
         return $sql;
     }
 
-    public function selectData($type, $table, $field, $id = "") {
-        $type=$this->sanitizeString($type);
-        $table=$this->sanitizeString($table);
-        $field=$this->sanitizeString($field);
-        $id=$this->sanitizeString($id);
+    public function selectData($type, $table, $field, $value = "", $param = "")
+    {
+        $type = $this->sanitizeString($type);
+        $table = $this->sanitizeString($table);
+        $field = $this->sanitizeString($field);
+        $value = $this->sanitizeString($value);
+        $param = $this->sanitizeString($param);
 
-        if($type=="unique"){
-            $sql=$this->connect()->prepare("SELECT * FROM $table WHERE $field=:id");
-            $sql->bindParam(":id",$id);
-        }elseif($type=="normal"){
-            $sql=$this->connect()->prepare("SELECT $field FROM $table");
+        if ($type == "unique") {
+            $sql = $this->connect()->prepare("SELECT * FROM $table WHERE $field=:$param");
+            $sql->bindParam(":$param", $value);
+        } elseif ($type == "normal") {
+            $sql = $this->connect()->prepare("SELECT $field FROM $table");
         }
         $sql->execute();
 
         return $sql;
     }
 
-    protected function updateData($table, $data, $cond) {
+    protected function updateData($table, $data, $cond)
+    {
 
         $query = "UPDATE $table SET ";
 
@@ -138,13 +146,14 @@ class mainModel
         }
 
         $sql->bindParam($cond["param_cond"], $cond["cond_value"]);
-        
+
         $sql->execute();
 
-        return $sql; 
+        return $sql;
     }
 
-    protected function deleteData($table, $field, $id) {
+    protected function deleteData($table, $field, $id)
+    {
 
         $sql = $this->connect()->prepare("DELETE FROM $table WHERE $field=:id");
         $sql->bindParam(":id", $id);

@@ -1,3 +1,6 @@
 RewriteEngine On
 Options All -Indexes
 RewriteRule ^([a-zA-Z0-9/ñÑ-]+)$ index.php?views=$1
+
+RewriteCond %{REQUEST_URI} ^/For-Us/app/user/(ajax|controllers|models|views)/ [NC]
+RewriteRule ^ /For-Us/app/404 [R=301,L]

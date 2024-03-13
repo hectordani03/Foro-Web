@@ -32,6 +32,12 @@
                     title: 'State',
                     data: 'state'
                 },
+                {
+                    title: 'Report',
+                    render: function(data, type, row) {
+                        return '<button class="btn-view-user" data-id_user="' + row.id_user + '">Report</button>';
+                    }
+                },
             ],
             drawCallback: function() {
                 $('#datatable thead th, tbody td').css('text-align', 'center');

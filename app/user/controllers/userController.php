@@ -396,8 +396,8 @@ class userController extends mainModel
                     ];
                     return json_encode($alert);
                     exit();
-                } 
-            } else { 
+                }
+            } else {
                 $check_email = $this->run_query("SELECT email FROM user WHERE email = '$email'");
                 if ($check_email->rowCount() > 0) {
                     $alert = [
@@ -408,7 +408,7 @@ class userController extends mainModel
                     ];
                     return json_encode($alert);
                     exit();
-                } 
+                }
             }
         } else {
             $alert = [
@@ -575,6 +575,200 @@ class userController extends mainModel
                 "type" => "simple",
                 "title" => "An unexpected error occurred",
                 "text" => "Failed to update user, please try again",
+                "icon" => "error"
+            ];
+        }
+        return json_encode($alert);
+    }
+
+    public function reportUser()
+    {
+        $id_user = $this->sanitizeString($_POST['id_user']);
+        $username = $this->sanitizeString($_POST['username']);
+        $email = $this->sanitizeString($_POST['email']);
+        $role = $this->sanitizeString($_POST['role']);
+        $reason = $this->sanitizeString($_POST['reasonSelect']);
+
+        if ($reason == "Other") {
+            $reason = $this->sanitizeString($_POST['reasonInput']);
+        }
+
+        if ($username == "" || $email == "" || $role == "" || $reason == "") {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Fields can not be empty",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $username)) {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "The NAME does not match the requested format",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        } elseif (!(filter_var($email, FILTER_VALIDATE_EMAIL))) {
+
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "You have entered an invalid email",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        }
+        session_start();
+        $report = [
+            [
+                "table_field" => "id_reporting_user",
+                "param" => ":ID_reporting_user",
+                "field_value" => $_SESSION['id']
+            ],
+            [
+                "table_field" => "reason",
+                "param" => ":Reason",
+                "field_value" => $reason
+            ],
+            [
+                "table_field" => "state",
+                "param" => ":State",
+                "field_value" => '0'
+            ]
+        ];
+
+        $ins_report = $this->insertData("reports", $report);
+
+        // $reported_last_id = $this->connect()->lastInsertId();
+
+        // $reported = [
+        //     [
+        //         "table_field" => "id_report",
+        //         "param" => ":id_report",
+        //         "field_value" => $reported_last_id
+        //     ],
+        //     [
+        //         "table_field" => "id_user",
+        //         "param" => ":id_user",
+        //         "field_value" => $id_user
+        //     ]
+        // ];
+
+        // $ins_report_user = $this->insertData("reportedusers", $reported);
+
+        // if ($ins_report->rowCount() == 1 && $ins_report_user->rowCount() == 1) {
+
+        if ($ins_report->rowCount() > 0) {
+            $alert = [
+                "type" => "reload",
+                "title" => "User Reported",
+                "text" => "User " . $username . " has been reported",
+                "icon" => "success"
+            ];
+        } else {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Failed to report user",
+                "icon" => "error"
+            ];
+        }
+        return json_encode($alert);
+    }
+
+    public function suspendUser()
+    {
+        $id_user = $this->sanitizeString($_POST['id_user']);
+        $reason = $this->sanitizeString($_POST['reason']);
+        $suspension_duration = $this->sanitizeString($_POST['suspension']);
+
+        if ($id_user == "" || $reason == "" || $suspension_duration == "") {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Fields can not be empty",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        }
+
+        date_default_timezone_set('America/Mexico_City');
+        $suspension_time = date("Y-m-d H:i:s");
+
+        if ($suspension_duration == '1') {
+            $seconds_to_add = 1 * 24 * 60 * 60;
+        } elseif ($suspension_duration == '3') {
+            $seconds_to_add = 3 * 24 * 60 * 60;
+        } elseif ($suspension_duration == '7') {
+            $seconds_to_add = 7 * 24 * 60 * 60;
+        } elseif ($suspension_duration == '31') {
+            $seconds_to_add = 31 * 24 * 60 * 60;
+        } else {
+            exit("Duración de suspensión no válida");
+        }
+
+        $suspension_period = date("Y-m-d H:i:s", strtotime($suspension_time . " + $seconds_to_add seconds"));
+
+        $user_suspend = [
+            [
+                "table_field" => "state",
+                "param" => ":state",
+                "field_value" => '0'
+            ]
+        ];
+
+        $condition = [
+            "field_cond" => "id_user",
+            "param_cond" => ":id",
+            "cond_value" => $id_user
+        ];
+        $user_suspended_state =  $this->updateData("user", $user_suspend, $condition);
+
+        $suspended_users = [
+            [
+                "table_field" => "id_user",
+                "param" => ":id_user",
+                "field_value" => $id_user
+            ],
+            [
+                "table_field" => "suspension_time",
+                "param" => ":st",
+                "field_value" => $suspension_time
+            ],
+            [
+                "table_field" => "suspension_period",
+                "param" => ":sp",
+                "field_value" => $suspension_period
+            ],
+            [
+                "table_field" => "suspension_duration",
+                "param" => ":sd",
+                "field_value" => $suspension_duration
+            ]
+        ];
+
+        $suspended_users_table = $this->insertData("suspendedusers", $suspended_users);
+
+
+
+        if ($user_suspended_state->rowCount() > 0 && $suspended_users_table->rowCount() > 0) {
+
+            $alert = [
+                "type" => "reload",
+                "title" => "User Suspended",
+                "text" => "User " . $id_user . " has been suspended, duration: " . $suspension_duration,
+                "icon" => "success"
+            ];
+        } else {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Failed to suspend user",
                 "icon" => "error"
             ];
         }

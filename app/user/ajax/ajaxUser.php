@@ -25,6 +25,12 @@ if (isset($_POST['user_module'])) {
 		echo $insUsuario->updateUser();
 	}
 
+	if ($_POST['user_module'] == "report_user") {
+		echo $insUsuario->reportUser();
+	}
+	if ($_POST['user_module'] == "suspend_user") {
+		echo $insUsuario->suspendUser();
+	}
 	// if($_POST['modulo_usuario']=="eliminarFoto"){
 	// 	echo $insUsuario->eliminarFotoUsuarioControlador();
 	// }

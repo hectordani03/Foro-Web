@@ -15,24 +15,24 @@
 		<div class="background-overlay"></div>
 		<div class="background">
 
-			<div class="image" style="background-image: url('../assets/resources/obj1.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj2.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj3.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj4.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj5.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj6.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj7.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj8.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj9.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj10.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj11.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj12.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj13.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj14.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj15.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj16.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj17.png');"></div>
-			<div class="image" style="background-image: url('../assets/resources/obj1.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj1.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj2.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj3.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj4.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj5.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj6.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj7.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj8.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj9.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj10.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj11.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj12.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj13.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj14.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj15.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj16.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj17.png');"></div>
+			<div class="image" style="background-image: url('<?php echo APP_URL; ?>/assets/resources/obj1.png');"></div>
 
 		</div>
 		<div class="login-form">
