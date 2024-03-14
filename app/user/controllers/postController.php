@@ -3,8 +3,6 @@
 namespace user\controllers;
 
 use user\models\mainModel;
-use PDO;
-
 
 
 class postController extends mainModel

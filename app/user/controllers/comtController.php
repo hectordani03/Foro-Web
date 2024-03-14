@@ -3,17 +3,382 @@
 namespace user\controllers;
 
 use user\models\mainModel;
-use PDO;
 
 
+class comtController extends mainModel
+{
 
-class comtController extends mainModel {
+    public function addComt()
+    {
 
-    protected function deleteComt() {
+        $id_user = $this->sanitizeString($_POST['id_user']);
+        $id_post = $this->sanitizeString($_POST['id_post']);
+        $content = $this->sanitizeString($_POST['content']);
 
-        
+        if ($content == "") {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Comment can not be empty",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        } elseif ($this->verifyData("/^[a-zA-Z0-9.,?!¡¿()\-\[\]{};:'\"<>@\$\€]*$/", $content)) {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Comment do not match the requested format",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        }
 
+
+        $comment_data = [
+            [
+                "table_field" => "id_user",
+                "param" => ":id_user",
+                "field_value" => $id_user
+            ],
+            [
+                "table_field" => "id_post",
+                "param" => ":id_post",
+                "field_value" => $id_post
+            ],
+            [
+                "table_field" => "content",
+                "param" => ":content",
+                "field_value" => $content
+            ],
+            [
+                "table_field" => "date",
+                "param" => ":date",
+                "field_value" => date("Y-m-d")
+            ],
+        ];
+
+        $addedcomment = $this->insertData("comments", $comment_data);
+
+        if ($addedcomment->rowCount() == 1) {
+            $alert = [
+                "type" => "reload",
+                "title" => "Comment added",
+                "text" => "Comment successfully added",
+                "icon" => "success"
+            ];
+        } else {
+
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Failed to add comment, please try again",
+                "icon" => "error"
+            ];
+        }
+
+        return json_encode($alert);
     }
 
+    public function replyComt()
+    {
+        $id_user = $this->sanitizeString($_POST['id_user']);
+        $id_post = $this->sanitizeString($_POST['id_post']);
+        $id_main_comment = $this->sanitizeString($_POST['id_main_comment']);
+        $content = $this->sanitizeString($_POST['content']);
 
+        if ($content == "") {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Comment can not be empty",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        } elseif ($this->verifyData("/^[a-zA-Z0-9.,?!¡¿()\-\[\]{};:'\"<>@\$\€]*$/", $content)) {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Comment do not match the requested format",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        }
+
+
+        $comment_data = [
+            [
+                "table_field" => "id_user",
+                "param" => ":id_user",
+                "field_value" => $id_user
+            ],
+            [
+                "table_field" => "id_post",
+                "param" => ":id_post",
+                "field_value" => $id_post
+            ],
+            [
+                "table_field" => "content",
+                "param" => ":content",
+                "field_value" => $content
+            ],
+            [
+                "table_field" => "id_main_comment",
+                "param" => ":id_main_comment",
+                "field_value" => $id_main_comment
+            ],
+            [
+                "table_field" => "date",
+                "param" => ":date",
+                "field_value" => date("Y-m-d")
+            ],
+        ];
+
+        $addedcomment = $this->insertData("comments", $comment_data);
+
+        if ($addedcomment->rowCount() == 1) {
+            $alert = [
+                "type" => "reload",
+                "title" => "Comment added",
+                "text" => "Comment successfully added",
+                "icon" => "success"
+            ];
+        } else {
+
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Failed to add comment, please try again",
+                "icon" => "error"
+            ];
+        }
+
+        return json_encode($alert);
+    }
+
+    public function updateComt()
+    {
+
+        $id_comment = $this->sanitizeString($_POST['id_comment']);
+        $id_user = $this->sanitizeString($_POST['id_user']);
+        $content = $this->sanitizeString($_POST['content']);
+
+        $data = $this->run_query("SELECT * FROM comments WHERE id_comment = '$id_comment' AND id_user = '$id_user");
+        if ($data->rowCount() <= 0) {
+            $alert = [
+                "type" => "simple",
+                "title" => "Unexpected Error",
+                "text" => "User or Comment not found",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        } else {
+            $data = $data->fetch();
+        }
+
+        if ($content == "") {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Comment can not be empty",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        } elseif ($content != "") {
+
+            if ($this->verifyData("/^[a-zA-Z0-9.,?!¡¿()\-\[\]{};:'\"<>@\$\€]*$/", $content)) {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "An unexpected error occurred",
+                    "text" => "Comment do not match the requested format",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            }
+        }
+
+        $post_update_data = [
+            [
+                "table_field" => "content",
+                "param" => ":content",
+                "field_value" => $content
+            ]
+        ];
+
+        $condition = [
+            "field_cond" => "id_comment",
+            "param_cond" => ":id_comment",
+            "cond_value" => $id_comment
+        ];
+
+        if ($this->updateData("comments", $post_update_data, $condition)) {
+
+            $alert = [
+                "type" => "reload",
+                "title" => "Comment Updated",
+                "text" => "Comment has been successfully updated",
+                "icon" => "success"
+            ];
+        } else {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Failed to update comment, please try again",
+                "icon" => "error"
+            ];
+        }
+        return json_encode($alert);
+    }
+
+    public function reportComt()
+    {
+
+        $id_comment = $this->sanitizeString($_POST['id_comment']);
+        $id_user = $this->sanitizeString($_POST['id_user']);
+        $message = $this->sanitizeString($_POST['message']);
+        $category = $this->sanitizeString($_POST['category']);
+        $state = $this->sanitizeString($_POST['state']);
+        $reason = $this->sanitizeString($_POST['reason']);
+
+        if ($reason == "Other") {
+            $reason = $this->sanitizeString($_POST['reasonInput']);
+        }
+
+        if ($message == "" || $category == "" || $state == "" || $reason == "") {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Fields can not be empty",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $message) && $this->verifyData("[a-zA-Z0-9]{4,20}", $category)) {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Fields do not match the requested format",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        }
+
+        session_start();
+        $report = [
+            [
+                "table_field" => "id_reporting_user",
+                "param" => ":ID_reporting_user",
+                "field_value" => $id_user
+            ],
+            [
+                "table_field" => "reason",
+                "param" => ":Reason",
+                "field_value" => $reason
+            ],
+            [
+                "table_field" => "state",
+                "param" => ":State",
+                "field_value" => '0'
+            ]
+        ];
+
+        $ins_report = $this->insertData("reports", $report);
+
+        // $reported_last_id = $this->connect()->lastInsertId();
+
+        // $reported = [
+        //     [
+        //         "table_field" => "id_report",
+        //         "param" => ":id_report",
+        //         "field_value" => $reported_last_id
+        //     ],
+        //     [
+        //         "table_field" => "id_comment",
+        //         "param" => ":id_comment",
+        //         "field_value" => $id_comment
+        //     ]
+        // ];
+
+        // $ins_report_post = $this->insertData("reportedcomments", $reported);
+
+        // if ($ins_report->rowCount() == 1 && $ins_report_post->rowCount() == 1) {
+
+        if ($ins_report->rowCount() > 0) {
+            $alert = [
+                "type" => "reload",
+                "title" => "Comment Reported",
+                "text" => "Comment " . $id_comment . " has been reported",
+                "icon" => "success"
+            ];
+        } else {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Failed to report the comment" . $id_comment,
+                "icon" => "error"
+            ];
+        }
+        return json_encode($alert);
+    }
+
+    public function deleteComt()
+    {
+
+        $id_comment = $this->sanitizeString($_POST['id_comment']);
+        $message = $this->sanitizeString($_POST['message']);
+        $category = $this->sanitizeString($_POST['category']);
+        $reason = $this->sanitizeString($_POST['reason']);
+
+        if ($message == "" || $category == "" || $reason == "") {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Fields can not be empty",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $message) && $this->verifyData("[a-zA-Z0-9]{4,20}", $category)) {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Fields do not match the requested format",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        }
+
+        $info_user_post = $this->run_query("SELECT * FROM user INNER JOIN comments ON comments.id_user = user.id_user WHERE comments.id_comment = $id_comment");
+        $row = $info_user_post->fetch();
+
+        // SEND EMAIL HERE
+
+
+        $delete_post = $this->deleteData("comments", "id_comment", $id_comment);
+
+        if ($delete_post->rowCount() == '1') {
+            $alert = [
+                "type" => "reload",
+                "title" => "Comment deleted",
+                "text" => "Comment " . $id_comment . " has been deleted",
+                "icon" => "success"
+            ];
+        } else {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Failed to delete the comment" . $id_comment,
+                "icon" => "error"
+            ];
+        }
+        return json_encode($alert);
+    }
 }
