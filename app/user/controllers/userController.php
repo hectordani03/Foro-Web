@@ -7,7 +7,6 @@ use user\models\mainModel;
 class userController extends mainModel
 {
 
-    //Controlador Registro de Usuario
     public function registerUser($user)
     {
 
@@ -200,7 +199,7 @@ class userController extends mainModel
 
         $register_user = $this->insertData("user", $user_data);
 
-        if ($register_user->rowCount() == 1) {
+        if ($register_user->rowCount() > 0) {
             $alert = [
                 "type" => "reload",
                 "title" => "User registered",
@@ -209,7 +208,7 @@ class userController extends mainModel
             ];
         } else {
 
-            if (is_file($img_dir . $img)) {
+            if ($img != "" && is_file($img_dir . $img)) {
                 chmod($img_dir . $img, 0777);
                 unlink($img_dir . $img);
             }
@@ -753,8 +752,6 @@ class userController extends mainModel
         ];
 
         $suspended_users_table = $this->insertData("suspendedusers", $suspended_users);
-
-
 
         if ($user_suspended_state->rowCount() > 0 && $suspended_users_table->rowCount() > 0) {
 

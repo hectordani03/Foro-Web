@@ -1,6 +1,10 @@
 RewriteEngine On
 Options All -Indexes
 RewriteRule ^([a-zA-Z0-9/ñÑ-]+)$ index.php?views=$1
+# Excluir solicitudes provenientes de scripts PHP o JavaScript internos
+RewriteCond %{HTTP_REFERER} !^http://localhost/For-Us/app/ [NC]
 
-RewriteCond %{REQUEST_URI} ^/For-Us/app/user/(ajax|controllers|models|views)/ [NC]
+# Redirigir solicitudes a carpetas específicas a la página 404, excepto para logout.php
+RewriteCond %{REQUEST_URI} ^/For-Us/app/user/(ajax|controllers|models|views)/(?!logout\.php) [NC]
 RewriteRule ^ /For-Us/app/404 [R=301,L]
+

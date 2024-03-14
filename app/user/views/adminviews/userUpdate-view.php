@@ -16,7 +16,8 @@
 <div class="container pb-6 pt-6">
 
     <?php
-    $data = $insLogin->selectData("unique", "user", "id_user", $id);
+
+    $data = $insLogin->selectData("unique", "user", "id_user", $id, "id");
 
     if ($data->rowCount() > 0) {
         $data = $data->fetch();

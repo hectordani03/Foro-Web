@@ -6,7 +6,7 @@ class viewsModel
 {
     protected function getModelViews($views)
     {
-        $whiteList = ["dashboard", "users", "userList", "userUpdate", "userSearch", "userPhoto", "post", "comment", "reportedpost", "reportedcomt", "reporteduser"];
+        $whiteList = ["dashboard", "users", "userUpdate", "post", "comment", "reportedpost", "reportedcomt", "reporteduser"];
 
         if (in_array($views, $whiteList)) {
             if (is_file("./user/views/adminviews/" . $views . "-view.php")) {

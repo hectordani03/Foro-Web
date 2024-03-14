@@ -48,28 +48,28 @@ class loginController extends mainModel
 				$suspension = new suspensionController();
 
 				$row_user = $row_user->fetch();
-				$user_suspended = $suspension -> user_suspencion($row_user['id_user']);
+				$user_suspended = $suspension->user_suspencion($row_user['id_user']);
 				if ($user_suspended == "notsuspended") {
 
 					if ($row_user['username'] == $username && password_verify($password, $row_user['password'])) {
 
-						if($row_user['state'] == 0) {
-						$user_state = [
-							[
-								"table_field" => "state",
-								"param" => ":state",
-								"field_value" => '1'
-							]
-						];
-				
-						$condition = [
-							"field_cond" => "id_user",
-							"param_cond" => ":id",
-							"cond_value" => $row_user['id_user']
-						];
+						if ($row_user['state'] == 0) {
+							$user_state = [
+								[
+									"table_field" => "state",
+									"param" => ":state",
+									"field_value" => '1'
+								]
+							];
 
-						$user_suspended_state =  $this->updateData("user", $user_state, $condition);
-					}
+							$condition = [
+								"field_cond" => "id_user",
+								"param_cond" => ":id",
+								"cond_value" => $row_user['id_user']
+							];
+
+							$user_suspended_state =  $this->updateData("user", $user_state, $condition);
+						}
 						session_start();
 						$_SESSION['id'] = $row_user['id_user'];
 						$_SESSION['username'] = $row_user['username'];
@@ -98,15 +98,24 @@ class loginController extends mainModel
 							</script>";
 					}
 				} else {
-					$duration = $suspension -> suspencion_duration($row_user['id_user']);
-
-					echo "<script>
+					$duration = $suspension->suspencion_duration($row_user['id_user']);
+					if ($duration == "ban") {
+						echo "<script>
+						Swal.fire({
+						  icon: 'error',
+						  title: 'User suspended',
+						  text: 'your account is suspended indefinitely'
+						});
+					</script>";
+					} else {
+						echo "<script>
 					Swal.fire({
 					  icon: 'error',
 					  title: 'User suspended',
 					  text: 'Your account is suspended, time remaining: $duration'
 					});
 				</script>";
+					}
 				}
 			} else {
 				echo "<script>

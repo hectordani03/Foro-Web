@@ -16,7 +16,6 @@ class viewsController extends viewsModel {
         return $answer;
     }
 
-
     public function getViewsControlleruser($view) {
         if ($view != "") {
             $answer = $this->getModelViewsuser($view);
