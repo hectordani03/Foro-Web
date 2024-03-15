@@ -71,7 +71,7 @@
                 </div>
 
                 <li class="nav-link">
-                    <a href="<?php echo APP_URL; ?>userNew">
+                    <a href="<?php echo APP_URL; ?>addpost">
                         <i class='bx bxs-bell icon'></i>
                         <span class="text nav-text">Notifications</span>
                     </a>

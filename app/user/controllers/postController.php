@@ -24,17 +24,19 @@ class postController extends mainModel
             ];
             return json_encode($alert);
             exit();
-        } elseif ($this->verifyData("/^[a-zA-Z0-9.,?!¡¿()\-\[\]{};:'\"<>@\$\€]*$/", $content) && $this->verifyData("/^[a-zA-Z]{4,20}$/", $category)) {
-            $alert = [
-                "type" => "simple",
-                "title" => "An unexpected error occurred",
-                "text" => "Fields do not match the requested format",
-                "icon" => "error"
-            ];
-            return json_encode($alert);
-            exit();
-        }
+        } 
+        // elseif ($this->verifyData("/^[a-zA-Z0-9.,?!¡¿()\-\[\]{};:'\"<>@\$\€]*$/", $content) && $this->verifyData("/^[a-zA-Z]{4,20}$/", $category)) {
+        //     $alert = [
+        //         "type" => "simple",
+        //         "title" => "An unexpected error occurred",
+        //         "text" => "Fields do not match the requested format",
+        //         "icon" => "error"
+        //     ];
+        //     return json_encode($alert);
+        //     exit();
+        // }
 
+        
         $img_dir = "../../assets/post_img/";
         if ($_FILES['post_img']['name'] != "" && $_FILES['post_img']['size'] > 0) {
             if (!file_exists($img_dir)) {
@@ -105,7 +107,7 @@ class postController extends mainModel
             [
                 "table_field" => "id_user",
                 "param" => ":id_user",
-                "field_value" => $id_user
+                "field_value" => '1'
             ],
             [
                 "table_field" => "content",
