@@ -6,13 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     commentBtn.addEventListener('click', e => {
         $section.innerHTML = `
-            <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-30 transition-opacity"></div>
+            <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-30 dark:bg-opacity-40 transition-opacity"></div>
       
-            <section id="modal" class="bg-gray-100 rounded-xl w-7/12 mx-auto h-screen flex flex-col fixed">
+            <section id="modal" class="bg-gray-100 dark:bg-slate-700 rounded-xl w-7/12 mx-auto h-screen flex flex-col fixed">
 
-            <div class="flex justify-between fixed w-7/12 z-50 bg-gray-100 shadow-lg pb-4">
-            <h1 class="text-black flex text-2xl font-bold mt-5 ml-5">FOR <span class="text-blue-500 ml-2">US</span></h1>
-            <p class="font-bold text-xl mt-5">Publicacion de Jose Joshua</p>
+            <div class="flex justify-between fixed w-7/12 z-50 bg-gray-100 dark:bg-slate-700 shadow-lg pb-4">
+            <h1 class="text-black flex text-2xl font-bold mt-5 ml-5 dark:text-white">FOR <span class="text-blue-500 ml-2">US</span></h1>
+            <p class="font-bold text-xl mt-5 dark:text-white">Publicacion de Jose Joshua</p>
             <div id="close" class="text-gray-400 w-8 h-8 transition-all cursor-pointer mt-5 mr-5">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path class="fill-current" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <hr class="w-full mt-5">
 
             <div id="card-scrollbar" class="overflow-y-auto z-40 h-auto relative mt-6">
-            <div class="bg-gray-100 w-10/12 rounded-xl flex flex-col relative mt-5 h-fit self-start opacity-100 mx-auto">
+            <div class="bg-gray-100 dark:bg-slate-700 w-10/12 rounded-xl flex flex-col relative mt-5 h-fit self-start opacity-100 mx-auto">
             <div id="capa" class="bg-gray-500 opacity-30 w-full h-full absolute hidden rounded-xl transition ease-in z-50"></div>
             <div id="custom-modal" class="absolute w-full h-full flex flex-col justify-center items-center opacity-100 transition ease-in">
             <!-- Contenido del modal -->
@@ -54,12 +54,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                        
                     </div>
-                    <hr class="w-full mt-5">
+                    <hr class="w-full mt-5 border dark:border-slate-600">
                     
                     <div class="w-10/12 mx-auto mb-24">
                     <div class="flex gap-5 mt-10">
                     <img class="w-12 h-10 bg-blue-500 rounded-full top-8 left-8" src="./assets/person-1.jpg" alt="">
-                    <div class="rounded-xl bg-gray-200 shadow-lg">
+                    <div class="rounded-xl bg-gray-200 dark:bg-slate-600 shadow-lg">
                     <div class="ml-5 mr-5 mt-1 mb-2">
                     <p class="text-gray-400 font-bold">Jose Joshua</p>
                     <span class="text-gray-400">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi, cum consectetur,Lorem ipsum dolor, sit amet consectetur adipisicing elit.</span>
@@ -101,24 +101,24 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         <hr class="w-full mt-5">
                         
-                        <section class="fixed bottom-0 bg-gray-100 w-7/12 shadow-inner z-50">
+                        <section class="fixed bottom-0 bg-gray-100 dark:bg-slate-700 w-7/12 shadow-inner z-50">
                         <div class="w-11/12 mx-auto flex mt-5 mb-5">
                         <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="./assets/person-1.jpg" alt="">
                         <div class="bg-gray-200 ml-5 rounded-xl shadow-lg w-10/12">
                         <!-- Reemplaza el párrafo con el input -->
                         <!-- <input type="text" class="px-5 mt-2 text-gray-600 w-full focus:outline-none bg-gray-200" placeholder="Write a comment..." style="white-space: pre-wrap;"> -->
-                        <textarea class="relative rounded-lg text-lg text-gray-400 bg-gray-200 w-full resize-none outline-none font-medium pl-5" rows="" maxlength="380">Write a Comment...</textarea>
+                        <textarea class="relative rounded-lg text-lg text-gray-400 bg-gray-200 dark:bg-slate-600 w-full resize-none outline-none font-medium pl-5" rows="" maxlength="380">Write a Comment...</textarea>
                         <script>
                             const textArea = document.querySelector('textarea')
         
                             textArea.addEventListener("focus", function () {
-                                if (this.value === "What's in your mind?") {
+                                if (this.value === "Write a Comment...") {
                                     this.value = "";
                                 }
                             });
                             textArea.addEventListener('blur', function () {
                                 if (this.value === '') {
-                                    this.value = "What's in your mind?";
+                                    this.value = "Write a Comment...";
                                 }
                             });
                             
