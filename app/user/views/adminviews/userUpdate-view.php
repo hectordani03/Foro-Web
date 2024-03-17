@@ -1,23 +1,17 @@
 <style>
-            .profile-img {
-            max-width: 500px;
-            border: 4px solid #ddd;
-            border-radius: 50%;
-            margin-bottom: 15px;
-        }
+    .profile-img {
+        max-width: 500px;
+        border: 4px solid #ddd;
+        border-radius: 50%;
+        margin-bottom: 15px;
+    }
 </style>
 
-<div class="container is-fluid mb-6">
-    <?php
-
-    $id = $insLogin->sanitizeString($url[1]);
-    ?>
-</div>
 <div class="container pb-6 pt-6">
 
     <?php
 
-    $data = $insLogin->selectData("unique", "user", "id_user", $id, "id");
+    $data = $insLogin->selectData("unique", "user", "id_user", $_SESSION['id'], "id");
 
     if ($data->rowCount() > 0) {
         $data = $data->fetch();
@@ -27,9 +21,14 @@
         <div class="text-center">
             <img src="<?php echo APP_URL; ?>assets/profile_picture/<?php echo $data["profile_picture"]; ?>" class="profile-img mx-auto recorte" id="preview_image">
         </div>
-        <form class="ajaxForm" action="<?php echo APP_URL; ?>user/ajax/ajaxUser.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+        <form class="requestForm" action="<?php echo APP_URL; ?>user/requestControllers/users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+            <input type="hidden" name="user_module" value="deletePhoto">
+            <input type="hidden" name="id_user" value="<?php echo $data['id_user']; ?>">
+            <button type="submit" class="button is-info is-rounded">Delete Photo</button>
+        </form>
+        <form class="requestForm" action="<?php echo APP_URL; ?>user/requestControllers/users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
 
-            <input type="hidden" name="user_module" value="update">
+            <input type="hidden" name="user_module" value="updateUser">
             <input type="hidden" name="id_user" value="<?php echo $data['id_user']; ?>">
 
             <div class="columns">
@@ -68,17 +67,16 @@
 
             <input class="file-input form-control" type="file" name="user_profile_photo" accept=".jpg, .png, .jpeg">
 
-
             <div class="columns">
                 <div class="column">
                     <div class="control">
-                        <label>Last Username</label>
+                        <label>Current Username</label>
                         <input class="input" type="text" name="old_user" pattern="[a-zA-Z0-9]{4,20}" maxlength="20" required>
                     </div>
                 </div>
                 <div class="column">
                     <div class="control">
-                        <label>Last Password</label>
+                        <label>Current Password</label>
                         <input class="input" type="password" name="old_pass" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required>
                     </div>
                 </div>
@@ -90,6 +88,8 @@
 
             </p>
         </form>
+
+
     <?php
     } else { ?>
         <article class="message is-danger">

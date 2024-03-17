@@ -92,7 +92,7 @@ class userController extends mainModel
         }
 
         if ($user == "admin") {
-            $img_dir = "../../assets/profile_picture/";
+            $img_dir = "../../../assets/profile_picture/";
             if ($_FILES['user_profile_photo']['name'] != "" && $_FILES['user_profile_photo']['size'] > 0) {
                 if (!file_exists($img_dir)) {
                     if (!mkdir($img_dir, 0777)) {
@@ -156,7 +156,7 @@ class userController extends mainModel
                 }
             }
         } else {
-            $img = "default.png";
+            $img = "default.jpg";
         }
 
         $user_data = [
@@ -197,15 +197,30 @@ class userController extends mainModel
             ]
         ];
 
-        $register_user = $this->insertData("user", $user_data);
+        $insert_result = $this->insertData("user", $user_data);
 
-        if ($register_user->rowCount() > 0) {
-            $alert = [
-                "type" => "reload",
-                "title" => "User registered",
-                "text" => "The user " . $username . " successfully registered",
-                "icon" => "success"
-            ];
+        if ($insert_result['success']) {
+            if ($user == "admin") {
+                $alert = [
+                    "type" => "reload",
+                    "title" => "User registered",
+                    "text" => "User " . $username . " successfully registered",
+                    "icon" => "success"
+                ];
+            } elseif ($user == "user") {
+                $last_inserted_id = $insert_result['lastInsertId'];
+                session_start();
+                $_SESSION['id'] = $last_inserted_id;
+                $_SESSION['username'] = $username;
+                $_SESSION['email'] = $email;
+                $_SESSION['role'] = $role;
+                $_SESSION['photo'] = $img;
+
+                $alert = [
+                    "type" => "redirect",
+                    "url" => "http://localhost/For-Us/app/user/"
+                ];
+            }
         } else {
 
             if ($img != "" && is_file($img_dir . $img)) {
@@ -220,7 +235,6 @@ class userController extends mainModel
                 "icon" => "error"
             ];
         }
-
         return json_encode($alert);
     }
 
@@ -257,9 +271,9 @@ class userController extends mainModel
         $deleteUser = $this->deleteData("user", "id_user", $id);
 
         if ($deleteUser->rowCount() == '1') {
-            if (is_file("../../assets/profile_picture/" . $data['profile_picture'])) {
-                chmod("../../assets/profile_picture/" . $data['profile_picture'], 0777);
-                unlink("../../assets/profile_picture//" . $data['profile_picture']);
+            if (is_file("../../../assets/profile_picture/" . $data['profile_picture'])) {
+                chmod("../../../assets/profile_picture/" . $data['profile_picture'], 0777);
+                unlink("../../../assets/profile_picture//" . $data['profile_picture']);
             }
 
             $alert = [
@@ -272,7 +286,7 @@ class userController extends mainModel
             $alert = [
                 "type" => "simple",
                 "title" => "Unexpected error",
-                "text" => "User " . $data['username'] . " could be deleted",
+                "text" => "User " . $data['username'] . " could not be deleted",
                 "icon" => "error"
             ];
         }
@@ -448,10 +462,8 @@ class userController extends mainModel
             $password = $data['password'];
         }
 
+        $img_dir = "../../../assets/profile_picture/";
         if ($_FILES['user_profile_photo']['name'] != "" && $_FILES['user_profile_photo']['size'] > 0) {
-
-            $img_dir = "../../assets/profile_picture/";
-
             if (!file_exists($img_dir)) {
                 if (!mkdir($img_dir, 0777)) {
                     $alert = [
@@ -525,7 +537,7 @@ class userController extends mainModel
         } elseif ($data['profile_picture'] != "") {
             $img = $data['profile_picture'];
         } else {
-            $img = "default.png";
+            $img = "default.jpg";
         }
 
         $user_update_data = [
@@ -642,26 +654,24 @@ class userController extends mainModel
 
         $ins_report = $this->insertData("reports", $report);
 
-        // $reported_last_id = $this->connect()->lastInsertId();
+        $last_inserted_id_report = $ins_report['lastInsertId'];
 
-        // $reported = [
-        //     [
-        //         "table_field" => "id_report",
-        //         "param" => ":id_report",
-        //         "field_value" => $reported_last_id
-        //     ],
-        //     [
-        //         "table_field" => "id_user",
-        //         "param" => ":id_user",
-        //         "field_value" => $id_user
-        //     ]
-        // ];
+        $reported = [
+            [
+                "table_field" => "id_report",
+                "param" => ":id_report",
+                "field_value" => $last_inserted_id_report
+            ],
+            [
+                "table_field" => "id_user",
+                "param" => ":id_user",
+                "field_value" => $id_user
+            ]
+        ];
 
-        // $ins_report_user = $this->insertData("reportedusers", $reported);
+        $ins_report_user = $this->insertData("reportedusers", $reported);
 
-        // if ($ins_report->rowCount() == 1 && $ins_report_user->rowCount() == 1) {
-
-        if ($ins_report->rowCount() > 0) {
+        if ($ins_report['success'] && $ins_report_user['success']) {
             $alert = [
                 "type" => "reload",
                 "title" => "User Reported",
@@ -682,8 +692,10 @@ class userController extends mainModel
     public function suspendUser()
     {
         $id_user = $this->sanitizeString($_POST['id_user']);
+        $id_report = $this->sanitizeString($_POST['id_report']);
         $reason = $this->sanitizeString($_POST['reason']);
         $suspension_duration = $this->sanitizeString($_POST['suspension']);
+        $duration = $suspension_duration;
 
         if ($id_user == "" || $reason == "" || $suspension_duration == "") {
             $alert = [
@@ -699,20 +711,31 @@ class userController extends mainModel
         date_default_timezone_set('America/Mexico_City');
         $suspension_time = date("Y-m-d H:i:s");
 
-        if ($suspension_duration == '1') {
-            $seconds_to_add = 1 * 24 * 60 * 60;
-        } elseif ($suspension_duration == '3') {
-            $seconds_to_add = 3 * 24 * 60 * 60;
-        } elseif ($suspension_duration == '7') {
-            $seconds_to_add = 7 * 24 * 60 * 60;
-        } elseif ($suspension_duration == '31') {
-            $seconds_to_add = 31 * 24 * 60 * 60;
+        if ($suspension_duration != '0') {
+            if ($suspension_duration == '1') {
+                $seconds_to_add = 1 * 24 * 60 * 60;
+            } elseif ($suspension_duration == '3') {
+                $seconds_to_add = 3 * 24 * 60 * 60;
+            } elseif ($suspension_duration == '7') {
+                $seconds_to_add = 7 * 24 * 60 * 60;
+            } elseif ($suspension_duration == '31') {
+                $seconds_to_add = 31 * 24 * 60 * 60;
+            } else {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "An unexpected error occurred",
+                    "text" => "Invalid suspension value",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            }
+
+            $suspension_period = date("Y-m-d H:i:s", strtotime($suspension_time . " + $seconds_to_add seconds"));
         } else {
-            exit("Duración de suspensión no válida");
+            $suspension_period = $suspension_time;
+            $duration = "indefinitely";
         }
-
-        $suspension_period = date("Y-m-d H:i:s", strtotime($suspension_time . " + $seconds_to_add seconds"));
-
         $user_suspend = [
             [
                 "table_field" => "state",
@@ -728,16 +751,26 @@ class userController extends mainModel
         ];
         $user_suspended_state =  $this->updateData("user", $user_suspend, $condition);
 
+        $report_state = [
+            [
+                "table_field" => "state",
+                "param" => ":state",
+                "field_value" => '1'
+            ]
+        ];
+
+        $condition = [
+            "field_cond" => "id_report",
+            "param_cond" => ":id_report",
+            "cond_value" => $id_report
+        ];
+        $report_update =  $this->updateData("reports", $report_state, $condition);
+
         $suspended_users = [
             [
-                "table_field" => "id_user",
+                "table_field" => "id_suspended_user",
                 "param" => ":id_user",
                 "field_value" => $id_user
-            ],
-            [
-                "table_field" => "suspension_time",
-                "param" => ":st",
-                "field_value" => $suspension_time
             ],
             [
                 "table_field" => "suspension_period",
@@ -753,12 +786,12 @@ class userController extends mainModel
 
         $suspended_users_table = $this->insertData("suspendedusers", $suspended_users);
 
-        if ($user_suspended_state->rowCount() > 0 && $suspended_users_table->rowCount() > 0) {
+        if ($user_suspended_state->rowCount() > 0 && $report_update->rowCount() > 0 && $suspended_users_table['success']) {
 
             $alert = [
                 "type" => "reload",
                 "title" => "User Suspended",
-                "text" => "User " . $id_user . " has been suspended, duration: " . $suspension_duration,
+                "text" => "User " . $id_user . " has been suspended, duration: " . $duration,
                 "icon" => "success"
             ];
         } else {
@@ -769,6 +802,79 @@ class userController extends mainModel
                 "icon" => "error"
             ];
         }
+        return json_encode($alert);
+    }
+
+    public function deletePhoto()
+    {
+
+        $id_user = $this->sanitizeString($_POST['id_user']);
+
+        $data = $this->run_query("SELECT * FROM user WHERE id_user='$id_user'");
+        if ($data->rowCount() <= 0) {
+            $alert = [
+                "type" => "simple",
+                "title" => "Unexpected Error",
+                "text" => "User not found",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        } else {
+            $data = $data->fetch();
+        }
+
+        $img_dir = "../../../assets/profile_picture/";
+        chmod($img_dir, 0777);
+        if (is_file($img_dir . $data['profile_picture'])) {
+
+            chmod($img_dir . $data['profile_picture'], 0777);
+
+            if (!unlink($img_dir . $data['profile_picture'])) {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "Unexpected Error",
+                    "text" => "Error trying to delete user's photo, please try again",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            }
+        } else {
+            $alert = [
+                "type" => "simple",
+                "title" => "Unexpected Error",
+                "text" => "User's photo was not found in our system.",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        }
+
+        $user_update_data = [
+            [
+                "table_field" => "profile_picture",
+                "param" => ":photo",
+                "field_value" => 'default.png'
+            ]
+        ];
+
+        $condition = [
+            "field_cond" => "id_user",
+            "param_cond" => ":id",
+            "cond_value" => $id_user
+        ];
+
+        if ($this->updateData("user", $user_update_data, $condition)) {
+
+            $alert = [
+                "type" => "reload",
+                "title" => "Photo deleted",
+                "text" => $data['username'] . "'s photo, was correctly deleted",
+                "icon" => "success"
+            ];
+        }
+
         return json_encode($alert);
     }
 }

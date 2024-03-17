@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foronu Hub - Login</title>
+    <title>For-Us</title>
     <link rel="stylesheet" href="<?php echo APP_URL; ?>/css/register.css">
     <link rel="stylesheet" href="<?php echo APP_URL; ?>css/sweetalert2.min.css">
 	<script src="<?php echo APP_URL; ?>js/sweetalert2.all.min.js"></script>
@@ -17,8 +17,8 @@
         <video autoplay loop muted src="<?php echo APP_URL; ?>/assets/resources/gradient.mp4"></video>
         <div class="login-form">
             <h1><b><span class="white-text">Create</span><span class="blue-text"> Account</span></b></h1>
-            <form class="ajaxForm" action="<?php echo APP_URL; ?>user/ajax/ajaxUser.php" method="POST" autocomplete="off" enctype="multipart/form-data">
-                <input type="hidden" name="user_module" value="user_registration">
+            <form class="requestForm" action="<?php echo APP_URL; ?>user/requestControllers/users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+                <input type="hidden" name="user_module" value="userRegister">
 
                 <input placeholder="Username" class="input" type="text" name="username" pattern="[a-zA-Z0-9]{4,20}" maxlength="20" maxlength="40" required>
                 <input placeholder="Email" class="input" type="email" name="email" maxlength="70" required>

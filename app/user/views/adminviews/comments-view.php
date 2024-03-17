@@ -3,22 +3,31 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close closed">&times;</span>
-                <h2>Delete Comt</h2>
+                <h2>Report Comt</h2>
             </div>
             <div class="modal-body">
-                <input type="hidden" name="comt_module" value="deleteComt">
+                <input type="hidden" name="comt_module" value="reportComt">
                 <input type="hidden" name="id_comment" value="" readonly>
-                <input type="hidden" name="id_report" value="" readonly>
 
                 <label for="content">Content</label>
                 <input class="form-control" type="text" name="content" value="" readonly>
 
                 <label for="reason">Reason:</label>
-                <input class="form-control" type="text" name="reason" value="" readonly>
-
+                <select name="reasonSelect" class="form-control" id="select" onchange="showInput()" required>
+                    <option selected value="Nudity">Nudity</option>
+                    <option value="Terrorism">Terrorism</option>
+                    <option value="Harrasment">Harrasment</option>
+                    <option value="Hate speech">Hate speech</option>
+                    <option value="False News">False News</option>
+                    <option value="Unauthorized sales">Unauthorized sales</option>
+                    <option value="Suicide or self-injury">Suicide or self-injury</option>
+                    <option value="Spam">Spam</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div id="reason"></div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="button delete-button">Delete</button>
+                <button type="submit" class="button report-button">Report</button>
             </div>
         </div>
     </form>
@@ -30,42 +39,34 @@
     document.addEventListener('DOMContentLoaded', function() {
         const dataTable = $('#datatable').DataTable({
             ajax: {
-                url: 'http://localhost/For-Us/app/user/requestControllers/reports/reportedcomt.php',
+                url: 'http://localhost/For-Us/app/user/requestControllers/comments/comtData.php',
                 dataSrc: json => json.data
             },
+
             columns: [{
-                    title: 'Comment',
+                    title: 'ID',
                     data: 'id_comment'
                 },
                 {
-                    title: 'Reported User',
+                    title: 'User id',
                     data: 'id_user'
                 },
                 {
-                    title: 'Publication',
+                    title: 'Post id',
                     data: 'id_post'
                 },
                 {
-                    title: 'Reporting user',
-                    data: 'id_reporting_user'
+                    title: 'Content ',
+                    data: 'content'
+                },
+                {
+                    title: 'Date',
+                    data: 'date'
                 },
                 {
                     title: 'Report',
-                    data: 'reason'
-                },
-                {
-                    title: 'State',
-                    data: 'state'
-                },
-                {
-                    title: 'Actions',
                     render: function(data, type, row) {
-                        var state = row.state;
-                        if (state === 0) {
-                            return '<button class="button danger-button btn-view-comment" data-id_comment="' + row.id_comment + '">Delete</button>';
-                        } else {
-                            return '';
-                        }
+                        return '<button class="button warning-button btn-view-comment" data-id_comment="' + row.id_comment + '">Report</button>';
                     }
                 },
 
@@ -89,9 +90,7 @@
 
     function openModal(postData) {
         $('#datamodal input[name="id_comment"]').val(postData.id_comment);
-        $('#datamodal input[name="id_report"]').val(postData.id_report);
         $('#datamodal input[name="content"]').val(postData.content);
-        $('#datamodal input[name="reason"]').val(postData.reason);
         $('#datamodal').css('display', 'block');
     }
 </script>

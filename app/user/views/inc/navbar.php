@@ -25,14 +25,14 @@
                     </a>
                 </li>
                 <li class="nav-link">
-                    <a href="<?php echo APP_URL; ?>post">
-                        <i class='bx bxs-store icon'></i>
-                        <span class="text nav-text">Publications</span>
+                    <a href="<?php echo APP_URL; ?>posts">
+                        <i class='bx bxs-file icon'></i>
+                        <span class="text nav-text">Posts</span>
                     </a>
                 </li>
                 <li class="nav-link">
-                    <a href="<?php echo APP_URL; ?>comment">
-                        <i class='bx bxs-paper-plane icon'></i>
+                    <a href="<?php echo APP_URL; ?>comments">
+                        <i class='bx bxs-comment icon'></i>
                         <span class="text nav-text">Comments</span>
                     </a>
                 </li>
@@ -46,7 +46,7 @@
 
                 <li class="nav-link">
                     <a>
-                        <i class='bx bxs-truck icon'></i>
+                        <i class='bx bxs-error-circle icon'></i>
                         <span class="text nav-text">Reports</span>
                         <i class='bx bx-chevron-right dropdown'></i>
                     </a>
@@ -78,7 +78,7 @@
                 </li>
 
                 <li class="nav-link">
-                    <a href="<?php echo APP_URL . "userUpdate/" . $_SESSION['id'] . "/"; ?>">
+                    <a href="<?php echo APP_URL; ?>userUpdate">
                         <i class='bx bxs-user-circle icon'></i>
                         <span class="text nav-text">My account</span>
                     </a>

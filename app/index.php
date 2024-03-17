@@ -19,7 +19,6 @@ $views = $viewsController->getViewsController($url[0]);
 if ($views == "404" || $views == "index") {
     require_once "./user/views/content/404.php";
 } else {
-    require_once "./user/views/inc/header.php";
 
     session_start();
 
@@ -30,8 +29,11 @@ if ($views == "404" || $views == "index") {
             if (empty($_SESSION['id']) || empty($_SESSION['username']) || empty($_SESSION['role'])) {
                 $insLogin->logoutController();
             } elseif ($_SESSION['role'] != 3) {
+                require_once "./user/views/inc/header.php";
                 require_once $views;
                 require_once "./user/views/inc/navbar.php";
+                require_once "./user/views/inc/footer.php";
+
             } else {
                 $insLogin->logoutController();
             }
@@ -39,5 +41,4 @@ if ($views == "404" || $views == "index") {
             require_once $views;
         }
     } 
-    require_once "./user/views/inc/footer.php";
 }

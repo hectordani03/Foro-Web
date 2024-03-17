@@ -24,20 +24,19 @@ class postController extends mainModel
             ];
             return json_encode($alert);
             exit();
-        } 
-        // elseif ($this->verifyData("/^[a-zA-Z0-9.,?!¡¿()\-\[\]{};:'\"<>@\$\€]*$/", $content) && $this->verifyData("/^[a-zA-Z]{4,20}$/", $category)) {
-        //     $alert = [
-        //         "type" => "simple",
-        //         "title" => "An unexpected error occurred",
-        //         "text" => "Fields do not match the requested format",
-        //         "icon" => "error"
-        //     ];
-        //     return json_encode($alert);
-        //     exit();
-        // }
+        }
+        elseif ($this->verifyData("/^[a-zA-Z0-9.,?!¡¿()\-\[\]{};:'\"<>@\$\€]*$/", $content) && $this->verifyData("/^[a-zA-Z]{4,20}$/", $category)) {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Fields do not match the requested format",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        }
 
-        
-        $img_dir = "../../assets/post_img/";
+        $img_dir = "../../../assets/post_img/";
         if ($_FILES['post_img']['name'] != "" && $_FILES['post_img']['size'] > 0) {
             if (!file_exists($img_dir)) {
                 if (!mkdir($img_dir, 0777)) {
@@ -139,7 +138,7 @@ class postController extends mainModel
 
         $addedpost = $this->insertData("posts", $post_data);
 
-        if ($addedpost->rowCount() == 1) {
+        if ($addedpost['success']) {
             $alert = [
                 "type" => "reload",
                 "title" => "Post added",
@@ -194,7 +193,7 @@ class postController extends mainModel
                 exit();
             }
         }
-        $img_dir = "../../assets/post_img/";
+        $img_dir = "../../../assets/post_img/";
         if ($_FILES['post_img']['name'] != "" && $_FILES['post_img']['size'] > 0) {
             if (!file_exists($img_dir)) {
                 if (!mkdir($img_dir, 0777)) {
@@ -296,7 +295,7 @@ class postController extends mainModel
 
         $sharedpost = $this->insertData("posts", $post_data);
 
-        if ($sharedpost->rowCount() > 0) {
+        if ($sharedpost['success']) {
             $alert = [
                 "type" => "reload",
                 "title" => "Post shared",
@@ -365,7 +364,7 @@ class postController extends mainModel
                 exit();
             }
         }
-        $img_dir = "../../assets/post_img/";
+        $img_dir = "../../../assets/post_img/";
         if ($_FILES['post_img']['name'] != "" && $_FILES['post_img']['size'] > 0) {
             if (!file_exists($img_dir)) {
                 if (!mkdir($img_dir, 0777)) {
@@ -431,11 +430,10 @@ class postController extends mainModel
                 chmod($img_dir . $data['img'], 0777);
                 unlink($img_dir . $data['img']);
             }
-
         } elseif ($data['img'] != "") {
             $img = $data['img'];
-        } 
-           
+        }
+
         $post_update_data = [
             [
                 "table_field" => "content",
@@ -483,17 +481,15 @@ class postController extends mainModel
     {
 
         $id_post = $this->sanitizeString($_POST['id_post']);
-        $id_user = $this->sanitizeString($_POST['id_user']);
-        $message = $this->sanitizeString($_POST['message']);
+        $message = $this->sanitizeString($_POST['content']);
         $category = $this->sanitizeString($_POST['category']);
-        $state = $this->sanitizeString($_POST['state']);
-        $reason = $this->sanitizeString($_POST['reason']);
+        $reason = $this->sanitizeString($_POST['reasonSelect']);
 
         if ($reason == "Other") {
             $reason = $this->sanitizeString($_POST['reasonInput']);
         }
 
-        if ($message == "" || $category == "" || $state == "" || $reason == "") {
+        if ($message == "" || $category == "" || $reason == "") {
             $alert = [
                 "type" => "simple",
                 "title" => "An unexpected error occurred",
@@ -502,7 +498,7 @@ class postController extends mainModel
             ];
             return json_encode($alert);
             exit();
-        } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $message) && $this->verifyData("[a-zA-Z0-9]{4,20}", $category)) {
+        } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $message) && $this->verifyData("[a-zA-Z0-9]{4,20}", $category) && $this->verifyData("[a-zA-Z0-9]{4,20}", $reason)) {
             $alert = [
                 "type" => "simple",
                 "title" => "An unexpected error occurred",
@@ -527,33 +523,31 @@ class postController extends mainModel
             ],
             [
                 "table_field" => "state",
-                "param" => ":State",
+                "param" => ":state",
                 "field_value" => '0'
             ]
         ];
 
         $ins_report = $this->insertData("reports", $report);
 
-        // $reported_last_id = $this->connect()->lastInsertId();
+        $last_inserted_id_report = $ins_report['lastInsertId'];
 
-        // $reported = [
-        //     [
-        //         "table_field" => "id_report",
-        //         "param" => ":id_report",
-        //         "field_value" => $reported_last_id
-        //     ],
-        //     [
-        //         "table_field" => "id_post",
-        //         "param" => ":id_post",
-        //         "field_value" => $id_post
-        //     ]
-        // ];
+            $reported = [
+                [
+                    "table_field" => "id_report",
+                    "param" => ":id_report",
+                    "field_value" => $last_inserted_id_report
+                ],
+                [
+                    "table_field" => "id_post",
+                    "param" => ":id_post",
+                    "field_value" => $id_post
+                ]
+            ];
+    
+        $ins_report_post = $this->insertData("reportedposts", $reported);
 
-        // $ins_report_post = $this->insertData("reportedposts", $reported);
-
-        // if ($ins_report->rowCount() == 1 && $ins_report_post->rowCount() == 1) {
-
-        if ($ins_report->rowCount() > 0) {
+        if ($ins_report['success'] && $ins_report_post['success']) {
             $alert = [
                 "type" => "reload",
                 "title" => "Post Reported",
@@ -575,7 +569,8 @@ class postController extends mainModel
     {
 
         $id_post = $this->sanitizeString($_POST['id_post']);
-        $message = $this->sanitizeString($_POST['message']);
+        $id_report = $this->sanitizeString($_POST['id_report']);
+        $message = $this->sanitizeString($_POST['content']);
         $category = $this->sanitizeString($_POST['category']);
         $reason = $this->sanitizeString($_POST['reason']);
 
@@ -588,7 +583,7 @@ class postController extends mainModel
             ];
             return json_encode($alert);
             exit();
-        } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $message) && $this->verifyData("[a-zA-Z0-9]{4,20}", $category)) {
+        } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $message) && $this->verifyData("[a-zA-Z0-9]{4,20}", $category) && $this->verifyData("[a-zA-Z0-9]{4,20}", $reason)) {
             $alert = [
                 "type" => "simple",
                 "title" => "An unexpected error occurred",
@@ -599,18 +594,33 @@ class postController extends mainModel
             exit();
         }
 
-        $info_user_post = $this->run_query("SELECT * FROM user INNER JOIN posts ON posts.id_user = user.id_user");
+        $info_user_post = $this->run_query("SELECT * FROM user INNER JOIN posts ON posts.id_user = user.id_user WHERE posts.id_post = $id_post");
         $row = $info_user_post->fetch();
 
         // SEND EMAIL HERE
 
+        $report_update_state = [
+            [
+                "table_field" => "state",
+                "param" => ":state",
+                "field_value" => '1'
+            ]
+        ];
 
-        $delete_post = $this->deleteData("post", "id_post", $id_post);
+        $condition = [
+            "field_cond" => "id_report",
+            "param_cond" => ":id_report",
+            "cond_value" => $id_report
+        ];
+
+        $report_state = $this->updateData("reports", $report_update_state, $condition);
+        
+        $delete_post = $this->deleteData("posts", "id_post", $id_post);
 
         if ($delete_post->rowCount() == '1') {
-            if (is_file("../../assets/post_img/" . $row['img'])) {
-                chmod("../../assets/post_img/" . $row['img'], 0777);
-                unlink("../../assets/post_img//" . $row['img']);
+            if (is_file("../../../assets/post_img/" . $row['img'])) {
+                chmod("../../../assets/post_img/" . $row['img'], 0777);
+                unlink("../../../assets/post_img//" . $row['img']);
             }
             $alert = [
                 "type" => "reload",

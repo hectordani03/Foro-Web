@@ -1,7 +1,7 @@
 <?php
 require_once '../config/app.php';
 require_once '../autoload.php';
-
+session_start();
 if (isset($_GET['views'])) {
 
     $url = explode("/", $_GET['views']);

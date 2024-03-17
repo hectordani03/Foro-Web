@@ -12,9 +12,9 @@ class suspensionController extends mainModel
 
         date_default_timezone_set('America/Mexico_City');
         $suspension_time = date("Y-m-d H:i:s");
-        $suspend_verification = $this->run_query("SELECT * FROM suspendedusers WHERE id_user =  '$id_user' ");
+        $suspend_verification = $this->run_query("SELECT * FROM suspendedusers WHERE id_suspended_user =  '$id_user' ");
         $row_suspension = $suspend_verification->fetch();
-        if ($suspension_time >= $row_suspension['suspension_period'] && $row_suspension['suspension_duration'] != "ban") {
+        if ($suspension_time >= $row_suspension['suspension_period'] && $row_suspension['suspension_duration'] != "0") {
             $user_suspended = "notsuspended";
         } else {
             $user_suspended = "suspended";
@@ -25,9 +25,9 @@ class suspensionController extends mainModel
     public function suspencion_duration($id_user)
     {
 
-        $suspend_verification = $this->run_query("SELECT * FROM suspendedusers WHERE id_user =  '$id_user' ");
+        $suspend_verification = $this->run_query("SELECT * FROM suspendedusers WHERE id_suspended_user =  '$id_user' ");
         $row_suspension = $suspend_verification->fetch();
-        if ($row_suspension['suspension_duration'] != "ban") {
+        if ($row_suspension['suspension_duration'] != "0") {
             date_default_timezone_set('America/Mexico_City');
             $suspension_time = date("Y-m-d H:i:s");
             $suspension_timestamp = strtotime($suspension_time);
@@ -38,7 +38,7 @@ class suspensionController extends mainModel
             $minutes = floor(($diference % (60 * 60)) / 60);
             $duration = $days . ' days, ' . $hours . ':' . $minutes . ' hours';
         } else {
-            $duration = "ban";
+            $duration = "0";
         }
         return $duration;
     }

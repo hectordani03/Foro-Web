@@ -99,7 +99,7 @@ class loginController extends mainModel
 					}
 				} else {
 					$duration = $suspension->suspencion_duration($row_user['id_user']);
-					if ($duration == "ban") {
+					if ($duration == "0") {
 						echo "<script>
 						Swal.fire({
 						  icon: 'error',

@@ -61,7 +61,7 @@ class comtController extends mainModel
 
         $addedcomment = $this->insertData("comments", $comment_data);
 
-        if ($addedcomment->rowCount() == 1) {
+        if ($addedcomment['success']) {
             $alert = [
                 "type" => "reload",
                 "title" => "Comment added",
@@ -139,7 +139,7 @@ class comtController extends mainModel
 
         $addedcomment = $this->insertData("comments", $comment_data);
 
-        if ($addedcomment->rowCount() == 1) {
+        if ($addedcomment['success']) {
             $alert = [
                 "type" => "reload",
                 "title" => "Comment added",
@@ -240,17 +240,14 @@ class comtController extends mainModel
     {
 
         $id_comment = $this->sanitizeString($_POST['id_comment']);
-        $id_user = $this->sanitizeString($_POST['id_user']);
-        $message = $this->sanitizeString($_POST['message']);
-        $category = $this->sanitizeString($_POST['category']);
-        $state = $this->sanitizeString($_POST['state']);
-        $reason = $this->sanitizeString($_POST['reason']);
+        $message = $this->sanitizeString($_POST['content']);
+        $reason = $this->sanitizeString($_POST['reasonSelect']);
 
         if ($reason == "Other") {
             $reason = $this->sanitizeString($_POST['reasonInput']);
         }
 
-        if ($message == "" || $category == "" || $state == "" || $reason == "") {
+        if ($message == "" || $reason == "") {
             $alert = [
                 "type" => "simple",
                 "title" => "An unexpected error occurred",
@@ -259,7 +256,7 @@ class comtController extends mainModel
             ];
             return json_encode($alert);
             exit();
-        } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $message) && $this->verifyData("[a-zA-Z0-9]{4,20}", $category)) {
+        } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $message) && $this->verifyData("[a-zA-Z0-9]{4,20}", $reason)) {
             $alert = [
                 "type" => "simple",
                 "title" => "An unexpected error occurred",
@@ -275,7 +272,7 @@ class comtController extends mainModel
             [
                 "table_field" => "id_reporting_user",
                 "param" => ":ID_reporting_user",
-                "field_value" => $id_user
+                "field_value" => $_SESSION['id']
             ],
             [
                 "table_field" => "reason",
@@ -284,33 +281,30 @@ class comtController extends mainModel
             ],
             [
                 "table_field" => "state",
-                "param" => ":State",
+                "param" => ":state",
                 "field_value" => '0'
             ]
         ];
 
         $ins_report = $this->insertData("reports", $report);
+        $last_inserted_id_report = $ins_report['lastInsertId'];
 
-        // $reported_last_id = $this->connect()->lastInsertId();
+            $reported = [
+                [
+                    "table_field" => "id_report",
+                    "param" => ":id_report",
+                    "field_value" => $last_inserted_id_report
+                ],
+                [
+                    "table_field" => "id_comment",
+                    "param" => ":id_comment",
+                    "field_value" => $id_comment
+                ]
+            ];
+    
+        $ins_report_comt = $this->insertData("reportedcomments", $reported);
 
-        // $reported = [
-        //     [
-        //         "table_field" => "id_report",
-        //         "param" => ":id_report",
-        //         "field_value" => $reported_last_id
-        //     ],
-        //     [
-        //         "table_field" => "id_comment",
-        //         "param" => ":id_comment",
-        //         "field_value" => $id_comment
-        //     ]
-        // ];
-
-        // $ins_report_post = $this->insertData("reportedcomments", $reported);
-
-        // if ($ins_report->rowCount() == 1 && $ins_report_post->rowCount() == 1) {
-
-        if ($ins_report->rowCount() > 0) {
+        if ($ins_report['success'] && $ins_report_comt['success']) {
             $alert = [
                 "type" => "reload",
                 "title" => "Comment Reported",
@@ -332,11 +326,11 @@ class comtController extends mainModel
     {
 
         $id_comment = $this->sanitizeString($_POST['id_comment']);
-        $message = $this->sanitizeString($_POST['message']);
-        $category = $this->sanitizeString($_POST['category']);
+        $id_report = $this->sanitizeString($_POST['id_report']);
+        $message = $this->sanitizeString($_POST['content']);
         $reason = $this->sanitizeString($_POST['reason']);
 
-        if ($message == "" || $category == "" || $reason == "") {
+        if ($message == "" || $reason == "") {
             $alert = [
                 "type" => "simple",
                 "title" => "An unexpected error occurred",
@@ -345,7 +339,7 @@ class comtController extends mainModel
             ];
             return json_encode($alert);
             exit();
-        } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $message) && $this->verifyData("[a-zA-Z0-9]{4,20}", $category)) {
+        } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $message) && $this->verifyData("[a-zA-Z0-9]{4,20}", $reason)) {
             $alert = [
                 "type" => "simple",
                 "title" => "An unexpected error occurred",
@@ -362,9 +356,26 @@ class comtController extends mainModel
         // SEND EMAIL HERE
 
 
-        $delete_post = $this->deleteData("comments", "id_comment", $id_comment);
+        $report_update_state = [
+            [
+                "table_field" => "state",
+                "param" => ":state",
+                "field_value" => '1'
+            ]
+        ];
 
-        if ($delete_post->rowCount() == '1') {
+        $condition = [
+            "field_cond" => "id_report",
+            "param_cond" => ":id_report",
+            "cond_value" => $id_report
+        ];
+
+        $report_state = $this->updateData("reports", $report_update_state, $condition);
+
+
+        $delete_comment = $this->deleteData("comments", "id_comment", $id_comment);
+
+        if ($delete_comment->rowCount() == '1') {
             $alert = [
                 "type" => "reload",
                 "title" => "Comment deleted",

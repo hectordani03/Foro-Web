@@ -92,16 +92,19 @@ class mainModel
         }
 
         $query .= ")";
+        $conne = $this->connect();
 
-        $sql = $this->connect()->prepare($query);
+        $sql = $conne->prepare($query);
         foreach ($field as $row) {
 
             $sql->bindParam($row["param"], $row["field_value"]);
         }
 
-        $sql->execute();
+        $result = $sql->execute();
+    
+        $lastInsertId = $conne->lastInsertId();
         
-        return $sql;
+        return array('lastInsertId' => $lastInsertId, 'success' => $result);
     }
 
     public function selectData($type, $table, $field, $value = "", $param = "")

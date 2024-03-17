@@ -1,7 +1,7 @@
 <?php
 
-require_once "../../config/app.php";
-require_once "../../autoload.php";
+require_once "../../../config/app.php";
+require_once "../../../autoload.php";
 
 use user\controllers\postController;
 
@@ -27,7 +27,6 @@ if (isset($_POST['post_module'])) {
 	if ($_POST['post_module'] == "deletePost") {
 		echo $inspost->deletePost();
 	}
-	//Se accede a este archivo
 } else {
 	header("Location: " . APP_URL . "user/login");
 }

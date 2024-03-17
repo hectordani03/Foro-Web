@@ -28,7 +28,7 @@ body {
   margin-left: 6%;
   transition: var(--tran-04);
 }
-body.side{
+body.side {
   margin-left: 16%;
   transition: var(--tran-04);
 }
@@ -40,6 +40,11 @@ body.dark {
   --toggle-color: #fff;
   --text-color: #ccc;
 }
+/* 
+html,
+body {
+  overflow: hidden;
+} */
 
 /* =========================== Sidebar =========================== */
 .sidebar {
@@ -47,7 +52,7 @@ body.dark {
   top: 0;
   left: 0;
   height: 100%;
-  width: 16%; 
+  width: 16%;
   padding: 10px 14px;
   background: var(--sidebar-color);
   transition: var(--tran-04);
@@ -296,7 +301,6 @@ body.dark .sidebar .dropdown {
 body.dark .sidebar a:hover .dropdown {
   color: var(--text-color);
 }
-/* ============================End-Sidebar============================== */
 
 /* =========================== Index =========================== */
 .home {
@@ -327,7 +331,6 @@ body.dark .sidebar a:hover .dropdown {
 }
 body.side .dataTables_wrapper {
   transition: var(--tran-04);
-
 }
 
 .dataTables_wrapper .dataTables_length,
@@ -366,13 +369,13 @@ body.dark table.dataTable.display > tbody > tr > td {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
@@ -386,8 +389,12 @@ body.dark table.dataTable.display > tbody > tr > td {
 }
 
 @keyframes growModal {
-  0% { transform: scale(0.8); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .close {
@@ -404,7 +411,8 @@ body.dark table.dataTable.display > tbody > tr > td {
   cursor: pointer;
 }
 
-.modal-header, .modal-footer {
+.modal-header,
+.modal-footer {
   padding: 10px 0;
   border-top: 1px solid #ddd;
   text-align: center;
@@ -413,7 +421,7 @@ body.dark table.dataTable.display > tbody > tr > td {
 .modal-body {
   padding: 10px 0;
   overflow-y: auto;
-  max-height: 250px; 
+  max-height: 250px;
 }
 
 .modal-footer button {
@@ -424,11 +432,10 @@ body.dark table.dataTable.display > tbody > tr > td {
   cursor: pointer;
 }
 
-.modal-footer button:hover {
+.modal-footer .accept-button:hover {
   background-color: #0056b3;
 }
 
-/* Estilos para los inputs y labels */
 .modal-content label {
   display: block;
   margin-bottom: 10px;
@@ -474,4 +481,105 @@ body.dark table.dataTable.display > tbody > tr > td {
 .modal-content input[type="file"]::file-selector-button:hover {
   background-color: #007bff;
   color: #fff;
+}
+
+/* ============================== Buttons ============================== */
+
+.container {
+  position: relative;
+}
+
+.primary-button {
+  position: absolute;
+  top: 10px;
+  left: 45%;
+  transform: translateX(-50%);
+  z-index: 999;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 20px;
+}
+.primary-button:hover {
+  background-color: #2003b0;
+}
+.warning-button {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  padding: 10px 20px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 20px;
+}
+.warning-button:hover {
+  background-color: #b2ac01;
+}
+.danger-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 20px;
+}
+.danger-button:hover {
+  background-color: #980e0e;
+}
+
+.modal .cancel-button {
+  background-color: #545454;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.modal-footer .cancel-button:hover {
+  background-color: #282828;
+}
+.modal .accept-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.modal-footer .accept-button:hover {
+  background-color: #2003b0;
+}
+
+.modal .report-button {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.modal-footer .report-button:hover {
+  background-color: #b2ac01;
+}
+
+.modal .delete-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.modal-footer .delete-button:hover {
+  background-color: #980e0e;
 }

@@ -37,7 +37,7 @@ $publication = $data->selectData("normal", "posts", "*");
 
 
 <div id="myModal" class="modal">
-    <form class="ajaxForm" action="<?php echo APP_URL; ?>user/ajax/postData.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+    <form class="requestForm" action="<?php echo APP_URL; ?>user/requestControllers/post/postRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
