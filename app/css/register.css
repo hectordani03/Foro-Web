@@ -27,6 +27,31 @@ html {
   margin: auto;
 }
 
+#username{
+  padding-right: 30px;
+}
+.success-icon{
+  position: absolute;
+  top: 35.3%;
+  right: 545px;
+  transform: translateY(-100%);
+  display: none;
+  color: red;
+  z-index: 1000; /* Asignamos un valor alto al z-index */
+  transform: scale(1.3);
+}
+
+.validation-icon {
+  position: absolute;
+  top: 35.3%;
+  right: 545px;
+  transform: translateY(-100%);
+  display: none;
+  color: red;
+  z-index: 1000; /* Asignamos un valor alto al z-index */
+  transform: scale(1.3);
+}
+
 video {
   position: absolute;
   top: 0;

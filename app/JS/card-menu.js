@@ -3,17 +3,17 @@ document.addEventListener("DOMContentLoaded", function() {
     const menuCard = document.getElementById('menu-card');
     const customModal = document.getElementById('custom-modal');
     const content = document.getElementById('content');
-    const capa1 = document.getElementById('capa1');
+    const capa = document.getElementById('capa');
 
     let modalVisible = false;
 
     menuCard.addEventListener('click', function() {
         if (modalVisible) {
             customModal.style.display = 'none';
-            capa1.classList.add("hidden");
+            capa.classList.add("hidden");
             modalVisible = false;
         } else {
-            const modalContent = '<div class="rounded-3xl flex flex-col justify-center items-center gap-5 h-fit self-start w-10/12 shadow-lg bg-gray-100 dark:bg-slate-700 ml-10 opacity-100">' +
+            const modalContent = '<div class="rounded-3xl flex flex-col justify-center items-center gap-5 h-fit self-start w-10/12 shadow-lg bg-gray-100 ml-10 opacity-100">' +
                 '<div class="flex mt-10">' +
                 '<div class="text-gray-400 w-7 h-7 cursor-pointer mb-2">' +
                 '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path class="fill-current" d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg>' +
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Mostrar el modal
             customModal.style.display = 'flex';
 
-            capa1.classList.remove("hidden");
+            capa.classList.remove("hidden");
             modalVisible = true;
         }
     });
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
     customModal.addEventListener('click', function(event) {
         if (event.target === customModal) {
             customModal.style.display = 'none';
-            capa1.classList.add("hidden");
+            capa.classList.add("hidden");
             modalVisible = false;
         }
     });
