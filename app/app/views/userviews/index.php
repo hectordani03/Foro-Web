@@ -29,7 +29,7 @@
 
         <!-- HEADER -->
         <header class="flex justify-between items-center">
-            <h1 class="text-black flex justify-center w-full text-4xl font-bold mt-5">FOR <span class="text-blue-500 ml-2">US</span></h1>
+            <h1 class="text-black flex justify-center w-full text-4xl font-bold mt-5 dark:text-white">FOR <span class="text-blue-500 ml-2">US</span></h1>
             <a href="profile">
                 <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="./assets/person-1.jpg" alt="">
             </a>
@@ -66,24 +66,6 @@
         <?php
             include './app/views/userViews/searcher.php';
         ?>
-
-        <script>
-            const $input = document.getElementById('input_id')
-            const $label = document.querySelector('.searcher label')
-            $input.addEventListener('focus', () => {
-                $label.classList.add('text-xs')
-                $label.classList.add('-top-7')
-                $label.classList.add('text-gray-400')
-            })
-
-            $input.addEventListener('blur', () => {
-                if ($input.value === ''){
-                    $label.classList.remove('text-xs')
-                    $label.classList.remove('-top-7')
-                }
-            })
-           </script>
-        
           
     </div>
         

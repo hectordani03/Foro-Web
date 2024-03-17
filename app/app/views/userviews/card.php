@@ -1,4 +1,4 @@
-<div class="bg-gray-100 shadow-lg w-full rounded-xl flex flex-col relative mt-5 h-fit self-start opacity-100">
+<div class="bg-gray-100 dark:bg-slate-700 shadow-lg w-full rounded-xl flex flex-col relative mt-5 h-fit self-start opacity-100">
                     <div id="capa1" class="bg-gray-500 opacity-30 w-full h-full absolute hidden rounded-xl transition ease-in"></div>
                     <div id="custom-modal" class="absolute w-full h-full flex flex-col justify-center items-center opacity-100 transition ease-in">
                     <!-- Contenido del modal -->
@@ -24,8 +24,8 @@
 
                 <!-- CARD HASHTAGS -->
                 <div class="flex gap-4 w-10/12 mx-auto mt-5">
-                    <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#NoMoreHunger</a>
-                    <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#EndIt</a>
+                    <a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center" href="">#NoMoreHunger</a>
+                    <a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center" href="">#EndIt</a>
                 </div>
 
                 <!-- FOOTER CARD -->

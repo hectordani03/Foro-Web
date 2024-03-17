@@ -6,79 +6,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     commentBtn.addEventListener('click', e => {
         $section.innerHTML = `
-        <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../app/css/styles.css">
-    <title>Document</title>
-
-    <style>
-
-        .escalado {
-            margin-top: 25cle0px;
-            transform: scaleY(.9); /* Ajusta este valor según tus necesidades */
-            width: 1300px;
-            padding-left: 370px;
-            
-        }
-
-        .btn {
-            background-color: rgb(72, 143, 231);
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-    
-        .btn:hover {
-            background-color: rgb(41, 114, 202);
-        }
-
-        #card-scrollbar {
-            overflow-y: scroll;
-        }
-
-        #card-scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        #card-scrollbar::-webkit-scrollbar-track {
-            background-color: #f3f4f6;
-        }
-
-        #card-scrollbar::-webkit-scrollbar-thumb {
-            background-color: lightgray;
-            border-radius: 6px;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-30 transition-opacity "></div>
-    <section class="bg-gray-100 rounded-3xl w-5/12 mx-auto h-auto flex flex-col relative escalado ">
+    <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-40 transition-opacity "></div>
+    <section class="bg-gray-100 rounded-3xl w-5/12 mx-auto h-auto flex flex-col relative ">
         
 
-        <section id="modal" class="bg-gray-100 rounded-3xl w-5/12 mx-auto h-screen mt-20 -mb-24 flex flex-col fixed">
-            <div class="flex justify-between fixed w-5/12 z-50 bg-gray-100  pb-4 overflow-y-auto rounded-3xl">
-                <h1 class="text-black flex text-2xl font-bold mt-5 ml-5">FOR <span class="text-blue-500 ml-2">US</span></h1>
-                <p class="font-bold text-xl mt-5 centrado">Share Post</p>
+        <section id="modal" class="bg-gray-100 dark:bg-slate-700 rounded-3xl w-5/12 mx-auto mt-12 -mb-24 flex flex-col fixed">
+            <div class="flex justify-between fixed w-5/12 z-50 bg-gray-100 dark:bg-slate-700 pb-4 overflow-y-auto rounded-3xl">
+                <h1 class="text-black flex text-2xl font-bold mt-5 ml-5 dark:text-white">FOR <span class="text-blue-500 ml-2">US</span></h1>
+                <p class="font-bold text-xl mt-5 text-center dark:text-white">Share Post</p>
                 <div id="close" class="text-gray-400 w-8 h-8 transition-all cursor-pointer mt-5 mr-5">
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline" viewBox="0 0 512 512">
                         <path class="fill-current" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
                     </svg>
                 </div>
             </div>
-            <hr class="w-full mt-20">
+            <hr class="w-full mt-20 border dark:border-slate-600">
 
-            <div id="card-scrollbar" class="overflow-y-auto z-40 relative">
-                <div class="bg-gray-100 w-11/12 rounded-3xl flex flex-col relative  h-fit self-start opacity-100 mx-auto ">
+            <div id="card-scrollbar" class="overflow-y-auto z-40 relative h-auto">
+                <div class="bg-gray-100 dark:bg-slate-700 w-11/12 rounded-3xl flex flex-col relative  h-fit self-start opacity-100 mx-auto ">
                     <div id="capa" class="bg-gray-500 opacity-30 w-full h-full absolute hidden rounded-3xl transition ease-in z-50"></div>
                     <div id="custom-modal" class="absolute w-full h-full flex flex-col justify-center items-center opacity-100 transition ease-in">
                         <!-- Contenido del modal -->
@@ -90,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="flex flex-col ml-5 w-full">
                             <div class="flex items-center w-full">
                                 <h2 class="text-xl text-gray-400 font-semibold">Jose Joshua</h2>
-                                <svg viewBox="0 0 17.00 17.00" version="1.1" class="svg inline mr-10 h-10 mt-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#292da8" stroke="#292da8" stroke-width="0.00017">
+                                <svg class="w-5 h-5 ml-3" viewBox="0 0 17.00 17.00" version="1.1" class="svg inline mr-10 h-10 mt-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#292da8" stroke="#292da8" stroke-width="0.00017">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                     <g id="SVGRepo_iconCarrier">
@@ -104,9 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
 
                     <!-- CARD CONTENT -->
-                    <textarea class="relative rounded-lg text-lg text-gray-400 bg-gray-100 w-full resize-none outline-none font-medium mt-5 ml-5" rows="" maxlength="380">Write a Comment...</textarea>
+                    <textarea class="relative rounded-lg text-lg text-gray-400 bg-gray-100 dark:bg-slate-700 w-full resize-none outline-none font-medium mt-5 ml-5" rows="" maxlength="380">Write a Comment...</textarea>
 
-                    <hr class="w-full mt-5">
+                    <hr class="w-full mt-5 border dark:border-slate-600">
                     
                     <div class="flex mt-5  w-full">
                         <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="../app/assets/person-1.jpg" alt="">
@@ -131,21 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             <hr class="w-full mt-10 mb-5">
-            <button class="btn mr-10 ml-10 mb-5">Share</button>
-
-            <div class="w-10/12 mx-auto reduced-height">
-                <!-- Reemplaza el párrafo con el input -->
-                <!-- <input type="text" class="px-5 mt-2 text-gray-600 w-full focus:outline-none bg-gray-200" placeholder="Write a comment..." style="white-space: pre-wrap;"> -->
-
-                
-            </div>
-            <!-- Boton de compartir -->
-
+            <button class="btn mr-10 ml-10 mb-5 bg-sky-500 rounded-xl p-3 text-white">Share</button>
         </section>
-    </section>
-</body>
-
-</html>` 
+    </section>` 
             const textArea = document.querySelector('textarea')
 
             textArea.addEventListener("focus", function () {
