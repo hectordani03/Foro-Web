@@ -120,7 +120,7 @@
                     <div class="flex gap-4 w-12/12 mx-auto mt-5">
                         <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#NoMoreHunger</a>
                         <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#EndIt</a>
-                    </div>
+                    </div> 
                 </div>
             </div>
             <hr class="w-full mt-10 mb-5">
