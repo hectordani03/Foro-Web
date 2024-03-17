@@ -93,8 +93,9 @@
                         <div id="dark-mode-icon" class="text-gray-400 w-7 h-7 mx-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path class="fill-current" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/></svg>
                             <span class="desplegableText hidden relative left-12 bottom-8 text-nowrap">Dark Mode</span>
-                        </a>
+                        
                 </div>
+                </a>
             </li>
                 <li class="w-15 h-15"><div class="text-gray-400 w-8 h-8 mx-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="fill-current" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
@@ -106,12 +107,18 @@
                 </div></li>
             </ul>
             <hr class="w-full mt-5 border-gray-300 px-10">
+            <div id="contentId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            </div>
             <ul class="flex flex-col gap-7 justify-between mt-10">
-                <li class="w-15 h-15"><div class="text-gray-400 w-8 h-8 mx-auto">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="fill-current" d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
-                    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Content Policy</span>
-                </div></li>
-                <li class="w-15 h-15"><div class="text-gray-400 w-8 h-8 mx-auto">
+                <li id="content-button" class="cursor-pointer w-15 h-15" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                        <div class="text-gray-400 w-8 h-8 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="fill-current" d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+                            <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Content Policy</span>
+                        </div>
+                </li>
+            <div id="privacyId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            </div>
+                <li id = "privacy-button" class="cursor-pointer w-15 h-15"><div class="text-gray-400 w-8 h-8 mx-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path class="fill-current" d="M384 32H512c17.7 0 32 14.3 32 32s-14.3 32-32 32H398.4c-5.2 25.8-22.9 47.1-46.4 57.3V448H512c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 128c-17.7 0-32-14.3-32-32s14.3-32 32-32H288V153.3c-23.5-10.3-41.2-31.6-46.4-57.3H128c-17.7 0-32-14.3-32-32s14.3-32 32-32H256c14.6-19.4 37.8-32 64-32s49.4 12.6 64 32zm55.6 288H584.4L512 195.8 439.6 320zM512 416c-62.9 0-115.2-34-126-78.9c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C627.2 382 574.9 416 512 416zM126.8 195.8L54.4 320H199.3L126.8 195.8zM.9 337.1c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C242 382 189.7 416 126.8 416S11.7 382 .9 337.1z"/></svg>
                     <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Privacy Policy</span>
                 </div></li>
@@ -124,7 +131,8 @@
             <span class="text-gray-400 text-xs text-center mt-5 w-full mx-auto">For Us @2024</span>
         </nav>
     </div>
-
+    <script src="./js/contentPolicy.js"></script>
+    <script src="./js/privacyPolicy.js"></script>
     <script>
         const desplegable = document.getElementById("desplegable"),
         navHeader = document.getElementById("nav-header"),
@@ -181,6 +189,7 @@
         });
 
     </script>
+
 </body>
 
 </html>

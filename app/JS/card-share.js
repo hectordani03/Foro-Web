@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <style>
 
         .escalado {
-            margin-top: 25cle0px;
+            margin-top: 350px;
             transform: scaleY(.9); /* Ajusta este valor según tus necesidades */
             width: 1300px;
             padding-left: 370px;
