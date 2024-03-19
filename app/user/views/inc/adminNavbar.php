@@ -2,11 +2,10 @@
     <header>
         <div class="image-text">
             <span class="image">
-                <!-- <img src="" alt="logo"> -->
+                <img src="<?php echo APP_URL; ?>assets/logo.png" alt="logo">
             </span>
             <div class="text header-text">
                 <span class="name">For Us</span>
-                <!-- <span class=""></span> -->
             </div>
         </div>
         <i class='bx bx-chevron-right toggle'></i>

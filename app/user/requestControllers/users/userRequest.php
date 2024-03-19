@@ -32,6 +32,10 @@ if (isset($_POST['user_module'])) {
 		echo $insUsuario->suspendUser();
 	}
 
+	if ($_POST['user_module'] == "updatePhoto") {
+		echo $insUsuario->updatePhoto();
+	}
+
 	if ($_POST['user_module'] == "deletePhoto") {
 		echo $insUsuario->deletePhoto();
 	}

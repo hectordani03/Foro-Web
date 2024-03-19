@@ -6,7 +6,7 @@ class viewsModel
 {
     protected function getModelViews($views)
     {
-        $whiteList = ["dashboard", "addpost","users", "userUpdate", "posts", "comments", "reportedpost", "reportedcomt", "reporteduser"];
+        $whiteList = ["dashboard", "addpost", "users", "userUpdate", "posts", "comments", "reportedpost", "reportedcomt", "reporteduser"];
 
         if (in_array($views, $whiteList)) {
             if (is_file("./user/views/adminviews/" . $views . "-view.php")) {
@@ -26,7 +26,7 @@ class viewsModel
 
     protected function getModelViewsuser($views)
     {
-        $whiteList = ["card", "register", "recover", "login"];
+        $whiteList = ["card", "register", "recover", "login", "logOut", "post", "comment", "register", "recover", "profile"];
         if (in_array($views, $whiteList)) {
 
             if (is_file("./views/content/" . $views . ".php")) {
@@ -36,7 +36,7 @@ class viewsModel
             } else {
                 $content = "404";
             }
-        } elseif ($views == "login" || $views == "index") {
+        } elseif ($views == "index") {
             $content = "index";
         } else {
             $content = "404";

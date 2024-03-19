@@ -1,12 +1,12 @@
-<div class="container is-fluid">
+<div class="text-content container is-fluid">
 	<h1 class="title">Home</h1>
 	<div class="columns is-flex is-justify-content-center">
-		<figure class="image is-128x128">
+		<figure>
 			<?php
 			if (is_file("./assets/profile_picture/" . $_SESSION['photo'])) {
-				echo '<img class="is-rounded" src="' . APP_URL . 'assets/profile_picture/' . $_SESSION['photo'] . '">';
+				echo '<img class="profile-img mx-auto recorte" id="preview_image" src="' . APP_URL . 'assets/profile_picture/' . $_SESSION['photo'] . '">';
 			} else {
-				echo '<img class="is-rounded" src="' . APP_URL . 'assets/profile_picture/default.png">';
+				echo '<img class="profile-img mx-auto recorte" id="preview_image" src="' . APP_URL . 'assets/profile_picture/default.png">';
 			}
 			?>
 		</figure>

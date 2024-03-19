@@ -11,7 +11,6 @@ class comtController extends mainModel
     public function addComt()
     {
 
-        $id_user = $this->sanitizeString($_POST['id_user']);
         $id_post = $this->sanitizeString($_POST['id_post']);
         $content = $this->sanitizeString($_POST['content']);
 
@@ -35,12 +34,12 @@ class comtController extends mainModel
             exit();
         }
 
-
+        session_start();
         $comment_data = [
             [
                 "table_field" => "id_user",
                 "param" => ":id_user",
-                "field_value" => $id_user
+                "field_value" => $_SESSION['id']
             ],
             [
                 "table_field" => "id_post",
@@ -83,7 +82,6 @@ class comtController extends mainModel
 
     public function replyComt()
     {
-        $id_user = $this->sanitizeString($_POST['id_user']);
         $id_post = $this->sanitizeString($_POST['id_post']);
         $id_main_comment = $this->sanitizeString($_POST['id_main_comment']);
         $content = $this->sanitizeString($_POST['content']);
@@ -108,12 +106,12 @@ class comtController extends mainModel
             exit();
         }
 
-
+        session_start();
         $comment_data = [
             [
                 "table_field" => "id_user",
                 "param" => ":id_user",
-                "field_value" => $id_user
+                "field_value" => $_SESSION['id']
             ],
             [
                 "table_field" => "id_post",
@@ -163,10 +161,9 @@ class comtController extends mainModel
     {
 
         $id_comment = $this->sanitizeString($_POST['id_comment']);
-        $id_user = $this->sanitizeString($_POST['id_user']);
         $content = $this->sanitizeString($_POST['content']);
 
-        $data = $this->run_query("SELECT * FROM comments WHERE id_comment = '$id_comment' AND id_user = '$id_user");
+        $data = $this->run_query("SELECT * FROM comments WHERE id_comment = '$id_comment' AND id_user = {$_SESSION['id']} ");
         if ($data->rowCount() <= 0) {
             $alert = [
                 "type" => "simple",
@@ -289,19 +286,19 @@ class comtController extends mainModel
         $ins_report = $this->insertData("reports", $report);
         $last_inserted_id_report = $ins_report['lastInsertId'];
 
-            $reported = [
-                [
-                    "table_field" => "id_report",
-                    "param" => ":id_report",
-                    "field_value" => $last_inserted_id_report
-                ],
-                [
-                    "table_field" => "id_comment",
-                    "param" => ":id_comment",
-                    "field_value" => $id_comment
-                ]
-            ];
-    
+        $reported = [
+            [
+                "table_field" => "id_report",
+                "param" => ":id_report",
+                "field_value" => $last_inserted_id_report
+            ],
+            [
+                "table_field" => "id_comment",
+                "param" => ":id_comment",
+                "field_value" => $id_comment
+            ]
+        ];
+
         $ins_report_comt = $this->insertData("reportedcomments", $reported);
 
         if ($ins_report['success'] && $ins_report_comt['success']) {

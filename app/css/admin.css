@@ -75,12 +75,6 @@ body {
   pointer-events: none;
   transition: var(--tran-02);
 }
-.sidebar .image {
-  min-width: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .sidebar li {
   height: 35px;
   margin-top: 15px;
@@ -103,19 +97,31 @@ body {
 .sidebar header {
   position: relative;
 }
-.sidebar .image-text img {
-  width: 100px;
-  border-radius: 6px;
-}
+
 .sidebar header .image-text {
+  height: 35px;
+  margin-top: 5px;
+  list-style: none;
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 
-header .image-text .header-text {
+.sidebar .image {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  min-width: 65px;
 }
+
+.sidebar .image img {
+  width: 75%; 
+  margin-left: 5%; 
+}
+
+.sidebar .text {
+  margin-left: 10px; 
+}
+
 .header-text .name {
   font-weight: 600;
 }
@@ -281,6 +287,7 @@ body.dark .sub-menu a:hover .text {
   background: var(--primary-color);
   color: var(--text-color);
 }
+
 .sidebar li a .dropdown {
   right: 0;
   position: absolute;
@@ -288,6 +295,7 @@ body.dark .sub-menu a:hover .text {
   transition: var(--tran-04);
   color: var(--text-color);
 }
+
 .sidebar.close .dropdown {
   display: none;
   transition: var(--tran-04);
@@ -387,6 +395,11 @@ body.dark table.dataTable.display > tbody > tr > td {
   max-width: 400px;
   animation: growModal 0.5s;
 }
+body.dark .modal-content {
+  background: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+
+}
 
 @keyframes growModal {
   0% {
@@ -397,7 +410,7 @@ body.dark table.dataTable.display > tbody > tr > td {
   }
 }
 
-.close {
+.modal .close {
   color: #aaaaaa;
   float: right;
   font-size: 28px;
@@ -478,20 +491,201 @@ body.dark table.dataTable.display > tbody > tr > td {
   transition: background-color 0.3s ease;
 }
 
+body.dark .modal-content input[type="file"]::file-selector-button {
+  background: var(--sidebar-color);
+}
+body.dark .modal-content input[type="file"]::file-selector-button:hover {
+  background-color: #007bff;
+  color: #fff;
+}
 .modal-content input[type="file"]::file-selector-button:hover {
   background-color: #007bff;
   color: #fff;
 }
 
-/* ============================== Buttons ============================== */
-
-.container {
-  position: relative;
+.modal .accept-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+.modal .report-button {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+.modal .delete-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+.modal .cancel-button {
+  background-color: #545454;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
 }
 
+.modal .cancel-button:hover {
+  background-color: #3a3a3a;
+}
+
+.modal .accept-button:hover {
+  background-color: #0056b3;
+}
+
+.modal .delete-button:hover {
+  background-color: #c82333;
+}
+
+.modal .report-button:hover {
+  background-color: #ffac00;
+  color: #000;
+}
+
+/* ============================== Content ============================== */
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.columns {
+  display: flex;
+  justify-content: center;
+}
+
+.column {
+  margin: 10px 10px;
+}
+.columns {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+}
+
+.control label {
+  margin-bottom: 5px;
+}
+
+body.dark .text-content {
+  color: var(--text-color);
+  transition: var(--tran-03);
+}
+body.dark .form-control {
+  background: var(--sidebar-color);
+  border-color: var(--sidebar-color);
+  color: var(--text-color);
+  transition: var(--tran-03);
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: var(--tran-03);
+}
+
+.button {
+  display: inline-block;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #007bff;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.button.is-info {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.button.is-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.button.is-cancel {
+  background-color: #545454;
+  border-color: #545454;
+}
+
+.button.is-info:hover,
+.button.is-info:focus {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.button.is-danger:hover,
+.button.is-danger:focus {
+  background-color: #c82333;
+  border-color: #c82333;
+}
+
+.button.is-cancel:hover,
+.button.is-cancel:focus {
+  background-color: #3a3a3a;
+  border-color: #3a3a3a;
+}
+
+.button.is-rounded {
+  border-radius: 50px;
+}
+.profile-img {
+  max-width: 200px;
+  border: 4px solid #000000;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  transition: var(--tran-03);
+}
+body.dark .profile-img {
+  border: 4px solid #b0b0b0;
+  transition: var(--tran-03);
+}
+
+/* ============================== Buttons ============================== */
 .primary-button {
   position: absolute;
-  top: 10px;
+  top: 80px;
   left: 45%;
   transform: translateX(-50%);
   z-index: 999;
@@ -505,9 +699,7 @@ body.dark table.dataTable.display > tbody > tr > td {
   display: inline-block;
   margin-right: 20px;
 }
-.primary-button:hover {
-  background-color: #2003b0;
-}
+
 .warning-button {
   background-color: #ffc107;
   color: #212529;
@@ -519,9 +711,7 @@ body.dark table.dataTable.display > tbody > tr > td {
   display: inline-block;
   margin-right: 20px;
 }
-.warning-button:hover {
-  background-color: #b2ac01;
-}
+
 .danger-button {
   background-color: #dc3545;
   color: #fff;
@@ -533,53 +723,26 @@ body.dark table.dataTable.display > tbody > tr > td {
   display: inline-block;
   margin-right: 20px;
 }
+
+.primary-button:hover {
+  background-color: #0056b3;
+}
+
 .danger-button:hover {
-  background-color: #980e0e;
+  background-color: #c82333;
 }
 
-.modal .cancel-button {
-  background-color: #545454;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  display: inline-block;
+.warning-button:hover {
+  background-color: #ffac00;
+  color: #000;
 }
 
-.modal-footer .cancel-button:hover {
-  background-color: #282828;
-}
-.modal .accept-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  display: inline-block;
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.modal-footer .accept-button:hover {
-  background-color: #2003b0;
-}
-
-.modal .report-button {
-  background-color: #ffc107;
-  color: #212529;
-  border: none;
-  border-radius: 5px;
-  display: inline-block;
-}
-
-.modal-footer .report-button:hover {
-  background-color: #b2ac01;
-}
-
-.modal .delete-button {
-  background-color: #dc3545;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  display: inline-block;
-}
-
-.modal-footer .delete-button:hover {
-  background-color: #980e0e;
+.button-container button {
+  margin: 0 5px;
 }

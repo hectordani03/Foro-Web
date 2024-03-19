@@ -44,10 +44,11 @@ class loginController extends mainModel
 			$row_user = $this->run_query("SELECT * FROM user WHERE username = '$username'");
 
 			if ($row_user->rowCount() > 0) {
-
 				$suspension = new suspensionController();
 
 				$row_user = $row_user->fetch();
+				$row_userinfo = $this->run_query("SELECT * FROM user LEFT JOIN userinfo ON user.id_user = userinfo.id_userinfo WHERE user.id_user = " . $row_user['id_user']);
+				$row_userinfo = $row_userinfo->fetch();
 				$user_suspended = $suspension->user_suspencion($row_user['id_user']);
 				if ($user_suspended == "notsuspended") {
 
@@ -76,6 +77,9 @@ class loginController extends mainModel
 						$_SESSION['email'] = $row_user['email'];
 						$_SESSION['role'] = $row_user['id_role'];
 						$_SESSION['photo'] = $row_user['profile_picture'];
+						$_SESSION['age'] = $row_userinfo['age'];
+						$_SESSION['nacionality'] = $row_userinfo['nacionality'];
+						$_SESSION['description'] = $row_userinfo['description'];
 
 						if ($row_user['id_role'] == 1 || $row_user['id_role'] == 2) {
 							$redirect_url = APP_URL . "dashboard";

@@ -1,11 +1,11 @@
-document.addEventListener('DOMContentLoaded', function() {
+const privacyBtn = document.getElementById("privacy-button");
+if (privacyBtn) {
+  document.addEventListener("DOMContentLoaded", function () {
+    const $section = document.getElementById("privacyId");
+    const content = document.getElementById("body-content");
 
-    const commentBtn = document.getElementById('privacy-button');
-    const $section = document.getElementById('privacyId');
-    const content = document.getElementById('body-content');
-
-    commentBtn.addEventListener('click', e => {
-        $section.innerHTML = `
+    privacyBtn.addEventListener("click", (e) => {
+      $section.innerHTML = `
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -97,44 +97,45 @@ document.addEventListener('DOMContentLoaded', function() {
                           
         </body>
         </html>
-        ` 
-            const textArea = document.querySelector('textarea')
+        `;
+      const textArea = document.querySelector("textarea");
 
-            textArea.addEventListener("focus", function () {
-                if (this.value === "Write a Comment...") {
-                    this.value = "";
-                }
-            });
-            textArea.addEventListener('blur', function () {
-                if (this.value === '') {
-                    this.value = "Write a Comment...";
-                } 
-            });
+      textArea.addEventListener("focus", function () {
+        if (this.value === "Write a Comment...") {
+          this.value = "";
+        }
+      });
+      textArea.addEventListener("blur", function () {
+        if (this.value === "") {
+          this.value = "Write a Comment...";
+        }
+      });
 
-            const closeM = document.getElementById('close');
-            const modal = document.getElementById('modal');
-            const capa = document.getElementById('capa');
-            document.body.appendChild($section);
-            content.classList.remove('overflow-hidden');
-            content.classList.add("overflow-hidden")
-            closeM.addEventListener('click', () => {
-                console.log('clicked')
-                modal.classList.add('hidden');
-                capa.classList.toggle('hidden');
-                content.classList.remove("overflow-hidden")
-                content.classList.add("overflow-auto")
-            });
+      const closeM = document.getElementById("close");
+      const modal = document.getElementById("modal");
+      const capa = document.getElementById("capa");
+      document.body.appendChild($section);
+      content.classList.remove("overflow-hidden");
+      content.classList.add("overflow-hidden");
+      closeM.addEventListener("click", () => {
+        console.log("clicked");
+        modal.classList.add("hidden");
+        capa.classList.toggle("hidden");
+        content.classList.remove("overflow-hidden");
+        content.classList.add("overflow-auto");
+      });
 
-            const closeM2 = document.getElementById('close2');
-            document.body.appendChild($section);
-            content.classList.remove('overflow-hidden');
-            content.classList.add("overflow-hidden")
-            closeM2.addEventListener('click', () => {
-                console.log('clicked')
-                modal.classList.add('hidden');
-                capa.classList.toggle('hidden');
-                content.classList.remove("overflow-hidden")
-                content.classList.add("overflow-auto")
-            });
-    })
-})
+      const closeM2 = document.getElementById("close2");
+      document.body.appendChild($section);
+      content.classList.remove("overflow-hidden");
+      content.classList.add("overflow-hidden");
+      closeM2.addEventListener("click", () => {
+        console.log("clicked");
+        modal.classList.add("hidden");
+        capa.classList.toggle("hidden");
+        content.classList.remove("overflow-hidden");
+        content.classList.add("overflow-auto");
+      });
+    });
+  });
+}

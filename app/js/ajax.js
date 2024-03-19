@@ -104,3 +104,8 @@ if (btn_logout) {
     logout();
   });
 }
+
+function setModule(module) {
+  document.getElementById('user_module').value = module;
+  document.getElementById('submitBtn').click();
+}

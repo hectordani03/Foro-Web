@@ -10,34 +10,38 @@ class postController extends mainModel
 
     public function addPost()
     {
+        session_start();
+        if (isset($_POST['content']) && isset($_POST['category']) && isset($_FILES['post_img'])) {
+            $content = $this->sanitizeString($_POST['content']);
+            $category = $this->sanitizeString($_POST['category']);
 
-        $id_user = $this->sanitizeString($_POST['id_user']);
-        $content = $this->sanitizeString($_POST['content']);
-        $category = $this->sanitizeString($_POST['category']);
 
-        if ($content == "" && $category == "" && $_FILES['post_img']['name'] == "") {
-            $alert = [
-                "type" => "simple",
-                "title" => "An unexpected error occurred",
-                "text" => "Fields can not be empty",
-                "icon" => "error"
-            ];
-            return json_encode($alert);
-            exit();
+            if ($content == ""  && $_FILES['post_img']['name'] == "" || $category == "") {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "An unexpected error occurred",
+                    "text" => "Fields can not be empty",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $content) && $this->verifyData("[a-zA-Z0-9]{4,20}", $category)) {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "An unexpected error occurred",
+                    "text" => "Fields do not match the requested format",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            }
+        } elseif (isset($_POST['content']) || !isset($_POST['category'])) {
+            $content = $this->sanitizeString($_POST['content']);
+            $category = "onu";
         }
-        elseif ($this->verifyData("/^[a-zA-Z0-9.,?!¡¿()\-\[\]{};:'\"<>@\$\€]*$/", $content) && $this->verifyData("/^[a-zA-Z]{4,20}$/", $category)) {
-            $alert = [
-                "type" => "simple",
-                "title" => "An unexpected error occurred",
-                "text" => "Fields do not match the requested format",
-                "icon" => "error"
-            ];
-            return json_encode($alert);
-            exit();
-        }
 
-        $img_dir = "../../../assets/post_img/";
-        if ($_FILES['post_img']['name'] != "" && $_FILES['post_img']['size'] > 0) {
+        if (isset($_FILES['post_img']) && $_FILES['post_img']['name'] != "" && $_FILES['post_img']['size'] > 0) {
+            $img_dir = "../../../assets/post_img/";
             if (!file_exists($img_dir)) {
                 if (!mkdir($img_dir, 0777)) {
                     $alert = [
@@ -73,7 +77,7 @@ class postController extends mainModel
                 exit();
             }
 
-            $img = str_ireplace(" ", "_", $id_user);
+            $img = str_ireplace(" ", "_", $_SESSION['id']);
             $img = $img . "_" . rand(0, 100);
 
             switch (mime_content_type($_FILES['post_img']['tmp_name'])) {
@@ -106,7 +110,7 @@ class postController extends mainModel
             [
                 "table_field" => "id_user",
                 "param" => ":id_user",
-                "field_value" => '1'
+                "field_value" => $_SESSION['id']
             ],
             [
                 "table_field" => "content",
@@ -119,11 +123,6 @@ class postController extends mainModel
                 "field_value" => $category
             ],
             [
-                "table_field" => "state",
-                "param" => ":state",
-                "field_value" => '1'
-            ],
-            [
                 "table_field" => "img",
                 "param" => ":img",
                 "field_value" => $img
@@ -131,7 +130,7 @@ class postController extends mainModel
             [
                 "table_field" => "date",
                 "param" => ":date",
-                "field_value" => date("Y-m-d")
+                "field_value" => date("Y-m-d H:i:s")
             ],
 
         ];
@@ -165,24 +164,23 @@ class postController extends mainModel
 
     public function sharePost()
     {
-
+        session_start();
         $id_post = $this->sanitizeString($_POST['id_post']);
-        $id_user = $this->sanitizeString($_POST['id_user']);
-        $content = $this->sanitizeString($_POST['content']);
-        $category = $this->sanitizeString($_POST['category']);
+        if (isset($_POST['content']) && isset($_POST['category']) && isset($_FILES['post_img'])) {
+            $content = $this->sanitizeString($_POST['content']);
+            $category = $this->sanitizeString($_POST['category']);
 
-        if ($content == "" && $category == "" && $_FILES['post_img']['name'] == "") {
-            $alert = [
-                "type" => "simple",
-                "title" => "An unexpected error occurred",
-                "text" => "Fields can not be empty",
-                "icon" => "error"
-            ];
-            return json_encode($alert);
-            exit();
-        } elseif ($content != "") {
 
-            if ($this->verifyData("/^[a-zA-Z0-9.,?!¡¿()\-\[\]{};:'\"<>@\$\€]*$/", $content) && $this->verifyData("/^[a-zA-Z]{4,20}$/", $category)) {
+            if ($content == ""  && $_FILES['post_img']['name'] == "" || $category == "") {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "An unexpected error occurred",
+                    "text" => "Fields can not be empty",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            } elseif ($this->verifyData("[a-zA-Z0-9]{4,20}", $content) && $this->verifyData("[a-zA-Z0-9]{4,20}", $category)) {
                 $alert = [
                     "type" => "simple",
                     "title" => "An unexpected error occurred",
@@ -192,9 +190,13 @@ class postController extends mainModel
                 return json_encode($alert);
                 exit();
             }
+        } elseif (!isset($_POST['content']) || !isset($_POST['category'])) {
+            $content = "";
+            $category = "onu";
         }
-        $img_dir = "../../../assets/post_img/";
-        if ($_FILES['post_img']['name'] != "" && $_FILES['post_img']['size'] > 0) {
+
+        if (isset($_FILES['post_img']) && $_FILES['post_img']['name'] != "" && $_FILES['post_img']['size'] > 0) {
+            $img_dir = "../../../assets/post_img/";
             if (!file_exists($img_dir)) {
                 if (!mkdir($img_dir, 0777)) {
                     $alert = [
@@ -230,7 +232,7 @@ class postController extends mainModel
                 exit();
             }
 
-            $img = str_ireplace(" ", "_", $id_user);
+            $img = str_ireplace(" ", "_", $_SESSION['id']);
             $img = $img . "_" . rand(0, 100);
 
             switch (mime_content_type($_FILES['post_img']['tmp_name'])) {
@@ -263,7 +265,7 @@ class postController extends mainModel
             [
                 "table_field" => "id_user",
                 "param" => ":id_user",
-                "field_value" => $id_user
+                "field_value" => $_SESSION['id']
             ],
             [
                 "table_field" => "content",
@@ -276,11 +278,6 @@ class postController extends mainModel
                 "field_value" => $category
             ],
             [
-                "table_field" => "state",
-                "param" => ":state",
-                "field_value" => '1'
-            ],
-            [
                 "table_field" => "img",
                 "param" => ":img",
                 "field_value" => $img
@@ -288,7 +285,7 @@ class postController extends mainModel
             [
                 "table_field" => "date",
                 "param" => ":date",
-                "field_value" => date("Y-m-d")
+                "field_value" => date("Y-m-d H:i:s")
             ],
 
         ];
@@ -322,13 +319,12 @@ class postController extends mainModel
 
     public function updatePost()
     {
-
+        session_start();
         $id_post = $this->sanitizeString($_POST['id_post']);
-        $id_user = $this->sanitizeString($_POST['id_user']);
         $content = $this->sanitizeString($_POST['content']);
         $category = $this->sanitizeString($_POST['category']);
 
-        $data = $this->run_query("SELECT * FROM posts WHERE id_post = '$id_post' AND id_user = '$id_user");
+        $data = $this->run_query("SELECT * FROM posts WHERE id_post = '$id_post' AND id_user = {$_SESSION['id']}");
         if ($data->rowCount() <= 0) {
             $alert = [
                 "type" => "simple",
@@ -401,7 +397,7 @@ class postController extends mainModel
                 exit();
             }
 
-            $img = str_ireplace(" ", "_", $id_user);
+            $img = str_ireplace(" ", "_", $_SESSION['id']);
             $img = $img . "_" . rand(0, 100);
 
             switch (mime_content_type($_FILES['post_img']['tmp_name'])) {
@@ -532,19 +528,19 @@ class postController extends mainModel
 
         $last_inserted_id_report = $ins_report['lastInsertId'];
 
-            $reported = [
-                [
-                    "table_field" => "id_report",
-                    "param" => ":id_report",
-                    "field_value" => $last_inserted_id_report
-                ],
-                [
-                    "table_field" => "id_post",
-                    "param" => ":id_post",
-                    "field_value" => $id_post
-                ]
-            ];
-    
+        $reported = [
+            [
+                "table_field" => "id_report",
+                "param" => ":id_report",
+                "field_value" => $last_inserted_id_report
+            ],
+            [
+                "table_field" => "id_post",
+                "param" => ":id_post",
+                "field_value" => $id_post
+            ]
+        ];
+
         $ins_report_post = $this->insertData("reportedposts", $reported);
 
         if ($ins_report['success'] && $ins_report_post['success']) {
@@ -614,7 +610,7 @@ class postController extends mainModel
         ];
 
         $report_state = $this->updateData("reports", $report_update_state, $condition);
-        
+
         $delete_post = $this->deleteData("posts", "id_post", $id_post);
 
         if ($delete_post->rowCount() == '1') {

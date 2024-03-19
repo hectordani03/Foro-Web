@@ -295,7 +295,7 @@ class userController extends mainModel
 
     public function updateUser()
     {
-
+        session_start();
         $id_user = $this->sanitizeString($_POST['id_user']);
 
         $data = $this->run_query("SELECT * FROM user WHERE id_user='$id_user'");
@@ -366,7 +366,7 @@ class userController extends mainModel
             $alert = [
                 "type" => "simple",
                 "title" => "An unexpected error occurred",
-                "text" => "Username " . $old_user . "does not exists",
+                "text" => "Username " . $old_user . " does not exists",
                 "icon" => "error"
             ];
             return json_encode($alert);
@@ -375,8 +375,10 @@ class userController extends mainModel
 
         $username = $this->sanitizeString($_POST['username']);
         $email = $this->sanitizeString($_POST['email']);
-        $password = $this->sanitizeString($_POST['password']);
-        $confirm_password = $this->sanitizeString($_POST['confirm_password']);
+
+        $age = isset($_POST['age']) ? $this->sanitizeString($_POST['age']) : null;
+        $nacionality = isset($_POST['nacionality']) ? $this->sanitizeString($_POST['nacionality']) : null;
+        $description = isset($_POST['description']) ? $this->sanitizeString($_POST['description']) : null;
 
         if ($username == "" || $email == "") {
             $alert = [
@@ -434,110 +436,39 @@ class userController extends mainModel
             exit();
         }
 
-        if ($password != "" || $confirm_password != "") {
-            if ($this->verifyData("[a-zA-Z0-9$@.-]{7,100}", $password) || $this->verifyData("[a-zA-Z0-9$@.-]{7,100}", $confirm_password)) {
-                $alert = [
-                    "type" => "simple",
-                    "title" => "An unexpected error occurred",
-                    "text" => "PASSWORDS do not match the requested format",
-                    "icon" => "error"
-                ];
-                return json_encode($alert);
-                exit();
-            } else {
-                if ($password != $confirm_password) {
+
+        if (isset($password) && isset($confirm_password)) {
+            $password = $this->sanitizeString($_POST['password']);
+            $confirm_password = $this->sanitizeString($_POST['confirm_password']);
+            if ($password != "" || $confirm_password != "") {
+                if ($this->verifyData("[a-zA-Z0-9$@.-]{7,100}", $password) || $this->verifyData("[a-zA-Z0-9$@.-]{7,100}", $confirm_password)) {
                     $alert = [
                         "type" => "simple",
                         "title" => "An unexpected error occurred",
-                        "text" => "Passwords just entered do not match, please check and try again.",
+                        "text" => "PASSWORDS do not match the requested format",
                         "icon" => "error"
                     ];
                     return json_encode($alert);
                     exit();
                 } else {
-                    $password = password_hash($password, PASSWORD_BCRYPT, ["cost" => 10]);
+                    if ($password != $confirm_password) {
+                        $alert = [
+                            "type" => "simple",
+                            "title" => "An unexpected error occurred",
+                            "text" => "Passwords just entered do not match, please check and try again.",
+                            "icon" => "error"
+                        ];
+                        return json_encode($alert);
+                        exit();
+                    } else {
+                        $password = password_hash($password, PASSWORD_BCRYPT, ["cost" => 10]);
+                    }
                 }
+            } else {
+                $password = $data['password'];
             }
         } else {
             $password = $data['password'];
-        }
-
-        $img_dir = "../../../assets/profile_picture/";
-        if ($_FILES['user_profile_photo']['name'] != "" && $_FILES['user_profile_photo']['size'] > 0) {
-            if (!file_exists($img_dir)) {
-                if (!mkdir($img_dir, 0777)) {
-                    $alert = [
-                        "type" => "simple",
-                        "title" => "An unexpected error occurred",
-                        "text" => "Error creating directory",
-                        "icon" => "error"
-                    ];
-                    return json_encode($alert);
-                    exit();
-                }
-            }
-
-            if (mime_content_type($_FILES['user_profile_photo']['tmp_name']) != "image/jpeg" && mime_content_type($_FILES['user_profile_photo']['tmp_name']) != "image/png") {
-                $alert = [
-                    "type" => "simple",
-                    "title" => "An unexpected error occurred",
-                    "text" => "The image you have selected has an illegal format",
-                    "icon" => "error"
-                ];
-                return json_encode($alert);
-                exit();
-            }
-
-            if (($_FILES['user_profile_photo']['size'] / 1024) > 5120) {
-                $alert = [
-                    "type" => "simple",
-                    "title" => "An unexpected error occurred",
-                    "text" => "The image you have selected exceeds the allowed weight",
-                    "icon" => "error"
-                ];
-                return json_encode($alert);
-                exit();
-            }
-
-            if ($data['profile_picture'] != "") {
-                $img = explode(".", $data['profile_picture']);
-                $img = $img[0];
-            } else {
-                $img = str_ireplace(" ", "_", $data['username']);
-                $img = $img . "_" . rand(0, 100);
-            }
-
-
-            switch (mime_content_type($_FILES['user_profile_photo']['tmp_name'])) {
-                case 'image/jpeg':
-                    $img = $img . ".jpg";
-                    break;
-                case 'image/png':
-                    $img = $img . ".png";
-                    break;
-            }
-
-            chmod($img_dir, 0777);
-
-            if (!move_uploaded_file($_FILES['user_profile_photo']['tmp_name'], $img_dir . $img)) {
-                $alert = [
-                    "type" => "simple",
-                    "title" => "An unexpected error occurred",
-                    "text" => "We cannot upload the image to the system at this time.",
-                    "icon" => "error"
-                ];
-                return json_encode($alert);
-                exit();
-            }
-
-            if (is_file($img_dir . $data['profile_picture']) && $data['profile_picture'] != $img) {
-                chmod($img_dir . $data['profile_picture'], 0777);
-                unlink($img_dir . $data['profile_picture']);
-            }
-        } elseif ($data['profile_picture'] != "") {
-            $img = $data['profile_picture'];
-        } else {
-            $img = "default.jpg";
         }
 
         $user_update_data = [
@@ -555,11 +486,6 @@ class userController extends mainModel
                 "table_field" => "email",
                 "param" => ":Email",
                 "field_value" => $email
-            ],
-            [
-                "table_field" => "profile_picture",
-                "param" => ":Photo",
-                "field_value" => $img
             ]
         ];
 
@@ -569,8 +495,69 @@ class userController extends mainModel
             "cond_value" => $id_user
         ];
 
+        $userinfo_query = $this->run_query("SELECT id_userinfo FROM userinfo WHERE id_userinfo = '$id_user'");
+        $userinfo_exists_result = $userinfo_query->fetch();
+
+        if ($userinfo_exists_result) {
+            $userinfo_data = [
+                [
+                    "table_field" => "age",
+                    "param" => ":age",
+                    "field_value" => $age
+                ],
+                [
+                    "table_field" => "nacionality",
+                    "param" => ":nacionality",
+                    "field_value" => $nacionality
+                ],
+                [
+                    "table_field" => "description",
+                    "param" => ":description",
+                    "field_value" => $description
+                ]
+            ];
+
+            $condition_info = [
+                "field_cond" => "id_userinfo",
+                "param_cond" => ":id_user",
+                "cond_value" => $id_user
+            ];
+
+            $userinfo_update = $this->updateData("userinfo", $userinfo_data, $condition_info);
+            $_SESSION['age'] = $age;
+            $_SESSION['nacionality'] = $nacionality;
+            $_SESSION['description'] = $description;
+        } else {
+            $userinfo_data = [
+                [
+                    "table_field" => "id_userinfo",
+                    "param" => ":id_userinfo",
+                    "field_value" => $id_user
+                ],
+                [
+                    "table_field" => "age",
+                    "param" => ":age",
+                    "field_value" => $age
+                ],
+                [
+                    "table_field" => "nacionality",
+                    "param" => ":nacionality",
+                    "field_value" => $nacionality
+                ],
+                [
+                    "table_field" => "description",
+                    "param" => ":description",
+                    "field_value" => $description
+                ]
+            ];
+
+            $userinfo_insert = $this->insertData("userinfo", $userinfo_data);
+            $_SESSION['age'] = $age;
+            $_SESSION['nacionality'] = $nacionality;
+            $_SESSION['description'] = $description;
+        }
+
         if ($this->updateData("user", $user_update_data, $condition)) {
-            session_start();
             if ($id_user == $_SESSION['id']) {
                 $_SESSION['username'] = $username;
                 $_SESSION['email'] = $email;
@@ -805,6 +792,137 @@ class userController extends mainModel
         return json_encode($alert);
     }
 
+    public function updatePhoto()
+    {
+        $id_user = $this->sanitizeString($_POST['id_user']);
+
+        $data = $this->run_query("SELECT * FROM user WHERE id_user='$id_user'");
+        if ($data->rowCount() <= 0) {
+            $alert = [
+                "type" => "simple",
+                "title" => "Unexpected Error",
+                "text" => "User not found",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        } else {
+            $data = $data->fetch();
+        }
+        $img_dir = "../../../assets/profile_picture/";
+        if ($_FILES['user_profile_photo']['name'] != "" && $_FILES['user_profile_photo']['size'] > 0) {
+            if (!file_exists($img_dir)) {
+                if (!mkdir($img_dir, 0777)) {
+                    $alert = [
+                        "type" => "simple",
+                        "title" => "An unexpected error occurred",
+                        "text" => "Error creating directory",
+                        "icon" => "error"
+                    ];
+                    return json_encode($alert);
+                    exit();
+                }
+            }
+
+            if (mime_content_type($_FILES['user_profile_photo']['tmp_name']) != "image/jpeg" && mime_content_type($_FILES['user_profile_photo']['tmp_name']) != "image/png") {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "An unexpected error occurred",
+                    "text" => "The image you have selected has an illegal format",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            }
+
+            if (($_FILES['user_profile_photo']['size'] / 1024) > 5120) {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "An unexpected error occurred",
+                    "text" => "The image you have selected exceeds the allowed weight",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            }
+
+            if ($data['profile_picture'] != "" && $data['profile_picture'] == "default.jpg" || $data['profile_picture'] == "default.png") {
+                $img = str_ireplace(" ", "_", $data['username']);
+                $img = $img . "_" . rand(0, 100);
+            } elseif ($data['profile_picture'] != "") {
+                $img = explode(".", $data['profile_picture']);
+                $img = $img[0];
+            } else {
+                $img = str_ireplace(" ", "_", $data['username']);
+                $img = $img . "_" . rand(0, 100);
+            }
+
+            switch (mime_content_type($_FILES['user_profile_photo']['tmp_name'])) {
+                case 'image/jpeg':
+                    $img = $img . ".jpg";
+                    break;
+                case 'image/png':
+                    $img = $img . ".png";
+                    break;
+            }
+
+            chmod($img_dir, 0777);
+
+            if (!move_uploaded_file($_FILES['user_profile_photo']['tmp_name'], $img_dir . $img)) {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "An unexpected error occurred",
+                    "text" => "We cannot upload the image to the system at this time.",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            }
+
+            if (is_file($img_dir . $data['profile_picture']) && $data['profile_picture'] != $img && ($data['profile_picture'] != "default.jpg" && $data['profile_picture'] != "default.png")) {
+                chmod($img_dir . $data['profile_picture'], 0777);
+                unlink($img_dir . $data['profile_picture']);
+            }
+        } elseif ($data['profile_picture'] != "" && $data['profile_picture'] != "default.jpg" || $data['profile_picture'] != "default.png") {
+            $img = $data['profile_picture'];
+        } else {
+            $img = str_ireplace(" ", "_", $data['username']);
+            $img = $img . "_" . rand(0, 100);
+        }
+
+        $user_update_data = [
+            [
+                "table_field" => "profile_picture",
+                "param" => ":Photo",
+                "field_value" => $img
+            ]
+        ];
+
+        $condition = [
+            "field_cond" => "id_user",
+            "param_cond" => ":id",
+            "cond_value" => $id_user
+        ];
+
+        if ($this->updateData("user", $user_update_data, $condition)) {
+            session_start();
+            $_SESSION['photo'] = $img;
+            $alert = [
+                "type" => "reload",
+                "title" => "Photo Updated",
+                "text" => "Photo successfully updated",
+                "icon" => "success"
+            ];
+        } else {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Failed to update photo, please try again",
+                "icon" => "error"
+            ];
+        }
+        return json_encode($alert);
+    }
     public function deletePhoto()
     {
 
@@ -825,30 +943,32 @@ class userController extends mainModel
         }
 
         $img_dir = "../../../assets/profile_picture/";
-        chmod($img_dir, 0777);
-        if (is_file($img_dir . $data['profile_picture'])) {
 
-            chmod($img_dir . $data['profile_picture'], 0777);
+        if ($data['profile_picture'] != "" && $data['profile_picture'] != "default.jpg" && $data['profile_picture'] != "default.png") {
+            chmod($img_dir, 0777);
+            if (is_file($img_dir . $data['profile_picture'])) {
+                chmod($img_dir . $data['profile_picture'], 0777);
 
-            if (!unlink($img_dir . $data['profile_picture'])) {
+                if (!unlink($img_dir . $data['profile_picture'])) {
+                    $alert = [
+                        "type" => "simple",
+                        "title" => "Unexpected Error",
+                        "text" => "Error trying to delete user's photo, please try again",
+                        "icon" => "error"
+                    ];
+                    return json_encode($alert);
+                    exit();
+                }
+            } else {
                 $alert = [
                     "type" => "simple",
                     "title" => "Unexpected Error",
-                    "text" => "Error trying to delete user's photo, please try again",
+                    "text" => "User's photo was not found in our system.",
                     "icon" => "error"
                 ];
                 return json_encode($alert);
                 exit();
             }
-        } else {
-            $alert = [
-                "type" => "simple",
-                "title" => "Unexpected Error",
-                "text" => "User's photo was not found in our system.",
-                "icon" => "error"
-            ];
-            return json_encode($alert);
-            exit();
         }
 
         $user_update_data = [

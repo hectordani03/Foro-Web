@@ -1,4 +1,4 @@
-<div id="datamodal" class="modal">
+<div id="datamodal" class="modal text-content">
     <form class="requestForm" action="<?php echo APP_URL; ?>user/requestControllers/users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">

@@ -48,13 +48,13 @@ $publication = $data->selectData("normal", "posts", "*");
                 <input type="hidden" name="id_user" value="<?php $_SESSION['id']; ?>">
 
                 <label for="content">Content</label>
-                <input class="form-control" type="text" name="content" required>
+                <input class="form-control" type="text" name="content">
 
                 <label for="category">Category</label>
-                <input class="form-control" type="text" name="category" required>
+                <input class="form-control" type="text" name="category">
 
                 <label class="file-label">
-                    <input class="file-input form-control" type="file" name="post_img" accept=".jpg, .png, .jpeg" required>
+                    <input class="file-input form-control" type="file" name="post_img" accept=".jpg, .png, .jpeg">
                     <span class="file-cta">
                         <span class="file-label">
                             Select Picture

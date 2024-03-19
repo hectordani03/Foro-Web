@@ -1,11 +1,11 @@
-document.addEventListener('DOMContentLoaded', function() {
+const shareBtn = document.getElementById("share-button");
+if (shareBtn) {
+  document.addEventListener("DOMContentLoaded", function () {
+    const $section = document.getElementById("shareId");
+    const content = document.getElementById("body-content");
 
-    const commentBtn = document.getElementById('share-button');
-    const $section = document.getElementById('shareId');
-    const content = document.getElementById('body-content');
-
-    commentBtn.addEventListener('click', e => {
-        $section.innerHTML = `
+    shareBtn.addEventListener("click", (e) => {
+      $section.innerHTML = `
     <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-40 transition-opacity "></div>
     <section class="bg-gray-100 rounded-3xl w-5/12 mx-auto h-auto flex flex-col relative ">
         
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <!-- TOP CARD CONTENT -->
                     <div class="flex mt-5 w-full">
-                        <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="../app/assets/person-1.jpg" alt="">
+                        <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="../assets/person-1.jpg" alt="">
                         <div class="flex flex-col ml-5 w-full">
                             <div class="flex items-center w-full">
                                 <h2 class="text-xl text-gray-400 font-semibold">Jose Joshua</h2>
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <hr class="w-full mt-5 border dark:border-slate-600">
                     
                     <div class="flex mt-5  w-full">
-                        <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="../app/assets/person-1.jpg" alt="">
+                        <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="../assets/person-1.jpg" alt="">
                         <div class="flex flex-col ml-5 w-full">
                             <div class="flex items-center w-full">
                                 <h2 class="text-xl text-gray-400 font-semibold">Jose Joshua</h2>
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <p class="text-gray-400 w-12/12 mx-auto text-xl mt-8">"I firmly believe that climate action should be a global priority. Protecting our planet for future generations. It's time for all of us to commit to concrete and meaningful actions!"</p>
 
-                    <img class="w-12/12 mx-auto rounded-xl mt-7" src="../app/assets/card_img/obj2_img.jpg" alt="">
+                    <img class="w-12/12 mx-auto rounded-xl mt-7" src="../assets/card_img/obj2_img.jpg" alt="">
 
                     <!-- CARD HASHTAGS -->
                     <div class="flex gap-4 w-12/12 mx-auto mt-5">
@@ -78,32 +78,33 @@ document.addEventListener('DOMContentLoaded', function() {
             <hr class="w-full mt-10 mb-5">
             <button class="btn mr-10 ml-10 mb-5 bg-sky-500 rounded-xl p-3 text-white">Share</button>
         </section>
-    </section>` 
-            const textArea = document.querySelector('textarea')
+    </section>`;
+      const textArea = document.querySelector("textarea");
 
-            textArea.addEventListener("focus", function () {
-                if (this.value === "Write a Comment...") {
-                    this.value = "";
-                }
-            });
-            textArea.addEventListener('blur', function () {
-                if (this.value === '') {
-                    this.value = "Write a Comment...";
-                } 
-            });
+      textArea.addEventListener("focus", function () {
+        if (this.value === "Write a Comment...") {
+          this.value = "";
+        }
+      });
+      textArea.addEventListener("blur", function () {
+        if (this.value === "") {
+          this.value = "Write a Comment...";
+        }
+      });
 
-            const closeM = document.getElementById('close');
-            const modal = document.getElementById('modal');
-            const capa = document.getElementById('capa');
-            document.body.appendChild($section);
-            content.classList.remove('overflow-hidden');
-            content.classList.add("overflow-hidden")
-            closeM.addEventListener('click', () => {
-                console.log('clicked')
-                modal.classList.add('hidden');
-                capa.classList.toggle('hidden');
-                content.classList.remove("overflow-hidden")
-                content.classList.add("overflow-auto")
-            });
-    })
-})
+      const closeM = document.getElementById("close");
+      const modal = document.getElementById("modal");
+      const capa = document.getElementById("capa");
+      document.body.appendChild($section);
+      content.classList.remove("overflow-hidden");
+      content.classList.add("overflow-hidden");
+      closeM.addEventListener("click", () => {
+        console.log("clicked");
+        modal.classList.add("hidden");
+        capa.classList.toggle("hidden");
+        content.classList.remove("overflow-hidden");
+        content.classList.add("overflow-auto");
+      });
+    });
+  });
+}

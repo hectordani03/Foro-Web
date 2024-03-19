@@ -4,7 +4,8 @@
         <button class="button primary-button" id="openModalBtn">Add User</button>
     <?php } ?>
 </div>
-<div id="myModal" class="modal">
+
+<div id="myModal" class="modal text-content">
     <form class="requestForm" action="<?php echo APP_URL; ?>user/requestControllers/users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">
@@ -52,7 +53,7 @@
     </form>
 </div>
 
-<div id="datamodal" class="modal">
+<div id="datamodal" class="modal text-content">
     <form class="requestForm" action="<?php echo APP_URL; ?>user/requestControllers/users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">
@@ -93,7 +94,7 @@
     </form>
 </div>
 
-<div id="deletemodal" class="modal">
+<div id="deletemodal" class="modal text-content">
     <form class="requestForm" action="<?php echo APP_URL; ?>user/requestControllers/users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">

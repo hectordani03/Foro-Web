@@ -6,7 +6,7 @@ if (isset($_GET['views'])) {
 
     $url = explode("/", $_GET['views']);
 } else {
-    $url = ["login"];
+    $url = ["index"];
 }
 use user\controllers\viewsController;
 use user\controllers\loginController;
@@ -29,10 +29,10 @@ if ($views == "404" || $views == "index") {
             if (empty($_SESSION['id']) || empty($_SESSION['username']) || empty($_SESSION['role'])) {
                 $insLogin->logoutController();
             } elseif ($_SESSION['role'] != 3) {
-                require_once "./user/views/inc/header.php";
+                require_once "./user/views/inc/adminHeader.php";
                 require_once $views;
-                require_once "./user/views/inc/navbar.php";
-                require_once "./user/views/inc/footer.php";
+                require_once "./user/views/inc/adminNavbar.php";
+                require_once "./user/views/inc/adminFooter.php";
 
             } else {
                 $insLogin->logoutController();
