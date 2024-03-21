@@ -1,9 +1,11 @@
 <nav class="sidebar close">
     <header>
         <div class="image-text">
-            <span class="image">
-                <img src="<?php echo APP_URL; ?>assets/logo.png" alt="logo">
-            </span>
+            <a href="user/">
+                <span class="image">
+                    <img src="<?php echo APP_URL; ?>assets/logo.png" alt="logo">
+                </span>
+            </a>
             <div class="text header-text">
                 <span class="name">For Us</span>
             </div>

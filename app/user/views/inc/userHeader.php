@@ -37,10 +37,15 @@
         #nav-header::-webkit-scrollbar-thumb:hover {
             background-color: #888;
         }
+
+        #card-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+        }
     </style>
 </head>
 
-<body id="body-content" class="flex dark:bg-slate-800">
+<body id="body-content" class="flex dark:bg-slate-800 overflow-x-hidden
+">
     <?php
     require_once './views/inc/userNavbar.php';
 

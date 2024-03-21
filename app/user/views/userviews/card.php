@@ -33,7 +33,7 @@ foreach ($data as $post) {
 
             <!-- <a class="text-blue-500 underline text-xl w-10/12 mx-auto mt-2 mb-1" href="https://google.com">Naciones Unidas</a> -->
             <?php if ($post['img'] != "") { ?>
-                <img class="w-10/12 mx-auto rounded-xl mt-7" src="<?php echo APP_URL; ?>assets/post_img/<?php echo $post['img']; ?>" alt="">
+                <img class="w-10/12 h-fit mx-auto rounded-xl mt-7" src="<?php echo APP_URL; ?>assets/post_img/<?php echo $post['img']; ?>" alt="">
             <?php } ?>
             <!-- CARD HASHTAGS -->
             <div class="flex gap-4 w-10/12 mx-auto mt-5">

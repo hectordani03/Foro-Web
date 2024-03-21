@@ -6,6 +6,8 @@ if (commentBtn) {
 
     commentBtn.addEventListener("click", (e) => {
       $section.innerHTML = `
+
+      </style>
             <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-30 dark:bg-opacity-40 transition-opacity"></div>
       
             <section id="modal" class="bg-gray-100 dark:bg-slate-700 rounded-xl w-7/12 mx-auto h-screen flex flex-col fixed">

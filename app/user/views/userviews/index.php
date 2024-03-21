@@ -11,7 +11,7 @@
 
 
 
-<section id="content" class="w-11/12 relative left-28">
+<section id="content" class="w-11/12 relative left-24">
 
     <!-- HEADER -->
     <header class="flex justify-between items-center">
@@ -26,7 +26,7 @@
 
 
     <!-- MAIN -->
-    <main class="flex justify-between items-center mt-20 z-30">
+    <main class="flex justify-between items-start mt-20 z-30">
 
         <!-- INITIAL CARD -->
 
