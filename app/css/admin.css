@@ -122,11 +122,8 @@ body {
   margin-left: 10px; 
 }
 
-.header-text .name {
-  font-weight: 600;
-}
-.header-text .profession {
-  margin-top: -2px;
+.sidebar header a {
+  text-decoration: none;
 }
 
 .sidebar header .toggle {

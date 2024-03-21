@@ -33,13 +33,15 @@ if (privacyBtn) {
             </style>
         </head>
         <body>
-            <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-30 transition-opacity"></div>
+
+        <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-30 dark:bg-opacity-40 transition-opacity"></div>
+      
               
-            <section id="modal" class="bg-gray-100 rounded-xl w-7/12 mx-auto h-screen flex flex-col fixed">
+            <section id="modal" class="bg-gray-100 dark:bg-slate-700 rounded-xl w-7/12 mx-auto h-screen flex flex-col fixed">
         
-            <div class="flex justify-between fixed w-7/12 z-50 bg-gray-100 shadow-lg pb-4">
-            <h1 class="text-black flex text-2xl font-bold mt-5 ml-5">FOR <span class="text-blue-500 ml-2">US</span></h1>
-            <p class="font-bold text-xl mt-5">Privacy Policy</p>
+            <div class="flex justify-between fixed w-7/12 z-50 bg-gray-100 dark:bg-slate-700 shadow-lg pb-4">
+            <h1 class="text-black flex text-2xl font-bold mt-5 ml-5 dark:text-white">FOR <span class="text-blue-500 ml-2">US</span></h1>
+            <p class="font-bold text-xl mt-5 dark:text-white">Privacy Policy</p>
             <div id="close" class="text-gray-400 w-8 h-8 transition-all cursor-pointer mt-5 mr-5">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path class="fill-current" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>

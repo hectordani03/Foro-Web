@@ -1,35 +1,49 @@
-const desplegable = document.getElementById("desplegable"),
-  navHeader = document.getElementById("nav-header"),
-  capa3 = document.getElementById("capa3"),
-  nav = document.getElementById("nav"),
-  desplegableText = document.querySelectorAll(".desplegableText");
-icon = document.getElementById("icons");
-(forusText = document.getElementById("forus")),
-  (body = document.querySelector("body"));
+const desplegable = document.getElementById("desplegable");
+const navHeader = document.getElementById("nav-header");
+const capa3 = document.getElementById("capa3");
+const nav = document.getElementById("nav");
+const desplegableText = document.querySelectorAll(".desplegableText");
+const icon = document.getElementById("icons");
+const forusText = document.getElementById("forus");
+const body = document.querySelector("body");
 
 desplegable.addEventListener("click", (e) => {
+  toggleSidebar();
+});
+
+capa3.addEventListener("click", (e) => {
+  toggleSidebar();
+});
+
+body.addEventListener("click", (e) => {
+  if (!nav.contains(e.target) && e.target !== desplegable && e.target !== capa3) {
+    closeSidebar();
+  }
+});
+
+function toggleSidebar() {
   navHeader.classList.toggle("w-2/12");
   capa3.classList.toggle("hidden");
   nav.classList.toggle("items-center");
   nav.classList.toggle("items-start");
   nav.classList.toggle("ml-3");
-  // desplegableText.classList.toggle("hidden")
   desplegableText.forEach((text) => {
     text.classList.toggle("hidden");
   });
   body.classList.toggle("overflow-hidden");
-});
+}
 
-capa3.addEventListener("click", (e) => {
-  navHeader.classList.toggle("w-3/12");
-  capa3.classList.toggle("hidden");
-  nav.classList.toggle("items-center");
-  nav.classList.toggle("items-start");
-  nav.classList.toggle("ml-3");
+function closeSidebar() {
+  navHeader.classList.remove("w-2/12");
+  capa3.classList.add("hidden");
+  nav.classList.remove("items-start");
+  nav.classList.add("items-center");
+  nav.classList.remove("ml-3");
   desplegableText.forEach((text) => {
-    text.classList.toggle("hidden");
+    text.classList.add("hidden");
   });
-});
+  body.classList.remove("overflow-hidden");
+}
 
 // DARK MODE
 
@@ -57,25 +71,23 @@ document
 
 // Verificar el estado de localStorage al cargar la página
 window.addEventListener("DOMContentLoaded", function () {
-  console.log("DOMContentLoaded");
   const htmlClasses = document.querySelector("html").classList;
   if (localStorage.getItem("theme") === "dark") {
     htmlClasses.add("dark");
-    console.log("Dark mode applied on page load");
   } else {
     htmlClasses.remove("dark");
-    console.log("Light mode applied on page load");
   }
 });
 
-let scrollPosition = 0;
+// let scrollPosition = 0;
 
-function storeScrollPosition() {
-  scrollPosition = window.scrollY;
-}
+// function storeScrollPosition() {
+//   scrollPosition = window.scrollY;
+// }
 
-document
-  .getElementById("nav-header")
-  .addEventListener("mouseenter", function () {
-    window.scrollTo(0, scrollPosition);
-  });
+// document
+//   .getElementById("nav-header")
+//   .addEventListener("mouseenter", function () {
+//     window.scrollTo(0, scrollPosition);
+//   });
+

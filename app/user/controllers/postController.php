@@ -11,16 +11,43 @@ class postController extends mainModel
     public function addPost()
     {
         session_start();
-        if (isset($_POST['content']) && isset($_POST['category']) && isset($_FILES['post_img'])) {
-            $content = $this->sanitizeString($_POST['content']);
+        if(empty($_SESSION['id'])){
+            $alert = [
+                "type" => "simple",
+                "title" => "Error",
+                "text" => "Log in or register to continue viewing the page without interruptions",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
+        }
+        $content = isset($_POST['content']) ? $this->sanitizeString($_POST['content']) : null;
+        if ($content == "What's in your mind?") {
+            $content = "";
+        }
+        
+        if (isset($_FILES['post_img']) && isset($_POST['content']) || isset($_POST['category'])) {
             $category = $this->sanitizeString($_POST['category']);
-
-
-            if ($content == ""  && $_FILES['post_img']['name'] == "" || $category == "") {
+            $content = $_POST['content'];
+            $post_img = $_FILES['post_img']['name'];
+        
+            $emptyFields = array();
+        
+            if ($content == "" && $post_img == "" || $category == "") {
+                if ($content == "") {
+                    $emptyFields[] = "Content";
+                }
+                if ($post_img == "") {
+                    $emptyFields[] = "Image";
+                }
+                if ($category == "") {
+                    $emptyFields[] = "Category";
+                }
+        
                 $alert = [
                     "type" => "simple",
                     "title" => "An unexpected error occurred",
-                    "text" => "Fields can not be empty",
+                    "text" => "The following fields cannot be empty: " . implode(", ", $emptyFields),
                     "icon" => "error"
                 ];
                 return json_encode($alert);
@@ -35,10 +62,17 @@ class postController extends mainModel
                 return json_encode($alert);
                 exit();
             }
-        } elseif (isset($_POST['content']) || !isset($_POST['category'])) {
-            $content = $this->sanitizeString($_POST['content']);
-            $category = "onu";
+        } else {
+            $alert = [
+                "type" => "simple",
+                "title" => "An unexpected error occurred",
+                "text" => "Fields do not match the requested format",
+                "icon" => "error"
+            ];
+            return json_encode($alert);
+            exit();
         }
+        
 
         if (isset($_FILES['post_img']) && $_FILES['post_img']['name'] != "" && $_FILES['post_img']['size'] > 0) {
             $img_dir = "../../../assets/post_img/";

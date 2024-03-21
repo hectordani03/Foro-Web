@@ -35,7 +35,7 @@
                 </select>
 
                 <label class="file-label">
-                    <input class="file-input form-control" type="file" name="user_profile_photo" accept=".jpg, .png, .jpeg" required>
+                    <input class="file-input form-control" type="file" name="user_profile_photo" accept=".jpg, .png, .jpeg">
                     <span class="file-cta">
                         <span class="file-label">
                             Select Picture

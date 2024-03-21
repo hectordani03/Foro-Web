@@ -11,13 +11,13 @@
 
 
 
-<section id="content" class="w-11/12 relative left-28">
+<section id="content" class="w-11/12 relative left-24">
 
     <!-- HEADER -->
     <header class="flex justify-between items-center">
         <h1 class="text-black flex justify-center w-full text-4xl font-bold mt-5 dark:text-white">FOR <span class="text-blue-500 ml-2">US</span></h1>
 
-        <?php if (!empty($_SESSION['id'])) { ?>
+        <?php if (!empty($_SESSION['role'])) { ?>
             <a href="<?php echo APP_URL; ?>user/profile">
                 <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo APP_URL; ?>assets/profile_picture/<?php echo $_SESSION['photo']; ?>" alt="">
             </a>
@@ -26,7 +26,7 @@
 
 
     <!-- MAIN -->
-    <main class="flex justify-between items-center mt-20 z-30">
+    <main class="flex justify-between items-start mt-20 z-30">
 
         <!-- INITIAL CARD -->
 

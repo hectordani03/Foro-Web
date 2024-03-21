@@ -40,6 +40,21 @@ forms_ajax.forEach((form) => {
   });
 });
 
+document.body.addEventListener("click", function(event) {
+  if (event.target.classList.contains("nologued")) {
+      event.preventDefault(); 
+      Swal.fire({
+          icon: 'error',
+          title: 'Login / Register',
+          text: 'Log in or register to continue viewing the page without interruptions',
+          confirmButtonColor: '#28a745',
+          confirmButtonText: '<a class="botoniniciar text-light text-decoration-none" href="http://localhost/For-Us/app/user/login">Login / Register</a>',
+          showCancelButton: true,
+          cancelButtonText: 'Cancelar',
+          backdrop: 'true',
+      });
+  }
+});
 function closeModal() {
   var modal = document.getElementById("myModal");
   modal.style.display = "none";

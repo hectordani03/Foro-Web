@@ -4,7 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Foronu Hub - Login</title>
+	<title><?php echo APP_NAME; ?></title>
+	<link rel="icon" href="<?php echo APP_URL; ?>assets/logo.png">
 	<link rel="stylesheet" href="<?php echo APP_URL; ?>css/login.css">
 	<link rel="stylesheet" href="<?php echo APP_URL; ?>css/sweetalert2.min.css">
 	<script src="<?php echo APP_URL; ?>js/sweetalert2.all.min.js"></script>
@@ -55,7 +56,7 @@
 		$insLogin->loginController();
 	}
 	?>
-	
+
 	<script src="<?php echo APP_URL; ?>js/ajax.js"></script>
 </body>
 

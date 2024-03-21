@@ -91,9 +91,8 @@ class userController extends mainModel
             $encrypt_password = password_hash($password, PASSWORD_BCRYPT, ["cost" => 10]);
         }
 
-        if ($user == "admin") {
-            $img_dir = "../../../assets/profile_picture/";
-            if ($_FILES['user_profile_photo']['name'] != "" && $_FILES['user_profile_photo']['size'] > 0) {
+        if (isset($_FILES['user_profile_photo']) && $_FILES['user_profile_photo']['name'] != "" && $_FILES['user_profile_photo']['size'] > 0) {
+                $img_dir = "../../../assets/profile_picture/";
                 if (!file_exists($img_dir)) {
                     if (!mkdir($img_dir, 0777)) {
                         $alert = [
@@ -154,9 +153,8 @@ class userController extends mainModel
                     return json_encode($alert);
                     exit();
                 }
-            }
-        } else {
-            $img = "default.jpg";
+            } else {
+            $img = "default.png";
         }
 
         $user_data = [
@@ -296,6 +294,14 @@ class userController extends mainModel
     public function updateUser()
     {
         session_start();
+
+        if (empty($_SESSION['id'])) {
+            $alert = [
+                "type" => "redirect",
+                "url" => "http://localhost/For-Us/app/user/"
+            ];
+        }
+
         $id_user = $this->sanitizeString($_POST['id_user']);
 
         $data = $this->run_query("SELECT * FROM user WHERE id_user='$id_user'");
@@ -312,73 +318,71 @@ class userController extends mainModel
             $data = $data->fetch();
         }
 
-        $old_user = $this->sanitizeString($_POST['old_user']);
-        $old_pass = $this->sanitizeString($_POST['old_pass']);
+        if (isset($old_pass) && isset($old_user)) {
+            $old_user = $this->sanitizeString($_POST['old_user']);
+            $old_pass = $this->sanitizeString($_POST['old_pass']);
 
-        if ($old_user == "" || $old_pass == "") {
-            $alert = [
-                "type" => "simple",
-                "title" => "An unexpected error occurred",
-                "text" => "You have not completed all required fields",
-                "icon" => "error"
-            ];
-            return json_encode($alert);
-            exit();
-        }
-
-        if ($this->verifyData("[a-zA-Z0-9]{4,20}", $old_user)) {
-            $alert = [
-                "type" => "simple",
-                "title" => "An unexpected error occurred",
-                "text" => "The NAME does not match the requested format",
-                "icon" => "error"
-            ];
-            return json_encode($alert);
-            exit();
-        }
-
-        if ($this->verifyData("[a-zA-Z0-9$@.-]{7,100}", $old_pass)) {
-            $alert = [
-                "type" => "simple",
-                "title" => "An unexpected error occurred",
-                "text" => "Password does not match the requested format",
-                "icon" => "error"
-            ];
-            return json_encode($alert);
-            exit();
-        }
-        $check_user = $this->run_query("SELECT * FROM user WHERE username='$old_user' AND id_user='$id_user'");
-        if ($check_user->rowCount() > 0) {
-
-            $check_user = $check_user->fetch();
-
-            if ($check_user['username'] != $old_user || !password_verify($old_pass, $check_user['password'])) {
+            if ($old_user == "" || $old_pass == "") {
                 $alert = [
                     "type" => "simple",
                     "title" => "An unexpected error occurred",
-                    "text" => "Incorrect username or password",
+                    "text" => "You have not completed all required fields",
                     "icon" => "error"
                 ];
                 return json_encode($alert);
                 exit();
             }
-        } else {
-            $alert = [
-                "type" => "simple",
-                "title" => "An unexpected error occurred",
-                "text" => "Username " . $old_user . " does not exists",
-                "icon" => "error"
-            ];
-            return json_encode($alert);
-            exit();
-        }
 
+            if ($this->verifyData("[a-zA-Z0-9]{4,20}", $old_user)) {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "An unexpected error occurred",
+                    "text" => "The NAME does not match the requested format",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            }
+
+            if ($this->verifyData("[a-zA-Z0-9$@.-]{7,100}", $old_pass)) {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "An unexpected error occurred",
+                    "text" => "Password does not match the requested format",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            }
+            $check_user = $this->run_query("SELECT * FROM user WHERE username='$old_user' AND id_user='$id_user'");
+            if ($check_user->rowCount() > 0) {
+
+                $check_user = $check_user->fetch();
+
+                if ($check_user['username'] != $old_user || !password_verify($old_pass, $check_user['password'])) {
+                    $alert = [
+                        "type" => "simple",
+                        "title" => "An unexpected error occurred",
+                        "text" => "Incorrect username or password",
+                        "icon" => "error"
+                    ];
+                    return json_encode($alert);
+                    exit();
+                }
+            } else {
+                $alert = [
+                    "type" => "simple",
+                    "title" => "An unexpected error occurred",
+                    "text" => "Username " . $old_user . " does not exists",
+                    "icon" => "error"
+                ];
+                return json_encode($alert);
+                exit();
+            }
+        }
         $username = $this->sanitizeString($_POST['username']);
         $email = $this->sanitizeString($_POST['email']);
 
-        $age = isset($_POST['age']) ? $this->sanitizeString($_POST['age']) : null;
-        $nacionality = isset($_POST['nacionality']) ? $this->sanitizeString($_POST['nacionality']) : null;
-        $description = isset($_POST['description']) ? $this->sanitizeString($_POST['description']) : null;
 
         if ($username == "" || $email == "") {
             $alert = [
@@ -497,66 +501,72 @@ class userController extends mainModel
 
         $userinfo_query = $this->run_query("SELECT id_userinfo FROM userinfo WHERE id_userinfo = '$id_user'");
         $userinfo_exists_result = $userinfo_query->fetch();
+        if (isset($_POST['age']) || isset($_POST['nacionality']) || isset($_POST['description'])) {
+            if ($userinfo_exists_result) {
+                $age = isset($_POST['age']) ? $this->sanitizeString($_POST['age']) : $userinfo_exists_result['age'];
+                $nacionality = isset($_POST['nacionality']) ? $this->sanitizeString($_POST['nacionality']) : $userinfo_exists_result['nacionality'];
+                $description = isset($_POST['description']) ? $this->sanitizeString($_POST['description']) : $userinfo_exists_result['description'];
+                $userinfo_data = [
+                    [
+                        "table_field" => "age",
+                        "param" => ":age",
+                        "field_value" => $age
+                    ],
+                    [
+                        "table_field" => "nacionality",
+                        "param" => ":nacionality",
+                        "field_value" => $nacionality
+                    ],
+                    [
+                        "table_field" => "description",
+                        "param" => ":description",
+                        "field_value" => $description
+                    ]
+                ];
 
-        if ($userinfo_exists_result) {
-            $userinfo_data = [
-                [
-                    "table_field" => "age",
-                    "param" => ":age",
-                    "field_value" => $age
-                ],
-                [
-                    "table_field" => "nacionality",
-                    "param" => ":nacionality",
-                    "field_value" => $nacionality
-                ],
-                [
-                    "table_field" => "description",
-                    "param" => ":description",
-                    "field_value" => $description
-                ]
-            ];
+                $condition_info = [
+                    "field_cond" => "id_userinfo",
+                    "param_cond" => ":id_user",
+                    "cond_value" => $id_user
+                ];
 
-            $condition_info = [
-                "field_cond" => "id_userinfo",
-                "param_cond" => ":id_user",
-                "cond_value" => $id_user
-            ];
+                $userinfo_update = $this->updateData("userinfo", $userinfo_data, $condition_info);
+                $_SESSION['age'] = $age;
+                $_SESSION['nacionality'] = $nacionality;
+                $_SESSION['description'] = $description;
+            } else {
+                $age = isset($_POST['age']) ? $this->sanitizeString($_POST['age']) : $userinfo_exists_result['age'];
+                $nacionality = isset($_POST['nacionality']) ? $this->sanitizeString($_POST['nacionality']) : $userinfo_exists_result['nacionality'];
+                $description = isset($_POST['description']) ? $this->sanitizeString($_POST['description']) : $userinfo_exists_result['description'];
+                $userinfo_data = [
+                    [
+                        "table_field" => "id_userinfo",
+                        "param" => ":id_userinfo",
+                        "field_value" => $id_user
+                    ],
+                    [
+                        "table_field" => "age",
+                        "param" => ":age",
+                        "field_value" => $age
+                    ],
+                    [
+                        "table_field" => "nacionality",
+                        "param" => ":nacionality",
+                        "field_value" => $nacionality
+                    ],
+                    [
+                        "table_field" => "description",
+                        "param" => ":description",
+                        "field_value" => $description
+                    ]
+                ];
 
-            $userinfo_update = $this->updateData("userinfo", $userinfo_data, $condition_info);
-            $_SESSION['age'] = $age;
-            $_SESSION['nacionality'] = $nacionality;
-            $_SESSION['description'] = $description;
-        } else {
-            $userinfo_data = [
-                [
-                    "table_field" => "id_userinfo",
-                    "param" => ":id_userinfo",
-                    "field_value" => $id_user
-                ],
-                [
-                    "table_field" => "age",
-                    "param" => ":age",
-                    "field_value" => $age
-                ],
-                [
-                    "table_field" => "nacionality",
-                    "param" => ":nacionality",
-                    "field_value" => $nacionality
-                ],
-                [
-                    "table_field" => "description",
-                    "param" => ":description",
-                    "field_value" => $description
-                ]
-            ];
-
-            $userinfo_insert = $this->insertData("userinfo", $userinfo_data);
-            $_SESSION['age'] = $age;
-            $_SESSION['nacionality'] = $nacionality;
-            $_SESSION['description'] = $description;
+                $userinfo_insert = $this->insertData("userinfo", $userinfo_data);
+                $_SESSION['age'] = $age;
+                $_SESSION['nacionality'] = $nacionality;
+                $_SESSION['description'] = $description;
+            }
         }
-
         if ($this->updateData("user", $user_update_data, $condition)) {
             if ($id_user == $_SESSION['id']) {
                 $_SESSION['username'] = $username;
@@ -794,6 +804,12 @@ class userController extends mainModel
 
     public function updatePhoto()
     {
+        if (empty($_SESSION['id'])) {
+            $alert = [
+                "type" => "redirect",
+                "url" => "http://localhost/For-Us/app/user/"
+            ];
+        }
         $id_user = $this->sanitizeString($_POST['id_user']);
 
         $data = $this->run_query("SELECT * FROM user WHERE id_user='$id_user'");

@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For-Us</title>
+    <title><?php echo APP_NAME; ?></title>
+    <link rel="icon" href="<?php echo APP_URL; ?>assets/logo.png">
     <link rel="stylesheet" href="<?php echo APP_URL; ?>/css/register.css">
     <link rel="stylesheet" href="<?php echo APP_URL; ?>css/sweetalert2.min.css">
-	<script src="<?php echo APP_URL; ?>js/sweetalert2.all.min.js"></script>
+    <script src="<?php echo APP_URL; ?>js/sweetalert2.all.min.js"></script>
 
 </head>
 

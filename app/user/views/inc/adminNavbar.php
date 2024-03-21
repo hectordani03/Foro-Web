@@ -1,5 +1,6 @@
 <nav class="sidebar close">
     <header>
+    <a href="<?php echo APP_URL; ?>user/">
         <div class="image-text">
             <span class="image">
                 <img src="<?php echo APP_URL; ?>assets/logo.png" alt="logo">
@@ -8,6 +9,7 @@
                 <span class="name">For Us</span>
             </div>
         </div>
+        </a>
         <i class='bx bx-chevron-right toggle'></i>
     </header>
     <div class="menu-bar">
@@ -51,9 +53,9 @@
                     </a>
                 </li>
                 <div class="sub-menu">
-                    <a href="<?php echo APP_URL; ?>reporteduser" class="text sub-item">Users</a>
                     <a href="<?php echo APP_URL; ?>reportedpost" class="text sub-item">Post</a>
                     <a href="<?php echo APP_URL; ?>reportedcomt" class="text sub-item">Commets</a>
+                    <a href="<?php echo APP_URL; ?>reporteduser" class="text sub-item">Users</a>
                 </div>
 
                 <li class="nav-link">
@@ -64,13 +66,13 @@
                     </a>
                 </li>
                 <div class="sub-menu">
-                    <a href="" class="text sub-item">Users</a>
-                    <a href="" class="text sub-item">Publications</a>
-                    <a href="" class="text sub-item">Comments</a>
+                    <a href="#" class="text sub-item">Posts</a>
+                    <a href="#" class="text sub-item">Comments</a>
+                    <a href="#" class="text sub-item">Users</a>
                 </div>
 
                 <li class="nav-link">
-                    <a href="<?php echo APP_URL; ?>addpost">
+                    <a href="#">
                         <i class='bx bxs-bell icon'></i>
                         <span class="text nav-text">Notifications</span>
                     </a>
