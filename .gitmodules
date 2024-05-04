@@ -1,0 +1,3 @@
+[submodule "config/functions/PHPMailer"]
+	path = config/functions/PHPMailer
+	url = https://github.com/PHPMailer/PHPMailer.git
