@@ -8,10 +8,13 @@ setHeader($d, "register.css", "sweetalert2.min.css");
         <h1><b><span class="white-text">Create</span><span class="blue-text"> Account</span></b></h1>
 
         <form class="" id="register-form" method="POST" autocomplete="off" enctype="multipart/form-data">
-            <input placeholder="Username" class="input" type="text" id="username" name="username" pattern="[a-zA-Z0-9]{4,20}" maxlength="20" maxlength="40" required>
-            <input placeholder="Email" class="input" type="email" id="email" name="email" maxlength="70" required>
-            <input placeholder="Password" class="input" type="password" id="password" name="password" pattern="[a-zA-Z0-9$@.-]{7,100}" minlength="7" maxlength="100" required>
-            <input placeholder="Confirm Password" class="input" type="password" id="password2" name="password2" pattern="[a-zA-Z0-9$@.-]{7,100}" minlength="7" maxlength="100" required>
+
+            <input placeholder="Username" class="input" type="text" id="username" name="username" pattern="^[a-zA-Z0-9]{1,100}$" minlength="3" maxlength="40" required>
+            <input placeholder="Email" class="input" type="email" id="email" name="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" minlength="6" maxlength="70" required>
+
+            <input placeholder="Password" class="input" type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.-])[A-Za-z\d$@.-]{7,100}$" minlength="7" maxlength="100" required>
+            
+            <input placeholder="Confirm Password" class="input" type="password" id="password2" name="password2" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.-])[A-Za-z\d$@.-]{7,100}$" minlength="7" maxlength="100" required>
             <div>
                 <a href="login"><span class="white-text">Do you already</span> <span class="blue-text"> have an account?</span></a>
             </div>
@@ -22,7 +25,7 @@ setHeader($d, "register.css", "sweetalert2.min.css");
 </div>
 <?php
 
-setFooter($d, "sweetalert2.all.min.js", "alerts.js", "jquery.js", "app.js");
+setFooter($d, "sweetalert2.all.min", "alerts", "jquery", "app");
 ?>
 <script>
     $(function() {

@@ -18,7 +18,7 @@ class userController extends Controller
         $result = $users->getAllUsers();
         echo $result;
     }
-
+    
     // public function registerUser($user)
     // {
 

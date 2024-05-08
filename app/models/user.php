@@ -40,10 +40,21 @@ class user extends Model
     public function getUserInfo($params)
     {
         $userId = $params[2];
-        $result = $this->select(['a.*, b.*'])
+        $result = $this->select(['a.id, a.username, a.email, a.role, a.active, a.registered_at, b.*'])
             ->join('userinfo b', 'a.id=b.userId')
             ->where([['a.id', $userId]])
             ->get();
         return $result;
+    }
+
+    public function updateProfUser($data, $params)
+    {
+        $userId = $params[2];
+        $this->values = [
+            'username' => $data["username"],
+            'email' => $data["email"],
+        ];
+        $this->where([['id', $userId]]);
+        return $this->update();
     }
 }

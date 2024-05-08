@@ -48,7 +48,7 @@ class LoginController extends Controller
         session_start();
         $_SESSION['sv'] = true;
         $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
-        $_SESSION['id'] = $data[0]->id;
+        $_SESSION['id'] = $data[0]->userId;
         $_SESSION['username'] = $data[0]->username;
         $_SESSION['password'] = $data[0]->password;
         $_SESSION['email'] = $data[0]->email;

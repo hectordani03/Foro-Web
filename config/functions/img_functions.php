@@ -1,6 +1,6 @@
 <?php
 
-function getImg($file)
+function getPostImg($file)
 {
     if (isset($_FILES[$file]) && $_FILES[$file]['name'] != "" && $_FILES[$file]['size'] > 0) {
         $img_dir = "../public/resources/assets/img/post/";
@@ -69,4 +69,8 @@ function getImg($file)
         $img = "";
     }
     return $img;
+}
+
+function getUserImg($file){
+    
 }

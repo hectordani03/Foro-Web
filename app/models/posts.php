@@ -50,5 +50,30 @@ class posts extends Model
             ->orderBy([['a.created_at', 'DESC']])
             ->get();
         return $result;
-}
+    }
+
+    public function getPost($params)
+    {
+        $postId = $params[2];
+        $result = $this->select(['a.*, b.username as ownName, c.profilePic as ownPic'])
+            ->join('user b', 'a.userId=b.id')
+            ->join('userinfo c', 'b.id=c.userId')
+            ->where([['a.id', $postId]])
+            ->get();
+        return $result;
+    }
+
+    public function getPostComments($params)
+    {
+
+        $postId = $params[2];
+        $result = $this->select(['a.*, b.*, c.username, d.profilePic'])
+            ->join('comments b', 'a.id=b.postId', 'LEFT')
+            ->join('user c', 'c.id=b.userId', 'LEFT')
+            ->join('userinfo d', 'c.id=d.userId', 'LEFT')
+            ->where([['a.id', $postId]])
+            ->orderBy([['a.created_at', 'DESC']])
+            ->get();
+        return $result;
+    }
 }

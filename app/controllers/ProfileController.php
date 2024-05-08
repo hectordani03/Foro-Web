@@ -6,6 +6,7 @@ use app\classes\View;
 use app\classes\redirect;
 use app\models\posts;
 use app\models\user;
+use app\models\userinfo;
 use app\controllers\auth\LoginController as session;
 
 class ProfileController extends Controller
@@ -41,4 +42,13 @@ class ProfileController extends Controller
         echo $res;
     }
     
+    public function updateUser($params = null)
+    {
+        $user = new user;
+        $userinfo = new userinfo;
+        $res = $user->updateProfUser(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
+        $res = $userinfo->updateUserInfo(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
+        echo json_encode(["r" => $res]);
+        // $r = json_encode([$res]);
+    }
 }

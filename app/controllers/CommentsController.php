@@ -1,14 +1,14 @@
 <?php
 
 namespace app\controllers;
-use app\models\comments;
+use app\models\posts;
 
 class CommentsController extends Controller
 {
-    public function getComments()
+    public function getComments($params = null)
     {
-        $comments = new comments();
-        $result = $comments->getAllComments();
+        $comments = new posts();
+        $result = $comments->getPostComments($params);
         echo $result;
     }
 

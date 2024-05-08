@@ -3,8 +3,7 @@
     $profile_img = isset($ua->sv) && $ua->sv ? $ua->profilePic : 'default.png';
     $id = isset($ua->sv) && $ua->sv ? $ua->id : '';
     ?>
-    <img class="w-12 h-11 bg-blue-500 rounded-full absolute top-8 left-8" src="<?php echo PROF_IMG;
-                                                                                echo $profile_img; ?>" alt="">
+    <img class="w-12 h-11 bg-blue-500 rounded-full absolute top-8 left-8" src="<?php echo PROF_IMG;echo $profile_img; ?>" alt="">
 
     <form id="add-post-form" class="w-full" method="POST" autocomplete="off" enctype="multipart/form-data">
         <input type="hidden" id="userId" name="userId" value="<?php echo $id ?>">

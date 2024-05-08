@@ -8,13 +8,11 @@ require_once LAYOUTS_US . 'header.php';
     <!-- HEADER -->
     <header class="flex justify-between items-center mb-7">
         <h1 class="text-black flex justify-center w-full text-3xl font-bold mt-5 dark:text-white">FOR <span class="text-blue-500 ml-2">US</span></h1>
-        <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;
-                                                                        echo $ua->profilePic; ?>" alt="">
+        <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;echo $ua->profilePic; ?>" alt="">
     </header>
     <main id="background" class="bg-gradient-to-b from-gray-100 rounded-xl w-12/12 h-80 mr-5 ml-5 relative">
         <section class="absolute -bottom-56 left-10 z-50 flex">
-            <img class="min-w-52 max-w-52 min-h-52 max-h-52 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;
-                                                                                                        echo $ua->profilePic; ?>" alt="">
+            <img class="min-w-52 max-w-52 min-h-52 max-h-52 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;echo $ua->profilePic; ?>" alt="">
 
             <div class="relative -bottom-20 flex flex-col text-center justify-start w-3/12">
                 <h1 class="text-3xl font-bold text-gray-600 mb-5 dark:text-white"><?= $ua->username ?></h1>
