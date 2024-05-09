@@ -45,7 +45,7 @@
 			<div class="rounded-full bg-sky-500 h-fit p-4"></div>
 			<div class="flex flex-col">
 				<p class="ml-5">Jose Joshua</p>
-				<small class="block ml-5">Administrador</small>
+				<small class="block ml-5">Administrator</small>
 			</div>
 		</div>
 	</section>
