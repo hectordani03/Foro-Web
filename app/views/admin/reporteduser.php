@@ -1,5 +1,5 @@
 <div id="datamodal" class="modal text-content">
-    <form class="requestForm" action="<?php echo REQUEST; ?>users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+    <form class="requestForm" action="<?= REQUEST; ?>users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close closed">&times;</span>

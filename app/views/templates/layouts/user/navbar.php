@@ -59,7 +59,7 @@
 
         <!-- ADD BUTTON -->
         <li class="rounded-lg bg-blue-400 text-center flex flex-col justify-center items-center w-10 h-10">
-            <a class="text-white w-full text-3xl pb-1">
+            <a id="add-category" class="text-white w-full text-3xl pb-1">
                 +
             </a>
         </li>

@@ -23,7 +23,7 @@
 
 body {
   height: 100vh;
-  background: var(--body-color);
+  background-color: rgb(226, 232, 240);
   transition: margin-left var(--tran-04);
   margin-left: 6%;
   transition: var(--tran-04);
@@ -54,7 +54,7 @@ body {
   height: 100%;
   width: 16%;
   padding: 10px 14px;
-  background: var(--sidebar-color);
+  background-color: rgb(226, 232, 240);
   transition: var(--tran-04);
   z-index: 100;
 }
@@ -63,8 +63,8 @@ body {
 }
 
 .sidebar .text {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 700;
   color: var(--text-color);
   transition: var(--tran-04);
   white-space: nowrap;
@@ -127,6 +127,7 @@ body {
 }
 
 .sidebar header .toggle {
+  display: none !important;
   position: absolute;
   top: 50%;
   right: -25px;
@@ -149,7 +150,7 @@ body.dark .sidebar header .toggle {
   color: var(--text-color);
 }
 .sidebar .menu {
-  margin-top: -35px;
+  margin-top: 0px;
 }
 .sidebar .search-box {
   background: var(--primary-color-light);
@@ -181,7 +182,8 @@ body.dark .search-box .search {
   border-radius: 6px;
 }
 .sidebar li a:hover {
-  background: var(--primary-color);
+  /* background: var(--primary-color); */
+  background-color: #002df3;
 }
 .sidebar li a:hover .icon,
 .sidebar li a:hover .text {
@@ -201,7 +203,7 @@ body.dark .sidebar li a:hover .text {
 .menu-bar .mode {
   position: relative;
   border-radius: 6px;
-  background: var(--primary-color-light);
+  /* background: var(--primary-color-light); */
 }
 .menu-bar .mode .moon-sun {
   height: 50px;
@@ -225,14 +227,14 @@ body.dark .menu-bar .mode i.moon {
 }
 .menu-bar .mode .toggle-switch {
   position: absolute;
-  right: 0;
+  right: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   min-width: 60px;
   cursor: pointer;
-  background: var(--primary-color-light);
+  /* background: var(--primary-color-light); */
   border-radius: 5px;
 }
 .toggle-switch .switch {
@@ -330,8 +332,8 @@ body.dark .sidebar a:hover .dropdown {
 /* ============================== DataTable ============================== */
 
 .dataTables_wrapper {
-  margin-top: 50px;
-  padding: 50px;
+  margin-top: 0px;
+  padding: 20px;
   transition: var(--tran-04);
 }
 body.side .dataTables_wrapper {
@@ -742,4 +744,12 @@ body.dark .profile-img {
 
 .button-container button {
   margin: 0 5px;
+}
+
+.custom-labels {
+  font-size: 7px; /* Ajusta el tamaño de la letra según tus preferencias */
+}
+
+.background{
+  background-color: #002df3;
 }

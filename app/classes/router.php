@@ -10,6 +10,7 @@ use app\controllers\auth\loginController as Login;
 use app\controllers\auth\RegisterController as Register;
 use app\controllers\auth\AccountController as Account;
 use app\controllers\ProfileController as Profile;
+use app\controllers\AdminController as Admin;
 
 class router
 {
@@ -27,6 +28,9 @@ class router
         switch ($controller) {
             case 'HomeController':
                 $controller = new Home();
+                break;
+            case 'AdminController':
+                $controller = new Admin();
                 break;
             case 'PostsController':
                 $controller = new Posts();
@@ -74,10 +78,20 @@ class router
         } else {
             $controller = "home";
         }
+        
+        // Check if the controller is 'admin'
+        if ($controller === 'admin' && isset($this->url[1])) {
+            // If the controller is 'admin' and a second part of the URL exists
+            // set the controller to 'AdminController'
+            $controller = 'Admin';
+            // Shift the URL parts to the left so the action will be next
+            array_shift($this->url);
+        }
+        
         $controller = ucfirst($controller) . 'Controller';
         return $controller;
     }
-
+    
     private function getAction()
     {
         if (isset($this->url[1])) {

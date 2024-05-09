@@ -40,7 +40,7 @@ require_once LAYOUTS_US . 'header.php';
         ?>
 
         <!-- OBJETIVE CARD -->
-        <a class=" mr-5 w-2/12" href="#"><img class="rounded-lg w-64 h-56 mx-auto" src="<?php echo GIFT; ?>obj2.gif" alt=""></a>
+        <a id="objetive-info" class=" mr-5 w-2/12" href="#"><img class="rounded-lg w-64 h-56 mx-auto" src="<?php echo GIFT; ?>obj2.gif" alt=""></a>
 
     </main>
 
@@ -58,7 +58,7 @@ require_once LAYOUTS_US . 'header.php';
         ?>
     </div>
     <?php
-        require_once USER_VIEWS . 'comment.php';
+        // require_once USER_VIEWS . 'comment.php';
         ?>
 
 </section>
