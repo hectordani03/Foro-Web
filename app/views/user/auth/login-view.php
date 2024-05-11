@@ -1,5 +1,5 @@
 <?php
-setHeader($d, "login.css", "sweetalert2.min.css");
+setHeader($d, "login", "sweetalert2.min");
 ?>
 
 <div class="container-form">

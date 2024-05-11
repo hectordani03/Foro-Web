@@ -10,11 +10,12 @@
 :root {
   --body-color: #f2f2f2;
   --sidebar-color: #fff;
-  --primary-color: #333333;
+  --primary-color: #3a3b3c;
   --primary-color-light: #f6f5ff;
   --toggle-color: #ddd;
   --text-color: #707070;
 
+  --tran-01: all 0.1s ease;
   --tran-02: all 0.2s ease;
   --tran-03: all 0.3s ease;
   --tran-04: all 0.4s ease;
@@ -356,10 +357,11 @@ body.dark {
   --dt-row-hover: 255, 255, 255;
 }
 
-body.dark .dataTables_wrapper .dataTables_filter input,
-body.dark .dataTables_wrapper .dataTables_length select {
+body.dark .dataTables_filter input,
+body.dark .dataTables_length select {
   border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: #18191a;
+  transition: var(--tran-01);
 }
 body.dark table.dataTable.row-border > tbody > tr > th,
 body.dark table.dataTable.row-border > tbody > tr > td,
@@ -567,6 +569,7 @@ body.dark .modal-content input[type="file"]::file-selector-button:hover {
 
 .column {
   margin: 10px 10px;
+  
 }
 .columns {
   display: flex;
@@ -577,6 +580,9 @@ body.dark .modal-content input[type="file"]::file-selector-button:hover {
   margin-right: 10px;
 }
 
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
 .control {
   display: flex;
   flex-direction: column;
@@ -732,14 +738,4 @@ body.dark .profile-img {
 .warning-button:hover {
   background-color: #ffac00;
   color: #000;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.button-container button {
-  margin: 0 5px;
 }

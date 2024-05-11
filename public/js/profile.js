@@ -60,30 +60,47 @@ const profile = {
                       </header>
                       <section class="flex">
                       <form class="" id="updateUser-form" method="POST" autocomplete="off" enctype="multipart/form-data">
-              
+
                               <h1 class="text-black flex justify-start w-full text-2xl font-bold mt-5 mb-5 ml-5 text-center dark:text-white">Upload your <span class="text-blue-500 ml-2">information</span></h1>
-                            
+
                             <section class="flex gap-5">
-                              <input name="username" id="usernamep" type="text" placeholder="New Username" class="border-b-2 border-t-1 border-gray-300 py-3 focus:border-b-2 focus:border-gray-400 transition-colors focus:outline-none bg-inherit bg-slate-200 dark:bg-slate-600 rounded-2 xl px-5 text-gray-400 font-semibold w-5/12 shadow-md rounded-xl" value="${user.username}"/>
+                              <input name="username" id="usernamep" type="text" placeholder="New Username" class="border-b-2 border-t-1 border-gray-300 py-3 focus:border-b-2 focus:border-gray-400 transition-colors focus:outline-none bg-inherit bg-slate-200 dark:bg-slate-600 rounded-2 xl px-5 text-gray-400 font-semibold w-5/12 shadow-md rounded-xl" value="${
+                                user.username
+                              }"/>
           
-                              <input name="email" id="emailp" type="email" placeholder="New Email" class="border-b-2 border-t-1 border-gray-300 py-3 focus:border-b-2 focus:border-gray-400 transition-colors focus:outline-none bg-inherit bg-slate-200 dark:bg-slate-600 rounded-2 xl px-5 text-gray-400 font-semibold w-5/12 shadow-md rounded-xl" value="${user.email}"/>
+                              <input name="email" id="emailp" type="email" placeholder="New Email" class="border-b-2 border-t-1 border-gray-300 py-3 focus:border-b-2 focus:border-gray-400 transition-colors focus:outline-none bg-inherit bg-slate-200 dark:bg-slate-600 rounded-2 xl px-5 text-gray-400 font-semibold w-5/12 shadow-md rounded-xl" value="${
+                                user.email
+                              }"/>
+
+                              <small class="form-text text-danger d-none" id="error">
+                                Fields can not be empty
+                              </small>
                             </section>
   
                             <section class="flex gap-5">
-                                <input name="age" id="age" type="text" placeholder="Age" class="border-b-2 border-t-1 border-gray-300 py-3 focus:border-b-2 focus:border-gray-400 transition-colors focus:outline-none bg-inherit bg-slate-200 dark:bg-slate-600 rounded-2 xl px-5 text-gray-400 font-semibold w-5/12 mt-5 shadow-md rounded-xl" value="${user.age}" />
+                                <input name="age" id="age" type="text" placeholder="Age" class="border-b-2 border-t-1 border-gray-300 py-3 focus:border-b-2 focus:border-gray-400 transition-colors focus:outline-none bg-inherit bg-slate-200 dark:bg-slate-600 rounded-2 xl px-5 text-gray-400 font-semibold w-5/12 mt-5 shadow-md rounded-xl" ${
+                                  user.age != null && user.age !== 0
+                                    ? 'value="' + user.age + '"'
+                                    : ""
+                                } />
             
-                                <input name="nacionality" id="nacionality" type="text" placeholder="Nacionality" class="border-b-2 border-t-1 border-gray-300 py-3 focus:border-b-2 focus:border-gray-400 transition-colors focus:outline-none bg-inherit bg-slate-200 dark:bg-slate-600 rounded-2 xl px-5 text-gray-400 font-semibold w-5/12 mt-5 shadow-md rounded-xl" value="${user.nacionality}" />
+                                <input name="nacionality" id="nacionality" type="text" placeholder="Nacionality" class="border-b-2 border-t-1 border-gray-300 py-3 focus:border-b-2 focus:border-gray-400 transition-colors focus:outline-none bg-inherit bg-slate-200 dark:bg-slate-600 rounded-2 xl px-5 text-gray-400 font-semibold w-5/12 mt-5 shadow-md rounded-xl" ${
+                                  user.nacionality !== null
+                                    ? 'value="' + user.nacionality + '"'
+                                    : ""
+                                } />
                             </section>
               
-                              <textarea name="description" id="description" placeholder="Description" class="relative rounded-lg px-6 py-2 text-lg text-gray-400 bg-slate-200 dark:bg-slate-600 w-10/12 resize-none outline-none font-semibold mt-10 shadow-md mb-10" rows="7">${user.description}</textarea>
+                              <textarea name="description" id="description" placeholder="Description" class="relative rounded-lg px-6 py-2 text-lg text-gray-400 bg-slate-200 dark:bg-slate-600 w-10/12 resize-none outline-none font-semibold mt-10 shadow-md mb-10" rows="7">${
+                                user.description !== null
+                                  ? user.description
+                                  : ""
+                              }</textarea>
               
-                              <button type="submit" onclick="profile.updateUser()" class="flex justify-center bg-sky-400 text-white font-3xl text-center w-3/12 mx-auto px-20 py-3 rounded-lg font-semibold mb-5">Upload</button>
-                          </form>
                           <section class="w-6/12 flex flex-col items-center mt-10">
               
                               <h1 class="text-black flex justify-center w-full text-2xl font-bold mt-5 ml-5 mb-5 dark:text-white">Upload your profile<span class="text-blue-500 ml-2">image</span></h1>
               
-                              <form class="" id="register-form" method="POST" autocomplete="off" enctype="multipart/form-data">
 
                                   <label for="profilePic" id="drop-area" class="mt-5 mb-5 w-9/12">
                                       <div id="img-view" class="p-2 rounded-md text-center mt-3 mb-3">
@@ -100,11 +117,9 @@ const profile = {
                                                   </div>
                                                   </div>
                                                   </div>
-                                              </label>
-                                  <button type="submit" class="flex justify-center bg-sky-400 text-white font-3xl text-center w-3/12 mx-auto px-20 py-3 rounded-lg font-semibold mb-5 mt-5">Upload</button>
-              
-                              </form>
-              
+                                              </label>              
+                                              <button type="submit" onclick="profile.updateUser()" id="updatebtn" class="flex justify-center bg-sky-400 text-white font-3xl text-center w-3/12 mx-auto px-20 py-3 rounded-lg font-semibold mb-5">Upload</button>
+
                               <div class="w-7/12 mt-5">
                                   <h1 class="text-black flex justify-center w-full text-2xl font-bold mt-5 dark:text-white">Choose your<span class="text-blue-500 ml-2">Color</span></h1>
               
@@ -145,7 +160,8 @@ const profile = {
               
                               </div>
                           </section>
-              
+                          </form>
+
                       </section>
               
                   </section>
@@ -212,45 +228,73 @@ const profile = {
   },
 
   updateUser: function () {
+    const capa = $("#capa");
+    const close = $("#close");
+    const body = $("#body-content");
+    $("#body-content")
+      .removeClass("overflow-hidden")
+      .addClass("overflow-hidden");
+
     const uuf = $("#updateUser-form");
+
     uuf.on("submit", function (e) {
       e.preventDefault();
       e.stopPropagation();
+
+      const us = $("#usernamep");
+      const em = $("#emailp");
+      const btn = $("#updatebtn");
+      const file = $("#profilePic")[0].files[0];
       const data = new FormData(this);
-      fetch(app.routes.updateUser + `/${app.user.id}`, {
-        method: "POST",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.r !== false) {
-            Swal.fire({
-              icon: "success",
-              text: "Changes made successfully",
-            }).then(() => {
-              location.href = app.routes.profile;
-              uuf[0].reset();
-            });
-          } else {
-            Swal.fire({
-              icon: "error",
-              text: "Unexpected error, please try again",
-            }).then(() => {
-              uuf[0].reset();
-            });
-          }
-        })
-        .then(() => {
-          uuf[0].reset();
-        })
-        .catch((err) => {
-          Swal.fire({
-            icon: "error",
-            text: "Unexpected error, please try again",
-          }).then(() => {
-            uuf[0].reset();
-          });
+
+      if (us.val() === "" || em.val() === "") {
+        handleFormError(btn);
+      } else if (file && file.size / (1024 * 1024) > 2) {
+        Swal.fire({
+          icon: "error",
+          text: "The image you have selected exceeds the allowed weight 2 MB.",
         });
+      } else {
+        fetch(app.routes.updateUser, {
+          method: "POST",
+          body: data,
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.r !== false) {
+              Swal.fire({
+                icon: "success",
+                text: "Changes made successfully",
+              }).then(() => {
+                location.href = app.routes.profile;
+              });
+            } else {
+              handleUpdateError(uuf);
+            }
+          })
+          .catch(() => {
+            handleUpdateError(uuf);
+          });
+      }
     });
   },
 };
+
+function handleFormError(btn) {
+  btn.prop("disabled", true);
+  $("#error").removeClass("d-none").css("color", "red");
+  setTimeout(function () {
+    $("#error").addClass("d-none").css("color", "");
+    btn.prop("disabled", false);
+  }, 1800);
+  $("#usernamep").val() === "" ? $("#usernamep").focus() : $("#emailp").focus();
+}
+
+function handleUpdateError(uuf) {
+  Swal.fire({
+    icon: "error",
+    text: "Unexpected error, please try again",
+  }).then(() => {
+    uuf[0].reset();
+  });
+}

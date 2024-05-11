@@ -2,7 +2,10 @@
 
 namespace app\controllers;
 
+use app\classes\View;
+use app\classes\redirect;
 use app\models\posts;
+use app\controllers\auth\LoginController as session;
 
 class PostsController extends Controller
 {
@@ -10,6 +13,16 @@ class PostsController extends Controller
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function index($params = null)
+    {
+        $ua = session::sessionValidate();
+        if (is_null($ua) || $ua['role'] == 3) {
+            redirect::to('');
+            exit();
+        }
+        View::render('admin/posts', ['ua' => $ua, 'title' => 'For Us']);
     }
 
     public function getPosts()
@@ -28,9 +41,15 @@ class PostsController extends Controller
 
     public function createPosts($params = null)
     {
-
         $posts = new posts;
         $res = $posts->addPosts(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
+        echo json_encode(["r" => $res]);
+    }
+
+    public function sharePost($params = null)
+    {
+        $posts = new posts;
+        $res = $posts->sharePost(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
         echo json_encode(["r" => $res]);
     }
 

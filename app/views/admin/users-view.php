@@ -1,12 +1,15 @@
 <!-- Botón para abrir el modal -->
-<div class="container">
-    <?php if ($_SESSION['role'] == '1') { ?>
-        <button class="button primary-button" id="openModalBtn">Add User</button>
-    <?php } ?>
-</div>
+<?php
+require_once LAYOUTS_AD . 'header.php';
+?>
+<?php if ($ua->role == 1) { ?>
+    <div class="container">
+        <button class="button primary-button open-modal" id="btn-add">Add User</button>
+    </div>
+<?php } ?>
 
-<div id="myModal" class="modal text-content">
-    <form class="requestForm" action="<?php echo REQUEST; ?>users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+<div id="add-modal" class="modal text-content">
+    <form class="" id="register-form" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
@@ -16,16 +19,16 @@
                 <input type="hidden" name="user_module" value="adminRegister">
 
                 <label for="username">Username</label>
-                <input class="form-control" type="text" name="username" pattern="[a-zA-Z0-9]{4,20}" maxlength="40" required>
+                <input class="form-control" type="text" name="username" id="username" pattern="^[a-zA-Z0-9]{1,100}$" minlength="3" maxlength="40" required>
 
                 <label for="email">Email</label>
-                <input class="form-control" type="email" name="email" maxlength="70" required>
+                <input class="form-control" type="email" name="email" id="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" minlength="6" maxlength="70" required>
 
                 <label for="password">Password</label>
-                <input class="form-control" type="password" name="password" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required>
+                <input class="form-control" type="password" name="password" id="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.\-])[A-Za-z\d$@.\-]{7,100}$" minlength="7" maxlength="100" required>
 
-                <label for="confirm_password">Confirm Password</label>
-                <input class="form-control" type="password" name="confirm_password" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required>
+                <label for="password2">Confirm Password</label>
+                <input class="form-control" type="password" name="password2" id="password2" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.\-])[A-Za-z\d$@.\-]{7,100}$" minlength="7" maxlength="100" required>
 
                 <label for="role">Role</label>
                 <select name="role" class="form-control" required>
@@ -34,7 +37,7 @@
                     <option value="3" selected>3</option>
                 </select>
 
-                <label class="file-label">
+                <!-- <label class="file-label">
                     <input class="file-input form-control" type="file" name="user_profile_photo" accept=".jpg, .png, .jpeg">
                     <span class="file-cta">
                         <span class="file-label">
@@ -42,7 +45,7 @@
                         </span>
                     </span>
                     <span class="file-name">JPG, JPEG, PNG. (MAX 5MB)</span>
-                </label>
+                </label> -->
 
             </div>
             <div class="modal-footer">
@@ -53,16 +56,16 @@
     </form>
 </div>
 
-<div id="datamodal" class="modal text-content">
-    <form class="requestForm" action="<?php echo REQUEST; ?>users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+<div id="report-modal" class="modal text-content">
+    <form class="requestForm" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close closed">&times;</span>
+                <span class="close">&times;</span>
                 <h2>Report User</h2>
             </div>
             <div class="modal-body">
                 <input type="hidden" name="user_module" value="reportUser">
-                <input type="hidden" name="id_user" value="" readonly>
+                <input type="hidden" name="userId" value="" readonly>
 
                 <label for="username">Username</label>
                 <input class="form-control" type="text" name="username" pattern="[a-zA-Z0-9]{4,20}" maxlength="40" value="" readonly>
@@ -94,22 +97,21 @@
     </form>
 </div>
 
-<div id="deletemodal" class="modal text-content">
-    <form class="requestForm" action="<?php echo REQUEST; ?>users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+<div id="delete-modal" class="modal text-content">
+    <form class="requestForm" id="delete-form" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close closedd">&times;</span>
+                <span class="close">&times;</span>
                 <h2>Delete User</h2>
             </div>
             <div class="modal-body">
-                <input type="hidden" name="user_module" value="deleteUser">
-                <input type="hidden" name="id_user" value="" readonly>
+                <input type="hidden" name="userId" id="userId" value="" readonly>
 
                 <label for="username">Username</label>
-                <input class="form-control" type="text" name="username" pattern="[a-zA-Z0-9]{4,20}" maxlength="40" value="" readonly require>
+                <input class="form-control" type="text" name="username" id="dusername" pattern="^[a-zA-Z0-9]{1,100}$" value="" readonly required>
 
                 <label for="email">Email</label>
-                <input class="form-control" type="email" name="email" maxlength="70" value="" readonly require>
+                <input class="form-control" type="email" name="email" id="demail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" value="" readonly required>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="button delete-button">Delete</button>
@@ -117,21 +119,23 @@
         </div>
     </form>
 </div>
-
 <table id="datatable" class="hover row-border table"></table>
+<?php
+require_once LAYOUTS_AD . 'footer.php';
+?>
+
 <script>
-    var currentUserID = <?php echo isset($_SESSION['id']) ? $_SESSION['id'] : 'null'; ?>;
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
+    $(function() {
         const dataTable = $('#datatable').DataTable({
+            processing: true,
+            //   serverSide: true,
             ajax: {
-                url: 'http://localhost/For-Us/app/users/userData.php',
-                dataSrc: json => json.data
+                url: "http://forus.com/user/getUsers",
+                dataSrc: ""
             },
             columns: [{
                     title: 'ID',
-                    data: 'id_user'
+                    data: 'id'
                 },
                 {
                     title: 'Username',
@@ -143,18 +147,18 @@
                 },
                 {
                     title: 'Role',
-                    data: 'id_role'
+                    data: 'role'
                 },
                 {
                     title: 'Status',
-                    data: 'state'
+                    data: 'active'
                 },
                 {
                     title: 'Profile Picture',
-                    data: 'profile_picture',
+                    data: 'profilePic',
                     render: function(data, type, row) {
                         if (type === 'display' && data) {
-                            return '<img src="./assets/profile_picture/' + data + '" alt="Image" width="40" height="40">';
+                            return '<img src="http://forus.com/resources/assets/img/profile/' + data + '" alt="Image" width="40" height="40">';
                         } else {
                             return data;
                         }
@@ -162,26 +166,26 @@
                 },
                 {
                     title: 'Registration',
-                    data: 'registration'
+                    data: 'registered_at'
                 },
                 {
                     title: 'Report',
                     render: function(data, type, row) {
-                        return '<button class="button warning-button btn-report-user" data-id_user="' + row.id_user + '">Report</button>';
+                        return '<button class="button warning-button btn-reports" data-id="' + row.id + '">Report</button>';
                     }
                 },
                 {
                     title: 'Delete',
-                    visible: (currentUserID === 1),
+                    visible: (app.user.id === 1),
                     render: function(data, type, row) {
-                        return '<button class="button danger-button btn-delete-user" data-id_user="' + row.id_user + '">Delete</button>';
+                        return '<button class="button danger-button btn-delete" data-id="' + row.id + '">Delete</button>';
                     }
                 },
             ],
             drawCallback: function() {
                 $('#datatable thead th, tbody td').css('text-align', 'center');
 
-                $('.btn-report-user').on('click', function() {
+                $('.btn-reports').on('click', function() {
                     const rowData = dataTable.row($(this).closest('tr')).data();
 
                     if (rowData) {
@@ -190,7 +194,7 @@
                         console.error('No se pudo obtener los datos de la fila.');
                     }
                 });
-                $('.btn-delete-user').on('click', function() {
+                $('.btn-delete').on('click', function() {
                     const rowData = dataTable.row($(this).closest('tr')).data();
 
                     if (rowData) {
@@ -203,34 +207,8 @@
         });
     });
 
-    function openReportModal(userData) {
-        $('#datamodal input[name="id_user"]').val(userData.id_user);
-        $('#datamodal input[name="username"]').val(userData.username);
-        $('#datamodal input[name="email"]').val(userData.email);
-        $('#datamodal input[name="role"]').val(userData.id_role);
-        $('#datamodal').css('display', 'block');
-    }
-
-    function openDeleteModal(userData) {
-        $('#deletemodal input[name="id_user"]').val(userData.id_user);
-        $('#deletemodal input[name="username"]').val(userData.username);
-        $('#deletemodal input[name="email"]').val(userData.email);
-        $('#deletemodal').css('display', 'block');
-    }
-</script>
-<script>
-    function showInput() {
-        var selectElement = document.getElementById("select");
-        var reasonInput = document.getElementById("reason");
-
-        reasonInput.innerHTML = '';
-
-        if (selectElement.value === "Other") {
-            var inputElement = document.createElement("input");
-            inputElement.type = "text";
-            inputElement.placeholder = "Please specify";
-            inputElement.name = "reasonInput";
-            reasonInput.appendChild(inputElement);
-        }
-    }
+    $(function() {
+        app_ad.registerUser();
+        app_ad.deleteUser();
+    });
 </script>

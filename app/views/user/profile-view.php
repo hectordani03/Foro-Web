@@ -91,5 +91,24 @@ require_once LAYOUTS_US . 'header.php';
 </section>
 
 <?php
-require_once LAYOUTS_US . 'footer.php';
+setFooter($d, "sweetalert2.all.min", "alerts", "jquery", "contentPolicy", "navbarUser", "app","profile");
+?>
+
+<script>
+    $(function() {
+        app.user.sv = <?= $ua->sv ? 'true' : 'false' ?>;
+        app.user.id = <?= $ua->id ?? '""' ?>;
+        app.user.username = "<?= $ua->username ?? '' ?>";
+        app.user.role = "<?= $ua->role ?? '' ?>";
+        app.user.pic = "<?= $ua->profilePic ?? '' ?>";
+        app.user.csrf = <?= $ua->csrf ?? '""' ?>;
+    });
+</script>
+<script>
+    $(function() {
+        profile.userPosts();
+    });
+</script>
+<?php
+closeFooter();
 ?>

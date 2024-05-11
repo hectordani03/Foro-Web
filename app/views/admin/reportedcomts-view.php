@@ -1,3 +1,6 @@
+<?php
+require_once LAYOUTS_AD . 'header.php';
+?>
 <div id="datamodal" class="modal text-content">
     <form class="requestForm" action="<?php echo REQUEST; ?>comments/comtRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
@@ -111,3 +114,7 @@
         }
     }
 </script>
+
+<?php
+require_once LAYOUTS_AD . 'footer.php';
+?>

@@ -19,13 +19,22 @@ class ProfileController extends Controller
 
     public function index()
     {
-
         $ua = session::sessionValidate();
         if (is_null($ua)) {
             redirect::to('');
             exit();
         }
         View::render('user/profile', ['ua' => $ua, 'title' => 'Profile – For Us']);
+    }
+
+    public function user()
+    {
+        $ua = session::sessionValidate();
+        if (is_null($ua) || $ua['role'] == 3) {
+            redirect::to('');
+            exit();
+        }
+        View::render('admin/userUpdate', ['ua' => $ua, 'title' => 'Profile – For Us']);
     }
 
     public function getPosts($params = null)
@@ -41,13 +50,16 @@ class ProfileController extends Controller
         $res = $user->getUserInfo($params);
         echo $res;
     }
-    
-    public function updateUser($params = null)
+
+    public function updateUser()
     {
+
         $user = new user;
         $userinfo = new userinfo;
-        $res = $user->updateProfUser(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
-        $res = $userinfo->updateUserInfo(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
+        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
+        $data['userId'] = session::sessionValidate()['id'];
+        $res = $userinfo->updateUserInfo($data);
+        $res = $user->updateProfUser($data);
         echo json_encode(["r" => $res]);
         // $r = json_encode([$res]);
     }

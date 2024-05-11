@@ -7,12 +7,15 @@ const app = {
 
     /* CONTROLLERS */
     register: "/Register/register",
+    deleteUser: "/User/deleteUser",
     session: "/Login/login",
+    updateUser: "/Profile/updateUser",
     getPosts: "/Posts/getPosts",
     getPost: "/Posts/getPost",
-    getComments: "/Comments/getComments",
     addPosts: "/Posts/createPosts",
-    updateUser: "/Profile/updateUser",
+    sharePost: "/Posts/sharePost",
+    getComments: "/Comments/getComments",
+    addComment: "/Comments/createComment",
   },
 
   user: {
@@ -26,7 +29,7 @@ const app = {
   pp: $("#posts"),
   ss: $("#shareId"),
   cc: $("#commentsId"),
-  
+
   allPosts: function () {
     let html = "<b>No posts yet</b>";
     this.pp.html("");
@@ -46,10 +49,16 @@ const app = {
           <!-- TOP CARD CONTENT -->
 
           <div class="flex mt-5 ml-5">
-          <img id="profile_picture" class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${post.profilePic}" alt="">
+          <img id="profile_picture" class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${
+            post.profilePic
+          }" alt="">
           <div class="flex flex-col ml-5">
-              <h2 id="username" class="text-xl text-gray-400 font-semibold">${post.username}</h2>
-              <p class="text-gray-400">${formatTimeSincePost(post.created_at)}</p>
+              <h2 id="username" class="text-xl text-gray-400 font-semibold">${
+                post.username
+              }</h2>
+              <p class="text-gray-400">${formatTimeSincePost(
+                post.created_at
+              )}</p>
               </div>
           <!-- CARD MENU -->
           <div class="absolute right-5 top-0">
@@ -61,11 +70,15 @@ const app = {
       <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">${post.text}</p>
 
       <!-- <a class="text-blue-500 underline text-xl w-10/12 mx-auto mt-2 mb-1" href="https://google.com">Naciones Unidas</a> -->
-          <img class="w-10/12 mx-auto rounded-xl mt-7" src="http://forus.com/resources/assets/img/post/${post.img}" alt="">
+          <img class="w-10/12 mx-auto rounded-xl mt-7" src="http://forus.com/resources/assets/img/post/${
+            post.img
+          }" alt="">
 
       <!-- CARD HASHTAGS -->
       <div class="flex gap-4 w-10/12 mx-auto mt-5">
-          <a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center" href="">#${post.category}</a>
+          <a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center" href="">#${
+            post.category
+          }</a>
           <!-- <a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center" href="">#EndIt</a> -->
       </div>
       <!-- FOOTER CARD -->
@@ -79,13 +92,17 @@ const app = {
               </svg>
           </div>
 
-          <div id="comment-button" onclick="app.postComments(${post.id})" class="text-gray-400 w-7 h-7 ml-5 mt-1 cursor-pointer comment-button">
+          <div id="comment-button" onclick="app.postComments(${
+            post.id
+          })" class="text-gray-400 w-7 h-7 ml-5 mt-1 cursor-pointer comment-button">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                   <path class="fill-current" d="M64 0C28.7 0 0 28.7 0 64V352c0 35.3 28.7 64 64 64h96v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64z" />
               </svg>
           </div>
 
-          <div id="share-button" onclick="app.sharePost(${post.id})" class="text-gray-400 w-8 h-8 absolute right-3 cursor-pointer share-button">
+          <div id="share-button" onclick="app.sharePost(${
+            post.id
+          })" class="text-gray-400 w-8 h-8 absolute right-3 cursor-pointer share-button">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                   <path class="fill-current" d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z" />
               </svg>
@@ -96,7 +113,8 @@ const app = {
                 `;
         }
         this.pp.html(html);
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.error("Error", err);
       });
   },
@@ -108,16 +126,18 @@ const app = {
     let footerHtml = "<b>No comments yet</b>";
 
     fetch(this.routes.getPost + "/" + postId)
-        .then((res) => res.json())
-        .then((post) => {
-          postHtml = "";
-            const p = post[0];
-            postHtml += `
+      .then((res) => res.json())
+      .then((post) => {
+        postHtml = "";
+        const p = post[0];
+        postHtml += `
             <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-30 dark:bg-opacity-40 transition-opacity"></div>
             <section id="modal" class="bg-gray-100 dark:bg-slate-700 rounded-xl w-7/12 mx-auto h-screen flex flex-col fixed">
               <div class="flex justify-between fixed w-7/12 z-50 bg-gray-100 dark:bg-slate-700 shadow-lg pb-4">
                 <h1 class="text-black flex text-2xl font-bold mt-5 ml-5 dark:text-white">FOR <span class="text-blue-500 ml-2">US</span></h1>
-                <p class="font-bold text-xl mt-5 dark:text-white">${p.ownName}'s Post</p>
+                <p class="font-bold text-xl mt-5 dark:text-white">${
+                  p.ownName
+                }'s Post</p>
                 <div id="close" class="text-gray-400 w-8 h-8 transition-all cursor-pointer mt-5 mr-5">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path class="fill-current" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
@@ -132,35 +152,48 @@ const app = {
                     <div id="custom-modal" class="absolute w-full h-full flex flex-col justify-center items-center opacity-100 transition ease-in"></div>
 
                     <div class="flex mt-5 ml-5">
-                        <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${p.ownPic}" alt="">
+                        <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${
+                          p.ownPic
+                        }" alt="">
                         <div class="flex flex-col ml-5">
-                            <h2 class="text-xl text-gray-400 font-semibold">${p.ownName}</h2>
-                            <p class="text-gray-400">${formatTimeSincePost(p.created_at)}</p>
+                            <h2 class="text-xl text-gray-400 font-semibold">${
+                              p.ownName
+                            }</h2>
+                            <p class="text-gray-400">${formatTimeSincePost(
+                              p.created_at
+                            )}</p>
                         </div>
                         <div class="absolute right-5 top-0">
                             <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none">...</span>
                         </div>
                     </div>
 
-                    <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">${p.text}</p>
-                    <img class="w-10/12 mx-auto rounded-xl mt-7" src="http://forus.com/resources/assets/img/post/${p.img}" alt="">
+                    <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">${
+                      p.text
+                    }</p>
+                    <img class="w-10/12 mx-auto rounded-xl mt-7" src="http://forus.com/resources/assets/img/post/${
+                      p.img
+                    }" alt="">
                     <div class="flex gap-4 w-10/12 mx-auto mt-5">
-                        <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#${p.category}</a>
+                        <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#${
+                          p.category
+                        }</a>
                     </div>
                 </div>
                 <hr class="w-full mt-5 border dark:border-slate-600">
                 `;
-        }).catch((err) => {
-            console.error("Error fetching post:", err);
-        });
+      })
+      .catch((err) => {
+        console.error("Error fetching post:", err);
+      });
 
     fetch(this.routes.getComments + "/" + postId)
-        .then((res) => res.json())
-        .then((comments) => {
-          if (comments.length > 0) {
-            commentsHtml = "";
-            for (let cmts of comments) {
-                commentsHtml += `
+      .then((res) => res.json())
+      .then((comments) => {
+        if (comments.length > 0) {
+          commentsHtml = "";
+          for (let cmts of comments) {
+            commentsHtml += `
                 <div class="w-10/12 mx-auto mb-24">
                 <div class="flex gap-5 mt-10">
                 <img class="w-12 h-10 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${cmts.profilePic}" alt="">
@@ -186,39 +219,42 @@ const app = {
                 </div>
             </div>
               `;
-            }
-                      
           }
-          footerHtml += `
+        }
+        footerHtml += `
 </div>
 
 <hr class="w-full mt-5">
 <section class="fixed bottom-0 bg-gray-100 dark:bg-slate-700 w-7/12 shadow-inner z-50">
 <div class="w-11/12 mx-auto flex mt-5 mb-5">
   <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${app.user.pic}" alt="">
+  <form class="" id="commentPost-form" method="POST" autocomplete="off" enctype="multipart/form-data">
   <div class="bg-gray-200 ml-5 rounded-xl shadow-lg w-10/12">
-      <textarea class="relative rounded-lg text-lg text-gray-400 bg-gray-200 dark:bg-slate-600 w-full resize-none outline-none font-medium pl-5" rows="" maxlength="380" placeholder="Comment as ${ app.user.username}"></textarea>
+      <textarea name="content" id="content" class="relative rounded-lg text-lg text-gray-400 bg-gray-200 dark:bg-slate-600 w-full resize-none outline-none font-medium pl-5" rows="" maxlength="380" placeholder="Comment as ${app.user.username}"></textarea>
   </div>
-  <button class="text-gray-400 w-10 h-10 transition-all cursor-pointer ml-5 mt-1">
+  <button type="submit" onclick="app.comment(${postId})" id="commentbtn" class="text-gray-400 w-10 h-10 transition-all cursor-pointer ml-5 mt-1">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path class="fill-current" d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3.3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z" />
       </svg>
   </button>
+  </form>
 </div>
 </section>
 </section>
 `;
-  
-        }).catch((err) => {
-            console.error("Error fetching comments:", err);
-        }).finally(() => {
-            this.cc.html(postHtml + commentsHtml );
-            
-           
+      })
+      .catch((err) => {
+        console.error("Error fetching comments:", err);
+      })
+      .finally(() => {
+        this.cc.html(postHtml + commentsHtml + footerHtml);
+
         const capa = $("#capa");
         const close = $("#close");
         const body = $("#body-content");
-        $("#body-content").removeClass("overflow-hidden").addClass("overflow-hidden");
+        $("#body-content")
+          .removeClass("overflow-hidden")
+          .addClass("overflow-hidden");
 
         close.on("click", () => {
           modal.classList.add("hidden");
@@ -226,9 +262,7 @@ const app = {
           body.removeClass("overflow-hidden").addClass("overflow-auto");
         });
       });
-}
-,
-
+  },
   sharePost: function (postId) {
     let html = "<b>No  yet</b>";
     this.ss.html("");
@@ -253,7 +287,8 @@ const app = {
                       </div>
                   </div>
                   <hr class="w-full mt-20 border dark:border-slate-600">
-      
+                  <form class="" id="sharePost-form" method="POST" autocomplete="off" enctype="multipart/form-data">
+
                   <div id="card-scrollbar" class="overflow-y-auto z-40 relative h-auto">
                       <div class="bg-gray-100 dark:bg-slate-700 w-11/12 rounded-3xl flex flex-col relative  h-fit self-start opacity-100 mx-auto ">
                           <div id="capa" class="bg-gray-500 opacity-30 w-full h-full absolute hidden rounded-3xl transition ease-in z-50"></div>
@@ -285,7 +320,7 @@ const app = {
                           <!-- CARD CONTENT -->
                           <textarea class="relative rounded-lg text-lg text-gray-400 bg-gray-100 dark:bg-slate-700 w-full resize-none outline-none font-medium mt-5 ml-5" rows="" maxlength="380" placeholder="Comment as ${
                             app.user.username
-                          }"></textarea>
+                          }" name="text" id="text"></textarea>
       
                           <hr class="w-full mt-5 border dark:border-slate-600">
                           
@@ -315,15 +350,16 @@ const app = {
                           }" alt="">
       
                           <!-- CARD HASHTAGS -->
-                          <div class="flex gap-4 w-12/12 mx-auto mt-5">
-                              <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#${
+                          <div name="category" id="category" class="flex gap-4 w-12/12 mx-auto mt-5">
+                              <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="" >#${
                                 p.category
                               }</a>
                           </div>
                       </div>
                   </div>
                   <hr class="w-full mt-10 mb-5">
-                  <button class="btn mr-10 ml-10 mb-5 bg-sky-500 rounded-xl p-3 text-white">Share</button>
+                  <button type="submit" onclick="post.sharePost(${postId})" id="sharebtn" class="btn mr-10 ml-10 mb-5 bg-sky-500 rounded-xl p-3 text-white">Share</button>
+                  </form>
               </section>
           </section>`;
         }
@@ -331,7 +367,9 @@ const app = {
         const capa = $("#capa");
         const close = $("#close");
         const body = $("#body-content");
-        $("#body-content").removeClass("overflow-hidden").addClass("overflow-hidden");
+        $("#body-content")
+          .removeClass("overflow-hidden")
+          .addClass("overflow-hidden");
 
         close.on("click", () => {
           modal.classList.add("hidden");
@@ -343,6 +381,9 @@ const app = {
         console.error("Error", err);
       });
   },
+
+
+  
 };
 
 function formatTimeSincePost(postDate) {

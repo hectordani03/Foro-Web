@@ -13,8 +13,6 @@ require_once LAYOUTS_US . 'header.php';
 
 <!-- --------------------------------------------------------------------------- -->
 
-
-
 <section id="content" class="w-11/12 relative left-24">
 
     <!-- HEADER -->

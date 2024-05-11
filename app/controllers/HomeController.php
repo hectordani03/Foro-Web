@@ -2,7 +2,8 @@
 
 namespace app\controllers;
 
-use app\classes\View;
+use app\classes\view;
+use app\classes\redirect;
 use app\controllers\auth\LoginController as session;
 
 class HomeController extends Controller
@@ -19,6 +20,16 @@ class HomeController extends Controller
             'title' => 'For Us',
             'code' => 200
         ];
-        View::render('user/home', $response);
+        view::render('user/home', $response);
+    }
+
+    public function dashboard($params = null)
+    {
+        $ua = session::sessionValidate();
+        if (is_null($ua) || $ua['role'] == 3) {
+            redirect::to('');
+            exit();
+        }
+        view::render('admin/dashboard', ['ua' => $ua, 'title' => 'For Us']);
     }
 }

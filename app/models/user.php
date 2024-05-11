@@ -12,26 +12,36 @@ class user extends Model
         $this->fillable = [
             'username',
             'email',
-            'password'
+            'password',
+            'role'
         ];
     }
 
     public function registerUser($data)
     {
         $this->values = [
-            $data["username"],
-            $data["email"],
-            password_hash($data["password"], PASSWORD_BCRYPT, ["cost" => 10])
+            sanitizeString($data["username"]),
+            sanitizeString($data["email"]),
+            password_hash(sanitizeString($data["password"]), PASSWORD_BCRYPT, ["cost" => 10]),
+            isset($data["role"]) ? sanitizeString($data["role"]) : 3,
         ];
         return $this->insert();
     }
 
-    public function getAllUsers($limit = 5)
+    public function getAllUsers($data, $limit = 5)
     {
         $result = $this->select(['a.*, b.profilePic'])
             ->join('userinfo b', 'a.id=b.userId')
-            ->where([['a.active', 1]])
-            ->orderBy([['a.registered_at', 'DESC']])
+            ->where([['a.active', 1], ['a.id', $data['userId'], '<>']]);
+
+        if ($data['roleId'] == 1 && $data['userId'] == 1) {
+        } elseif ($data['roleId'] == 1) {
+            $result->where([['a.role', 1, '<>']]);
+        } else {
+            $result->where([['a.role', 3]]);
+        }
+
+        $result = $this->orderBy([['a.registered_at', 'DESC']])
             ->limit($limit)
             ->get();
         return $result;
@@ -47,14 +57,32 @@ class user extends Model
         return $result;
     }
 
-    public function updateProfUser($data, $params)
+    public function updateProfUser($data)
     {
-        $userId = $params[2];
         $this->values = [
-            'username' => $data["username"],
-            'email' => $data["email"],
+            'username' => sanitizeString($data["username"]),
+            'email' => sanitizeString($data["email"]),
         ];
-        $this->where([['id', $userId]]);
-        return $this->update();
+
+        if (isset($data["password"]) && $data["password"] != "") {
+            $this->values['password'] = password_hash(sanitizeString($data["password"]), PASSWORD_BCRYPT, ["cost" => 10]);
+        } else {
+            unset($this->values['password']);
+        }
+
+        $this->where([['id', $data['userId']]]);
+        $result = $this->update();
+
+        session_start();
+        $_SESSION['username'] = $this->values['username'];
+        $_SESSION['email'] = $this->values['email'];
+        session_write_close();
+        return $result;
+    }
+
+    public function deleteUser($data)
+    {
+        $this->where([['id', $data['userId']]]);
+        return $this->delete();
     }
 }

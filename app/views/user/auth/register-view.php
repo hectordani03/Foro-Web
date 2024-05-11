@@ -1,5 +1,5 @@
 <?php
-setHeader($d, "register.css", "sweetalert2.min.css");
+setHeader($d, "register", "sweetalert2.min");
 ?>
 
 <div class="container-form">
@@ -12,9 +12,9 @@ setHeader($d, "register.css", "sweetalert2.min.css");
             <input placeholder="Username" class="input" type="text" id="username" name="username" pattern="^[a-zA-Z0-9]{1,100}$" minlength="3" maxlength="40" required>
             <input placeholder="Email" class="input" type="email" id="email" name="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" minlength="6" maxlength="70" required>
 
-            <input placeholder="Password" class="input" type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.-])[A-Za-z\d$@.-]{7,100}$" minlength="7" maxlength="100" required>
+            <input placeholder="Password" class="input" type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.\-])[A-Za-z\d$@.\-]{7,100}$" minlength="7" maxlength="100" required>
             
-            <input placeholder="Confirm Password" class="input" type="password" id="password2" name="password2" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.-])[A-Za-z\d$@.-]{7,100}$" minlength="7" maxlength="100" required>
+            <input placeholder="Confirm Password" class="input" type="password" id="password2" name="password2" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.\-])[A-Za-z\d$@.\-]{7,100}$" minlength="7" maxlength="100" required>
             <div>
                 <a href="login"><span class="white-text">Do you already</span> <span class="blue-text"> have an account?</span></a>
             </div>

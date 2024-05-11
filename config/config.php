@@ -7,7 +7,6 @@ define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 
 define('IS_LOCAL', in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1']) ? true : false);
 define('URL', IS_LOCAL ? 'http://forus.com/' : 'REMOTE URL');
-define('URL_AD', 'http://forus.com/admin/');
 
 define('DB_HOST', IS_LOCAL ? 'localhost' : 'REMOTE HOST');
 define('DB_USER', IS_LOCAL ? 'root' : 'REMOTE USER');
@@ -21,7 +20,7 @@ define('VIEWS', ROOT . 'app/views/' . DS);
 define('USER_VIEWS', VIEWS . 'user' . DS);
 define('ADMIN_VIEWS', VIEWS . 'admin' . DS);
 
-define('CSS', URL . 'css' . DS);
+define('CSS', URL . 'css/');
 define('JS', URL . 'js' . DS);
 
 define('RESOURCES', URL . 'resources' . '/');

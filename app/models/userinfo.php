@@ -10,10 +10,16 @@ class userinfo extends Model
         parent::__construct();
         $this->table = $this->connect();
         $this->fillable = [
-            'username',
-            'email',
-            'password'
+            'userId',
         ];
+    }
+
+    public function registerUserInfo($userId)
+    {
+        $this->values = [
+            $userId,
+        ];
+        return $this->insert();
     }
 
     public function getUserInfo($params)
@@ -25,16 +31,31 @@ class userinfo extends Model
         return $result;
     }
 
-    public function updateUserInfo($data, $params)
+    public function updateUserInfo($data)
     {
-        $userId = $params[2];
-        $this->values = [
-            'description' => sanitizeString($data["description"]),
-            'age' => sanitizeString($data["age"]),
-            'nacionality' => sanitizeString($data["nacionality"]),
-            // 'profilePic' => $data["email"],
-        ];
-        $this->where([['userId', $userId]]);
-        return $this->update();
+        session_start();
+        if (isset($data["description"]) && $data["description"] != "") {
+            $this->values['description'] = sanitizeString($data["description"]);
+            $_SESSION['description'] = $this->values['description'];
+        }
+        if (isset($data["age"]) && $data["age"] != "") {
+            $this->values['age'] = sanitizeString($data["age"]);
+            $_SESSION['age'] = $this->values['age'];
+        }
+        if (isset($data["nacionality"]) && $data["nacionality"] != "") {
+            $this->values['nacionality'] = sanitizeString($data["nacionality"]);
+            $_SESSION['nacionality'] = $this->values['nacionality'];
+        }
+        if (isset($_FILES["profilePic"]) && $_FILES["profilePic"]['name'] != "" && $_FILES["profilePic"]['size'] > 0 && $_FILES["profilePic"] != "") {
+            $this->values['profilePic'] = getUserImg("profilePic");
+            $_SESSION['profilePic'] = $this->values['profilePic'];
+        }
+        if (!empty($this->values)) {
+
+            $this->where([['userId', $data['userId']]]);
+            return $this->update();
+        }
+        session_write_close();
+        return null;
     }
 }

@@ -3,8 +3,10 @@
 namespace app\classes;
 
 use app\controllers\HomeController as Home;
+use app\controllers\UserController as User;
 use app\controllers\PostsController as Posts;
 use app\controllers\CommentsController as Comments;
+use app\controllers\ReportsController as Reports;
 use app\controllers\ErrorController as Error;
 use app\controllers\auth\loginController as Login;
 use app\controllers\auth\RegisterController as Register;
@@ -28,11 +30,17 @@ class router
             case 'HomeController':
                 $controller = new Home();
                 break;
+            case 'UserController':
+                $controller = new User();
+                break;
             case 'PostsController':
                 $controller = new Posts();
                 break;
             case 'CommentsController':
                 $controller = new Comments();
+                break;
+            case 'ReportsController':
+                $controller = new Reports();
                 break;
             case 'LoginController':
                 $controller = new Login();

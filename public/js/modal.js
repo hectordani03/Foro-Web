@@ -1,37 +1,28 @@
-function manejarModal(modalId, closeButtonClass, abrirModalFunction = null) {
-  var modal = document.getElementById(modalId);
-  if (modal) {
-    $(document).ready(function () {
-      var span = document.querySelector(closeButtonClass);
-      span.onclick = function () {
-        modal.style.display = "none";
-      };
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.animation = "growShrinkModal 0.5s";
-          setTimeout(function () {
-            modal.style.animation = "";
-          }, 500);
-        }
-      };
+function manejarModales(modalClass, closeButtonClass, abrirModalFunction = null) {
+  $(function () {
+    $(document).on('click', '.' + closeButtonClass, function() {
+      $(this).closest('.' + modalClass).hide();
+    });
 
-      if (abrirModalFunction) {
-        abrirModalFunction(modal);
+    $(document).on('click', '.' + modalClass, function(event) {
+      if ($(event.target).hasClass(modalClass)) {
+        $(event.target).css("animation", "growShrinkModal 0.5s");
+        setTimeout(function () {
+          $(event.target).css("animation", "");
+        }, 500);
       }
     });
-  }
+
+    if (abrirModalFunction) {
+      abrirModalFunction('.' + modalClass);
+    }
+  });
 }
 
-function abrirModal(btn, modal) {
-  btn.onclick = function () {
-    modal.style.display = "block";
-  };
+function abrirModal(btn, modalClass) {
+  $(document).on('click', btn, function () {
+    $('.' + modalClass).css("display", "block");
+  });
 }
 
-manejarModal(
-  "myModal",
-  ".close",
-  abrirModal.bind(null, document.getElementById("openModalBtn"))
-);
-manejarModal("datamodal", ".closed");
-manejarModal("deletemodal", ".closedd");
+manejarModales("modal", "close", abrirModal);
