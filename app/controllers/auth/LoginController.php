@@ -31,10 +31,11 @@ class LoginController extends Controller
         $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         $user = new user;
         $stmt = $user
-        ->join('userinfo b', 'a.id=b.userId')
-        ->where([["a.email", $data['email']]])
-        ->get();
-        if (count(json_decode($stmt)) > 0) {
+            ->join('userinfo b', 'a.id=b.userId')
+            ->where([["a.email", $data['email']]])
+            ->get();
+        $pass = json_decode($stmt);
+        if (count(json_decode($stmt)) > 0 && password_verify($data['password'], $pass[0]->password)) {
             echo $this->sessionStart($stmt);
         } else {
             self::sessionDestroy();

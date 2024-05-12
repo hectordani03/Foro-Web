@@ -32,6 +32,13 @@ class PostsController extends Controller
         echo $result;
     }
 
+    public function getUsersPosts()
+    {
+        $posts = new posts();
+        $result = $posts->getAllUsersPosts();
+        echo $result;
+    }
+
     public function getPost($params = null)
     {
         $posts = new posts();

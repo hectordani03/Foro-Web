@@ -37,16 +37,6 @@ require_once LAYOUTS_AD . 'header.php';
                     <option value="3" selected>3</option>
                 </select>
 
-                <!-- <label class="file-label">
-                    <input class="file-input form-control" type="file" name="user_profile_photo" accept=".jpg, .png, .jpeg">
-                    <span class="file-cta">
-                        <span class="file-label">
-                            Select Picture
-                        </span>
-                    </span>
-                    <span class="file-name">JPG, JPEG, PNG. (MAX 5MB)</span>
-                </label> -->
-
             </div>
             <div class="modal-footer">
                 <button type="reset" class="button cancel-button">Cancel</button>
@@ -57,27 +47,23 @@ require_once LAYOUTS_AD . 'header.php';
 </div>
 
 <div id="report-modal" class="modal text-content">
-    <form class="requestForm" method="POST" autocomplete="off" enctype="multipart/form-data">
+    <form class="" id="reportu-form" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
                 <h2>Report User</h2>
             </div>
             <div class="modal-body">
-                <input type="hidden" name="user_module" value="reportUser">
                 <input type="hidden" name="userId" value="" readonly>
 
                 <label for="username">Username</label>
-                <input class="form-control" type="text" name="username" pattern="[a-zA-Z0-9]{4,20}" maxlength="40" value="" readonly>
+                <input class="form-control" type="text" name="username" id="rusername" pattern="[a-zA-Z0-9]{4,20}" maxlength="40" value="" readonly>
 
                 <label for="email">Email</label>
-                <input class="form-control" type="email" name="email" maxlength="70" value="" readonly>
-
-                <label for="role">Role</label>
-                <input class="form-control" type="text" name="role" maxlength="70" value="" readonly>
+                <input class="form-control" type="email" name="email" id="remail" maxlength="70" value="" readonly>
 
                 <label for="reason">Reason:</label>
-                <select name="reasonSelect" class="form-control" id="select" onchange="showInput()" required>
+                <select name="reason" class="form-control" id="reason" onchange="showInput()" required>
                     <option selected value="Nudity">Nudity</option>
                     <option value="Terrorism">Terrorism</option>
                     <option value="Harrasment">Harrasment</option>
@@ -88,7 +74,7 @@ require_once LAYOUTS_AD . 'header.php';
                     <option value="Spam">Spam</option>
                     <option value="Other">Other</option>
                 </select>
-                <div id="reason"></div>
+                <div id="other-r"></div>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="button report-button">Report</button>
@@ -187,21 +173,16 @@ require_once LAYOUTS_AD . 'footer.php';
 
                 $('.btn-reports').on('click', function() {
                     const rowData = dataTable.row($(this).closest('tr')).data();
-
                     if (rowData) {
-                        openReportModal(rowData);
-                    } else {
-                        console.error('No se pudo obtener los datos de la fila.');
-                    }
+                        reportUserModal(rowData);
+                    } 
                 });
+
                 $('.btn-delete').on('click', function() {
                     const rowData = dataTable.row($(this).closest('tr')).data();
-
                     if (rowData) {
-                        openDeleteModal(rowData);
-                    } else {
-                        console.error('No se pudo obtener los datos de la fila.');
-                    }
+                        userDeleteModal(rowData);
+                    } 
                 });
             }
         });
@@ -210,5 +191,6 @@ require_once LAYOUTS_AD . 'footer.php';
     $(function() {
         app_ad.registerUser();
         app_ad.deleteUser();
+        app_ad.reportUser();
     });
 </script>

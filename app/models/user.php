@@ -30,7 +30,7 @@ class user extends Model
 
     public function getAllUsers($data, $limit = 5)
     {
-        $result = $this->select(['a.*, b.profilePic'])
+        $result = $this->select(['a.id, a.username, a.email, a.role, a.active, a.registered_at, b.profilePic'])
             ->join('userinfo b', 'a.id=b.userId')
             ->where([['a.active', 1], ['a.id', $data['userId'], '<>']]);
 
@@ -73,7 +73,6 @@ class user extends Model
         $this->where([['id', $data['userId']]]);
         $result = $this->update();
 
-        session_start();
         $_SESSION['username'] = $this->values['username'];
         $_SESSION['email'] = $this->values['email'];
         session_write_close();

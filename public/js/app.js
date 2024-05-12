@@ -10,7 +10,7 @@ const app = {
     deleteUser: "/User/deleteUser",
     session: "/Login/login",
     updateUser: "/Profile/updateUser",
-    getPosts: "/Posts/getPosts",
+    getPosts: "/Posts/getUsersPosts",
     getPost: "/Posts/getPost",
     addPosts: "/Posts/createPosts",
     sharePost: "/Posts/sharePost",

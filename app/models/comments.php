@@ -16,8 +16,9 @@ class comments extends Model
             'commentId'
         ];
     }
+
     public function getComments(){
-        $result = $this->select(['a.*, b.id, c.username'])
+        $result = $this->select(['a.*'])
         ->join('posts b', 'a.postId=b.id', 'LEFT')
         ->join('user c', 'c.id=a.userId', 'LEFT')
         ->where([['c.active', 1]])

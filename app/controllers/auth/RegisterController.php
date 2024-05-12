@@ -35,10 +35,5 @@ class RegisterController extends Controller
         $res2 = $userinfo->registerUserInfo($res);
         echo json_encode(["r" => $res]);
     }
-    // public function register()
-    // {
-    //     $user = new user;
-    //     $res = $user->registerUser(filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-    //     echo json_encode(["r" => $res]);
-    // }
+   
 }

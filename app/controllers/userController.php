@@ -38,6 +38,14 @@ class UserController extends Controller
         $res = $user->deleteUser(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)));
         echo json_encode(["r" => $res]);
     }
+
+    public function suspendUser()
+    {
+        // $user = new user;
+        // $res = $user->suspendUser(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)));
+        // echo json_encode(["r" => $res]);
+    }
+
     // public function registerUser($user)
     // {
 

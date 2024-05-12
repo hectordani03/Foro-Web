@@ -55,7 +55,6 @@ class userinfo extends Model
             $this->where([['userId', $data['userId']]]);
             return $this->update();
         }
-        session_write_close();
         return null;
     }
 }

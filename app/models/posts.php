@@ -46,6 +46,16 @@ class posts extends Model
 
     public function getAllPosts()
     {
+        $result = $this->select(['a.*'])
+            ->join('user b', 'a.userId=b.id')
+            ->where([['b.active', 1]])
+            ->orderBy([['a.created_at', 'DESC']])
+            ->get();
+        return $result;
+    }
+    
+    public function getAllUsersPosts()
+    {
         $result = $this->select(['a.*, b.username, c.profilePic'])
             ->join('user b', 'a.userId=b.id')
             ->join('userinfo c', 'b.id=c.userId')

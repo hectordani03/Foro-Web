@@ -49,6 +49,7 @@ setFooter($d, "sweetalert2.all.min", "alerts", "jquery", "app");
 <script>
 	$(function() {
 		const loginForm = $("#login-form")
+		const p1 = $("#password")
 		loginForm.on("submit", function(e) {
 			e.preventDefault()
 			e.stopPropagation()
@@ -61,7 +62,13 @@ setFooter($d, "sweetalert2.all.min", "alerts", "jquery", "app");
 					if (res.r) {
 						location.href = "/"
 					} else {
-						$("#error").removeClass("d-none")
+						Swal.fire({
+							icon: "error",
+							text: "Incorrect fields",
+						}).then(() => {
+							// p1.val("")
+							p1.trigger("focus")
+						})
 					}
 				})
 		})
