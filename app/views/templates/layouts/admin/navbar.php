@@ -15,26 +15,26 @@
         <div class="menu">
             <ul class="menu-links">
                 <li class="nav-link">
-                    <a class="py-5 rounded-full" href="<?php echo URL_AD; ?>">
+                    <a class="py-5 rounded-full" href="<?php echo URL; ?>home/dashboard">
                         <i class="fa-duotone fa-house icon"></i>
                         <span class="text nav-text">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-link">
-                    <a href="<?php echo URL_AD; ?>posts">
+                    <a href="<?php echo URL; ?>posts">
                         <i class="fa-duotone fa-memo-pad icon"></i>
                         <span class="text nav-text">Posts</span>
                     </a>
                 </li>
                 <li class="nav-link">
-                    <a href="<?php echo URL_AD; ?>comments">
+                    <a href="<?php echo URL; ?>comments">
                         <i class="fa-duotone fa-messages icon"></i>
                         <span class="text nav-text">Comments</span>
                     </a>
                 </li>
 
                 <li class="nav-link">
-                    <a href="<?php echo URL_AD; ?>users">
+                    <a href="<?php echo URL; ?>users">
                         <i class="fa-duotone fa-user-group icon"></i>
                         <span class="text nav-text">Users</span>
                     </a>
@@ -48,9 +48,9 @@
                     </a>
                 </li>
                 <div class="sub-menu">
-                    <a href="<?php echo URL_AD; ?>reportedpost" class="text sub-item">Post</a>
-                    <a href="<?php echo URL_AD; ?>reportedcomt" class="text sub-item">Commets</a>
-                    <a href="<?php echo URL_AD; ?>reporteduser" class="text sub-item">Users</a>
+                    <a href="<?php echo URL; ?>reportedpost" class="text sub-item">Post</a>
+                    <a href="<?php echo URL; ?>reportedcomt" class="text sub-item">Commets</a>
+                    <a href="<?php echo URL; ?>reporteduser" class="text sub-item">Users</a>
                 </div>
 
                 <li class="nav-link">
@@ -74,7 +74,7 @@
                 </li>
 
                 <li class="nav-link">
-                    <a href="<?php echo URL_AD; ?>userUpdate">
+                    <a href="<?php echo URL; ?>userUpdate">
                         <i class="fa-duotone fa-circle-user icon"></i>
                         <span class="text nav-text">My account</span>
                     </a>
@@ -105,3 +105,12 @@
         </div>
     </div>
 </nav>
+
+<script>
+    const links = document.querySelectorAll('.siderbar li a');
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            link.style.backgroundColor = '#002df3;';
+        });
+    });
+</script>

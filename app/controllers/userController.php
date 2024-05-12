@@ -3,22 +3,41 @@
 namespace app\controllers;
 
 use app\models\user;
+use app\classes\View;
+use app\controllers\auth\LoginController as session;
 
-class userController extends Controller
+class UserController extends Controller
 {
     public function __construct()
     {
         parent::__construct();
-        
+    }
+
+    public function index($params = null)
+    {
+        $response = [
+            'ua' => session::sessionValidate() ?? ['sv' => false],
+            'title' => 'For Us',
+            'code' => 200
+        ];
+        View::render('admin/users', $response);
     }
 
     public function getUsers()
     {
         $users = new user();
-        $result = $users->getAllUsers();
+        $data['userId'] = session::sessionValidate()['id'];
+        $data['roleId'] = session::sessionValidate()['role'];
+        $result = $users->getAllUsers($data);
         echo $result;
     }
 
+    public function deleteUser()
+    {
+        $user = new user;
+        $res = $user->deleteUser(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)));
+        echo json_encode(["r" => $res]);
+    }
     // public function registerUser($user)
     // {
 
@@ -951,7 +970,7 @@ class userController extends Controller
     //     }
     //     return json_encode($alert);
     // }
-    
+
     // public function deletePhoto()
     // {
 

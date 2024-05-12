@@ -16,7 +16,7 @@
 
             <ul class="flex flex-col gap-7 justify-between mt-5">
                 <li class="w-15 h-15">
-                    <a href="<?php echo URL; ?>">
+                    <a href="<?= URL; ?>">
                         <div class="text-gray-400 w-10 h-10 mx-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                 <path class="fill-current" d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z" />
@@ -38,22 +38,22 @@
     <!-- dsassaasasaa -->
     <ul class="flex flex-col gap-7 justify-between mt-5">
         <span class="desplegableText hidden relative text-gray-400 text-nowrap text-xl font-semibold">Categories</span>
-        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?php echo LOGIN_IMG; ?>obj2.png" alt="" class="w-full"></a>
+        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?= LOGIN_IMG; ?>obj2.png" alt="" class="w-full"></a>
             <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">Zero Hunger</span>
         </li>
-        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?php echo LOGIN_IMG; ?>obj4.png" alt="" class="w-full"></a>
+        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?= LOGIN_IMG; ?>obj4.png" alt="" class="w-full"></a>
             <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">Quality Education</span>
         </li>
 
-        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?php echo LOGIN_IMG; ?>obj13.png" alt="" class="w-full"></a>
+        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?= LOGIN_IMG; ?>obj13.png" alt="" class="w-full"></a>
             <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">Climate Action</span>
         </li>
 
-        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?php echo LOGIN_IMG; ?>obj14.png" alt="" class="w-full"></a>
+        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?= LOGIN_IMG; ?>obj14.png" alt="" class="w-full"></a>
             <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">Life Below Water</span>
         </li>
 
-        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?php echo LOGIN_IMG; ?>obj10.png" alt="" class="w-full"></a>
+        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?= LOGIN_IMG; ?>obj10.png" alt="" class="w-full"></a>
             <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">Reduced Inequalities</span>
         </li>
 
@@ -69,7 +69,7 @@
     <ul class="flex flex-col gap-7 justify-between mt-5">
         <?php if (isset($ua->sv) && $ua->sv && $ua->role != 3) : ?>
             <li class="w-15 h-15">
-                <a href="<?php echo URL_AD; ?>">
+                <a href="<?= URL; ?>home/dashboard">
                     <div class="text-gray-400 w-9 h-9 mx-auto cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path class="fill-current" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
@@ -151,19 +151,21 @@
     if (isset($ua->sv) && $ua->sv) {
         $url = '/Login/logout';
         $text = 'Logout';
+        $logoutId = 'btn_logout';
     } else {
+        $logoutId = '';
         $url = '/login';
         $text = 'Login';
     }
     ?>
 
-    <a href="<?php echo $url; ?>">
+    <a id="<?= $logoutId; ?>" href="<?= $url; ?>">
         <div class="text-gray-400 w-8 h-8 mx-auto mt-5 cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path class="fill-current" d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
             </svg>
         </div>
-        <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap"><?php echo $text; ?></span>
+        <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap"><?= $text; ?></span>
     </a>
 
     <hr class="w-full mt-5 border-gray-300 px-10">

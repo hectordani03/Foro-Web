@@ -1,5 +1,5 @@
 <?php
-    setHeader($d, "index.css", "styles.css");
+    setHeader($d, "index", "styles");
     $ua = $d->ua;
     
 ?>

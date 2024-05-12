@@ -24,7 +24,7 @@ class csrf
         }
         
         $this->token = $_SESSION['csrf_token']['token'];
-        $this->token_exp = $_SESSION[''][''];
+        $this->token_exp = $_SESSION['csrf_token']['exp'];
         session_write_close();
         return $this;
     }
@@ -46,7 +46,7 @@ class csrf
         }
     }
 
-    private function get_token()
+    public function get_token()
     {
         return $this->token;
     }

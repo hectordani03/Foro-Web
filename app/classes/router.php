@@ -3,14 +3,15 @@
 namespace app\classes;
 
 use app\controllers\HomeController as Home;
+use app\controllers\UserController as User;
 use app\controllers\PostsController as Posts;
 use app\controllers\CommentsController as Comments;
+use app\controllers\ReportsController as Reports;
 use app\controllers\ErrorController as Error;
 use app\controllers\auth\loginController as Login;
 use app\controllers\auth\RegisterController as Register;
 use app\controllers\auth\AccountController as Account;
 use app\controllers\ProfileController as Profile;
-use app\controllers\AdminController as Admin;
 
 class router
 {
@@ -29,14 +30,17 @@ class router
             case 'HomeController':
                 $controller = new Home();
                 break;
-            case 'AdminController':
-                $controller = new Admin();
+            case 'UserController':
+                $controller = new User();
                 break;
             case 'PostsController':
                 $controller = new Posts();
                 break;
             case 'CommentsController':
                 $controller = new Comments();
+                break;
+            case 'ReportsController':
+                $controller = new Reports();
                 break;
             case 'LoginController':
                 $controller = new Login();
@@ -78,20 +82,10 @@ class router
         } else {
             $controller = "home";
         }
-        
-        // Check if the controller is 'admin'
-        if ($controller === 'admin' && isset($this->url[1])) {
-            // If the controller is 'admin' and a second part of the URL exists
-            // set the controller to 'AdminController'
-            $controller = 'Admin';
-            // Shift the URL parts to the left so the action will be next
-            array_shift($this->url);
-        }
-        
         $controller = ucfirst($controller) . 'Controller';
         return $controller;
     }
-    
+
     private function getAction()
     {
         if (isset($this->url[1])) {

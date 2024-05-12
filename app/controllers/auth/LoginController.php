@@ -48,9 +48,9 @@ class LoginController extends Controller
         session_start();
         $_SESSION['sv'] = true;
         $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
-        $_SESSION['id'] = $data[0]->id;
+        $_SESSION['id'] = $data[0]->userId;
         $_SESSION['username'] = $data[0]->username;
-        $_SESSION['password'] = $data[0]->password;
+        // $_SESSION['password'] = $data[0]->password;
         $_SESSION['email'] = $data[0]->email;
         $_SESSION['role'] = $data[0]->role;
         $_SESSION['profilePic'] = $data[0]->profilePic;
@@ -63,12 +63,11 @@ class LoginController extends Controller
 
     public static function sessionValidate()
     {
-
         $user = new user;
         session_start();
         if (isset($_SESSION['sv']) && $_SESSION['sv'] == true) {
             $data = $_SESSION;
-            $stmt = $user->where([["username", $data['username']], ["password", $data['password']]])
+            $stmt = $user->where([["id", $data['id']]])
                 ->get();
             if (count(json_decode($stmt)) > 0 && $data['ip'] == $_SERVER['REMOTE_ADDR']) {
                 session_write_close();
