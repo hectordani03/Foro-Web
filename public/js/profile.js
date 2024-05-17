@@ -49,7 +49,7 @@ const profile = {
         const user = u[0];
         html += `
               <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-40 transition-opacity"></div>
-                  <section id="modal" class="bg-gray-100 dark:bg-slate-700 rounded-xl w-8/12 mx-auto relative mt-10 h-fit">
+                  <section id="modal" class="profile-modal bg-gray-100 dark:bg-slate-700 rounded-xl w-11/12 lg:w-8/12 mx-auto relative mt-10 overflow-y-auto overflow-x-hidden lg:overflow-hidden">
                       <header class="flex">
                           <h1 class="text-black flex justify-start w-full text-2xl font-bold mt-5 ml-5 dark:text-white">FOR <span class="text-blue-500 ml-2">US</span></h1>
                           <div id="close" class="text-gray-400 w-8 h-8 transition-all cursor-pointer mt-5 mr-5">
@@ -59,9 +59,10 @@ const profile = {
                           </div>
                       </header>
                       <section class="flex">
-                      <form class="flex w-full" id="updateUser-form" method="POST" autocomplete="off" enctype="multipart/form-data">
+                      <form class="flex w-full lg:flex-row flex-col" id="updateUser-form" method="POST" autocomplete="off" enctype="multipart/form-data">
                       <div class="ml-16">
-                      <h1 class="text-black flex justify-start w-full text-2xl font-bold mt-5 mb-5 ml-5 text-center dark:text-white">Upload your <span class="text-blue-500 ml-2">information</span></h1>
+                      <h1 class="text-black text-2xl font-bold mt-5 ml-5 mb-5 dark:text-white text-start mr-2">
+                      Upload your <span class="text-blue-500"> information</span></h1>
                       
                       <section class="flex gap-5">
                       <input name="username" id="usernamep" type="text" placeholder="New Username" class="border-b-2 border-t-1 border-gray-300 py-3 focus:border-b-2 focus:border-gray-400 transition-colors focus:outline-none bg-inherit bg-slate-200 dark:bg-slate-600 rounded-2 xl px-5 text-gray-400 font-semibold w-5/12 shadow-md rounded-xl" value="${
@@ -91,19 +92,26 @@ const profile = {
                               } />
                               </section>
                               
-                              <textarea name="description" id="description" placeholder="Description" class="relative rounded-lg px-6 py-2 text-lg text-gray-400 bg-slate-200 dark:bg-slate-600 w-10/12 resize-none outline-none font-semibold mt-10 shadow-md mb-10" rows="7">${
+                              <textarea name="description" id="description" placeholder="Description" class="relative rounded-lg px-6 py-2 text-lg text-gray-400 bg-slate-200 dark:bg-slate-600 w-10/12 resize-none outline-none font-semibold mt-10 shadow-md" rows="7">${
                                 user.description !== null
                                 ? user.description
                                 : ""
                               }</textarea>
+                              <div class=" w-10/12 mt-5">
+                                <button type="submit" onclick="profile.updateUser()" id="updatebtn" class="flex justify-center bg-sky-400 text-white font-3xl text-center w-3/12 px-20 py-3 rounded-lg font-semibold mb-5 mx-auto">Upload</button>
                               </div>
+                              </div>
+                              
               
-                          <section class="w-6/12 flex flex-col items-center mt-10">
-              
-                              <h1 class="text-black flex justify-center w-full text-2xl font-bold mt-5 ml-5 mb-5 dark:text-white">Upload your profile<span class="text-blue-500 ml-2">image</span></h1>
+                          <section class=" w-11/12 mx-auto lg:w-6/12 flex-col sm:flex-row flex lg:flex-col items-center">
+                          <div>
+                          <h1 class="text-black text-2xl font-bold mt-5 ml-5 mb-5 dark:text-white text-center mr-2">
+                          Upload your profile <span class="text-blue-500"> image</span>
+                      </h1>
+                      
               
 
-                                  <label for="profilePic" id="drop-area" class="mt-5 mb-5 w-9/12">
+                                  <label for="profilePic" id="drop-area" class=" mb-5 w-9/12">
                                       <div id="img-view" class="p-2 rounded-md text-center mt-3 mb-3">
                                   <div class="w-8/12 shadow-lg mx-auto h-fit rounded-xl bg-slate-200 dark:bg-slate-600 py-5">
                                       <div class="border-2 border-dashed border-blue-500 w-7/12 mx-auto text-center flex flex-col justify-center items-center rounded-xl h-40 hover:border-gray-400 transition-colors">
@@ -118,11 +126,10 @@ const profile = {
                                                   </div>
                                                   </div>
                                                   </div>
-                                              </label>              
-                                              <button type="submit" onclick="profile.updateUser()" id="updatebtn" class="flex justify-center bg-sky-400 text-white font-3xl text-center w-3/12 mx-auto px-20 py-3 rounded-lg font-semibold mb-5">Upload</button>
-
-                              <div class="w-7/12 mt-5">
-                                  <h1 class="text-black flex justify-center w-full text-2xl font-bold mt-5 dark:text-white">Choose your<span class="text-blue-500 ml-2">Color</span></h1>
+                                              </label>
+                                              </div>            
+                              <div class="w-7/12">
+                                  <h1 class="text-black text-2xl font-bold mt-5 ml-5 mb-5 dark:text-white text-center mr-2">Choose your <span class="text-blue-500"> color</span>
               
                                   <div class="w-12/12 relative h-28 2xl:h-32 shadow-xl mt-5 rounded-xl flex mb-10 ">
                                       <div id="red" class="relative bg-red-500 w-4/12 h-full rounded-l-lg hover:scale-110">
@@ -160,7 +167,8 @@ const profile = {
                                   </div>
               
                               </div>
-                          </section>
+
+                              </section>
                           </form>
 
                       </section>

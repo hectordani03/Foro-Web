@@ -225,10 +225,10 @@ const app = {
 </div>
 
 <hr class="w-full mt-5">
-<section class="fixed bottom-0 bg-gray-100 dark:bg-slate-700 w-7/12 shadow-inner z-50">
+<section id="footer-comment" class="sticky bottom-0 bg-gray-100 dark:bg-slate-700 w-12/12 shadow-inner z-50">
 <div class="w-11/12 mx-auto flex mt-5 mb-5">
   <img class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${app.user.pic}" alt="">
-  <form class="" id="commentPost-form" method="POST" autocomplete="off" enctype="multipart/form-data">
+  <form class="flex w-full" id="commentPost-form" method="POST" autocomplete="off" enctype="multipart/form-data">
   <div class="bg-gray-200 ml-5 rounded-xl shadow-lg w-10/12">
       <textarea name="content" id="content" class="relative rounded-lg text-lg text-gray-400 bg-gray-200 dark:bg-slate-600 w-full resize-none outline-none font-medium pl-5" rows="" maxlength="380" placeholder="Comment as ${app.user.username}"></textarea>
   </div>
@@ -252,12 +252,14 @@ const app = {
         const capa = $("#capa");
         const close = $("#close");
         const body = $("#body-content");
+        const footerComments = $("#footer-comment");
         $("#body-content")
           .removeClass("overflow-hidden")
           .addClass("overflow-hidden");
 
         close.on("click", () => {
           modal.classList.add("hidden");
+          footerComments.add("hidden");
           capa.toggleClass("hidden");
           body.removeClass("overflow-hidden").addClass("overflow-auto");
         });
@@ -365,6 +367,7 @@ const app = {
         }
         this.ss.html(html);
         const capa = $("#capa");
+        const modal = $("#modal");
         const close = $("#close");
         const body = $("#body-content");
         $("#body-content")

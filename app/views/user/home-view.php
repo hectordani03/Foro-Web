@@ -13,7 +13,7 @@ require_once LAYOUTS_US . 'header.php';
 
 <!-- --------------------------------------------------------------------------- -->
 
-<section id="content" class="w-11/12 relative left-24">
+<section id="content" class="w-full relative md:left-24 md:w-10/12">
 
     <!-- HEADER -->
     <header class="flex justify-between items-center">
@@ -26,9 +26,8 @@ require_once LAYOUTS_US . 'header.php';
         <?php } ?>
 
     </header>
-
     <!-- MAIN -->
-    <main class="flex justify-between items-start mt-20 z-30">
+    <main class="flex mt-20 z-30 flex-col lg:flex-row">
 
         <!-- INITIAL CARD -->
 
@@ -37,23 +36,21 @@ require_once LAYOUTS_US . 'header.php';
         ?>
 
         <!-- OBJETIVE CARD -->
-        <a id="objetive-info" class=" mr-5 w-2/12" href="#"><img class="rounded-lg w-64 h-56 mx-auto" src="<?php echo GIFT; ?>obj2.gif" alt=""></a>
+        <a id="objetive-info" class=" mr-3 w-full mx-auto lg:w-2/12 order-first lg:order-last" href="#"><img class="rounded-lg w-64 h-56 mx-auto lg:mb-0 mb-10" src="<?php echo GIFT; ?>obj2.gif" alt=""></a>
 
     </main>
 
-    <div class="flex">
-        <!-- PUBLICATIONS SECTION -->
-        <section class="grid grid-cols-2 ml-20 mt-16 w-9/12 gap-8" id="posts">
-            <!-- CARD -->
+    <div class="flex flex-col xl:flex-row transition-all">
+        <div class="xl:flex xl:items-start"></div>
+    <!-- SEARCHER -->
+        <?php include USER_VIEWS . 'searcher.php'; ?>
 
-        </section>
+    <!-- PUBLICATIONS SECTION -->
+    <section class="posts-section grid grid-cols-1 lg:grid-cols-2 md:ml-20 mt-16 xl:w-9/12 w-11/12 mx-auto gap-8 md:mr-10 lg:mr-5" id="posts">
+        <!-- CARD -->
+    </section>
+</div>
 
-
-        <!-- SEARCHER -->
-        <?php
-        require_once USER_VIEWS . 'searcher.php';
-        ?>
-    </div>
 
 </section>
 

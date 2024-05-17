@@ -128,3 +128,40 @@ textArea.addEventListener("input", () => {
   textArea.style.height = "auto";
   textArea.style.height = textArea.scrollHeight + "px";
 });
+
+
+const containerSelectedHashtags = document.querySelector("#hashtags-selected");
+const selectedHashtags = document.querySelectorAll("#hashtags-selected .hashtag");
+const hashtags = document.querySelectorAll("#hashtags .hashtag");
+const hashtagCapa = document.querySelectorAll(".capa-hashtag");
+
+
+  hashtags.forEach((hashtag) => {
+      hashtag.addEventListener("click", () => {
+          if (containerSelectedHashtags.childElementCount < 3) {
+          containerSelectedHashtags.innerHTML += hashtag.outerHTML;
+
+          const selectedHashtags = document.querySelectorAll("#hashtags-selected .hashtag");
+
+          selectedHashtags.forEach((selected) => {
+              selected.addEventListener("click", e => {
+                  selected.remove();
+              });
+
+              selected.addEventListener('mouseenter', () => {
+                const capa = selected.querySelector('.capa-hashtag');
+                capa.classList.add('visible');
+            });
+            
+            selected.addEventListener('mouseleave', () => {
+                const capa = selected.querySelector('.capa-hashtag');
+                capa.classList.remove('visible');
+            });
+            
+          });
+        }
+      });
+  });
+
+
+ 

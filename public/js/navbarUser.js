@@ -1,4 +1,5 @@
 const desplegable = document.getElementById("desplegable");
+const Respdesplegable = document.getElementById("responsive-desplegable");
 const navHeader = document.getElementById("nav-header");
 const capa3 = document.getElementById("capa3");
 const nav = document.getElementById("nav");
@@ -7,9 +8,30 @@ const icon = document.getElementById("icons");
 const forusText = document.getElementById("forus");
 const body = document.querySelector("body");
 
-desplegable.addEventListener("click", (e) => {
-  toggleSidebar();
+if(window.matchMedia('(min-width: 768px)')){
+  desplegable.addEventListener("click", (e) => {
+    toggleSidebar();
+  });
+
+};
+
+Respdesplegable.addEventListener("click", (e) => {
+  console.log("click")
+  setTimeout(() => {
+    toggleSidebar();
+    navHeader.classList.toggle("hidden");
+  },0);
 });
+
+if(window.matchMedia('(max-width: 768px)')){
+  desplegable.addEventListener("click", (e) => {
+    navHeader.classList.toggle("hidden");
+  });
+  capa3.addEventListener("click", (e) => {
+    navHeader.classList.toggle("hidden");
+  });
+
+};
 
 capa3.addEventListener("click", (e) => {
   toggleSidebar();
