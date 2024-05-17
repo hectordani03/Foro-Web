@@ -1,5 +1,5 @@
 <?php
-setFooter($d, "sweetalert2.all.min", "alerts", "jquery", "functions", "contentPolicy", "navbarUser", "app", "post", "comment");
+setFooter($d, "sweetalert2.all.min", "jquery", "contentPolicy", "navbarUser", "app");
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -12,15 +12,6 @@ setFooter($d, "sweetalert2.all.min", "alerts", "jquery", "functions", "contentPo
     });
 </script>
 
-
-<script>
-    $(function() {
-        app.allPosts();
-        post.addPosts();
-        post.sharePost();
-        comment.comment();
-    });
-</script>
 <?php
 
 closeFooter();

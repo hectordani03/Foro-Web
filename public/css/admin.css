@@ -46,7 +46,13 @@ html,
 body {
   overflow: hidden;
 } */
+.overflow-auto {
+  overflow: auto;
+}
 
+.overflow-hidden {
+  overflow: hidden;
+}
 /* =========================== Sidebar =========================== */
 .sidebar {
   position: fixed;
@@ -727,6 +733,21 @@ body.dark .profile-img {
   margin-right: 20px;
 }
 
+.success-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.success-button:hover {
+  background-color: #218838;
+}
 .primary-button:hover {
   background-color: #0056b3;
 }

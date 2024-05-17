@@ -35,62 +35,13 @@ require_once LAYOUTS_AD . 'header.php';
     </form>
 </div>
 
-<table id="datatable" class="hover row-border table"></table>
+<table id="comtDT" class="hover row-border table"></table>
 <?php
 require_once LAYOUTS_AD . 'footer.php';
 ?>
 <script>
     $(function() {
-        const dataTable = $('#datatable').DataTable({
-            processing: true,
-            //   serverSide: true,
-            ajax: {
-                url: "http://forus.com/comments/getAllComments",
-                dataSrc: ""
-            },
-
-            columns: [{
-                    title: 'ID',
-                    data: 'id'
-                },
-                {
-                    title: 'User id',
-                    data: 'userId'
-                },
-                {
-                    title: 'Post id',
-                    data: 'postId'
-                },
-                {
-                    title: 'Content ',
-                    data: 'content'
-                },
-                {
-                    title: 'Created at',
-                    data: 'created_at'
-                },
-                {
-                    title: 'Report',
-                    render: function(data, type, row) {
-                        return '<button class="button warning-button btn-view-comment" data-id="' + row.id + '">Report</button>';
-                    }
-                },
-
-            ],
-            drawCallback: function() {
-                $('#datatable thead th, tbody td').css('text-align', 'center');
-
-                $('.btn-view-comment').on('click', function() {
-                    const rowData = dataTable.row($(this).closest('tr')).data();
-
-                    if (rowData) {
-                        reportCommentModal(rowData);
-                    } 
-                });
-            }
-        });
-    });
-    $(function() {
         app_ad.reportComt();
+        app_ad.comtDT();
     });
 </script>

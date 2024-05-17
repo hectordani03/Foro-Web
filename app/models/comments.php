@@ -26,6 +26,19 @@ class comments extends Model
         ->get();
         return $result;
     }
+    
+    public function getUserComments($params){
+
+        $userId = $params[2];
+        $result = $this->select(['a.*, b.*, c.username, d.profilePic'])
+        ->join('posts b', 'a.postId=b.id')
+        ->join('user c', 'b.userId=c.id')
+        ->join('userinfo d', 'c.id=d.userId')
+        ->where([['a.userId', $userId]])
+        ->orderBy([['b.created_at', 'DESC']])
+        ->get();
+        return $result;
+    }
 
     public function addComment($data, $params)
     {
@@ -52,5 +65,11 @@ class comments extends Model
             $commentId,
         ];
         return $this->insert();
+    }
+
+    public function deleteComment($data)
+    {
+        $this->where([['id', $data['commentId']]]);
+        return $this->delete();
     }
 }

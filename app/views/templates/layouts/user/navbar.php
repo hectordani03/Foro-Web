@@ -35,28 +35,14 @@
     </li>
     </ul>
     <hr class="w-full mt-5 border-gray-300 px-10">
-    <!-- dsassaasasaa -->
+
+    <!-- CATEGORIES -->
     <ul class="flex flex-col gap-7 justify-between mt-5">
-        <span class="desplegableText hidden relative text-gray-400 text-nowrap text-xl font-semibold">Categories</span>
-        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?= LOGIN_IMG; ?>obj2.png" alt="" class="w-full"></a>
-            <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">Zero Hunger</span>
-        </li>
-        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?= LOGIN_IMG; ?>obj4.png" alt="" class="w-full"></a>
-            <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">Quality Education</span>
-        </li>
 
-        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?= LOGIN_IMG; ?>obj13.png" alt="" class="w-full"></a>
-            <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">Climate Action</span>
-        </li>
+        <form class="" action="/Posts/category" id="categories-form" method="GET" autocomplete="off" enctype="multipart/form-data">
 
-        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?= LOGIN_IMG; ?>obj14.png" alt="" class="w-full"></a>
-            <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">Life Below Water</span>
-        </li>
-
-        <li class="w-10 h-10"><a href="#"><img class="rounded-lg" src="<?= LOGIN_IMG; ?>obj10.png" alt="" class="w-full"></a>
-            <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">Reduced Inequalities</span>
-        </li>
-
+        </form>
+        
         <!-- ADD BUTTON -->
         <li class="rounded-lg bg-blue-400 text-center flex flex-col justify-center items-center w-10 h-10">
             <a class="text-white w-full text-3xl pb-1">
@@ -64,6 +50,7 @@
             </a>
         </li>
     </ul>
+
     <hr class="w-full mt-5 border-gray-300 px-10">
     <span class="desplegableText hidden relative text-gray-400 text-nowrap text-xl font-semibold mt-4">Resources</span>
     <ul class="flex flex-col gap-7 justify-between mt-5">

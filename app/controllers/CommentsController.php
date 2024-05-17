@@ -26,6 +26,7 @@ class CommentsController extends Controller
         $result = $comments->getPostComments($params);
         echo $result;
     }
+    
     public function getAllComments()
     {
         $comments = new comments();
@@ -37,6 +38,13 @@ class CommentsController extends Controller
     {
         $comment = new comments;
         $res = $comment->addComment(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
+        echo json_encode(["r" => $res]);
+    }
+
+    public function deleteComt()
+    {
+        $comment = new comments;
+        $res = $comment->deleteComment(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)));
         echo json_encode(["r" => $res]);
     }
     // public function addComt()

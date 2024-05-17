@@ -6,9 +6,9 @@ use app\classes\View;
 use app\classes\redirect;
 use app\controllers\auth\LoginController as session;
 use app\models\reports;
-use app\models\reportUser;
-use app\models\reportPost;
-use app\models\reportComt;
+use app\models\reportuser;
+use app\models\reportpost;
+use app\models\reportcomt;
 
 class ReportsController extends Controller
 {
@@ -49,8 +49,21 @@ class ReportsController extends Controller
 
     public function getReportedUsers()
     {
-        $reportUser = new reportUser();
+        $reportUser = new reportuser();
         $result = $reportUser->getAllReportedUsers();
+        echo $result;
+    }
+    public function getReportedPosts()
+    {
+        $reportPost = new reportpost();
+        $result = $reportPost->getAllReportedPosts();
+        echo $result;
+    }
+
+    public function getReportedComments()
+    {
+        $reportComt = new reportcomt();
+        $result = $reportComt->getAllReportedComts();
         echo $result;
     }
 

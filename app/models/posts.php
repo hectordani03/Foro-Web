@@ -30,6 +30,7 @@ class posts extends Model
         ];
         return $this->insert();
     }
+
     public function sharePost($data, $params)
     {
         $userId = $params[2];
@@ -37,7 +38,7 @@ class posts extends Model
         $this->values = [
             $userId,
             $data["text"],
-            "ZeroHunger",
+            $data["category"],
             $postId,
             NULL
         ];
@@ -53,13 +54,12 @@ class posts extends Model
             ->get();
         return $result;
     }
-    
+
     public function getAllUsersPosts()
     {
         $result = $this->select(['a.*, b.username, c.profilePic'])
             ->join('user b', 'a.userId=b.id')
             ->join('userinfo c', 'b.id=c.userId')
-            ->where([['b.active', 1]])
             ->orderBy([['a.created_at', 'DESC']])
             ->get();
         return $result;
@@ -77,26 +77,32 @@ class posts extends Model
         return $result;
     }
 
-    public function getPost($params)
+    public function getPostComments($params)
     {
         $postId = $params[2];
-        $result = $this->select(['a.*, b.username as ownName, c.profilePic as ownPic'])
-            ->join('user b', 'a.userId=b.id')
-            ->join('userinfo c', 'b.id=c.userId')
+        $result = $this->select(['b.content, c.username, d.profilePic'])
+            ->join('comments b', 'a.id=b.postId')
+            ->join('user c', 'c.id=b.userId')
+            ->join('userinfo d', 'c.id=d.userId')
             ->where([['a.id', $postId]])
+            ->orderBy([['b.created_at', 'DESC']])
             ->get();
         return $result;
     }
 
-    public function getPostComments($params)
+    public function deletePost($data)
     {
+        $this->where([['id', $data['postId']]]);
+        deletePostimg($data['img']);
+        return $this->delete();
+    }
 
-        $postId = $params[2];
-        $result = $this->select(['a.*, b.*, c.username, d.profilePic'])
-            ->join('comments b', 'a.id=b.postId', 'LEFT')
-            ->join('user c', 'c.id=b.userId', 'LEFT')
-            ->join('userinfo d', 'c.id=d.userId', 'LEFT')
-            ->where([['a.id', $postId]])
+    public function getPostsByCategory($category)
+    {
+        $result = $this->select(['a.*, b.username, c.profilePic'])
+            ->join('user b', 'a.userId=b.id')
+            ->join('userinfo c', 'b.id=c.userId')
+            ->where([['a.category', $category]])
             ->orderBy([['a.created_at', 'DESC']])
             ->get();
         return $result;

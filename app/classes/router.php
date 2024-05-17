@@ -7,11 +7,13 @@ use app\controllers\UserController as User;
 use app\controllers\PostsController as Posts;
 use app\controllers\CommentsController as Comments;
 use app\controllers\ReportsController as Reports;
+use app\controllers\SuspensionsController as Suspensions;
 use app\controllers\ErrorController as Error;
 use app\controllers\auth\loginController as Login;
 use app\controllers\auth\RegisterController as Register;
-use app\controllers\auth\AccountController as Account;
 use app\controllers\ProfileController as Profile;
+use app\controllers\auth\AccountController as Account;
+use app\controllers\CategoriesController as Cat;
 
 class router
 {
@@ -42,23 +44,37 @@ class router
             case 'ReportsController':
                 $controller = new Reports();
                 break;
+            case 'SuspensionsController':
+                $controller = new Suspensions();
+                break;
             case 'LoginController':
                 $controller = new Login();
                 break;
             case 'RegisterController':
                 $controller = new Register();
                 break;
+            case 'ProfileController':
+                $controller = new Profile();
+                break;
             case 'AccountController':
                 $controller = new Account();
                 break;
-            case 'ProfileController':
-                $controller = new Profile();
+            case 'CategoriesController':
+                $controller = new Cat();
                 break;
             default:
                 $controller = new Error();
                 $action = 'error404';
         }
-        $controller->$action($params);
+        
+        if (method_exists($controller, $action)) {
+            $controller->$action($params);
+        } else {
+            $controller = new Error();
+            $action = 'error404';
+            $controller->$action($params);
+        }
+
         return;
     }
 

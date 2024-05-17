@@ -28,7 +28,7 @@ class user extends Model
         return $this->insert();
     }
 
-    public function getAllUsers($data, $limit = 5)
+    public function getAllUsers($data)
     {
         $result = $this->select(['a.id, a.username, a.email, a.role, a.active, a.registered_at, b.profilePic'])
             ->join('userinfo b', 'a.id=b.userId')
@@ -42,7 +42,6 @@ class user extends Model
         }
 
         $result = $this->orderBy([['a.registered_at', 'DESC']])
-            ->limit($limit)
             ->get();
         return $result;
     }
@@ -82,6 +81,17 @@ class user extends Model
     public function deleteUser($data)
     {
         $this->where([['id', $data['userId']]]);
+        deleteUserimg($data['profilePic']);
         return $this->delete();
+    }
+
+    public function updateUserStatus($data)
+    {
+        $this->values = [
+            'active' => $data['active'],
+        ];
+        $this->where([['id', $data['userId']]]);
+
+        return $this->update();
     }
 }

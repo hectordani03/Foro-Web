@@ -63,7 +63,7 @@ setFooter($d, "post", "comment")
 ?>
 <script>
     $(function() {
-        app.allPosts();
+        app.catPosts();
         app.categories();
         post.addPosts();
         post.sharePost();

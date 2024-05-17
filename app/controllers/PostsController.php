@@ -6,6 +6,7 @@ use app\classes\View;
 use app\classes\redirect;
 use app\models\posts;
 use app\controllers\auth\LoginController as session;
+use app\models\categories as cat;
 
 class PostsController extends Controller
 {
@@ -25,6 +26,34 @@ class PostsController extends Controller
         View::render('admin/posts', ['ua' => $ua, 'title' => 'For Us']);
     }
 
+    public function category($params = null)
+    {
+        $cat = new cat;
+        $stmt = $cat->get();
+        $categories = json_decode($stmt);
+        $peticion = filter_input_array(INPUT_GET);
+        
+        $categoryExists = false;
+        foreach ($categories as $category) {
+            if ($category->name == $peticion['category']) {
+                $categoryExists = true;
+                break;
+            }
+        }
+        if (isset($peticion['category']) && $peticion['category'] != "" && $categoryExists == true) {
+            $response = [
+                'ua' => session::sessionValidate() ?? ['sv' => false],
+                'title' => 'For Us',
+                'code' => 200
+            ];
+            View::render('user/postsByCategory', $response);
+        } else {
+
+            redirect::to('');
+            exit();
+        }
+    }
+
     public function getPosts()
     {
         $posts = new posts();
@@ -36,13 +65,6 @@ class PostsController extends Controller
     {
         $posts = new posts();
         $result = $posts->getAllUsersPosts();
-        echo $result;
-    }
-
-    public function getPost($params = null)
-    {
-        $posts = new posts();
-        $result = $posts->getPost($params);
         echo $result;
     }
 
@@ -58,6 +80,26 @@ class PostsController extends Controller
         $posts = new posts;
         $res = $posts->sharePost(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
         echo json_encode(["r" => $res]);
+    }
+
+    public function deletePost()
+    {
+        $posts = new posts;
+        $res = $posts->deletePost(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)));
+        echo json_encode(["r" => $res]);
+    }
+
+    public function getPostsByCategory()
+    {
+        if (isset($_GET['category'])) {
+            $category = $_GET['category'];
+        } else {
+            redirect::to('');
+            exit();
+        }
+        $posts = new posts();
+        $result = $posts->getPostsByCategory($category);
+        echo $result;
     }
 
     // public function addPost()

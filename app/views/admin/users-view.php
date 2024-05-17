@@ -22,7 +22,7 @@ require_once LAYOUTS_AD . 'header.php';
                 <input class="form-control" type="text" name="username" id="username" pattern="^[a-zA-Z0-9]{1,100}$" minlength="3" maxlength="40" required>
 
                 <label for="email">Email</label>
-                <input class="form-control" type="email" name="email" id="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" minlength="6" maxlength="70" required>
+                <input class="form-control" type="email" name="email" id="email" minlength="6" maxlength="70" required>
 
                 <label for="password">Password</label>
                 <input class="form-control" type="password" name="password" id="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.\-])[A-Za-z\d$@.\-]{7,100}$" minlength="7" maxlength="100" required>
@@ -54,13 +54,13 @@ require_once LAYOUTS_AD . 'header.php';
                 <h2>Report User</h2>
             </div>
             <div class="modal-body">
-                <input type="hidden" name="userId" value="" readonly>
+                <input type="hidden" name="userId" readonly>
 
                 <label for="username">Username</label>
-                <input class="form-control" type="text" name="username" id="rusername" pattern="[a-zA-Z0-9]{4,20}" maxlength="40" value="" readonly>
+                <input class="form-control" type="text" name="username" id="rusername" pattern="^[a-zA-Z0-9]{1,100}$" minlength="3" maxlength="40" readonly>
 
                 <label for="email">Email</label>
-                <input class="form-control" type="email" name="email" id="remail" maxlength="70" value="" readonly>
+                <input class="form-control" type="email" name="email" id="remail" minlength="6" maxlength="70" readonly>
 
                 <label for="reason">Reason:</label>
                 <select name="reason" class="form-control" id="reason" onchange="showInput()" required>
@@ -91,13 +91,14 @@ require_once LAYOUTS_AD . 'header.php';
                 <h2>Delete User</h2>
             </div>
             <div class="modal-body">
-                <input type="hidden" name="userId" id="userId" value="" readonly>
+                <input type="hidden" name="userId" id="userId" readonly>
+                <input type="hidden" name="profilePic" id="profilePic" readonly>
 
                 <label for="username">Username</label>
-                <input class="form-control" type="text" name="username" id="dusername" pattern="^[a-zA-Z0-9]{1,100}$" value="" readonly required>
+                <input class="form-control" type="text" name="username" id="dusername" pattern="^[a-zA-Z0-9]{1,100}$" minlength="3" maxlength="40" required>
 
                 <label for="email">Email</label>
-                <input class="form-control" type="email" name="email" id="demail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" value="" readonly required>
+                <input class="form-control" type="email" name="email" id="demail" readonly required>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="button delete-button">Delete</button>
@@ -105,92 +106,16 @@ require_once LAYOUTS_AD . 'header.php';
         </div>
     </form>
 </div>
-<table id="datatable" class="hover row-border table"></table>
+<table id="userDT" class="hover row-border table"></table>
 <?php
 require_once LAYOUTS_AD . 'footer.php';
 ?>
-
 <script>
-    $(function() {
-        const dataTable = $('#datatable').DataTable({
-            processing: true,
-            //   serverSide: true,
-            ajax: {
-                url: "http://forus.com/user/getUsers",
-                dataSrc: ""
-            },
-            columns: [{
-                    title: 'ID',
-                    data: 'id'
-                },
-                {
-                    title: 'Username',
-                    data: 'username'
-                },
-                {
-                    title: 'Email',
-                    data: 'email'
-                },
-                {
-                    title: 'Role',
-                    data: 'role'
-                },
-                {
-                    title: 'Status',
-                    data: 'active'
-                },
-                {
-                    title: 'Profile Picture',
-                    data: 'profilePic',
-                    render: function(data, type, row) {
-                        if (type === 'display' && data) {
-                            return '<img src="http://forus.com/resources/assets/img/profile/' + data + '" alt="Image" width="40" height="40">';
-                        } else {
-                            return data;
-                        }
-                    }
-                },
-                {
-                    title: 'Registration',
-                    data: 'registered_at'
-                },
-                {
-                    title: 'Report',
-                    render: function(data, type, row) {
-                        return '<button class="button warning-button btn-reports" data-id="' + row.id + '">Report</button>';
-                    }
-                },
-                {
-                    title: 'Delete',
-                    visible: (app.user.id === 1),
-                    render: function(data, type, row) {
-                        return '<button class="button danger-button btn-delete" data-id="' + row.id + '">Delete</button>';
-                    }
-                },
-            ],
-            drawCallback: function() {
-                $('#datatable thead th, tbody td').css('text-align', 'center');
-
-                $('.btn-reports').on('click', function() {
-                    const rowData = dataTable.row($(this).closest('tr')).data();
-                    if (rowData) {
-                        reportUserModal(rowData);
-                    } 
-                });
-
-                $('.btn-delete').on('click', function() {
-                    const rowData = dataTable.row($(this).closest('tr')).data();
-                    if (rowData) {
-                        userDeleteModal(rowData);
-                    } 
-                });
-            }
-        });
-    });
 
     $(function() {
         app_ad.registerUser();
         app_ad.deleteUser();
         app_ad.reportUser();
+        app_ad.userDT();
     });
 </script>

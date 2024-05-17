@@ -22,4 +22,14 @@ class reports extends Model
         ];
         return $this->insert();
     }
+
+    public function updateReportStatus($data)
+    {
+        $this->values = [
+            'active' => $data['activer'],
+        ];
+        $this->where([['id', $data['reportId']]]);
+
+        return $this->update();
+    }
 }

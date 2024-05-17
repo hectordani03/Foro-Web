@@ -38,72 +38,13 @@ require_once LAYOUTS_AD . 'header.php';
     </form>
 </div>
 
-<table id="datatable" class="hover row-border table"></table>
+<table id="postDT" class="hover row-border table"></table>
 <?php
 require_once LAYOUTS_AD . 'footer.php';
 ?>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const dataTable = $('#datatable').DataTable({
-            processing: true,
-            //   serverSide: true,
-            ajax: {
-                url: "http://forus.com/posts/getPosts",
-                dataSrc: ""
-            },
-            columns: [{
-                    title: 'ID',
-                    data: 'id'
-                },
-                {
-                    title: 'User id',
-                    data: 'userId'
-                },
-                {
-                    title: 'Content',
-                    data: 'text'
-                },
-                {
-                    title: 'Category',
-                    data: 'category'
-                },
-                {
-                    title: 'Img',
-                    data: 'img',
-                    render: function(data, type, row) {
-                        if (type === 'display' && data) {
-                            return '<img src="http://forus.com/resources/assets/img/post/' + data + '" alt="Image" width="40" height="40">';
-                        } else {
-                            return data;
-                        }
-                    }
-                },
-                {
-                    title: 'Created at',
-                    data: 'created_at'
-                },
-                {
-                    title: 'Report',
-                    render: function(data, type, row) {
-                        return '<button class="button warning-button btn-view-post" data-id="' + row.id + '">Report</button>';
-                    }
-                },
-
-            ],
-            drawCallback: function() {
-                $('#datatable thead th, tbody td').css('text-align', 'center');
-
-                $('.btn-view-post').on('click', function() {
-                    const rowData = dataTable.row($(this).closest('tr')).data();
-
-                    if (rowData) {
-                        reportPostModal(rowData);
-                    } 
-                });
-            }
-        });
-    });
     $(function() {
         app_ad.reportPost();
+        app_ad.postDT();
     });
 </script>

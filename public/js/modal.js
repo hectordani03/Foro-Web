@@ -2,6 +2,7 @@ function manejarModales(modalClass, closeButtonClass, abrirModalFunction = null)
   $(function () {
     $(document).on('click', '.' + closeButtonClass, function() {
       $(this).closest('.' + modalClass).hide();
+      $("body").removeClass("overflow-hidden").addClass("overflow-auto");
     });
 
     $(document).on('click', '.' + modalClass, function(event) {

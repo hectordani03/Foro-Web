@@ -8,19 +8,23 @@ const post = {
       fetch(app.routes.addPosts + `/${app.user.id}`, {
         method: "POST",
         body: data,
-      })
-        .then((res) => res.json())
+      }) .then((res) => res.json())
         .then((res) => {
           if (res.r !== false) {
             Swal.fire({
+              position: "center",
+              showConfirmButton: false,
+              timer: 1000,
               icon: "success",
               text: "Post added successfully",
-            }).then(() => {
-              location.href = app.routes.home;
-              spf[0].reset();
+            }).then(function () {
+              location.reload();
             });
           } else {
             Swal.fire({
+              position: "center",
+              showConfirmButton: false,
+              timer: 1000,
               icon: "error",
               text: "Unexpected error, please try again",
             }).then(() => {
@@ -33,6 +37,9 @@ const post = {
         })
         .catch((err) => {
           Swal.fire({
+            position: "center",
+            showConfirmButton: false,
+            timer: 1000,
             icon: "error",
             text: "Unexpected error, please try again",
           }).then(() => {
@@ -51,18 +58,24 @@ const post = {
       fetch(app.routes.sharePost + `/${app.user.id}` + `/${postId}`, {
         method: "POST",
         body: data,
-      }).then((res) => res.json())
+      })
+        .then((res) => res.json())
         .then((res) => {
           if (res.r !== false) {
             Swal.fire({
+              position: "center",
+              showConfirmButton: false,
+              timer: 1000,
               icon: "success",
               text: "Post shared successfully",
-            }).then(() => {
-              location.href = app.routes.home;
-              spf[0].reset();
+            }).then(function () {
+              location.reload();
             });
           } else {
             Swal.fire({
+              position: "center",
+              showConfirmButton: false,
+              timer: 1000,
               icon: "error",
               text: "Unexpected error, please try again",
             }).then(() => {
@@ -75,6 +88,9 @@ const post = {
         })
         .catch((err) => {
           Swal.fire({
+            position: "center",
+            showConfirmButton: false,
+            timer: 1000,
             icon: "error",
             text: "Unexpected error, please try again",
           }).then(() => {

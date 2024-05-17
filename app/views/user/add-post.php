@@ -3,23 +3,30 @@
     $profile_img = isset($ua->sv) && $ua->sv ? $ua->profilePic : 'default.png';
     $id = isset($ua->sv) && $ua->sv ? $ua->id : '';
     ?>
-    <img class="w-12 h-11 bg-blue-500 rounded-full absolute top-8 left-8" src="<?php echo PROF_IMG;echo $profile_img; ?>" alt="">
+    <img class="w-12 h-11 bg-blue-500 rounded-full absolute top-8 left-8" src="<?= PROF_IMG; echo $profile_img; ?>" alt="">
 
     <form id="add-post-form" class="w-full" method="POST" autocomplete="off" enctype="multipart/form-data">
-        <input type="hidden" id="userId" name="userId" value="<?php echo $id ?>">
+        <input type="hidden" id="userId" name="userId" value="<?= $id ?>">
         <textarea id="text" name="text" class="relative rounded-lg px-6 py-2 top-7 mb-10 left-20 text-2xl text-gray-400 bg-gray-100 dark:bg-slate-700 resize-none outline-none font-semibold w-11/12 h-auto" placeholder="What's in your mind?"></textarea>
         <div>
             <div id="img-view" class="relative mb-20 ml-20"></div>
         </div>
 
         <div class="flex absolute bottom-3 left-8 w-8/12">
-            <select id="category" name="category" class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/12 p-2.5 dark:bg-slate-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer ml-2 font-semibold">
-                <option value="" disabled selected hidden>Choose a category</option>
-                <option value="ZeroHunger">Zero Hunger</option>
-                <option value="QualityEducation">Quality Education</option>
-                <option value="GenderEquality">Gender Equality</option>
-                <option value="CleanEnergy">Clean Energy</option>
-            </select>
+            <?php
+            if (isset($_GET['category'])) { ?>
+                <input type="hidden" id="category" name="category" value="<?= $_GET['category'] ?>">
+            <?php  } else { ?>
+                <select id="category" name="category" class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/12 p-2.5 dark:bg-slate-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer ml-2 font-semibold">
+                    <option value="" disabled selected hidden>Choose a category</option>
+                    <option value="Zero-Hunger">Zero Hunger</option>
+                    <option value="Quality-Education">Quality Education</option>
+                    <option value="Gender-Equality">Gender Equality</option>
+                    <option value="Clean-Energy">Clean Energy</option>
+                </select>
+            <?php }
+            ?>
+
         </div>
 
         <div class="flex absolute bottom-3 right-5 gap-2">

@@ -10,10 +10,10 @@ setHeader($d, "register", "sweetalert2.min");
         <form class="" id="register-form" method="POST" autocomplete="off" enctype="multipart/form-data">
 
             <input placeholder="Username" class="input" type="text" id="username" name="username" pattern="^[a-zA-Z0-9]{1,100}$" minlength="3" maxlength="40" required>
-            <input placeholder="Email" class="input" type="email" id="email" name="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" minlength="6" maxlength="70" required>
+            <input placeholder="Email" class="input" type="email" id="email" name="email" minlength="6" maxlength="70" required>
 
             <input placeholder="Password" class="input" type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.\-])[A-Za-z\d$@.\-]{7,100}$" minlength="7" maxlength="100" required>
-            
+
             <input placeholder="Confirm Password" class="input" type="password" id="password2" name="password2" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.\-])[A-Za-z\d$@.\-]{7,100}$" minlength="7" maxlength="100" required>
             <div>
                 <a href="login"><span class="white-text">Do you already</span> <span class="blue-text"> have an account?</span></a>
@@ -23,54 +23,13 @@ setHeader($d, "register", "sweetalert2.min");
 
     </div>
 </div>
-<?php
 
-setFooter($d, "sweetalert2.all.min", "alerts", "jquery", "app");
+<?php
+setFooter($d, "sweetalert2.all.min", "jquery", "auth");
 ?>
 <script>
     $(function() {
-        const rf = $("#register-form")
-        rf.on("submit", function(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            let p1 = $("#password")
-            let p2 = $("#password2")
-            if (p1.val() !== p2.val()) {
-                Swal.fire({
-                    icon: "error",
-                    text: "Passwords dont match",
-                }).then(() => {
-                    p2.val("")
-                    p2.trigger("focus")
-                })
-            } else {
-                const data = new FormData(this)
-                fetch(app.routes.register, {
-                        method: "POST",
-                        body: data
-                    }).then(res => res.json())
-                    .then(res => {
-                        if (res.r !== false) {
-                            location.href = app.routes.login
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                text: "Unexpected error, please try again",
-                            }).then(() => {
-                                rf[0].reset()
-                            })
-                        }
-                    }).catch(err => {
-                        Swal.fire({
-                            icon: "error",
-                            text: "Unexpected error, please try again",
-                        }).then(() => {
-                            rf[0].reset()
-                        })
-                    })
-            }
-
-        })
+        auth.register()
     })
 </script>
 <?php

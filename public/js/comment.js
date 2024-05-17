@@ -13,6 +13,9 @@ const comment = {
         .then((res) => {
           if (res.r !== false) {
             Swal.fire({
+              position: "center",
+              showConfirmButton: false,
+              timer: 1000,
               icon: "success",
               text: "Comment added successfully",
             }).then(() => {
@@ -21,6 +24,9 @@ const comment = {
             });
           } else {
             Swal.fire({
+              position: "center",
+              showConfirmButton: false,
+              timer: 1000,
               icon: "error",
               text: "Unexpected error, please try again",
             }).then(() => {
@@ -33,6 +39,9 @@ const comment = {
         })
         .catch((err) => {
           Swal.fire({
+            position: "center",
+            showConfirmButton: false,
+            timer: 1000,
             icon: "error",
             text: "Unexpected error, please try again",
           }).then(() => {
@@ -46,3 +55,4 @@ const comment = {
 
   },
 };
+

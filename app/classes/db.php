@@ -20,6 +20,7 @@ class db
     public $w = " 1 ";
     public $j = "";
     public $o = "";
+    public $g = "";
     public $l = "";
     public $s = "";
 
@@ -68,13 +69,20 @@ class db
         if (count($ww) > 0) {
             foreach ($ww as $where) {
                 $operator = isset($where[2]) ? $where[2] : '=';
-                $this->w .= $where[0] . " " . $operator . " '" . $where[1] . "' " . ' AND ';
+                if (strtoupper($operator) == 'IS' && strtoupper($where[1]) == 'NULL') {
+                    $this->w .= $where[0] . " IS NULL " . ' AND ';
+                } elseif (strtoupper($operator) == 'IS' && strtoupper($where[1]) == 'NOT NULL') {
+                    $this->w .= $where[0] . " IS NOT NULL " . ' AND ';
+                } else {
+                    $this->w .= $where[0] . " " . $operator . " '" . $where[1] . "' " . ' AND ';
+                }
             }
         }
         $this->w .= ' 1 ';
         $this->w = ' (' . $this->w . ') ';
         return $this;
     }
+    
 
     public function orderBy($ob = [])
     {
@@ -84,6 +92,18 @@ class db
                 $this->o .= $orderBy[0] . ' ' . $orderBy[1] . ',';
             }
             $this->o = ' ORDER BY ' . trim($this->o, ',');
+        }
+        return $this;
+    }
+
+    public function groupBy($gb = [])
+    {
+        if (count($gb) > 0) {
+            foreach ($gb as $groupBy) {
+
+                $this->g .= $groupBy[0]. ',';
+            }
+            $this->g = ' GROUP BY ' . trim($this->g, ',');
         }
         return $this;
     }
@@ -107,6 +127,7 @@ class db
             ($this->j != "" ? " a " . $this->j : "") .
             " WHERE" .
             $this->w .
+            $this->g .
             $this->o .
             $this->l;
 

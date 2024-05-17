@@ -6,34 +6,31 @@ setHeader($d, "login", "sweetalert2.min");
 	<div class="background-overlay"></div>
 	<div class="background">
 
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj1.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj2.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj3.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj4.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj5.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj6.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj7.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj8.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj9.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj10.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj11.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj12.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj13.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj14.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj15.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj16.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj17.png');"></div>
-		<div class="image" style="background-image: url('<?php echo LOGIN_IMG; ?>obj1.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj1.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj2.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj3.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj4.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj5.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj6.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj7.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj8.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj9.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj10.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj11.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj12.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj13.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj14.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj15.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj16.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj17.png');"></div>
+		<div class="image" style="background-image: url('<?php echo CAT_IMG; ?>obj1.png');"></div>
 	</div>
 	<div class="login-form">
 		<h1><b><span class="text-white">FOR</span><span class="text-blue"> US</span></h1>
 		<form class="box login" id="login-form" method="POST" autocomplete="off" enctype="multipart/form-data">
 			<input class="input" autofocus type="email" id="email" name="email" required>
-			<input class="input" type="password" id="password" name="password" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required>
+			<input class="input" type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@.\-])[A-Za-z\d$@.\-]{7,100}$" minlength="7" maxlength="100" required>
 			<div>
-				<small class="form-text text-danger d-none" id="error">
-					Incorrect fields
-				</small>
 				<a href="/Account/recover" class="left">Forgot your password?</a>
 				<a href="/register" class="right">Don't have an account?</a>
 			</div>
@@ -44,34 +41,11 @@ setHeader($d, "login", "sweetalert2.min");
 </div>
 
 <?php
-setFooter($d, "sweetalert2.all.min", "alerts", "jquery", "app");
+setFooter($d, "sweetalert2.all.min", "jquery", "auth");
 ?>
 <script>
 	$(function() {
-		const loginForm = $("#login-form")
-		const p1 = $("#password")
-		loginForm.on("submit", function(e) {
-			e.preventDefault()
-			e.stopPropagation()
-			const data = new FormData(this)
-			fetch(app.routes.session, {
-					method: "POST",
-					body: data
-				}).then(res => res.json())
-				.then(res => {
-					if (res.r) {
-						location.href = "/"
-					} else {
-						Swal.fire({
-							icon: "error",
-							text: "Incorrect fields",
-						}).then(() => {
-							// p1.val("")
-							p1.trigger("focus")
-						})
-					}
-				})
-		})
+		auth.login()
 	})
 </script>
 <?php
