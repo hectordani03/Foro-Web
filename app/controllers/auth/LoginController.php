@@ -34,38 +34,43 @@ class LoginController extends Controller
         $report = new reportUser;
         $sp = new sp;
 
-        $stmt = $user
-            ->select(['a.*, b.profilePic, b.age, b.nacionality, b.description, c.period, c.duration'])
-            ->join('userinfo b', 'a.id=b.userId')
-            ->join('suspensions c', 'a.id=c.userId', 'LEFT')
-            ->where([["email", $data['email']]])
-            ->get();
-        $userData = json_decode($stmt);
+        if (!empty($data['email']) && !empty($data['password'])) {
+            $stmt = $user
+                ->select(['a.*, b.profilePic, b.age, b.nacionality, b.description, c.period, c.duration'])
+                ->join('userinfo b', 'a.id=b.userId')
+                ->join('suspensions c', 'a.id=c.userId', 'LEFT')
+                ->where([["a.email", $data['email']]])
+                ->get();
+            $userData = json_decode($stmt);
 
-        if (count($userData) > 0) {
-            $CT = date("Y-m-d H:i:s");
-            if ($CT >= $userData[0]->period && $userData[0]->duration != "0") {
-                if ($userData[0]->active != 1) {
-                    $data['userId'] = $userData[0]->id;
-                    $data['active'] = 1;
-                    $r = $report->deleteReportUser($data);
-                    $r = $sp->deleteSuspension($data);
-                    $r = $user->updateUserStatus($data);
-                } else {
-                    if (password_verify($data['password'], $userData[0]->password)) {
-                        echo $this->sessionStart($userData);
+            if (count($userData) > 0) {
+                $CT = date("Y-m-d H:i:s");
+                if ($CT >= $userData[0]->period && $userData[0]->duration != "0") {
+                    if ($userData[0]->active != 1) {
+                        $data['userId'] = $userData[0]->id;
+                        $data['active'] = 1;
+                        $r = $report->deleteReportUser($data);
+                        $r = $sp->deleteSuspension($data);
+                        $r = $user->updateUserStatus($data);
                     } else {
-                        self::sessionDestroy();
-                        echo json_encode(["r" => false]);
+                        if (password_verify($data['password'], $userData[0]->password)) {
+                            echo $this->sessionStart($userData);
+                        } else {
+                            self::sessionDestroy();
+                            echo json_encode(["r" => 'd']);
+                        }
                     }
+                } else {
+                    self::sessionDestroy();
+                    echo json_encode(["r" => 's']);
                 }
             } else {
                 self::sessionDestroy();
-                echo json_encode(["r" => 's']);
+                echo json_encode(["r" => 'd']);
             }
         } else {
             self::sessionDestroy();
-            echo json_encode(["r" => false]);
+            echo json_encode(["r" => 'e']);
         }
     }
 

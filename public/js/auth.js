@@ -1,5 +1,4 @@
 const auth = {
-
   routes: {
     login: "/login",
     register: "/Register/register",
@@ -7,40 +6,55 @@ const auth = {
   },
 
   login: function () {
-    const loginForm = $("#login-form");
+    const lf = $("#login-form");
     const p1 = $("#password");
-    loginForm.on("submit", function (e) {
+    lf.on("submit", function (e) {
       e.preventDefault();
       e.stopPropagation();
       const data = new FormData(this);
       fetch(auth.routes.session, {
         method: "POST",
         body: data,
-      }).then((res) => res.json())
+      })
+        .then((res) => res.json())
         .then((res) => {
           if (res.r === true) {
             location.href = "/";
-          } else if (res.r === "s") {
-            Swal.fire({
-              position: "center",
-              showConfirmButton: false,
-              timer: 1000,
+          } else if (res.r === "e") {
+            alerts({
+              type: "function",
               icon: "error",
-              text: "Your account is suspended, please try again later",
-            }).then(function () {
-              location.reload();
+              text: "Filds can not be empty",
+              callback: function () {
+                lf[0].reset();
+              },
             });
-          } else {
-            Swal.fire({
-              position: "center",
+          } else if (res.r === "d") {
+            alerts({
+              type: "function",
               icon: "error",
-              title: "Incorrect fields",
-              showConfirmButton: false,
-              timer: 1000,
-            }).then(() => {
-              p1.trigger("focus");
+              text: "Invalid credentials",
+              callback: function () {
+                lf[0].reset();
+              },
+            });
+          }else if (res.r === "s") {
+            alerts({
+              type: "error",
+              text: "Your account is suspended, please try again later",
+            });
+          } else if (res.r === "q") {
+            alerts({
+              type: "error",
+              text: "Unexpected error, please try again",
             });
           }
+        })
+        .catch(() => {
+          alerts({
+            type: "error",
+            text: "Unexpected error, please try again",
+          });
         });
     });
   },
@@ -50,61 +64,62 @@ const auth = {
     rf.on("submit", function (e) {
       e.preventDefault();
       e.stopPropagation();
-      rf.find('button[type="submit"]').prop('disabled', true);
+      rf.find('button[type="submit"]').prop("disabled", true);
       let p1 = $("#password");
       let p2 = $("#password2");
       if (p1.val() !== p2.val()) {
-        Swal.fire({
+        alerts({
+          type: "function",
           icon: "error",
           text: "Passwords dont match",
-        }).then(() => {
-          p2.val("");
-          p2.trigger("focus");
-          e.preventDefault();
-          rf.find('button[type="submit"]').prop('disabled', false);
+          callback: function () {
+            p2.val("");
+            p2.trigger("focus");
+            e.preventDefault();
+            rf.find('button[type="submit"]').prop("disabled", false);
+          },
         });
       } else {
         const data = new FormData(this);
         fetch(auth.routes.register, {
           method: "POST",
           body: data,
-        }).then((res) => res.json())
+        })
+          .then((res) => res.json())
           .then((res) => {
             if (res.r === true) {
               location.href = auth.routes.login;
-            } else if (res.r === 'r') {
-              Swal.fire({
-                position: "center",
-                showConfirmButton: false,
-                timer: 2000,
+            } else if (res.r === "r") {
+              alerts({
+                type: "function",
                 icon: "error",
                 text: "The EMAIL you just entered is already registered in the system, please check and try again",
-              }).then(() => {
-                rf[0].reset();
-                rf.find('button[type="submit"]').prop('disabled', false);
+                callback: function () {
+                  rf[0].reset();
+                  rf.find('button[type="submit"]').prop("disabled", false);
+                },
               });
-            } else {
-              Swal.fire({
-                position: "center",
-                showConfirmButton: false,
-                timer: 1000,
+            } else if (res.r === "e") {
+              alerts({
+                type: "function",
                 icon: "error",
+                text: "Filds can not be empty",
+                callback: function () {
+                  rf[0].reset();
+                  rf.find('button[type="submit"]').prop("disabled", false);
+                },
+              });
+            } else if (res.r === "q") {
+              alerts({
+                type: "error",
                 text: "Unexpected error, please try again",
-              }).then(() => {
-                rf[0].reset();
-                rf.find('button[type="submit"]').prop('disabled', false);
               });
             }
-          }).catch((err) => {
-            Swal.fire({
-              position: "center",
-              showConfirmButton: false,
-              timer: 1000,
-              icon: "error",
+          })
+          .catch(() => {
+            alerts({
+              type: "error",
               text: "Unexpected error, please try again",
-            }).then(() => {
-              rf[0].reset();
-              rf.find('button[type="submit"]').prop('disabled', false);
             });
           });
       }

@@ -32,7 +32,7 @@ class PostsController extends Controller
         $stmt = $cat->get();
         $categories = json_decode($stmt);
         $peticion = filter_input_array(INPUT_GET);
-        
+
         $categoryExists = false;
         foreach ($categories as $category) {
             if ($category->name == $peticion['category']) {
@@ -54,6 +54,36 @@ class PostsController extends Controller
         }
     }
 
+    public function createPosts($params = null)
+    {
+        $posts = new posts;
+        $res = $posts->addPosts(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
+        if ($res === false) {
+        } else {
+            echo json_encode(["r" => true]);
+        }
+    }
+
+    public function sharePost($params = null)
+    {
+        $posts = new posts;
+        $res = $posts->sharePost(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
+        if ($res === false) {
+        } else {
+            echo json_encode(["r" => true]);
+        }
+    }
+
+    public function deletePost()
+    {
+        $posts = new posts;
+        $res = $posts->deletePost(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)));
+        if ($res === false) {
+        } else {
+            echo json_encode(["r" => true]);
+        }
+    }
+
     public function getPosts()
     {
         $posts = new posts();
@@ -61,39 +91,12 @@ class PostsController extends Controller
         echo $result;
     }
 
-    public function getUsersPosts()
-    {
-        $posts = new posts();
-        $result = $posts->getAllUsersPosts();
-        echo $result;
-    }
-
-    public function createPosts($params = null)
-    {
-        $posts = new posts;
-        $res = $posts->addPosts(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
-        echo json_encode(["r" => $res]);
-    }
-
-    public function sharePost($params = null)
-    {
-        $posts = new posts;
-        $res = $posts->sharePost(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
-        echo json_encode(["r" => $res]);
-    }
-
-    public function deletePost()
-    {
-        $posts = new posts;
-        $res = $posts->deletePost(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)));
-        echo json_encode(["r" => $res]);
-    }
-
     public function getPostsByCategory()
     {
-        if (isset($_GET['category'])) {
+        if (isset($_GET) && isset($_GET['category'])) {
             $category = $_GET['category'];
         } else {
+            $category = null;
             redirect::to('');
             exit();
         }

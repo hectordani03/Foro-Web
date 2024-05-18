@@ -67,13 +67,9 @@ class ReportsController extends Controller
         echo $result;
     }
 
-    public function createReport()
+    public function createReport($data)
     {
         $report = new reports;
-        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-        if ($data['reason'] == "Other") {
-            $data['reason'] = $data['other'];
-        }
         $data['userId'] = session::sessionValidate()['id'];
         $res = $report->addReport($data);
         return $res;
@@ -83,26 +79,35 @@ class ReportsController extends Controller
     {
         $report = new reportuser;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-        $data['reportId'] = $this->createReport();
+        $data['reportId'] = $this->createReport($data);
         $res = $report->addUserReport($data);
-        echo json_encode(["r" => $res]);
+        if ($res === false) {
+        } else {
+            echo json_encode(["r" => true]);
+        }
     }
 
     public function reportPost()
     {
         $report = new reportpost;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-        $data['reportId'] = $this->createReport();
+        $data['reportId'] = $this->createReport($data);
         $res = $report->addPostReport($data);
-        echo json_encode(["r" => $res]);
+        if ($res === false) {
+        } else {
+            echo json_encode(["r" => true]);
+        }
     }
-    
+
     public function reportComment()
     {
         $report = new reportcomt;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-        $data['reportId'] = $this->createReport();
+        $data['reportId'] = $this->createReport($data);
         $res = $report->addComtReport($data);
-        echo json_encode(["r" => $res]);
+        if ($res === false) {
+        } else {
+            echo json_encode(["r" => true]);
+        }
     }
 }

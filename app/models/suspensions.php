@@ -18,17 +18,27 @@ class suspensions extends Model
 
     public function addSuspension($data)
     {
-        $this->values = [
-            $data["userId"],
-            $data["period"],
-            $data["duration"],
-        ];
-        return $this->insert();
+        if (!empty($data['userId']) && !empty($data['period']) && isset($data['duration'])) {
+            $this->values = [
+                $data["userId"],
+                $data["period"],
+                $data["duration"],
+            ];
+            return $this->insert();
+        } else {
+            echo json_encode(["r" => 'e']);
+            return false;
+        }
     }
 
     public function deleteSuspension($data)
     {
-        $this->where([['userId', $data['userId']]]);
-        return $this->delete();
+        if (!empty($data['userId'])) {
+            $this->where([['userId', $data['userId']]]);
+            return $this->delete();
+        } else {
+            echo json_encode(["r" => 'e']);
+            return false;
+        }
     }
 }

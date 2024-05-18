@@ -82,7 +82,7 @@ class db
         $this->w = ' (' . $this->w . ') ';
         return $this;
     }
-    
+
 
     public function orderBy($ob = [])
     {
@@ -101,7 +101,7 @@ class db
         if (count($gb) > 0) {
             foreach ($gb as $groupBy) {
 
-                $this->g .= $groupBy[0]. ',';
+                $this->g .= $groupBy[0] . ',';
             }
             $this->g = ' GROUP BY ' . trim($this->g, ',');
         }
@@ -119,71 +119,88 @@ class db
 
     public function get()
     {
-        $sql = "SELECT " . $this->c . " FROM " . str_replace(
-            "app\\models\\",
-            "",
-            get_class($this)
-        ) .
-            ($this->j != "" ? " a " . $this->j : "") .
-            " WHERE" .
-            $this->w .
-            $this->g .
-            $this->o .
-            $this->l;
+        try {
+            $sql = "SELECT " . $this->c . " FROM " . str_replace(
+                "app\\models\\",
+                "",
+                get_class($this)
+            ) .
+                ($this->j != "" ? " a " . $this->j : "") .
+                " WHERE" .
+                $this->w .
+                $this->g .
+                $this->o .
+                $this->l;
 
-        $r = $this->table->query($sql);
+            $r = $this->table->query($sql);
 
-        $result = [];
-        while ($f = $r->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = $f;
+            $result = [];
+            while ($f = $r->fetch(PDO::FETCH_ASSOC)) {
+                $result[] = $f;
+            }
+
+            return json_encode($result);
+        } catch (\PDOException $err) {
+            echo json_encode(["r" => 'q']);
         }
-
-        return json_encode($result);
     }
-
-
     public function insert()
     {
-        $sql = "INSERT INTO " . str_replace("app\\models\\", "", get_class($this)) .
-            " (" . implode(",", $this->fillable) . ') values (' .
-            trim(str_replace("&", "?,", str_pad("", count($this->values), "&")), ",") . ');';
+        try {
+            $sql = "INSERT INTO " . str_replace("app\\models\\", "", get_class($this)) .
+                " (" . implode(",", $this->fillable) . ') values (' .
+                trim(str_replace("&", "?,", str_pad("", count($this->values), "&")), ",") . ');';
 
-        $stmt = $this->table->prepare($sql);
-        foreach ($this->values as $v => $value) {
-            $stmt->bindValue(($v + 1), $value);
+            $stmt = $this->table->prepare($sql);
+            foreach ($this->values as $v => $value) {
+                $stmt->bindValue(($v + 1), $value);
+            }
+            $stmt->execute();
+            return $this->table->lastInsertId();
+        } catch (\PDOException $err) {
+            echo json_encode(["r" => 'q']);
+            return false;
         }
-        $stmt->execute();
-        return $this->table->lastInsertId();
     }
 
     public function update()
     {
-        $setClause = '';
-        foreach ($this->values as $column => $value) {
-            $setClause .= $column . '=?, ';
+        try {
+            $setClause = '';
+            foreach ($this->values as $column => $value) {
+                $setClause .= $column . '=?, ';
+            }
+            $setClause = rtrim($setClause, ', ');
+
+            $sql = "UPDATE " . str_replace("app\\models\\", "", get_class($this)) .
+                " SET $setClause WHERE " .
+                $this->w;
+
+            $stmt = $this->table->prepare($sql);
+
+            $i = 1;
+            foreach ($this->values as $value) {
+                $stmt->bindValue($i++, $value);
+            }
+
+            $res = $stmt->execute();
+            return $res;
+        } catch (\PDOException $err) {
+            echo json_encode(["r" => 'q']);
+            return false;
         }
-        $setClause = rtrim($setClause, ', ');
-
-        $sql = "UPDATE " . str_replace("app\\models\\", "", get_class($this)) .
-            " SET $setClause WHERE " .
-            $this->w;
-
-        $stmt = $this->table->prepare($sql);
-
-        $i = 1;
-        foreach ($this->values as $value) {
-            $stmt->bindValue($i++, $value);
-        }
-
-        $res = $stmt->execute();
-        return $res;
     }
 
     public function delete()
     {
-        $sql = "DELETE FROM " . str_replace("app\\models\\", "", get_class($this)) . " WHERE " .
-            $this->w;
-        $stmt = $this->table->prepare($sql);
-        $stmt->execute();
+        try {
+            $sql = "DELETE FROM " . str_replace("app\\models\\", "", get_class($this)) . " WHERE " .
+                $this->w;
+            $stmt = $this->table->prepare($sql);
+            $stmt->execute();
+        } catch (\PDOException $err) {
+            echo json_encode(["r" => 'q']);
+            return false;
+        }
     }
 }

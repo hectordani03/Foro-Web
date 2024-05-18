@@ -25,7 +25,7 @@ setHeader($d, "register", "sweetalert2.min");
 </div>
 
 <?php
-setFooter($d, "sweetalert2.all.min", "jquery", "auth");
+setFooter($d, "sweetalert2.all.min", "jquery", "functions", "auth");
 ?>
 <script>
     $(function() {

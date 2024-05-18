@@ -15,12 +15,18 @@ class reportcomt extends Model
         ];
     }
 
-    public function addComtReport($data){
-        $this->values = [
-            $data['reportId'],
-            $data["commentId"],
-        ];
-        return $this->insert();
+    public function addComtReport($data)
+    {
+        if (!empty($data['commentId']) && !empty($data['reportId'])) {
+            $this->values = [
+                $data['reportId'],
+                $data["commentId"],
+            ];
+            return $this->insert();
+        } else {
+            echo json_encode(["r" => 'e']);
+            return false;
+        }
     }
 
     public function getAllReportedComts()

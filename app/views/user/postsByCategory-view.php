@@ -21,7 +21,7 @@ require_once LAYOUTS_US . 'header.php';
 
         <?php if (isset($ua->sv) && $ua->sv) { ?>
             <a href="/profile">
-                <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;echo $ua->profilePic; ?>" alt="">
+                <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?= PROF_IMG;echo $ua->profilePic; ?>" alt="">
             </a>
         <?php } ?>
 
@@ -37,7 +37,7 @@ require_once LAYOUTS_US . 'header.php';
         ?>
 
         <!-- OBJETIVE CARD -->
-        <a class=" mr-5 w-2/12" href="#"><img class="rounded-lg w-64 h-56 mx-auto" src="<?php echo GIFT; ?>obj2.gif" alt=""></a>
+        <a class=" mr-5 w-2/12" href="#"><img class="rounded-lg w-64 h-56 mx-auto" src="<?= GIFT; ?>obj2.gif" alt=""></a>
 
     </main>
 

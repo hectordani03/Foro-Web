@@ -32,23 +32,17 @@ class RegisterController extends Controller
         $user = new user;
         $userinfo = new userinfo;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-        $stmt = $user
-            ->select(['email'])
-            ->where([["email", $data['email']]])
-            ->get();
-        $userData = json_decode($stmt);
 
-        if (count($userData) > 0) {
-            echo json_encode(["r" => 'r']);
+        $res = $user->registerUser($data);
+        $res2 = $userinfo->registerUserInfo($res);
+        ob_start();
+        require_once '../app/views/templates/emails/registerUser.php';
+        $message = ob_get_clean();
+        $subject = "Welcome " . $data['username'];
+        if ($res === false && $res2 === false) {
         } else {
-            $res = $user->registerUser($data);
-            $res2 = $userinfo->registerUserInfo($res);
-            ob_start();
-            require_once '../app/views/templates/emails/registerUser.php';
-            $message = ob_get_clean();
-            $subject = "Welcome " . $data['username'];
-            $em = sendMail($data['email'], $subject, $message);
-            echo json_encode(["r" => $em]);
+            sendMail($data['email'], $subject, $message);
+            echo json_encode(["r" => true]);
         }
     }
 }

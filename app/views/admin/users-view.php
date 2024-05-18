@@ -84,7 +84,7 @@ require_once LAYOUTS_AD . 'header.php';
 </div>
 
 <div id="delete-modal" class="modal text-content">
-    <form class="requestForm" id="delete-form" method="POST" autocomplete="off" enctype="multipart/form-data">
+    <form class="" id="delete-form" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>

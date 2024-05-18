@@ -17,17 +17,27 @@ class reportuser extends Model
 
     public function addUserReport($data)
     {
-        $this->values = [
-            $data['reportId'],
-            $data["userId"],
-        ];
-        return $this->insert();
+        if (!empty($data['userId']) && !empty($data['reportId'])) {
+            $this->values = [
+                $data['reportId'],
+                $data["userId"],
+            ];
+            return $this->insert();
+        } else {
+            echo json_encode(["r" => 'e']);
+            return false;
+        }
     }
 
     public function deleteReportUser($data)
     {
-        $this->where([['userId', $data['userId']]]);
-        return $this->delete();
+        if (!empty($data['userId'])) {
+            $this->where([['userId', $data['userId']]]);
+            return $this->delete();
+        } else {
+            echo json_encode(["r" => 'e']);
+            return false;
+        }
     }
 
     public function getAllReportedUsers()

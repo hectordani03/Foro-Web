@@ -369,6 +369,7 @@ body.dark .dataTables_length select {
   background-color: #18191a;
   transition: var(--tran-01);
 }
+
 body.dark table.dataTable.row-border > tbody > tr > th,
 body.dark table.dataTable.row-border > tbody > tr > td,
 body.dark table.dataTable.display > tbody > tr > th,

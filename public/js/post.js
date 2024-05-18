@@ -1,7 +1,7 @@
 const post = {
   addPosts: function () {
-    const spf = $("#add-post-form");
-    spf.on("submit", function (e) {
+    const apf = $("#add-post-form");
+    apf.on("submit", function (e) {
       e.preventDefault();
       e.stopPropagation();
       const data = new FormData(this);
@@ -9,42 +9,49 @@ const post = {
         method: "POST",
         body: data,
       }) .then((res) => res.json())
-        .then((res) => {
-          if (res.r !== false) {
-            Swal.fire({
-              position: "center",
-              showConfirmButton: false,
-              timer: 1000,
-              icon: "success",
-              text: "Post added successfully",
-            }).then(function () {
-              location.reload();
-            });
-          } else {
-            Swal.fire({
-              position: "center",
-              showConfirmButton: false,
-              timer: 1000,
+        .then((res) => { 
+          
+          alerts({
+          type: "function",
+          icon: "error",
+          text: "Fields can not be empty",
+          callback: function () {
+            e.preventDefault();
+          },
+        });
+
+        alerts({
+          type: "normal",
+          icon: "error",
+          text: "Filds can not be empty",
+        });
+
+          if (res.r === true) {
+            alerts({
+              type: "success",
+              text: "Post added successfully"
+          });
+          } else if (res.r === 'e') {
+            alerts({
+              type: "function",
               icon: "error",
+              text: "Filds can not be empty",
+              callback: function() {
+                  apf[0].reset(); 
+              }
+          });
+        } else if (res.r === 'q') {
+          alerts({
+              type: "error",
               text: "Unexpected error, please try again",
-            }).then(() => {
-              spf[0].reset();
-            });
+          });
           }
         })
-        .then(() => {
-          spf[0].reset();
-        })
-        .catch((err) => {
-          Swal.fire({
-            position: "center",
-            showConfirmButton: false,
-            timer: 1000,
-            icon: "error",
+        .catch(() => {
+          alerts({
+            type: "error",
             text: "Unexpected error, please try again",
-          }).then(() => {
-            spf[0].reset();
-          });
+        });
         });
     });
   },
@@ -61,41 +68,32 @@ const post = {
       })
         .then((res) => res.json())
         .then((res) => {
-          if (res.r !== false) {
-            Swal.fire({
-              position: "center",
-              showConfirmButton: false,
-              timer: 1000,
-              icon: "success",
-              text: "Post shared successfully",
-            }).then(function () {
-              location.reload();
-            });
-          } else {
-            Swal.fire({
-              position: "center",
-              showConfirmButton: false,
-              timer: 1000,
-              icon: "error",
-              text: "Unexpected error, please try again",
-            }).then(() => {
-              spf[0].reset();
-            });
-          }
-        })
-        .then(() => {
-          spf[0].reset();
-        })
-        .catch((err) => {
-          Swal.fire({
-            position: "center",
-            showConfirmButton: false,
-            timer: 1000,
-            icon: "error",
-            text: "Unexpected error, please try again",
-          }).then(() => {
-            spf[0].reset();
+          if (res.r === true) {
+            alerts({
+              type: "success",
+              text: "Post shared successfully"
           });
+          } else if (res.r === 'e') {
+            alerts({
+              type: "function",
+              icon: "error",
+              text: "Filds can not be empty",
+              callback: function() {
+                  spf[0].reset(); 
+              }
+          });
+        } else if (res.r === 'q') {
+          alerts({
+              type: "error",
+              text: "Unexpected error, please try again",
+          });
+          }
+        }) 
+        .catch(() => {
+          alerts({
+            type: "error",
+            text: "Unexpected error, please try again",
+        });
         });
     });
   },

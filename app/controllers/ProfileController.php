@@ -65,19 +65,11 @@ class ProfileController extends Controller
         $userinfo = new userinfo;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         $data['userId'] = session::sessionValidate()['id'];
-
-        $stmt = $user
-            ->select(['email'])
-            ->where([['email', $data['email']], ['id', $data['userId'], '<>']])
-            ->get();
-        $userData = json_decode($stmt);
-
-        if (count($userData) > 0) {
-            echo json_encode(["r" => 'r']);
+        $res = $user->updateProfUser($data);
+        $res2 = $userinfo->updateUserInfo($data);
+        if ($res === false && $res2 === false) {
         } else {
-            $res = $userinfo->updateUserInfo($data);
-            $res = $user->updateProfUser($data);
-            echo json_encode(["r" => $res]);
+            echo json_encode(["r" => true]);
         }
     }
 }

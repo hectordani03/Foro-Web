@@ -16,10 +16,13 @@ class SuspensionsController extends Controller
         $suspension = new sp;
         $user = new user;
         $report = new reports;
+        ob_start();
         $date = date("Y-m-d H:i:s");
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
+
         $period = $data['period'];
         $duration = $period;
+
         if ($duration != '0') {
             if ($duration == '1') {
                 $seconds = 1 * 24 * 60 * 60;
@@ -34,27 +37,32 @@ class SuspensionsController extends Controller
             }
             $period = date("Y-m-d H:i:s", strtotime($date . " + $seconds seconds"));
             $status = 2;
-            ob_start();
             require_once '../app/views/templates/emails/suspendUser.php';
             $subject = 'Your Account has been suspended';
         } else {
             $period = null;
             $duration = "0";
             $status = 0;
-            ob_start();
             require_once '../app/views/templates/emails/banUser.php';
             $subject = 'Your Account has been baned';
         }
+        
         $data['period'] = $period;
         $data['duration'] = $duration;
+
         $data['active'] = $status;
         $data['activer'] = 1;
+
         $res = $user->updateUserStatus($data);
-        $res = $report->updateReportStatus($data);
-        $res = $suspension->addSuspension($data);
+        $res2 = $report->updateReportStatus($data);
+        $res3 = $suspension->addSuspension($data);
+
         $message = ob_get_clean();
-        $em = sendMail($data['email'], $subject, $message);
-        echo json_encode(["r" => $em]);
+        if ($res === false && $res2 === false && $res3 === false) {
+        } else {
+            sendMail($data['email'], $subject, $message);
+            echo json_encode(["r" => true]);
+        }
     }
 
     public function removeSuspension($data)
@@ -75,4 +83,6 @@ class SuspensionsController extends Controller
 
         echo json_encode(["r" => $res]);
     }
+
+
 }

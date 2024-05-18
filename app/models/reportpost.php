@@ -15,12 +15,18 @@ class reportpost extends Model
         ];
     }
 
-    public function addPostReport($data){
-        $this->values = [
-            $data['reportId'],
-            $data["postId"],
-        ];
-        return $this->insert();
+    public function addPostReport($data)
+    {
+        if (!empty($data['postId']) && !empty($data['reportId'])) {
+            $this->values = [
+                $data['reportId'],
+                $data["postId"],
+            ];
+            return $this->insert();
+        } else {
+            echo json_encode(["r" => 'e']);
+            return false;
+        }
     }
 
     public function getAllReportedPosts()
