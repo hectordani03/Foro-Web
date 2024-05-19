@@ -1,11 +1,22 @@
 const post = {
   addPosts: function () {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const category = urlParams.get("category");
+    var selectedHashtags = [];
     const apf = $("#add-post-form");
+
     apf.on("submit", function (e) {
       e.preventDefault();
       e.stopPropagation();
+      $("#hashtags-selected .hashtag span").each(function() {
+          var hashtagValue = $(this).text().substring(1);
+          selectedHashtags.push(hashtagValue);
+      });
+      $("<input>").attr("type", "hidden").attr("name", "hashtags").val(selectedHashtags.join(",")).appendTo(apf);
+
       const data = new FormData(this);
-      fetch(app.routes.addPosts + `/${app.user.id}`, {
+      fetch(app.routes.addPosts + '/' + category, {
         method: "POST",
         body: data,
       }) .then((res) => res.json())

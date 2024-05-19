@@ -45,3 +45,42 @@
 .link-underline:hover::before {
   width: 100%;
 }
+
+.profile-modal{
+height: 600px;
+
+}
+
+@media screen and (max-width: 652px){
+  .content .posts-section{
+    margin-right: 50px;
+  }
+}
+
+@media screen and (max-width: 550px){
+  .content .posts-section{
+    margin-right: 55px;
+  }
+}
+
+@media screen and (max-width: 480px){
+  .content .posts-section{
+    margin-right: 60px;
+  }
+}
+
+@media screen and (max-width: 415px){
+  .content .posts-section{
+    margin-right: 65px;
+  }
+}
+.capa-hashtag {
+  opacity: 0; /* Comienza invisible */
+  transform: translateY(-20%); /* Mueve la capa hacia abajo fuera de la pantalla */
+  transition: opacity 0.3s ease, transform 0.2s ease; /* Transición de opacidad y posición durante 0.3 segundos */
+}
+
+.capa-hashtag.visible {
+  opacity: 1; /* Se vuelve visible */
+  transform: translateY(0); /* Mueve la capa de vuelta a su posición original */
+}

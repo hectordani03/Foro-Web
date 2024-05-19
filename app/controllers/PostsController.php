@@ -54,10 +54,12 @@ class PostsController extends Controller
         }
     }
 
-    public function createPosts($params = null)
+    public function createPosts()
     {
         $posts = new posts;
-        $res = $posts->addPosts(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
+        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
+        $data['userId'] = session::sessionValidate()['id'];
+        $res = $posts->addPosts($data);
         if ($res === false) {
         } else {
             echo json_encode(["r" => true]);
@@ -93,16 +95,15 @@ class PostsController extends Controller
 
     public function getPostsByCategory()
     {
-        if (isset($_GET) && isset($_GET['category'])) {
+        if (isset($_GET['category']) && !empty($_GET['category'])) {
             $category = $_GET['category'];
+            $posts = new posts();
+            $result = $posts->getPostsByCategory($category);
+            echo $result;
         } else {
-            $category = null;
             redirect::to('');
             exit();
         }
-        $posts = new posts();
-        $result = $posts->getPostsByCategory($category);
-        echo $result;
     }
 
     // public function addPost()

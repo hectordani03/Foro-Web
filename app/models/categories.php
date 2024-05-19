@@ -17,9 +17,16 @@ class categories extends Model
 
     public function getAllCategories()
     {
-        $result = $this->select(['name, img'])
+        $result = $this->select(['name, gif'])
             ->get();
         return $result;
     }
 
+    public function getAllHashtags($category)
+    {
+        $result = $this->select(['hashtag'])
+        ->where([['name', $category]])
+            ->get();
+        return $result;
+    }
 }

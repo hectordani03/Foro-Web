@@ -65,6 +65,7 @@ setFooter($d, "post", "comment")
     $(function() {
         app.catPosts();
         app.categories();
+        app.getHashtags();
         post.addPosts();
         post.sharePost();
         comment.comment();

@@ -16,7 +16,7 @@ class userinfo extends Model
 
     public function registerUserInfo($userId)
     {
-        if (isset($userId)) {
+        if (!empty($userId)) {
             $this->values = [
                 $userId,
             ];

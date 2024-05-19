@@ -14,6 +14,7 @@ const app = {
     addComment: "/Comments/createComment",
 
     getCategories: "/Categories/getCategories",
+    getHashtags: "/Categories/getHashtags",
     getPostsByCategory: "/Posts/getPostsByCategory",
   },
 
@@ -29,6 +30,7 @@ const app = {
   ss: $("#shareId"),
   cc: $("#commentsId"),
   ca: $("#categories-form"),
+  ha: $("#hashtags"),
   usp: [],
 
   allPosts: function () {
@@ -183,14 +185,14 @@ const app = {
         $(function () {
           $("#cmtcontent").on("input change", function () {
             const content = $("#cmtcontent").val().trim();
-        
-            if (content !== "" ) {
+
+            if (content !== "") {
               $("#commentbtn").prop("disabled", false);
             } else {
               $("#commentbtn").prop("disabled", true);
             }
           });
-        
+
           $("#cmtcontent").trigger("input");
         });
       });
@@ -315,7 +317,7 @@ const app = {
           html += `
           <li class="w-10 h-10">
             <button type="submit" name="category" value="${category.name}">
-              <img class="rounded-lg" src="http://forus.com/resources/assets/img/categories/${category.img}" alt="" class="w-full">
+              <img class="rounded-lg" src="http://forus.com/resources/assets/img/categories/${category.gif}" alt="" class="w-full">
             </button>
             <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">${category.name}</span>
           </li>
@@ -362,6 +364,14 @@ const app = {
   },
 
   postsHtmlBuilder: function (post) {
+    const hashtags = post.hashtag.split(",");
+    const hashtagsHTML = hashtags
+      .map((hashtag) => {
+        return `
+     <a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center">#${hashtag.trim()}</a>
+     `;
+      })
+      .join("");
     return `
     <div class="post">
     <div class="bg-gray-100 dark:bg-slate-700 shadow-lg w-full rounded-xl flex flex-col relative mt-5 h-fit self-start opacity-100">
@@ -388,9 +398,7 @@ const app = {
     }" alt="">
 
 <div class="flex gap-4 w-10/12 mx-auto mt-5">
-    <a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center">#${
-      post.category
-    }</a>
+    ${hashtagsHTML}
 </div>
 
 <div class="flex w-10/12 relative mt-10 mb-5 mx-auto">
@@ -426,6 +434,72 @@ const app = {
 </div>
           `;
   },
+
+  getHashtags: function () {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const category = urlParams.get("category");
+
+    let html = ``;
+    this.ha.html("");
+
+    fetch(app.routes.getHashtags + "?category=" + category, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((hstgs) => {
+        if (hstgs.length > 0) {
+          html = "";
+          for (let htg of hstgs) {
+            html += `
+            <div class="hashtag text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center h-fit cursor-pointer relative" href="">
+              <div class="capa-hashtag absolute top-0 left-0 bg-rose-800 z-50 w-full rounded-full h-full">x</div> 
+              <span class="z-10">#${htg.hashtag}</span>
+            </div>
+       
+            `;
+          }
+        }
+        if (hstgs.length > 0) {
+          html = "";
+          for (let htg of hstgs) {
+            const hashtags = htg.hashtag.split(",");
+
+            for (let tag of hashtags) {
+              const cleanedHashtag = tag.trim();
+              html += `
+                  <div class="hashtag text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center h-fit cursor-pointer relative" href="">
+              <div class="capa-hashtag absolute top-0 left-0 bg-rose-800 z-50 w-full rounded-full h-full">x</div> 
+              <span class="z-10">#${cleanedHashtag}</span>
+            </div>
+                  `;
+            }
+          }
+        }
+        this.ha.html(html);
+        $(function () {
+          $("#hashtags .hashtag").click(function () {
+            if ($("#hashtags-selected .hashtag").length < 3) {
+              var hashtagValue = $(this).find("span").text();
+              $("#hashtags-selected").append($(this).clone());
+              console.log(hashtagValue);
+            }
+          });
+
+          $("#hashtags-selected").on("click", ".hashtag", function () {
+            $(this).remove();
+          });
+
+          $("#hashtags-selected").on("mouseenter", ".hashtag", function () {
+            $(this).find(".capa-hashtag").addClass("visible");
+          });
+
+          $("#hashtags-selected").on("mouseleave", ".hashtag", function () {
+            $(this).find(".capa-hashtag").removeClass("visible");
+          });
+        });
+      });
+  },
 };
 
 function formatTimeSincePost(postDate) {
@@ -449,4 +523,3 @@ function formatTimeSincePost(postDate) {
     return seconds + " s";
   }
 }
-

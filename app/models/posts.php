@@ -13,25 +13,27 @@ class posts extends Model
             'userId',
             'text',
             'category',
+            'hashtag',
             'postId',
             'img'
         ];
     }
 
-    public function addPosts($data, $params)
+    public function addPosts($data)
     {
-        $userId = $params[2];
-        if ((isset($data['text']) && isset($userId) && isset($_FILES["img"]) && isset($_FILES['img'])) && !empty($data['category'])) {
+        if ((isset($data['text']) || isset($data['hashtags']) || isset($_FILES['img'])) && !empty($data['category']) && !empty($data['userId'])) {
             $this->values = [
-                $userId,
+                $data['userId'],
                 $data["text"],
                 $data["category"],
+                $data["hashtags"],
                 NULL,
                 getPostImg("img")
             ];
             return $this->insert();
         } else {
-            echo json_encode(["r" => 'e']);
+            // echo json_encode(["r" => 'e']);
+            print_r($data);
             return false;
         }
     }
