@@ -1,0 +1,80 @@
+[
+    {
+        "id" : 1,
+        "tipo" : "auto",
+        "foto" : "Ford-figo.jpg",
+        "marca": "Ford",
+        "modelo" : "Figo",
+        "anio" : "2016",
+        "motor" : {
+            "desplazamiento" : "1.4L",
+            "potencia" : "108 HP",
+            "rendimiento" : "18 K/l"
+        }
+    },
+    {
+        "id" : 2,
+        "tipo" : "suv",
+        "foto" : "nissan-xtrail.jpg",
+        "marca": "Nissan",
+        "modelo" : "X-Trail",
+        "anio" : "2019",
+        "motor" : {
+            "desplazamiento" : "2.4L",
+            "potencia" : "150 HP",
+            "rendimiento" : "14 K/l"
+        }
+    },
+    {
+        "id" : 6,
+        "tipo" : "auto",
+        "foto" : "Camry.jpeg",
+        "marca": "Toyota",
+        "modelo" : "Camry",
+        "anio" : "2017",
+        "motor" : {
+            "desplazamiento" : "2.0L",
+            "potencia" : "180 HP",
+            "rendimiento" : "12 K/l"
+        }
+    },
+    {
+        "id" : 3,
+        "tipo" : "suv",
+        "foto" : "honda_crv_2015.jpg",
+        "marca": "Honda",
+        "modelo" : "CRV",
+        "anio" : "2015",
+        "motor" : {
+            "desplazamiento" : "2.6L",
+            "potencia" : "170 HP",
+            "rendimiento" : "12 K/l"
+        }
+    },
+    {
+        "id" : 4,
+        "tipo" : "auto",
+        "foto" : "kia_rio_2018.jpeg",
+        "marca": "Kia",
+        "modelo" : "Rio",
+        "anio" : "2018",
+        "motor" : {
+            "desplazamiento" : "1.6L",
+            "potencia" : "110 HP",
+            "rendimiento" : "18 K/l"
+        }
+    },
+    {
+        "id" : 5,
+        "tipo" : "suv",
+        "foto" : "renault_duster_2016.jpg",
+        "marca": "Renault",
+        "modelo" : "Duster",
+        "anio" : "2016",
+        "motor" : {
+            "desplazamiento" : "2.0L",
+            "potencia" : "135 HP",
+            "rendimiento" : "11 K/l"
+        }
+    }
+]

@@ -1,0 +1,124 @@
+html,body {
+    height: 100%;   
+}
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.2em;
+}
+
+.header {
+    position: relative;
+    top:0;
+    width: 100%;
+    min-height: 75px;
+    margin: 0;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 0 5px 10px rgba(0,0,0,0.1);
+}
+.header #titulo {
+    display: inline-block;
+    padding: 0;
+}
+.header #titulo > h1{
+    margin:15px 0 0; 
+}
+.header nav{
+    margin: 15px;
+}
+.header nav ul li {
+    display: inline;
+    margin: 0 10px;
+    list-style-type: none;
+}
+.menu {
+    text-decoration: none;
+    color: black;
+}
+.logo {
+    display:block;
+    float: right;
+    margin-right: 50px; 
+}
+.logo > img {
+    max-width: 75px;
+    min-width: 75px;
+    max-height: 50px;
+    min-height: 50px;
+}
+#titulo{
+    margin-left: 10px;
+}
+
+.content {
+    width: 80%;
+    margin: 20px auto;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 20px;
+    padding: 5px;
+}
+.ficha {
+    border: 2px solid black;
+    border-radius: 10px;
+    max-width: 320px;
+    box-shadow: 1px 1px 3px #888;
+    background-color: #E0FFFF;
+}
+.ficha > img {
+    max-width: 320px;
+    max-height: 200px;
+    min-width: 320px;
+    min-height: 200px;
+    border-radius: 10px;
+}
+.ficha > .datos {
+    padding: 5px 20px;
+    color:blue;
+    margin-top: 0;
+}
+.modal {
+    display: none; /* Hidden por defecto */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% desde la parte superior y centrado */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+  }
+  .modal-content > img {
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }

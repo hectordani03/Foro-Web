@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/resources/css/app.css">
+    <style>
+        /**/
+    </style>
+    <title>Ejercicio 1</title>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <header class="header">
+                <div id="titulo">
+                    <h1>Agencia de autos seminuevos</h1>
+                </div>
+                <div class="logo">
+                    <img src="resources/images/logo.png" alt="Logo">
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="#" class="menu" data-filtro="todos">Todos los vehículos</a></li>
+                        <li><a href="#" class="menu" data-filtro="auto">Autos</a></li>
+                        <li><a href="#" class="menu" data-filtro="suv">Suv's</a></li>
+                        <li><a href="#" class="menu" data-filtro="moto">Motos</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <section class="content" id="content">
+                <div class="grid-container" id="fichas">
+                    <!-- Conenido diámico -->
+                    
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Modal para ampliar imagen del carro -->
+    <div id="modal-foto" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <img src="" alt="Foto Auto" id="foto">
+        </div>
+    </div>
+
+    <script src="/resources/js/app.js"></script>
+</body>
+</html>
