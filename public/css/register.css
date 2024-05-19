@@ -1,0 +1,222 @@
+body,
+html {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.container-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+.login-form {
+  z-index: 999;
+  padding: 50px;
+  border-radius: 5px;
+  text-align: center;
+  width: 30%;
+  max-width: 600px;
+  margin: auto;
+}
+
+#username{
+  padding-right: 30px;
+}
+.success-icon{
+  position: absolute;
+  top: 35.3%;
+  right: 545px;
+  transform: translateY(-100%);
+  display: none;
+  color: red;
+  z-index: 1000; /* Asignamos un valor alto al z-index */
+  transform: scale(1.3);
+}
+
+.validation-icon {
+  position: absolute;
+  top: 35.3%;
+  right: 545px;
+  transform: translateY(-100%);
+  display: none;
+  color: red;
+  z-index: 1000; /* Asignamos un valor alto al z-index */
+  transform: scale(1.3);
+}
+
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.login-form a {
+  color: white;
+  text-decoration: none;
+  margin-right: calc((100% - 60%) / 2);
+  opacity: 0;
+  animation: appeardown 4s ease-out forwards;
+}
+
+.login-form a:hover {
+  color: lightgray;
+}
+
+.login-form a:nth-child(2) {
+  color: #007bff;
+}
+.login-form a:nth-child(2):hover {
+  color: blue;
+}
+.login-form a:last-child {
+  margin-right: 0px;
+}
+
+.login-form input[type="text"] {
+  width: 199%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 1);
+  opacity: 0;
+  animation: appeardown 0.7s ease-out forwards;
+}
+
+.login-form input[type="email"] {
+  opacity: 0;
+  animation: appeardown 0.7s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+.login-form input[type="password"] {
+  margin-bottom: 20px;
+  width: 70%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 1);
+  opacity: 0;
+  animation: appeardown 0.7s ease-out forwards;
+  animation-delay: 0.13s;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form input[type="email"],
+.login-form button {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.login-form button {
+  background-color: #46a2da;
+  color: white;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin-top: 20px;
+  opacity: 0;
+  animation: appeardown 1.2s ease-out forwards;
+  animation-delay: 0.17s;
+}
+
+.login-form button:hover {
+  background-color: #1e90ff;
+}
+
+h1 {
+  font-size: 55px;
+  color: white;
+  animation: appearup ease-out 1.2s;
+}
+
+.blue-text {
+  color: #007bff;
+}
+
+.background {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 1280px) {
+  .background {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(212px, 1fr));
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .background {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+@keyframes appeardown {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes appearup {
+  from {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
