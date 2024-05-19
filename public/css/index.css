@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+  .searcher input:focus-within label {
+    font-size: 0.75rem; /* Tamaño de fuente más pequeño */
+    top: -0.75rem; /* Mover el label hacia arriba */
+    color: #718096; /* Cambiar el color del texto */
+}
+
+
+.swal-container {
+  padding: 0;
+}
+
+.swal-popup {
+  width: 70%; /* Ancho del modal */
+  max-width: 800px; /* Ancho máximo del modal */
+  border-radius: 10px;
+}
+
+.swal-close-button {
+  color: #000; /* Color del botón de cerrar */
+}
+ /* Estilos para el enlace */
+ .link-underline {
+  text-decoration: none;
+  position: relative;
+}
+
+/* Estilo inicial del subrayado */
+.link-underline::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 4px;
+  bottom: -3px;
+  left: 0;
+  background-color: #4299e1; /* Color del subrayado */
+  transition: width 0.3s ease; /* Transición de la propiedad width */
+}
+
+/* Cambio del subrayado al hacer hover */
+.link-underline:hover::before {
+  width: 100%;
+}
+
+.profile-modal{
+height: 600px;
+
+}
+
+@media screen and (max-width: 652px){
+  .content .posts-section{
+    margin-right: 50px;
+  }
+}
+
+@media screen and (max-width: 550px){
+  .content .posts-section{
+    margin-right: 55px;
+  }
+}
+
+@media screen and (max-width: 480px){
+  .content .posts-section{
+    margin-right: 60px;
+  }
+}
+
+@media screen and (max-width: 415px){
+  .content .posts-section{
+    margin-right: 65px;
+  }
+}
+.capa-hashtag {
+  opacity: 0; /* Comienza invisible */
+  transform: translateY(-20%); /* Mueve la capa hacia abajo fuera de la pantalla */
+  transition: opacity 0.3s ease, transform 0.2s ease; /* Transición de opacidad y posición durante 0.3 segundos */
+}
+
+.capa-hashtag.visible {
+  opacity: 1; /* Se vuelve visible */
+  transform: translateY(0); /* Mueve la capa de vuelta a su posición original */
+}
