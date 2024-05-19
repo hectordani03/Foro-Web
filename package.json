@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "echarts": "^5.5.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  }
+}

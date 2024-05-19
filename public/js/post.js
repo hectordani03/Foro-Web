@@ -111,19 +111,18 @@ const post = {
 };
 
 $(function () {
-  $("#text, #category, #img").on("input change", function () {
+  $("#text, #img").on("input change", function () {
     const text = $("#text").val().trim();
-    const category = $("#category").val();
     const img = $("#img").val();
 
-    if ((text !== "" || img !== "") && category !== "" && category !== null) {
+    if (text !== "" || img !== "") {
       $("#addPostBtn").prop("disabled", false);
     } else {
       $("#addPostBtn").prop("disabled", true);
     }
   });
 
-  $("#text, #category, #img").trigger("input");
+  $("#text, #img").trigger("input");
 });
 
 const textArea = document.querySelector("textarea");
@@ -153,3 +152,4 @@ textArea.addEventListener("input", () => {
   textArea.style.height = "auto";
   textArea.style.height = textArea.scrollHeight + "px";
 });
+

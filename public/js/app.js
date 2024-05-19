@@ -59,9 +59,18 @@ const app = {
   },
 
   postComments: function (postId) {
-    const post = $.grep(usp, function (e) {
-      return e.id === postId;
-    })[0];
+    const post = $.grep(usp, function (e) { return e.id === postId;})[0];
+    const hashtags = post.hashtag.split(",");
+    let hashtagsHTML = "";
+    
+    if (hashtags.length > 0 && hashtags[0].trim() !== "") {
+      hashtagsHTML = hashtags
+        .map((hashtag) => {
+          return `<a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center">#${hashtag.trim()}</a>`;
+        })
+        .join(" ");
+    }
+
     this.cc.html("");
 
     let postHtml = `
@@ -93,7 +102,7 @@ const app = {
             <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">${post.text}</p>
             <img class="w-10/12 mx-auto rounded-xl mt-7" src="http://forus.com/resources/assets/img/post/${post.img}" alt="">
             <div class="flex gap-4 w-10/12 mx-auto mt-5">
-                <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center" href="">#${post.category}</a>
+                ${hashtagsHTML}
             </div>
         </div>
         <hr class="w-full mt-5 border dark:border-slate-600">
@@ -199,9 +208,17 @@ const app = {
   },
 
   sharePost: function (postId) {
-    const post = $.grep(usp, function (e) {
-      return e.id === postId;
-    })[0];
+    const post = $.grep(usp, function (e) { return e.id === postId; })[0];
+    const hashtags = post.hashtag.split(",");
+    let hashtagsHTML = "";
+    if (hashtags.length > 0 && hashtags[0].trim() !== "") {
+      hashtagsHTML = hashtags
+        .map((hashtag) => {
+          return `<a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center">#${hashtag.trim()}</a>`;
+        })
+        .join(" ");
+    }
+
     let html = `
           <div id="capa2" class="fixed inset-0 bg-gray-500 bg-opacity-40 transition-opacity "></div>
           <section class="bg-gray-100 rounded-3xl w-5/12 mx-auto h-auto flex flex-col relative ">
@@ -266,13 +283,9 @@ const app = {
                               <img class="w-12/12 mx-auto rounded-xl mt-7" src="http://forus.com/resources/assets/img/post/${
                                 post.img
                               }" alt="">
+
                               <div class="flex gap-4 w-12/12 mx-auto mt-5">
-                                  <a class="text-white font-bold bg-gray-400 rounded-full px-4 py-1 text-center">#${
-                                    post.category
-                                  }</a>
-                                  <input type="hidden" name="category" value="${
-                                    post.category
-                                  }"></input>
+                                 ${hashtagsHTML}
                               </div>
                               <hr class="w-full mt-10 mb-5">
                               <button type="submit" onclick="post.sharePost(${
@@ -365,13 +378,14 @@ const app = {
 
   postsHtmlBuilder: function (post) {
     const hashtags = post.hashtag.split(",");
-    const hashtagsHTML = hashtags
-      .map((hashtag) => {
-        return `
-     <a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center">#${hashtag.trim()}</a>
-     `;
-      })
-      .join("");
+    let hashtagsHTML = "";
+    if (hashtags.length > 0 && hashtags[0].trim() !== "") {
+      hashtagsHTML = hashtags
+        .map((hashtag) => {
+          return `<a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center">#${hashtag.trim()}</a>`;
+        }).join(" ");
+    }
+
     return `
     <div class="post">
     <div class="bg-gray-100 dark:bg-slate-700 shadow-lg w-full rounded-xl flex flex-col relative mt-5 h-fit self-start opacity-100">
@@ -448,18 +462,6 @@ const app = {
     })
       .then((res) => res.json())
       .then((hstgs) => {
-        if (hstgs.length > 0) {
-          html = "";
-          for (let htg of hstgs) {
-            html += `
-            <div class="hashtag text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center h-fit cursor-pointer relative" href="">
-              <div class="capa-hashtag absolute top-0 left-0 bg-rose-800 z-50 w-full rounded-full h-full">x</div> 
-              <span class="z-10">#${htg.hashtag}</span>
-            </div>
-       
-            `;
-          }
-        }
         if (hstgs.length > 0) {
           html = "";
           for (let htg of hstgs) {
