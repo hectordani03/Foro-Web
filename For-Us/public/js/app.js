@@ -60,23 +60,12 @@ const app = {
                 post.created_at
               )}</p>
               </div>
-
           <!-- CARD MENU -->
           <div class="absolute right-5 top-0">
               <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none">...</span>
           </div>
-
-          <!-- Modal -->
-          <div id="modal" class="fixed inset-0 z-50 hidden">
-              <div class="flex items-center justify-center min-h-screen">
-                  <div class="bg-white p-6 rounded-lg">
-                      <!-- Contenido del modal aquí -->
-                      <p>Contenido del modal</p>
-                  </div>
-              </div>
-          </div>
       </div>
-              
+
       <!-- CARD CONTENT -->
       <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">${post.text}</p>
 
@@ -124,28 +113,6 @@ const app = {
                 `;
         }
         this.pp.html(html);
-        document.addEventListener('DOMContentLoaded', function() {
-          const menuCard = document.getElementById('menu-card');
-          const modal = document.getElementById('modal');
-          const closeModal = document.getElementById('close-modal');
-        
-          // Show the modal when clicking the menu card
-          menuCard.addEventListener('click', function() {
-              modal.classList.remove('hidden');
-          });
-        
-          // Hide the modal when clicking the close button
-          closeModal.addEventListener('click', function() {
-              modal.classList.add('hidden');
-          });
-        
-          // Hide the modal when clicking outside the modal content
-          modal.addEventListener('click', function(event) {
-              if (event.target === modal) {
-                  modal.classList.add('hidden');
-              }
-          });
-        });
       })
       .catch((err) => {
         console.error("Error", err);
@@ -157,6 +124,7 @@ const app = {
     let postHtml = "<b>No post found</b>";
     let commentsHtml = "<b>No comments yet</b>";
     let footerHtml = "<b>No comments yet</b>";
+
     fetch(this.routes.getPost + "/" + postId)
       .then((res) => res.json())
       .then((post) => {
