@@ -1,5 +1,5 @@
 <?php
-setFooter($d, "sweetalert2.all.min", "alerts", "jquery", "functions", "contentPolicy", "navbarUser", "app", "post", "comment");
+setFooter($d, "sweetalert2.all.min", "alerts", "jquery", "functions", "navbarModals", "navbarUser", "app", "post", "comment");
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
