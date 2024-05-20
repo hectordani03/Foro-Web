@@ -55,7 +55,7 @@ require_once LAYOUTS_US . 'header.php';
                 
                 <!-- Contenedor de la imagen principal -->
                 <div class="w-full mt-4 mb-2">
-                    <img src="<?php echo OBJ_IMG; ?>zero hunger.png" alt="Large Image" class="p-4 rounded-lg max-w-full h-auto max-h-64 bg-auto">
+                    <img src="<?php echo OBJ_IMG; ?>zero hunger.png" alt="Large Image" class="p-4 rounded-lg max-w-full h-auto max-h-64 w-full">
                 </div>
 
                 <!-- Contenedor dividido en dos partes -->
