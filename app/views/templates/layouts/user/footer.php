@@ -14,7 +14,8 @@ setFooter($d, "sweetalert2.all.min", "jquery", "functions", "contentPolicy", "na
         app.categories();
         post.addPosts();
         post.sharePost();
-        comment.comment();
+        comment.createComment();
+        comment.replyComment();
     });
 </script>
 

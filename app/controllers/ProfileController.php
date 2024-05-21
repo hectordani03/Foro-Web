@@ -37,39 +37,54 @@ class ProfileController extends Controller
         }
         View::render('admin/userUpdate', ['ua' => $ua, 'title' => 'Profile – For Us']);
     }
-
-    public function getPosts($params = null)
-    {
-        $posts = new posts;
-        $res = $posts->getUserPosts($params);
-        echo $res;
-    }
-
-    public function getComts($params = null)
-    {
-        $comments = new comments;
-        $res = $comments->getUserComments($params);
-        echo $res;
-    }
-
-    public function getUser($params = null)
-    {
-        $user = new user;
-        $res = $user->getUserInfo($params);
-        echo $res;
-    }
-
     public function updateUser()
     {
         $user = new user;
         $userinfo = new userinfo;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-        $data['userId'] = session::sessionValidate()['id'];
-        $res = $user->updateProfUser($data);
-        $res2 = $userinfo->updateUserInfo($data);
-        if ($res === false && $res2 === false) {
+        if (!empty($data)) {
+            $data['userId'] = session::sessionValidate()['id'];
+            $res = $user->updateProfUser($data);
+            $res2 = $userinfo->updateUserInfo($data);
+            if ($res === false && $res2 === false) {
+            } else {
+                echo json_encode(["r" => true]);
+            }
         } else {
-            echo json_encode(["r" => true]);
+            redirect::to('');
+            exit();
         }
+    }
+
+    public function getPosts()
+    {
+        $posts = new posts;
+        $userId = session::sessionValidate()['id'];
+        $res = $posts->getUserPosts($userId);
+        echo $res;
+    }
+
+    public function getComts()
+    {
+        $comments = new comments;
+        $data['userId'] = session::sessionValidate()['id'];
+        $res = $comments->getUserComments($data);
+        echo $res;
+    }
+
+    public function getUser()
+    {
+        $user = new user;
+        $userId = session::sessionValidate()['id'];
+        $res = $user->getUserInfo($userId);
+        echo $res;
+    }
+
+    public function getSharedPosts()
+    {
+        $posts = new posts;
+        $userId = session::sessionValidate()['id'];
+        $res = $posts->getUserSharedPosts($userId);
+        echo $res;
     }
 }

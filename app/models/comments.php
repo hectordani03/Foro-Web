@@ -17,15 +17,13 @@ class comments extends Model
         ];
     }
 
-    public function addComment($data, $params)
+    public function addComment($data)
     {
-        $userId = $params[2];
-        $postId = $params[3];
-        if (!empty($data['content']) && !empty($userId) && !empty($postId)) {
+        if (!empty($data['content']) && !empty($data['userId']) && !empty($data['postId'])) {
             $this->values = [
-                $userId,
-                $postId,
-                $data["content"],
+                $data['userId'],
+                $data['postId'],
+                $data['content'],
                 NULL
             ];
             return $this->insert();
@@ -35,18 +33,20 @@ class comments extends Model
         }
     }
 
-    public function replyComment($data, $params)
+    public function addReply($data)
     {
-        $userId = $params[2];
-        $postId = $params[3];
-        $commentId = $params[4];
-        $this->values = [
-            $userId,
-            $postId,
-            $data["content"],
-            $commentId,
-        ];
-        return $this->insert();
+        if (!empty($data['content']) && !empty($data['userId']) && !empty($data['postId'])) {
+            $this->values = [
+                $data['userId'],
+                $data['postId'],
+                $data['content'],
+                $data['commentId']
+            ];
+            return $this->insert();
+        } else {
+            echo json_encode(["r" => 'e']);
+            return false;
+        }
     }
 
     public function deleteComment($data)
@@ -65,23 +65,45 @@ class comments extends Model
         $result = $this->select(['a.*'])
             ->join('posts b', 'a.postId=b.id', 'LEFT')
             ->join('user c', 'c.id=a.userId', 'LEFT')
-            ->where([['c.active', 1]])
             ->orderBy([['a.created_at', 'DESC']])
             ->get();
         return $result;
     }
 
-    public function getUserComments($params)
+    public function getUserComments($data)
     {
-
-        $userId = $params[2];
         $result = $this->select(['a.*, b.*, c.username, d.profilePic'])
             ->join('posts b', 'a.postId=b.id')
             ->join('user c', 'b.userId=c.id')
             ->join('userinfo d', 'c.id=d.userId')
-            ->where([['a.userId', $userId]])
+            ->where([['a.userId', $data['userId']]])
             ->orderBy([['b.created_at', 'DESC']])
             ->get();
         return $result;
     }
+
+    public function getPostComments($params)
+    {
+        $postId = $params[2];
+        $result = $this->select([
+            'a.*', 
+            'c.username', 
+            'd.profilePic', 
+            'e.content as sonContent', 
+            'f.username as sonUsername', 
+            'g.profilePic as sonProfilePic'
+        ])
+        ->join('posts b', 'a.postId=b.id')
+        ->join('user c', 'a.userId = c.id')
+        ->join('userinfo d', 'c.id = d.userId')
+        ->join('comments e', 'a.id = e.commentId', 'LEFT')
+        ->join('user f', 'e.userId = f.id', 'LEFT') 
+        ->join('userinfo g', 'f.id = g.userId', 'LEFT')
+        ->where([['b.id', $postId]])
+        ->orderBy([['a.created_at', 'DESC']])
+        ->get();
+       
+        return $result;
+    }
+    
 }

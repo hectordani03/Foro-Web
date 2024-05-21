@@ -30,15 +30,6 @@ require_once LAYOUTS_US . 'header.php';
     <!-- MAIN -->
     <main class="flex mt-20 z-30 flex-col lg:flex-row">
 
-        <!-- INITIAL CARD -->
-
-        <?php
-        require_once USER_VIEWS . 'add-post.php';
-        ?>
-
-        <!-- OBJETIVE CARD -->
-        <a id="objetive-info" class=" mr-3 w-full mx-auto lg:w-2/12 order-first lg:order-last" href="#"><img class="rounded-lg w-64 h-56 mx-auto lg:mb-0 mb-10" src="<?php echo GIFT; ?>obj2.gif" alt=""></a>
-
     </main>
 
     <div class="flex flex-col xl:flex-row transition-all">
@@ -54,6 +45,7 @@ require_once LAYOUTS_US . 'header.php';
 
 
 </section>
+
 <?php
 require_once LAYOUTS_US . 'footer.php';
 ?>

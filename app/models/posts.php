@@ -32,22 +32,20 @@ class posts extends Model
             ];
             return $this->insert();
         } else {
-            // echo json_encode(["r" => 'e']);
-            print_r($data);
+            echo json_encode(["r" => 'e']);
             return false;
         }
     }
 
-    public function sharePost($data, $params)
+    public function sharePost($data)
     {
-        $userId = $params[2];
-        $postId = $params[3];
-        if (!empty($data['category']) && !empty($userId) && !empty($postId)) {
+        if (!empty($data['category']) && !empty($data['userId']) && !empty($data['postId'])) {
             $this->values = [
-                $userId,
+                $data['userId'],
                 $data["text"],
                 $data["category"],
-                $postId,
+                NULL,
+                $data['postId'],
                 NULL
             ];
             return $this->insert();
@@ -71,35 +69,35 @@ class posts extends Model
     
     public function getAllPosts()
     {
-        $result = $this->select(['a.*, b.username, c.profilePic'])
-            ->join('user b', 'a.userId=b.id')
-            ->join('userinfo c', 'b.id=c.userId')
+        $result = $this->select([
+                'a.*', 
+                'b.username', 
+                'c.profilePic', 
+                'd.text as originalText', 
+                'd.img as originalImg', 
+                'd.hashtag as originalhtsg', 
+                'd.created_at as originalCreatedAt',
+                'e.username as originalUsername', 
+                'f.profilePic as originalProfilePic'
+            ])
+            ->join('user b', 'a.userId = b.id')
+            ->join('userinfo c', 'b.id = c.userId')
+            ->join('posts d', 'a.postId = d.id', 'LEFT')
+            ->join('user e', 'd.userId = e.id', 'LEFT')
+            ->join('userinfo f', 'e.id = f.userId', 'LEFT')
             ->orderBy([['a.created_at', 'DESC']])
             ->get();
+            
         return $result;
     }
 
-    public function getUserPosts($params)
+    public function getUserPosts($userId)
     {
-        $userId = $params[2];
         $result = $this->select(['a.*, b.username, c.profilePic'])
             ->join('user b', 'a.userId=b.id')
             ->join('userinfo c', 'b.id=c.userId')
             ->where([['a.userId', $userId]])
             ->orderBy([['a.created_at', 'DESC']])
-            ->get();
-        return $result;
-    }
-
-    public function getPostComments($params)
-    {
-        $postId = $params[2];
-        $result = $this->select(['b.content, c.username, d.profilePic'])
-            ->join('comments b', 'a.id=b.postId')
-            ->join('user c', 'c.id=b.userId')
-            ->join('userinfo d', 'c.id=d.userId')
-            ->where([['a.id', $postId]])
-            ->orderBy([['b.created_at', 'DESC']])
             ->get();
         return $result;
     }
@@ -113,5 +111,29 @@ class posts extends Model
             ->orderBy([['a.created_at', 'DESC']])
             ->get();
         return $result;
+    }
+
+    public function getUserSharedPosts($userId) {
+        $result = $this->select([
+            'a.*', 
+            'b.username', 
+            'c.profilePic', 
+            'd.text as originalText', 
+            'd.img as originalImg', 
+            'd.hashtag as originalhtsg', 
+            'd.created_at as originalCreatedAt',
+            'e.username as originalUsername', 
+            'f.profilePic as originalProfilePic'
+        ])
+        ->join('user b', 'a.userId = b.id')
+        ->join('userinfo c', 'b.id = c.userId')
+        ->join('posts d', 'a.postId = d.id', 'LEFT')
+        ->join('user e', 'd.userId = e.id', 'LEFT')
+        ->join('userinfo f', 'e.id = f.userId', 'LEFT')
+        ->where([['b.id', $userId]])
+        ->orderBy([['a.created_at', 'DESC']])
+        ->get();
+        
+    return $result;
     }
 }
