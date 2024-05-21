@@ -112,4 +112,3 @@ window.addEventListener("DOMContentLoaded", function () {
 //   .addEventListener("mouseenter", function () {
 //     window.scrollTo(0, scrollPosition);
 //   });
-

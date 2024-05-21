@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\classes\View;
 use app\classes\redirect;
 use app\models\posts;
+use app\models\comments;
 use app\models\user;
 use app\models\userinfo;
 use app\controllers\auth\LoginController as session;
@@ -44,6 +45,13 @@ class ProfileController extends Controller
         echo $res;
     }
 
+    public function getComts($params = null)
+    {
+        $comments = new comments;
+        $res = $comments->getUserComments($params);
+        echo $res;
+    }
+
     public function getUser($params = null)
     {
         $user = new user;
@@ -53,14 +61,15 @@ class ProfileController extends Controller
 
     public function updateUser()
     {
-
         $user = new user;
         $userinfo = new userinfo;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         $data['userId'] = session::sessionValidate()['id'];
-        $res = $userinfo->updateUserInfo($data);
         $res = $user->updateProfUser($data);
-        echo json_encode(["r" => $res]);
-        // $r = json_encode([$res]);
+        $res2 = $userinfo->updateUserInfo($data);
+        if ($res === false && $res2 === false) {
+        } else {
+            echo json_encode(["r" => true]);
+        }
     }
 }

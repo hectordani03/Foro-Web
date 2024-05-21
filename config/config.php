@@ -1,6 +1,7 @@
 <?php
 const APP_NAME = "For-Us";
 const APP_SESSION_NAME = "ForUs";
+date_default_timezone_set('America/Mexico_City');
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
@@ -30,7 +31,7 @@ define('VIDEO', ASSETS . 'video' . '/');
 define('IMG', ASSETS . 'img' . '/');
 define('GIFT', IMG . 'gift' . '/');
 define('LOGO', IMG . 'logo' . '/');
-define('LOGIN_IMG', IMG . 'login' . '/');
+define('CAT_IMG', IMG . 'categories' . '/');
 define('POSTS_IMG', IMG . 'post' . '/');
 define('PROF_IMG', IMG . 'profile' . '/');
 

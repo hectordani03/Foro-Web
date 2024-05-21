@@ -27,7 +27,7 @@ require_once LAYOUTS_AD . 'header.php';
                 <div class="column mb-3">
                     <div class="control">
                         <label>Email</label>
-                        <input class="form-control" type="email" name="email" id="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" minlength="6" maxlength="70" value="<?= $ua->email ?>" required>
+                        <input class="form-control" type="email" name="email" id="email" minlength="6" maxlength="70" value="<?= $ua->email ?>" required>
                     </div>
                 </div>
             </div>
@@ -57,78 +57,13 @@ require_once LAYOUTS_AD . 'header.php';
         </form>
     </div>
 </div>
-<script>
-    const uuf = $("#updateUser-form");
-
-    uuf.on("submit", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const us = $("#username");
-        const em = $("#email");
-        const p1 = $("#password");
-        const p2 = $("#password2");
-        const btn = $("#updatebtn");
-        const file = $("#profilePic")[0].files[0];
-        const data = new FormData(this);
-
-        if (us.val() === "" || em.val() === "") {
-            handleFormError(btn);
-        } else if (file && file.size / (1024 * 1024) > 2) {
-            Swal.fire({
-                icon: "error",
-                text: "The image you have selected exceeds the allowed weight 2 MB.",
-            });
-        } else if (p1.val() !== p2.val()) {
-            Swal.fire({
-                icon: "error",
-                text: "Passwords dont match",
-            }).then(() => {
-                p2.val("")
-                p2.trigger("focus")
-            })
-        } else {
-            fetch(app.routes.updateUser, {
-                    method: "POST",
-                    body: data,
-                })
-                .then((res) => res.json())
-                .then((res) => {
-                    if (res.r !== false) {
-                        Swal.fire({
-                            icon: "success",
-                            text: "Changes made successfully",
-                        }).then(function() {
-                            location.reload();
-                        });
-                    } else {
-                        handleUpdateError(uuf);
-                    }
-                })
-                .catch(() => {
-                    handleUpdateError(uuf);
-                });
-        }
-    });
-
-    function handleFormError(btn) {
-        btn.prop("disabled", true);
-        $("#error").removeClass("d-none").css("color", "red");
-        setTimeout(function() {
-            $("#error").addClass("d-none").css("color", "");
-            btn.prop("disabled", false);
-        }, 1800);
-        $("#usernamep").val() === "" ? $("#usernamep").focus() : $("#emailp").focus();
-    }
-
-    function handleUpdateError(uuf) {
-        Swal.fire({
-            icon: "error",
-            text: "Unexpected error, please try again",
-        }).then(() => {
-            uuf[0].reset();
-        });
-    }
-</script>
 <?php
 require_once LAYOUTS_AD . 'footer.php';
+?>
+
+<script>
+    $(function() {
+        app_ad.updateUser();
+
+    });
+</script>

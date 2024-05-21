@@ -1,23 +1,26 @@
-<div id="datamodal" class="modal text-content">
-    <form class="requestForm" action="<?= REQUEST; ?>users/userRequest.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+<?php
+require_once LAYOUTS_AD . 'header.php';
+?>
+<div id="suspend-modal" class="modal text-content">
+    <form class="" id="suspendu-form" method="POST" autocomplete="off" enctype="multipart/form-data">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close closed">&times;</span>
                 <h2>Suspend User</h2>
             </div>
             <div class="modal-body">
-                <input type="hidden" name="user_module" value="suspendUser">
-                <input type="hidden" name="id_report" value="">
+                <input type="hidden" name="reportId" id="reportId">
+                <input type="hidden" name="email" id="email">
+                <input type="hidden" name="username" id="username">
 
-
-                <label for="id_user">Reported User:</label>
-                <input class="form-control" type="text" name="id_user" readonly>
+                <label for="userId">Reported User:</label>
+                <input class="form-control" type="text" name="userId" id="userId" readonly>
 
                 <label for="reason">Reason</label>
-                <input class="form-control" type="text" name="reason" pattern="[a-zA-Z0-9]{4,20}" maxlength="40" readonly>
+                <input class="form-control" type="text" name="reason" id="reason" pattern="[a-zA-Z0-9]{4,20}" maxlength="40" readonly>
 
-                <label for="suspension">Suspension days:</label>
-                <select name="suspension" class="form-control" required>
+                <label for="period">Suspension days:</label>
+                <select name="period" id="period" class="form-control" required>
                     <option selected value="1">1 day</option>
                     <option value="3">3 days</option>
                     <option value="7">1 week</option>
@@ -32,66 +35,40 @@
         </div>
     </form>
 </div>
+<div id="remove-ban-modal" class="modal text-content">
+    <form class="" id="removebu-form" method="POST" autocomplete="off" enctype="multipart/form-data">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close closed">&times;</span>
+                <h2>Remove Ban</h2>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="reportId" id="reportId">
+                <input type="hidden" name="email" id="email">
+                <input type="hidden" name="username" id="username">
 
-<table id="datatable" class="hover row-border table"></table>
+                <label for="userId">Reported User:</label>
+                <input class="form-control" type="text" name="userId" id="userIdrb" readonly>
 
+                <label for="reason">Reason</label>
+                <input class="form-control" type="text" name="reason" id="reasonrb" pattern="[a-zA-Z0-9]{4,20}" maxlength="40" readonly>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="button report-button">Remove ban</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<table id="reportUserDT" class="hover row-border table"></table>
+<?php
+require_once LAYOUTS_AD . 'footer.php';
+?>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const dataTable = $('#datatable').DataTable({
-            ajax: {
-                url: 'http://localhost/For-Us/app/user/requestControllers/reports/reporteduser.php',
-                dataSrc: json => json.data
-            },
-            columns: [{
-                    title: 'Reported User',
-                    data: 'id_user'
-                },
-                {
-                    title: 'Reporting user',
-                    data: 'id_reporting_user'
-                },
-                {
-                    title: 'Reason',
-                    data: 'reason'
-                },
-                {
-                    title: 'State',
-                    data: 'state'
-                },
-                {
-                    title: 'Actions',
-                    render: function(data, type, row) {
-                        var state = row.state;
-                        var idUser = row.id_user;
-                        var isSuspended = row.id_suspended_user !== null;
-                        if (state === 0 && !isSuspended) {
-                            return '<button class="button warning-button btn-view-user" data-id_user="' + idUser + '">Suspend</button>';
-                        } else {
-                            return '';
-                        }
-                    }
-                },
-            ],
-            drawCallback: function() {
-                $('#datatable thead th, tbody td').css('text-align', 'center');
-
-                $('.btn-view-user').on('click', function() {
-                    const rowData = dataTable.row($(this).closest('tr')).data();
-
-                    if (rowData) {
-                        openModal(rowData);
-                    } else {
-                        console.error('No se pudo obtener los datos de la fila.');
-                    }
-                });
-            }
-        });
+    $(function() {
+        app_ad.suspendUser();
+        app_ad.removeBanUser();
+        app_ad.reportUserDT();
     });
-
-    function openModal(userData) {
-        $('#datamodal input[name="id_user"]').val(userData.id_user);
-        $('#datamodal input[name="id_report"]').val(userData.id_report);
-        $('#datamodal input[name="reason"]').val(userData.reason);
-        $('#datamodal').css('display', 'block');
-    }
 </script>

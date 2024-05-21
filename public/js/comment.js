@@ -1,6 +1,7 @@
 const comment = {
   comment: function (postId) {
     const spf = $("#commentPost-form");
+    const ctn = $("#cmtcontent");
     spf.on("submit", function (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -11,33 +12,32 @@ const comment = {
       })
         .then((res) => res.json())
         .then((res) => {
-          if (res.r !== false) {
-            Swal.fire({
-              icon: "success",
-              text: "Comment added successfully",
-            }).then(() => {
-              location.href = app.routes.home;
-              spf[0].reset();
-            });
-          } else {
-            Swal.fire({
+          if (res.r === true) {
+            alerts({
+              type: "success",
+              text: "Comment added successfully"
+          });
+          } else if (res.r === 'e') {
+            alerts({
+              type: "function",
               icon: "error",
+              text: "Filds can not be empty",
+              callback: function() {
+                ctn.val(""); 
+              }
+          });
+        } else if (res.r === 'q') {
+          alerts({
+              type: "error",
               text: "Unexpected error, please try again",
-            }).then(() => {
-              spf[0].reset();
-            });
+          });
           }
         })
-        .then(() => {
-          spf[0].reset();
-        })
-        .catch((err) => {
-          Swal.fire({
-            icon: "error",
+        .catch(() => {
+          alerts({
+            type: "error",
             text: "Unexpected error, please try again",
-          }).then(() => {
-            spf[0].reset();
-          });
+        });
         });
     });
   },
@@ -46,3 +46,4 @@ const comment = {
 
   },
 };
+

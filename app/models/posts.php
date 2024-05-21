@@ -13,43 +13,67 @@ class posts extends Model
             'userId',
             'text',
             'category',
+            'hashtag',
             'postId',
             'img'
         ];
     }
 
-    public function addPosts($data, $params)
+    public function addPosts($data)
     {
-        $userId = $params[2];
-        $this->values = [
-            $userId,
-            $data["text"],
-            $data["category"],
-            NULL,
-            getPostImg("img")
-        ];
-        return $this->insert();
+        if ((isset($data['text']) || isset($data['hashtags']) || isset($_FILES['img'])) && !empty($data['category']) && !empty($data['userId'])) {
+            $this->values = [
+                $data['userId'],
+                $data["text"],
+                $data["category"],
+                $data["hashtags"],
+                NULL,
+                getPostImg("img")
+            ];
+            return $this->insert();
+        } else {
+            // echo json_encode(["r" => 'e']);
+            print_r($data);
+            return false;
+        }
     }
+
     public function sharePost($data, $params)
     {
         $userId = $params[2];
         $postId = $params[3];
-        $this->values = [
-            $userId,
-            $data["text"],
-            "ZeroHunger",
-            $postId,
-            NULL
-        ];
-        return $this->insert();
+        if (!empty($data['category']) && !empty($userId) && !empty($postId)) {
+            $this->values = [
+                $userId,
+                $data["text"],
+                $data["category"],
+                $postId,
+                NULL
+            ];
+            return $this->insert();
+        } else {
+            echo json_encode(["r" => 'e']);
+            return false;
+        }
     }
 
+    public function deletePost($data)
+    {
+        if (!empty($data['postId'])) {
+            $this->where([['id', $data['postId']]]);
+            deletePostimg($data['img']);
+            return $this->delete();
+        } else {
+            echo json_encode(["r" => 'e']);
+            return false;
+        }
+    }
+    
     public function getAllPosts()
     {
         $result = $this->select(['a.*, b.username, c.profilePic'])
             ->join('user b', 'a.userId=b.id')
             ->join('userinfo c', 'b.id=c.userId')
-            ->where([['b.active', 1]])
             ->orderBy([['a.created_at', 'DESC']])
             ->get();
         return $result;
@@ -67,26 +91,25 @@ class posts extends Model
         return $result;
     }
 
-    public function getPost($params)
+    public function getPostComments($params)
     {
         $postId = $params[2];
-        $result = $this->select(['a.*, b.username as ownName, c.profilePic as ownPic'])
-            ->join('user b', 'a.userId=b.id')
-            ->join('userinfo c', 'b.id=c.userId')
+        $result = $this->select(['b.content, c.username, d.profilePic'])
+            ->join('comments b', 'a.id=b.postId')
+            ->join('user c', 'c.id=b.userId')
+            ->join('userinfo d', 'c.id=d.userId')
             ->where([['a.id', $postId]])
+            ->orderBy([['b.created_at', 'DESC']])
             ->get();
         return $result;
     }
 
-    public function getPostComments($params)
+    public function getPostsByCategory($category)
     {
-
-        $postId = $params[2];
-        $result = $this->select(['a.*, b.*, c.username, d.profilePic'])
-            ->join('comments b', 'a.id=b.postId', 'LEFT')
-            ->join('user c', 'c.id=b.userId', 'LEFT')
-            ->join('userinfo d', 'c.id=d.userId', 'LEFT')
-            ->where([['a.id', $postId]])
+        $result = $this->select(['a.*, b.username, c.profilePic'])
+            ->join('user b', 'a.userId=b.id')
+            ->join('userinfo c', 'b.id=c.userId')
+            ->where([['a.category', $category]])
             ->orderBy([['a.created_at', 'DESC']])
             ->get();
         return $result;

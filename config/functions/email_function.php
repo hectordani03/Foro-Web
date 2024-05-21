@@ -19,7 +19,6 @@ define('REPLY_TO_NAME', "SportX");
 function sendMail($email, $subject, $message)
 {
     try {
-
         $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->SMTPAuth = true;
@@ -34,34 +33,13 @@ function sendMail($email, $subject, $message)
         $mail->IsHTML(true);
         $mail->Subject = $subject;
         $mail->Body = $message;
-        $mail->AltBody = $message;
-        if (!$mail->send()) {
-            echo "
-                <script>
-                    Swal.fire({
-                    icon: 'error',
-                    title: 'An unexpected error occurred',
-                    text: 'Error sending email. Please try again later.'
-                    });
-                </script>";
+        $mail->AltBody = strip_tags($message);
+        if ($mail->send()) {
+            return true;
         } else {
-            echo "
-            <script>
-                Swal.fire({
-                icon: 'success',
-                title: 'Email sent',
-                text: 'Success sending email.'
-                });
-            </script>";
+            return false;
         }
     } catch (Exception $e) {
-        echo "
-        <script>
-            Swal.fire({
-            icon: 'error',
-            title: 'An unexpected error occurred',
-            text: 'Error sending email. Please try again later.'
-            });
-        </script>";
+        return false;
     }
 }
