@@ -76,14 +76,13 @@ const app = {
 
             let parentHtml = this.parentCommentsHtml(parentComment);
 
-            let childComments = comments.filter(
-              (comment) => comment.commentId === parentComment.id
-            );
+            let childComments = comments.filter((comment) => comment.commentId === parentComment.id);
+
             childComments.forEach((childComment) => {
               parentHtml += this.childCommentsHtml(childComment);
             });
-            parentHtml += `
-            </div></div>`;
+
+            parentHtml += `</div></div>`;
             commentsHtml += parentHtml;
           });
         }
@@ -260,10 +259,10 @@ const app = {
   /* HTML */
   postsHtmlBuilder: function (post) {
     let postHtml = "";
-    let orighashtagsHTML = this.buildHashtagsHtml(post.originalhtsg);
     let hashtagsHTML = this.buildHashtagsHtml(post.hashtag);
 
     if (post.originalText) {
+      let orighashtagsHTML = this.buildHashtagsHtml(post.originalhtsg);
       postHtml += `
 
     <div class=" bg-gray-100 dark:bg-slate-600 shadow-lg w-full rounded-t-xl flex relative mt-5 opacity-100 p-4 top-2">
@@ -311,7 +310,6 @@ const app = {
     <div class="flex gap-4 w-10/12 mx-auto mt-5">
         ${orighashtagsHTML}
     </div>
-
 `;
     } else {
       postHtml += `
@@ -342,15 +340,12 @@ const app = {
   <div class="flex gap-4 w-10/12 mx-auto mt-5">
   ${hashtagsHTML}
 </div>
-
   `;
     }
 
     return `
         <div class="post">
       ${postHtml}
-
-
     <input type="hidden" name"category" value="${post.category}">
     <div class="flex w-10/12 relative mt-10 mb-5 mx-auto">
         <div id="" class="text-gray-400 w-8 h-8 transition-all cursor-pointer">
@@ -601,7 +596,7 @@ return `
 
   /* NO CONTENT */
   noContentPostsHtml: function () {
-    return `
+    return `p
     <div class=" relative top-32">
       <svg class="w-52 h-auto mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path class="fill-gray-400 dark:fill-gray-500" d="M192 104.8c0-9.2-5.8-17.3-13.2-22.8C167.2 73.3 160 61.3 160 48c0-26.5 28.7-48 64-48s64 21.5 64 48c0 13.3-7.2 25.3-18.8 34c-7.4 5.5-13.2 13.6-13.2 22.8c0 12.8 10.4 23.2 23.2 23.2H336c26.5 0 48 21.5 48 48v56.8c0 12.8 10.4 23.2 23.2 23.2c9.2 0 17.3-5.8 22.8-13.2c8.7-11.6 20.7-18.8 34-18.8c26.5 0 48 28.7 48 64s-21.5 64-48 64c-13.3 0-25.3-7.2-34-18.8c-5.5-7.4-13.6-13.2-22.8-13.2c-12.8 0-23.2 10.4-23.2 23.2V464c0 26.5-21.5 48-48 48H279.2c-12.8 0-23.2-10.4-23.2-23.2c0-9.2 5.8-17.3 13.2-22.8c11.6-8.7 18.8-20.7 18.8-34c0-26.5-28.7-48-64-48s-64 21.5-64 48c0 13.3 7.2 25.3 18.8 34c7.4 5.5 13.2 13.6 13.2 22.8c0 12.8-10.4 23.2-23.2 23.2H48c-26.5 0-48-21.5-48-48V343.2C0 330.4 10.4 320 23.2 320c9.2 0 17.3 5.8 22.8 13.2C54.7 344.8 66.7 352 80 352c26.5 0 48-28.7 48-64s-21.5-64-48-64c-13.3 0-25.3 7.2-34 18.8C40.5 250.2 32.4 256 23.2 256C10.4 256 0 245.6 0 232.8V176c0-26.5 21.5-48 48-48H168.8c12.8 0 23.2-10.4 23.2-23.2z" />

@@ -34,7 +34,7 @@
                 </li>
 
                 <li class="nav-link">
-                    <a href="<?= URL; ?>users">
+                    <a href="<?= URL; ?>user">
                         <i class="fa-duotone fa-user-group icon"></i>
                         <span class="text nav-text">Users</span>
                     </a>

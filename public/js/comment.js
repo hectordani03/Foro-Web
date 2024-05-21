@@ -14,7 +14,7 @@ const comment = {
       e.stopPropagation();
       $("<input>").attr("type", "hidden").attr("name", "postId").val(postId).appendTo(spf);
       const data = new FormData(this);
-      fetch(comment.routes.addComment + `/${postId}`, {
+      fetch(comment.routes.addComment, {
         method: "POST",
         body: data,
       })

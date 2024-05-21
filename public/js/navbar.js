@@ -32,26 +32,20 @@ toggle.addEventListener("click", () => {
   closeAllSubmenus();
 });
 
-document.addEventListener("click", function (event) {
-  var clicksidebar = sidebar.contains(event.target);
-  if (!clicksidebar) {
-    sidebar.classList.add("close");
-    body.classList.remove("side");
-    closeAllSubmenus();
-  }
-});
+// document.addEventListener("click", function (event) {
+//   var clicksidebar = sidebar.contains(event.target);
+//   if (!clicksidebar) {
+//     sidebar.classList.add("close");
+//     body.classList.remove("side");
+//     closeAllSubmenus();
+//   }
+// });
 
 function closeAllSubmenus() {
   document.querySelectorAll(".sub-menu").forEach(function (submenu) {
     submenu.classList.remove("open");
   });
 }
-
-searchBtn.addEventListener("click", () => {
-  sidebar.classList.remove("close");
-  body.classList.add("side");
-  search.focus();
-});
 
 document.addEventListener("DOMContentLoaded", function () {
   updateModeText();
@@ -70,3 +64,12 @@ function updateModeText() {
     modeText.innerText = "Dark Mode";
   }
 }
+
+const links = document.querySelectorAll(".siderbar li a");
+links.forEach((link) => {
+  link.addEventListener("click", () => {
+    link.style.backgroundColor = "#002df3;";
+  });
+});
+
+let mediaQuery = window.matchMedia("(max-width: 768px)");

@@ -27,21 +27,17 @@ require_once LAYOUTS_US . 'header.php';
         <?php } ?>
 
     </header>
-    <!-- MAIN -->
-    <main class="flex mt-20 z-30 flex-col lg:flex-row">
-
-    </main>
 
     <div class="flex flex-col xl:flex-row transition-all">
         <div class="xl:flex xl:items-start"></div>
-        <!-- SEARCHER -->
+    <!-- SEARCHER -->
         <?php include USER_VIEWS . 'searcher.php'; ?>
 
-        <!-- PUBLICATIONS SECTION -->
-        <section class="posts-section grid grid-cols-1 lg:grid-cols-2 md:ml-20 mt-16 xl:w-9/12 w-11/12 mx-auto gap-8 md:mr-10 lg:mr-5" id="posts">
-            <!-- CARD -->
-        </section>
-    </div>
+    <!-- PUBLICATIONS SECTION -->
+    <section class="posts-section grid grid-cols-1 lg:grid-cols-2 md:ml-20 mt-16 xl:w-9/12 w-11/12 mx-auto gap-8 md:mr-10 lg:mr-5" id="posts">
+        <!-- CARD -->
+    </section>
+</div>
 
 
 </section>

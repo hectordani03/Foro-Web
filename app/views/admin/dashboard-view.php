@@ -44,8 +44,7 @@ require_once LAYOUTS_AD . 'header.php';
 			<i class='bx bxs-bell text-3xl mr-5 text-gray-500'></i>
 			<div class="rounded-full bg-sky-500 h-fit p-4"></div>
 			<div class="flex flex-col">
-				<p class="ml-5"><?=$ua->username?></p>
-				<!-- <small class="block ml-5">Administrator</small> -->
+				<p class="ml-5"><?= $ua->username ?></p>
 			</div>
 		</div>
 	</section>
@@ -141,7 +140,7 @@ require_once LAYOUTS_AD . 'header.php';
 				<ol class="relative border-s border-gray-400 ml-7 mr-4">
 					<li class="mb-10 ms-6">
 						<span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-slate-200 ">
-							<img class="rounded-full shadow-lg" src="<?php echo PROF_IMG; ?>Cali_79.jpg" />
+							<img class="rounded-full shadow-lg" src="<?php echo PROF_IMG; ?>Cali_24.jpg" />
 						</span>
 						<div class="items-center justify-between p-4 bg-slate-200 border border-gray-200 rounded-lg shadow-sm sm:flex ">
 							<time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0">just now</time>
@@ -162,7 +161,7 @@ require_once LAYOUTS_AD . 'header.php';
 					</li>
 					<li class="mb-5 ms-6">
 						<span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-slate-200 ">
-							<img class="rounded-full shadow-lg" src="<?php echo PROF_IMG; ?>Cali_79.jpg" />
+							<img class="rounded-full shadow-lg" src="<?php echo PROF_IMG; ?>Cali_24.jpg" />
 						</span>
 						<div class="items-center justify-between p-4 bg-slate-200 border border-gray-200 rounded-lg shadow-sm sm:flex ">
 							<time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0">just now</time>
@@ -184,8 +183,6 @@ require_once LAYOUTS_AD . 'header.php';
 <?php
 require_once LAYOUTS_AD . 'footer.php';
 ?>
-
-
 <script>
 	$(function() {
 		app_ad.userDT();

@@ -21,17 +21,13 @@ require_once LAYOUTS_US . 'header.php';
 
         <?php if (isset($ua->sv) && $ua->sv) { ?>
             <a href="/profile">
-                <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;
-                                                                                echo $ua->profilePic; ?>" alt="">
+                <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;echo $ua->profilePic; ?>" alt="">
             </a>
         <?php } ?>
 
     </header>
     <!-- MAIN -->
     <main class="flex mt-20 z-30 flex-col lg:flex-row">
-
-        <!-- INITIAL CARD -->
-
         <?php
         require_once USER_VIEWS . 'add-post.php';
         ?>
@@ -43,14 +39,14 @@ require_once LAYOUTS_US . 'header.php';
 
     <div class="flex flex-col xl:flex-row transition-all">
         <div class="xl:flex xl:items-start"></div>
-        <!-- SEARCHER -->
+    <!-- SEARCHER -->
         <?php include USER_VIEWS . 'searcher.php'; ?>
 
-        <!-- PUBLICATIONS SECTION -->
-        <section class="posts-section grid grid-cols-1 lg:grid-cols-2 md:ml-20 mt-16 xl:w-9/12 w-11/12 mx-auto gap-8 md:mr-10 lg:mr-5" id="posts">
-            <!-- CARD -->
-        </section>
-    </div>
+    <!-- PUBLICATIONS SECTION -->
+    <section class="posts-section grid grid-cols-1 lg:grid-cols-2 md:ml-20 mt-16 xl:w-9/12 w-11/12 mx-auto gap-8 md:mr-10 lg:mr-5" id="posts">
+        <!-- CARD -->
+    </section>
+</div>
 
 
 </section>
