@@ -7,6 +7,7 @@ use app\classes\redirect;
 use app\models\posts;
 use app\controllers\auth\LoginController as session;
 use app\models\categories as cat;
+use app\models\log;
 
 class PostsController extends Controller
 {
@@ -91,9 +92,14 @@ class PostsController extends Controller
     public function deletePost()
     {
         $posts = new posts;
+        $log = new log;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         if (!empty($data)) {
             $res = $posts->deletePost($data);
+            if (isset($data['action']) && !empty($data['action'])) {
+                $data['idUser'] = session::sessionValidate()['id'];
+                $log->logActions($data);
+            }
             if ($res === false) {
             } else {
                 echo json_encode(["r" => true]);
@@ -123,4 +129,28 @@ class PostsController extends Controller
             exit();
         }
     }
+
+    public function totalPosts()
+    {
+        $posts = new posts();
+        $limitDate = date('Y-m-d H:i:s', strtotime('-5 days'));
+        $oldPosts = $posts->getTotalPostsUntil($limitDate);
+        $newPosts = $posts->getNewPosts($limitDate);
+        $oldPosts = json_decode($oldPosts);
+        $newPosts = json_decode($newPosts);
+        $response = [
+            'oldPosts' => $oldPosts,
+            'newPosts' => $newPosts,
+        ];
+
+        echo json_encode($response);
+    }
+
+    public function getMostQuantityPosts()
+    {
+        $posts = new posts();
+        $result = $posts->getMostQuantityPosts();
+        echo $result;
+    }
+
 }

@@ -76,7 +76,9 @@ const app = {
 
             let parentHtml = this.parentCommentsHtml(parentComment);
 
-            let childComments = comments.filter((comment) => comment.commentId === parentComment.id);
+            let childComments = comments.filter(
+              (comment) => comment.commentId === parentComment.id
+            );
 
             childComments.forEach((childComment) => {
               parentHtml += this.childCommentsHtml(childComment);
@@ -86,8 +88,8 @@ const app = {
             commentsHtml += parentHtml;
           });
         }
-      }).finally(() => {
-
+      })
+      .finally(() => {
         this.cc.html(postHtml + commentsHtml + footerHtml);
         this.cc.on("click", function (e) {
           e.stopPropagation();
@@ -125,13 +127,15 @@ const app = {
         const rp = $(".replyComment");
         rp.on("click", function (e) {
           const commentId = Number($(this).attr("data-comment-id"));
-          const comment = $.grep(com, function (e) {return e.id === commentId; })[0];
+          const comment = $.grep(com, function (e) {
+            return e.id === commentId;
+          })[0];
           const adrp = ".addReply" + commentId;
           $(adrp).html("");
-          const html = app.repliesCommentHtml(postId, comment)
+          const html = app.repliesCommentHtml(postId, comment);
           $(adrp).html(html);
         });
-      })
+      });
   },
 
   sharePost: function (postId) {
@@ -192,13 +196,11 @@ const app = {
     })
       .then((res) => res.json())
       .then((posts) => {
-        if (posts.length > 0) {
-          usp = posts;
-          html = "";
-          for (let post of posts) {
-            html += this.postsHtmlBuilder(post);
-          }
-        }
+        usp = posts;
+        html = "";
+        posts.forEach((post) => {
+          html += this.postsHtmlBuilder(post);
+        });
         this.pp.html(html);
       });
   },
@@ -259,12 +261,9 @@ const app = {
   /* HTML */
   postsHtmlBuilder: function (post) {
     let postHtml = "";
-    let hashtagsHTML = this.buildHashtagsHtml(post.hashtag);
-
-    if (post.originalText) {
+    if (post.postId) {
       let orighashtagsHTML = this.buildHashtagsHtml(post.originalhtsg);
       postHtml += `
-
     <div class=" bg-gray-100 dark:bg-slate-600 shadow-lg w-full rounded-t-xl flex relative mt-5 opacity-100 p-4 top-2">
     <img id="profile_picture" class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${
       post.profilePic
@@ -312,6 +311,7 @@ const app = {
     </div>
 `;
     } else {
+      let hashtagsHTML = this.buildHashtagsHtml(post.hashtag);
       postHtml += `
       <div class="bg-gray-100 dark:bg-slate-700 shadow-lg w-full rounded-xl flex flex-col relative mt-5 h-fit self-start opacity-100">
       <div class="flex mt-5 ml-5">
@@ -465,9 +465,13 @@ const app = {
   },
 
   buildHashtagsHtml: function (hashtag) {
-    if (hashtag !== null && hashtag.trim() !== "") {
+    if (hashtag !== null && hashtag !== undefined && hashtag.trim() !== "") {
       const hashtags = hashtag.split(",");
-      if (hashtags.length > 0 && hashtags[0].trim() !== "") {
+      if (
+        hashtags.length > 0 &&
+        hashtags[0] !== undefined &&
+        hashtags[0].trim() !== ""
+      ) {
         return hashtags
           .map((hashtag) => {
             return `<a class="text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center">#${hashtag.trim()}</a>`;
@@ -580,7 +584,7 @@ const app = {
   },
 
   repliesCommentHtml: function (postId, comment) {
-return `
+    return `
 <form class="" id="replyComment-form" method="POST" autocomplete="off" enctype="multipart/form-data">
   <div class="bg-gray-200 ml-5 rounded-xl shadow-lg w-10/12">
     <textarea name="content" id="replyContent" class="relative rounded-lg text-lg text-gray-400 bg-gray-200 dark:bg-slate-600 w-full resize-none outline-none font-medium pl-5" rows="" maxlength="380" placeholder="Reply to ${comment.username}"></textarea>

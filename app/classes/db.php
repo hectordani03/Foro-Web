@@ -16,13 +16,13 @@ class db
     protected $fillable = [];
     protected $values = [];
 
-    public $c = " * ";
+    public $s = " * ";
+    public $c = "";
     public $w = " 1 ";
     public $j = "";
     public $o = "";
     public $g = "";
     public $l = "";
-    public $s = "";
 
     public function __construct($dbh = DB_HOST, $dbn = DB_NAME, $dbu = DB_USER, $dbp = DB_PASS)
     {
@@ -50,7 +50,7 @@ class db
     public function select($cc = [])
     {
         if (count($cc) > 0) {
-            $this->c = implode(",", $cc);
+            $this->s = implode(",", $cc);
             return $this;
         }
     }
@@ -83,6 +83,10 @@ class db
         return $this;
     }
 
+    public function count($co = ""){
+        $this->c = ",count(" . $co . ") as tt ";
+        return $this;
+    }
 
     public function orderBy($ob = [])
     {
@@ -120,7 +124,7 @@ class db
     public function get()
     {
         try {
-            $sql = "SELECT " . $this->c . " FROM " . str_replace(
+            $sql = "SELECT " . $this->s . $this->c . " FROM " . str_replace(
                 "app\\models\\",
                 "",
                 get_class($this)

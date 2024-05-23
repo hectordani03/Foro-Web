@@ -89,7 +89,7 @@ class user extends Model
 
     public function deleteUser($data)
     {
-        if (isset($data['userId']) && isset($data['profilePic'])) {
+        if (!empty($data['userId']) && isset($data['profilePic'])) {
             $this->where([['id', $data['userId']]]);
             deleteUserimg($data['profilePic']);
             return $this->delete();
@@ -138,6 +138,24 @@ class user extends Model
             ->join('userinfo b', 'a.id=b.userId')
             ->where([['a.id', $userId]])
             ->get();
+        return $result;
+    }
+
+    public function getTotalUsersUntil($date)
+    {
+        $result = $this->select(['id'])
+        ->count('id')
+        ->where([['registered_at', $date, '<=']])
+        ->get();
+        return $result;
+    }
+
+    public function getNewUsers($date)
+    {
+        $result = $this->select(['id'])
+        ->count('id')
+        ->where([['registered_at', $date,'>']])
+        ->get();
         return $result;
     }
 }

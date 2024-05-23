@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\classes\view;
 use app\classes\redirect;
-use app\models\posts;
+use app\models\log;
 use app\models\comments;
 use app\controllers\auth\LoginController as session;
 
@@ -24,7 +24,7 @@ class CommentsController extends Controller
     {
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         if (!empty($data)) {
-        $comment = new comments;
+            $comment = new comments;
             $data['userId'] = session::sessionValidate()['id'];
             $res = $comment->addComment($data);
             if ($res === false) {
@@ -35,15 +35,19 @@ class CommentsController extends Controller
             redirect::to('');
             exit();
         }
-       
     }
 
     public function deleteComt()
     {
+        $log = new log;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         if (!empty($data)) {
             $comment = new comments;
             $res = $comment->deleteComment($data);
+            if (isset($data['action']) && !empty($data['action'])) {
+                $data['idUser'] = session::sessionValidate()['id'];
+                $log->logActions($data);
+            }
             if ($res === false) {
             } else {
                 echo json_encode(["r" => true]);

@@ -93,7 +93,7 @@
 <ul class="flex flex-col gap-7 justify-between mt-5">
     <?php if (isset($ua->sv) && $ua->sv && $ua->role != 3) : ?>
         <li class="w-15 h-15">
-            <a href="<?= URL; ?>home/dashboard">
+            <a href="<?= URL; ?>dashboard">
                 <div class="text-gray-400 w-9 h-9 mx-auto cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path class="fill-current" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
@@ -173,7 +173,7 @@
 <?php
 
 if (isset($ua->sv) && $ua->sv) {
-    $url = '/Login/logout';
+    $url = '/logout';
     $text = 'Logout';
     $logoutId = 'btn_logout';
 } else {

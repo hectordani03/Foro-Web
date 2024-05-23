@@ -45,8 +45,9 @@ class ProfileController extends Controller
         if (!empty($data)) {
             $data['userId'] = session::sessionValidate()['id'];
             $res = $user->updateProfUser($data);
+            
             $res2 = $userinfo->updateUserInfo($data);
-            if ($res === false && $res2 === false) {
+            if ($res === false || $res2 === false) {
             } else {
                 echo json_encode(["r" => true]);
             }

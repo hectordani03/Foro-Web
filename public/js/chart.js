@@ -76,13 +76,19 @@ am5.ready(function() {
   });
 
   // Set data
-  var data = [
-    { name: "Zero Hunger", value: 125, bulletSettings: { src: "http://forus.com/resources/assets/img/login/obj2.png" }},
-    { name: "Quality Education", value: 200, bulletSettings: { src: "http://forus.com/resources/assets/img/login/obj1.png" }},
-    { name: "Climate Action", value: 89, bulletSettings: { src: "http://forus.com/resources/assets/img/login/obj13.png" }},
-    { name: "Life Below Water", value: 100, bulletSettings: { src: "http://forus.com/resources/assets/img/login/obj14.png" }},
-    { name: "Reduced Inequality", value: 50, bulletSettings: { src: "http://forus.com/resources/assets/img/login/obj10.png" }}
-  ];
+  fetch(app_ad.routes.getMostQuantityPosts)
+  .then((response) => response.json())
+  .then((postsData) => {
+      var data = postsData.map((post) => {
+          return {
+              name: post.category,
+              value: post.tt,
+              bulletSettings: { src: `http://forus.com/resources/assets/img/categories/${post.img}` }
+          };
+      });
+      xAxis.data.setAll(data);
+      series.data.setAll(data);
+  })
 
   series.bullets.push(function() {
     return am5.Bullet.new(root, {
@@ -101,9 +107,6 @@ am5.ready(function() {
       })
     });
   });
-
-  xAxis.data.setAll(data);
-  series.data.setAll(data);
 
   // Make stuff animate on load
   // https://www.amcharts.com/docs/v5/concepts/animations/

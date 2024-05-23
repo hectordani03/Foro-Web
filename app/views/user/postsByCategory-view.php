@@ -58,5 +58,6 @@ require_once LAYOUTS_US . 'footer.php';
     $(function() {
         app.catPosts();
         app.getHashtags();
+        post.addPosts();
     });
 </script>

@@ -52,13 +52,12 @@ class LoginController extends Controller
                         $r = $report->deleteReportUser($data);
                         $r = $sp->deleteSuspension($data);
                         $r = $user->updateUserStatus($data);
+                    }
+                    if (password_verify($data['password'], $userData[0]->password)) {
+                        echo $this->sessionStart($userData);
                     } else {
-                        if (password_verify($data['password'], $userData[0]->password)) {
-                            echo $this->sessionStart($userData);
-                        } else {
-                            self::sessionDestroy();
-                            echo json_encode(["r" => 'd']);
-                        }
+                        self::sessionDestroy();
+                        echo json_encode(["r" => 'd']);
                     }
                 } else {
                     self::sessionDestroy();

@@ -16,7 +16,10 @@ const profile = {
   up: $("#userprofPosts"),
   prof: $("#userProfile"),
   modal: $("#profileModalId"),
-
+  ss: $("#shareId"),
+  cc: $("#commentsId"),
+  usp: [],
+  
   userPosts: function () {
     let html = `
     <div class=" relative top-32">
@@ -33,6 +36,7 @@ const profile = {
       .then((res) => res.json())
       .then((posts) => {
         if (posts.length > 0) {
+          usp = posts
           const allUserPosts = posts.filter(post => post.postId === null);
           if (allUserPosts.length > 0) {
             html = ""; 
@@ -186,7 +190,6 @@ const profile = {
       })
       .catch((err) => console.error("Error: ", err));
   },
-
 
   userProfile: function () {
     let html = ``;
@@ -353,11 +356,11 @@ const profile = {
             uuf.find('button[type="submit"]').prop("disabled", false);
           },
         });
-      } else if (file && file.size / (1024 * 1024) > 2) {
+      } else if (file && file.size / (1024 * 1024) > 5) {
         alerts({
           type: "function",
           icon: "error",
-          text: "The image you have selected exceeds the allowed weight 2 MB.",
+          text: "The image you have selected exceeds the allowed weight 5 MB.",
           callback: function () {
             e.preventDefault();
             uuf.find('button[type="submit"]').prop("disabled", false);
@@ -393,6 +396,15 @@ const profile = {
                 type: "function",
                 icon: "error",
                 text: "Filds can not be empty",
+                callback: function () {
+                  uuf.find('button[type="submit"]').prop("disabled", false);
+                },
+              });
+            } else if (res.r === "i") {
+              alerts({
+                type: "function",
+                icon: "error",
+                text: "The selected image is incorrect! please try another one",
                 callback: function () {
                   uuf.find('button[type="submit"]').prop("disabled", false);
                 },

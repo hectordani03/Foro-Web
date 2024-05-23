@@ -18,7 +18,7 @@ class suspensions extends Model
 
     public function addSuspension($data)
     {
-        if (!empty($data['userId']) && !empty($data['period']) && isset($data['duration'])) {
+        if (!empty($data['userId']) && isset($data['period']) && isset($data['duration'])) {
             $this->values = [
                 $data["userId"],
                 $data["period"],
@@ -41,4 +41,23 @@ class suspensions extends Model
             return false;
         }
     }
+
+    public function getTotalSpUntil($date)
+    {
+        $result = $this->select(['id'])
+        ->count('id')
+        ->where([['period', $date, '<='], ['duration', 0]])
+        ->get();
+        return $result;
+    }
+
+    public function getnewSp($date)
+    {
+        $result = $this->select(['id'])
+        ->count('id')
+        ->where([['period', $date,'>'], ['duration', 0]])
+        ->get();
+        return $result;
+    }
+    
 }

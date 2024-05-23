@@ -9,6 +9,7 @@ use app\models\reports;
 use app\models\reportuser;
 use app\models\reportpost;
 use app\models\reportcomt;
+use app\models\log;
 
 class ReportsController extends Controller
 {
@@ -70,7 +71,6 @@ class ReportsController extends Controller
     public function createReport($data)
     {
         $report = new reports;
-        $data['userId'] = session::sessionValidate()['id'];
         $res = $report->addReport($data);
         return $res;
     }
@@ -78,10 +78,14 @@ class ReportsController extends Controller
     public function reportUser()
     {
         $report = new reportuser;
+        $log = new log;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         if (!empty($data)) {
             $data['reportId'] = $this->createReport($data);
             $res = $report->addUserReport($data);
+            $data['action'] = "User reported";
+            $data['idUser'] = session::sessionValidate()['id'];
+            $log->logActions($data);
             if ($res === false) {
             } else {
                 echo json_encode(["r" => true]);
@@ -95,10 +99,15 @@ class ReportsController extends Controller
     public function reportPost()
     {
         $report = new reportpost;
+        $log = new log;
+
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         if (!empty($data)) {
             $data['reportId'] = $this->createReport($data);
             $res = $report->addPostReport($data);
+            $data['action'] = "Post reported";
+            $data['idUser'] = session::sessionValidate()['id'];
+            $log->logActions($data);
             if ($res === false) {
             } else {
                 echo json_encode(["r" => true]);
@@ -112,10 +121,15 @@ class ReportsController extends Controller
     public function reportComment()
     {
         $report = new reportcomt;
+        $log = new log;
+
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         if (!empty($data)) {
             $data['reportId'] = $this->createReport($data);
             $res = $report->addComtReport($data);
+            $data['action'] = "Comment reported";
+            $data['idUser'] = session::sessionValidate()['id'];
+            $log->logActions($data);
             if ($res === false) {
             } else {
                 echo json_encode(["r" => true]);

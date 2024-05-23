@@ -41,6 +41,14 @@ class userinfo extends Model
         if (!empty($data['userId'])) {
             session_start();
 
+            if (isset($_FILES["profilePic"]) && $_FILES["profilePic"]['name'] != "" && $_FILES["profilePic"]['size'] > 0 && $_FILES["profilePic"] != "") {
+                $this->values['profilePic'] = getUserImg("profilePic");
+                if ($this->values['profilePic'] === false) {
+                    return false;
+                } else {
+                    $_SESSION['profilePic'] = $this->values['profilePic'];
+                }
+            }
             if (isset($data["description"]) && $data["description"] != "") {
                 $this->values['description'] = sanitizeString($data["description"]);
                 $_SESSION['description'] = $this->values['description'];
@@ -53,12 +61,7 @@ class userinfo extends Model
                 $this->values['nacionality'] = sanitizeString($data["nacionality"]);
                 $_SESSION['nacionality'] = $this->values['nacionality'];
             }
-            if (isset($_FILES["profilePic"]) && $_FILES["profilePic"]['name'] != "" && $_FILES["profilePic"]['size'] > 0 && $_FILES["profilePic"] != "") {
-                $this->values['profilePic'] = getUserImg("profilePic");
-                $_SESSION['profilePic'] = $this->values['profilePic'];
-            }
             if (!empty($this->values)) {
-
                 $result = $this->where([['userId', $data['userId']]])->update();
                 return $result;
             }

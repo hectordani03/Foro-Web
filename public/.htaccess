@@ -19,5 +19,17 @@ RewriteRule ^home/$ /home [R=301,L]
 RewriteCond %{THE_REQUEST} \s/home[/?\s] [NC]
 RewriteRule ^home$ / [R=301,L]
 
+RewriteCond %{THE_REQUEST} \s/home/dashboard[/?\s] [NC]
+RewriteRule ^home/dashboard$ /dashboard [R=301,L]
+RewriteRule ^dashboard$ home/dashboard [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/profile/user[/?\s] [NC]
+RewriteRule ^profile/user$ /updateUser [R=301,L]
+RewriteRule ^updateUser$ profile/user [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/Login/logout[/?\s] [NC]
+RewriteRule ^Login/logout$ /logout [R=301,L]
+RewriteRule ^logout$ Login/logout [L,QSA]
+
 RewriteCond %{QUERY_STRING} !^url=
 RewriteRule ^([a-zA-Z0-9/ñÑ-]+)$ index.php?url=$1 [QSA]

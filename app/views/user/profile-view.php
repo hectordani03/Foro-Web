@@ -3,6 +3,11 @@ require_once LAYOUTS_US . 'header.php';
 ?>
 <div id="profileModalId" class="absolute z-50 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 
+<div id="commentsId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+</div>
+<div id="shareId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+</div>
+
 </div>
 <section class="w-11/12 relative left-32 z-40">
     <!-- HEADER -->

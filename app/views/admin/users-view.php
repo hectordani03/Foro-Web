@@ -95,7 +95,7 @@ require_once LAYOUTS_AD . 'header.php';
                 <input type="hidden" name="profilePic" id="profilePic" readonly>
 
                 <label for="username">Username</label>
-                <input class="form-control" type="text" name="username" id="dusername" pattern="^[a-zA-Z0-9]{1,100}$" minlength="3" maxlength="40" required>
+                <input class="form-control" type="text" name="username" id="dusername" pattern="^[a-zA-Z0-9]{1,100}$" minlength="3" maxlength="40" readonly required>
 
                 <label for="email">Email</label>
                 <input class="form-control" type="email" name="email" id="demail" readonly required>
@@ -106,6 +106,7 @@ require_once LAYOUTS_AD . 'header.php';
         </div>
     </form>
 </div>
+
 <table id="userDT" class="hover row-border table"></table>
 <?php
 require_once LAYOUTS_AD . 'footer.php';

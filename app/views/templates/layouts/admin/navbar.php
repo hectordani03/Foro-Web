@@ -15,7 +15,7 @@
         <div class="menu">
             <ul class="menu-links">
                 <li class="nav-link">
-                    <a class="py-5 rounded-full mb-7" href="<?= URL; ?>home/dashboard">
+                    <a class="py-5 rounded-full mb-7" href="<?= URL; ?>dashboard">
                         <i class="fa-duotone fa-house icon"></i>
                         <span class="text nav-text">Dashboard</span>
                     </a>
@@ -52,20 +52,6 @@
                     <a href="<?= URL; ?>reports/comments" class="text sub-item">Commets</a>
                     <a href="<?= URL; ?>reports/users" class="text sub-item">Users</a>
                 </div>
-
-                <li class="nav-link">
-                    <a>
-                        <i class="fa-duotone fa-arrow-rotate-left icon"></i>
-                        <span class="text nav-text">Activity Log</span>
-                    </a>
-                </li>
-                
-                <li class="nav-link">
-                    <a href="#">
-                        <i class="fa-duotone fa-bell icon"></i>
-                        <span class="text nav-text">Notifications</span>
-                    </a>
-                </li>
 
                 <li class="nav-link">
                     <a href="<?= URL; ?>profile/user">
