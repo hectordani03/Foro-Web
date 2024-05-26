@@ -6,6 +6,7 @@ use app\classes\View;
 use app\classes\redirect;
 use app\models\posts;
 use app\controllers\auth\LoginController as session;
+use app\models\categories as cat;
 
 class PostsController extends Controller
 {
@@ -25,6 +26,66 @@ class PostsController extends Controller
         View::render('admin/posts', ['ua' => $ua, 'title' => 'For Us']);
     }
 
+    public function category($params = null)
+    {
+        $cat = new cat;
+        $stmt = $cat->get();
+        $categories = json_decode($stmt);
+        $peticion = filter_input_array(INPUT_GET);
+
+        $categoryExists = false;
+        foreach ($categories as $category) {
+            if ($category->name == $peticion['category']) {
+                $categoryExists = true;
+                break;
+            }
+        }
+        if (isset($peticion['category']) && $peticion['category'] != "" && $categoryExists == true) {
+            $response = [
+                'ua' => session::sessionValidate() ?? ['sv' => false],
+                'title' => 'For Us',
+                'code' => 200
+            ];
+            View::render('user/postsByCategory', $response);
+        } else {
+
+            redirect::to('');
+            exit();
+        }
+    }
+
+    public function createPosts()
+    {
+        $posts = new posts;
+        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
+        $data['userId'] = session::sessionValidate()['id'];
+        $res = $posts->addPosts($data);
+        if ($res === false) {
+        } else {
+            echo json_encode(["r" => true]);
+        }
+    }
+
+    public function sharePost($params = null)
+    {
+        $posts = new posts;
+        $res = $posts->sharePost(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
+        if ($res === false) {
+        } else {
+            echo json_encode(["r" => true]);
+        }
+    }
+
+    public function deletePost()
+    {
+        $posts = new posts;
+        $res = $posts->deletePost(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)));
+        if ($res === false) {
+        } else {
+            echo json_encode(["r" => true]);
+        }
+    }
+
     public function getPosts()
     {
         $posts = new posts();
@@ -32,25 +93,17 @@ class PostsController extends Controller
         echo $result;
     }
 
-    public function getPost($params = null)
+    public function getPostsByCategory()
     {
-        $posts = new posts();
-        $result = $posts->getPost($params);
-        echo $result;
-    }
-
-    public function createPosts($params = null)
-    {
-        $posts = new posts;
-        $res = $posts->addPosts(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
-        echo json_encode(["r" => $res]);
-    }
-
-    public function sharePost($params = null)
-    {
-        $posts = new posts;
-        $res = $posts->sharePost(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
-        echo json_encode(["r" => $res]);
+        if (isset($_GET['category']) && !empty($_GET['category'])) {
+            $category = $_GET['category'];
+            $posts = new posts();
+            $result = $posts->getPostsByCategory($category);
+            echo $result;
+        } else {
+            redirect::to('');
+            exit();
+        }
     }
 
     // public function addPost()

@@ -19,7 +19,7 @@ html {
 
 .background-overlay {
   position: absolute;
-  z-index: 990;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
@@ -28,7 +28,7 @@ html {
 }
 
 .login-form {
-  z-index: 999;
+  z-index: 10;
   padding: 50px;
   border-radius: 5px;
   text-align: center;

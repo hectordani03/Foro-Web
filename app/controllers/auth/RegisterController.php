@@ -26,19 +26,23 @@ class RegisterController extends Controller
         ];
         View::render('user/auth/register', $response);
     }
-    
+
     public function register()
     {
         $user = new user;
         $userinfo = new userinfo;
-        $res = $user->registerUser(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)));
+        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
+
+        $res = $user->registerUser($data);
         $res2 = $userinfo->registerUserInfo($res);
-        echo json_encode(["r" => $res]);
+        ob_start();
+        require_once '../app/views/templates/emails/registerUser.php';
+        $message = ob_get_clean();
+        $subject = "Welcome " . $data['username'];
+        if ($res === false && $res2 === false) {
+        } else {
+            sendMail($data['email'], $subject, $message);
+            echo json_encode(["r" => true]);
+        }
     }
-    // public function register()
-    // {
-    //     $user = new user;
-    //     $res = $user->registerUser(filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-    //     echo json_encode(["r" => $res]);
-    // }
 }

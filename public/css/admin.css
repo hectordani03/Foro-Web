@@ -41,12 +41,14 @@ body.dark {
   --toggle-color: #fff;
   --text-color: #ccc;
 }
-/* 
-html,
-body {
-  overflow: hidden;
-} */
 
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
 /* =========================== Sidebar =========================== */
 .sidebar {
   position: fixed;

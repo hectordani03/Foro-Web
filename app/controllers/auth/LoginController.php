@@ -7,7 +7,8 @@ use app\controllers\Controller;
 use app\classes\View;
 use app\models\user;
 use app\classes\Redirect;
-
+use app\models\suspensions as sp;
+use app\models\reportuser;
 
 class LoginController extends Controller
 {
@@ -28,27 +29,57 @@ class LoginController extends Controller
 
     public function login()
     {
-        $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         $user = new user;
-        $stmt = $user
-        ->join('userinfo b', 'a.id=b.userId')
-        ->where([["a.email", $data['email']]])
-        ->get();
-        if (count(json_decode($stmt)) > 0) {
-            echo $this->sessionStart($stmt);
+        $report = new reportUser;
+        $sp = new sp;
+
+        if (!empty($data['email']) && !empty($data['password'])) {
+            $stmt = $user
+                ->select(['a.*, b.profilePic, b.age, b.nacionality, b.description, c.period, c.duration'])
+                ->join('userinfo b', 'a.id=b.userId')
+                ->join('suspensions c', 'a.id=c.userId', 'LEFT')
+                ->where([["a.email", $data['email']]])
+                ->get();
+            $userData = json_decode($stmt);
+
+            if (count($userData) > 0) {
+                $CT = date("Y-m-d H:i:s");
+                if ($CT >= $userData[0]->period && $userData[0]->duration != "0") {
+                    if ($userData[0]->active != 1) {
+                        $data['userId'] = $userData[0]->id;
+                        $data['active'] = 1;
+                        $r = $report->deleteReportUser($data);
+                        $r = $sp->deleteSuspension($data);
+                        $r = $user->updateUserStatus($data);
+                    } else {
+                        if (password_verify($data['password'], $userData[0]->password)) {
+                            echo $this->sessionStart($userData);
+                        } else {
+                            self::sessionDestroy();
+                            echo json_encode(["r" => 'd']);
+                        }
+                    }
+                } else {
+                    self::sessionDestroy();
+                    echo json_encode(["r" => 's']);
+                }
+            } else {
+                self::sessionDestroy();
+                echo json_encode(["r" => 'd']);
+            }
         } else {
             self::sessionDestroy();
-            echo json_encode(["r" => false]);
+            echo json_encode(["r" => 'e']);
         }
     }
 
-    private function sessionStart($r)
+    private function sessionStart($data)
     {
-        $data = json_decode($r);
         session_start();
         $_SESSION['sv'] = true;
         $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
-        $_SESSION['id'] = $data[0]->userId;
+        $_SESSION['id'] = $data[0]->id;
         $_SESSION['username'] = $data[0]->username;
         // $_SESSION['password'] = $data[0]->password;
         $_SESSION['email'] = $data[0]->email;

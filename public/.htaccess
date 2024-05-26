@@ -1,3 +1,23 @@
 RewriteEngine On
 Options All -Indexes
-RewriteRule ^([a-zA-Z0-9/ñÑ-]+)$ index.php?url=$1
+
+RewriteCond %{THE_REQUEST} \s/([a-zA-Z0-9/ñÑ-]+)/index[/?\s] [NC]
+RewriteRule ^([a-zA-Z0-9/ñÑ-]+)/index$ /$1 [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/([a-zA-Z0-9/ñÑ-]+)/home[/?\s] [NC]
+RewriteRule ^([a-zA-Z0-9/ñÑ-]+)/home/?$ /$1 [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/([a-zA-Z0-9/ñÑ-]+)/home/[/?\s] [NC]
+RewriteRule ^([a-zA-Z0-9/ñÑ-]+)/home/$ /$1/home [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/([a-zA-Z0-9/ñÑ-]+)/index/.*[/?\s] [NC]
+RewriteRule ^([a-zA-Z0-9/ñÑ-]+)/index/.*$ /$1 [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/home/[/?\s] [NC]
+RewriteRule ^home/$ /home [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/home[/?\s] [NC]
+RewriteRule ^home$ / [R=301,L]
+
+RewriteCond %{QUERY_STRING} !^url=
+RewriteRule ^([a-zA-Z0-9/ñÑ-]+)$ index.php?url=$1 [QSA]

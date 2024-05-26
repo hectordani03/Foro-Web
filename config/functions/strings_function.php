@@ -8,7 +8,6 @@ function sanitizeString($string)
     $string = stripslashes($string);
 
     foreach ($blacklist as $str) {
-
         $string = str_ireplace($str, "", $string);
     }
 
