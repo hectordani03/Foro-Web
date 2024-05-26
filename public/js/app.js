@@ -26,6 +26,7 @@ const app = {
   cc: $("#commentsId"),
   ca: $("#categories-form"),
   ha: $("#hashtags"),
+  me: $("#menuId"),
   usp: [],
   com: [],
 
@@ -256,6 +257,69 @@ const app = {
       });
   },
 
+  menuCard: function (postId) {
+    const post = $.grep(usp, function (e) {
+      return e.id === postId;
+    })[0];
+
+    let html = this.menuCardHtmlBuilder(post);
+    this.me.html(html);
+
+    this.me.on("click", function (e) {
+      e.stopPropagation();
+    });
+
+    $(function () {
+      $("body").removeClass("overflow-auto").addClass("overflow-hidden");
+    });
+
+    const modal = $(".modal-close");
+    const capa = $(".capa-close");
+    const close = $(".close-modal");
+
+    close.on("click", () => {
+      modal.addClass("hidden");
+      capa.addClass("hidden");
+      $("body").removeClass("overflow-hidden").addClass("overflow-auto");
+    });
+  },
+
+  addCategory: function (postId) {
+    const post = $.grep(usp, function (e) {
+      return e.id === postId;
+    })[0];
+
+    let html = this.addCategoryHtmlBuilder(post);
+    $("#modal").html(html); // Inserta el contenido del modal en el contenedor del modal
+
+    // Muestra el modal
+    $("#modal").removeClass("hidden");
+    $("#modal-overlay").removeClass("hidden");
+
+    // Evita que el evento de clic se propague
+    this.ac.on("click", function (e) {
+      e.stopPropagation();
+    });
+
+    $("body").removeClass("overflow-auto").addClass("overflow-hidden");
+
+    const close = $(".close-modal");
+    const modalOverlay = $("#modal-overlay");
+
+    close.on("click", function () {
+      $("#modal").addClass("hidden");
+      modalOverlay.addClass("hidden");
+      $("body").removeClass("overflow-hidden").addClass("overflow-auto");
+    });
+
+    modalOverlay.on("click", function () {
+      $("#modal").addClass("hidden");
+      $(this).addClass("hidden");
+      $("body").removeClass("overflow-hidden").addClass("overflow-auto");
+    });
+  },
+
+
   /* HTML */
   postsHtmlBuilder: function (post) {
     let postHtml = "";
@@ -264,25 +328,6 @@ const app = {
     if (post.originalText) {
       let orighashtagsHTML = this.buildHashtagsHtml(post.originalhtsg);
       postHtml += `
-
-    <div class=" bg-gray-100 dark:bg-slate-600 shadow-lg w-full rounded-t-xl flex relative mt-5 opacity-100 p-4 top-2">
-    <img id="profile_picture" class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${
-      post.profilePic
-    }" alt="">
-    <div class="flex flex-col ml-5">
-        <h2 id="username" class="text-xl text-gray-400 font-semibold">${
-          post.username
-        }</h2>
-        <p class="text-gray-400">${formatTimeSincePost(post.created_at)}</p>
-        <h1 class="mb-3 text-lg text-gray-400 font-semibold w-11/12">${
-          post.text
-        }</h1>
-        </div>
-    <div class="absolute right-5 top-0">
-        <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none">...</span>
-    </div>
-    </div>
-
     <div id="post-card" class="bg-gray-100 dark:bg-slate-700 shadow-lg w-full rounded-xl flex flex-col relative h-fit self-start opacity-100">
     <div class="flex mt-5 ml-5">
     <img id="profile_picture" class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${
@@ -296,9 +341,10 @@ const app = {
           post.originalCreatedAt
         )}</p>
         </div>
-    <div class="absolute right-5 top-0">
-        <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none">...</span>
-    </div>
+        <!-- CARD MENU -->
+        <div class="absolute right-5 top-0">
+            <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none menu-card" onclick="app.menuCard(${post.id})">...</span>
+        </div>
     </div>
     <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">${
       post.originalText
@@ -328,9 +374,10 @@ const app = {
               </div>
           <!-- CARD MENU -->
           <div class="absolute right-5 top-0">
-              <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none">...</span>
+              <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none menu-card" onclick="app.menuCard(${post.id})">...</span>
           </div>
       </div>
+
   
   <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">${post.text}</p>
   <img class="w-10/12 mx-auto rounded-xl mt-7" src="http://forus.com/resources/assets/img/post/${
@@ -455,7 +502,7 @@ const app = {
                           post.id
                         }, '${
       post.category
-    }')" id="sharebtn" class="btn mr-10 ml-10 mb-5 bg-sky-500 rounded-xl p-3 text-white">Share</button>
+    }')"id="sharebtn" class="btn w-full mb-5 bg-sky-500 rounded-xl p-3 text-white">Share</button>
                         </form>
                 </div>
             </div>
@@ -463,6 +510,41 @@ const app = {
     </section>
     `;
   },
+
+  menuCardHtmlBuilder: function (post) {
+    return `
+    <div id="capa" class="fixed inset-0 bg-gray-500 bg-opacity-40 transition-opacity capa-close"></div>
+    <section class="bg-gray-100 rounded-3xl w-3/12 mx-auto h-auto flex flex-col relative mt-36">
+        <section id="modal" class="bg-gray-100 dark:bg-slate-700 rounded-3xl w-3/12 mx-auto mt-12 -mb-24 flex flex-col fixed modal-close" style="height: 40%;">
+            <div class="close-modal text-gray-400 w-8 h-8 transition-all cursor-pointer mt-5 mr-5 absolute right-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline" viewBox="0 0 512 512">
+                    <path class="fill-current" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
+                </svg>
+            </div>
+            <div class="rounded-3xl flex flex-col justify-center items-center gap-5 h-fit self-start w-full shadow-lg bg-slate-700 opacity-100">
+              <div class="flex mb-5 mt-14">
+                    <div class="text-gray-400 w-9 h-9 cursor-pointer ml-2 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path class="fill-current" d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
+                        </svg>
+                    </div>
+                    <p class="text-gray-400 font-semibold ml-5 text-xl mt-1 cursor-pointer">Reportar Publicacion</p>
+                </div>
+                <hr class="w-full border-t-2">
+                <div class="flex mb-5 mt-8">
+                    <div class="text-gray-400 w-9 h-9 cursor-pointer ml-2 mb-2">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15 16L20 21M20 16L15 21M4 21C4 17.134 7.13401 14 11 14M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                    </div>
+                    <p class="text-gray-400 font-semibold ml-5 text-xl mt-1 cursor-pointer">Reportar Usuario</p>
+                </div>
+                <hr>
+            </div>
+        </section>
+    </section>
+    `;
+  },
+
+  
 
   buildHashtagsHtml: function (hashtag) {
     if (hashtag !== null && hashtag.trim() !== "") {
@@ -502,8 +584,9 @@ const app = {
                 <div class="flex flex-col ml-5">
                     <h2 class="text-xl text-gray-400 font-semibold">${post.username}</h2>
                 </div>
+                <!-- CARD MENU -->
                 <div class="absolute right-5 top-0">
-                    <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none">...</span>
+                    <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none menu-card" onclick="app.menuCard(${post.id})">...</span>
                 </div>
             </div>
             <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">${post.text}</p>

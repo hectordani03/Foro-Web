@@ -1,7 +1,7 @@
 <?php
 require_once LAYOUTS_US . 'header.php';
 ?>
-
+<script src="/app.js"></script>
 <!-- MODALS --------------------------------------------------------------------->
 
 <!-- COMMENT MODAL -->
@@ -9,6 +9,12 @@ require_once LAYOUTS_US . 'header.php';
 </div>
 <!-- SHARE MODAL -->
 <div id="shareId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+</div>
+<!-- AÑADIR CATEGORIA MODAL -->
+<div id="addCategoryId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+</div>
+<!-- MENU MODAL -->
+<div id="menuId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 </div>
 
 <!-- --------------------------------------------------------------------------- -->

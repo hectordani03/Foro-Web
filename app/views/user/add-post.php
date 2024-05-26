@@ -7,7 +7,7 @@
 
     <form id="add-post-form" class="w-full mr-10" method="POST" autocomplete="off" enctype="multipart/form-data">
         <input type="hidden" id="userId" name="userId" value="<?php echo $id ?>">
-        <textarea id="text" name="text" class="relative rounded-lg px-6 py-2 top-7 mb-10 left-20 text-2xl text-gray-400 bg-gray-100 dark:bg-slate-700 resize-none outline-none font-semibold w-9/12 h-auto" placeholder="What's in your mind?"></textarea>
+        <input id="text" name="text" class="relative rounded-lg px-6 py-2 top-7 mb-10 left-20 text-2xl text-gray-400 bg-gray-100 dark:bg-slate-700 resize-none outline-none font-semibold w-11/12 h-auto" placeholder="What's in your mind?"></input>
         <div>
             <div id="img-view" class="relative ml-20 mb-5"></div>
             

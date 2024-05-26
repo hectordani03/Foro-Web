@@ -32,8 +32,9 @@ require_once LAYOUTS_US . 'header.php';
         require_once USER_VIEWS . 'add-post.php';
         ?>
 
-        <!-- OBJETIVE CARD -->
-        <a id="objetive-info" class=" mr-3 w-full mx-auto lg:w-2/12 order-first lg:order-last" href="#"><img class="rounded-lg w-64 h-56 mx-auto lg:mb-0 mb-10" src="<?php echo GIFT; ?>obj2.gif" alt=""></a>
+       <a id="objetive-info" class="mr-5 w-2/12 cursor-pointer" href="#">
+            <img class="rounded-lg w-64 h-56 mx-auto" src="<?php echo GIFT; ?>obj2.gif" alt="">
+        </a>
 
     </main>
 
