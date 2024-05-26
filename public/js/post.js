@@ -1,4 +1,9 @@
 const post = {
+routes: {
+  addPosts: "/Posts/createPosts",
+  sharePost: "/Posts/sharePost",
+},
+
   addPosts: function () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -16,7 +21,7 @@ const post = {
       $("<input>").attr("type", "hidden").attr("name", "hashtags").val(selectedHashtags.join(",")).appendTo(apf);
 
       const data = new FormData(this);
-      fetch(app.routes.addPosts + '/' + category, {
+      fetch(post.routes.addPosts + '/' + category, {
         method: "POST",
         body: data,
       }) .then((res) => res.json())
@@ -67,13 +72,16 @@ const post = {
     });
   },
 
-  sharePost: function (postId) {
+  sharePost: function (postId, category) {
     const spf = $("#sharePost-form");
+    $("<input>").attr("type", "hidden").attr("name", "postId").val(postId).appendTo(spf);
+    $("<input>").attr("type", "hidden").attr("name", "category").val(category).appendTo(spf);
+
     spf.on("submit", function (e) {
       e.preventDefault();
       e.stopPropagation();
       const data = new FormData(this);
-      fetch(app.routes.sharePost + `/${app.user.id}` + `/${postId}`, {
+      fetch(post.routes.sharePost, {
         method: "POST",
         body: data,
       })
@@ -111,79 +119,47 @@ const post = {
 };
 
 $(function () {
-  $("#text, #category, #img").on("input change", function () {
+  $("#text, #img").on("input change", function () {
     const text = $("#text").val().trim();
-    const category = $("#category").val();
     const img = $("#img").val();
 
-    if ((text !== "" || img !== "") && category !== "" && category !== null) {
+    if (text !== "" || img !== "") {
       $("#addPostBtn").prop("disabled", false);
     } else {
       $("#addPostBtn").prop("disabled", true);
     }
   });
 
-  $("#text, #category, #img").trigger("input");
+  $("#text, #img").trigger("input");
 });
 
-const textArea = document.querySelector("textarea");
-const imagePreview = document.getElementById("img-view");
-const inputFile = document.getElementById("img");
+const textArea = $("textarea");
+const imagePreview = $("#img-view");
+const inputFile = $("#img");
 
-inputFile.addEventListener("change", function () {
+inputFile.on("change", function () {
   const file = this.files[0];
   if (file) {
     const reader = new FileReader();
     reader.onload = function (event) {
-      const img = document.createElement("img");
-      img.src = event.target.result;
-      img.classList.add("w-8/12", "h-auto", "object-cover", "rounded");
-      imagePreview.innerHTML = "";
-      imagePreview.appendChild(img);
+      const img = $("<img>", {
+        src: event.target.result,
+        class: "w-8/12 h-auto object-cover rounded"
+      });
+      imagePreview.empty();
+      imagePreview.append(img);
     };
     reader.readAsDataURL(file);
   }
 });
 
-const card = document.getElementById("initial-card");
+const card = $("#initial-card");
 const maxlength = 250;
 
-textArea.addEventListener("input", () => {
-  const value = textArea.value.length;
-  textArea.style.height = "auto";
-  textArea.style.height = textArea.scrollHeight + "px";
+textArea.on("input", function () {
+  const value = textArea.val().length;
+  textArea.css("height", "auto");
+  textArea.css("height", textArea[0].scrollHeight + "px");
 });
 
 
-const containerSelectedHashtags = document.querySelector("#hashtags-selected");
-const selectedHashtags = document.querySelectorAll("#hashtags-selected .hashtag");
-const hashtags = document.querySelectorAll("#hashtags .hashtag");
-const hashtagCapa = document.querySelectorAll(".capa-hashtag");
-
-
-  hashtags.forEach((hashtag) => {
-      hashtag.addEventListener("click", () => {
-          if (containerSelectedHashtags.childElementCount < 3) {
-          containerSelectedHashtags.innerHTML += hashtag.outerHTML;
-
-          const selectedHashtags = document.querySelectorAll("#hashtags-selected .hashtag");
-
-          selectedHashtags.forEach((selected) => {
-              selected.addEventListener("click", e => {
-                  selected.remove();
-              });
-
-              selected.addEventListener('mouseenter', () => {
-                const capa = selected.querySelector('.capa-hashtag');
-                capa.classList.add('visible');
-            });
-            
-            selected.addEventListener('mouseleave', () => {
-                const capa = selected.querySelector('.capa-hashtag');
-                capa.classList.remove('visible');
-            });
-            
-          });
-        }
-      });
-  });

@@ -2,6 +2,7 @@
 
 namespace app\controllers\auth;
 
+use app\classes\redirect;
 use app\controllers\Controller;
 use app\classes\View;
 use app\models\user;
@@ -32,17 +33,21 @@ class RegisterController extends Controller
         $user = new user;
         $userinfo = new userinfo;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-
-        $res = $user->registerUser($data);
-        $res2 = $userinfo->registerUserInfo($res);
-        ob_start();
-        require_once '../app/views/templates/emails/registerUser.php';
-        $message = ob_get_clean();
-        $subject = "Welcome " . $data['username'];
-        if ($res === false && $res2 === false) {
+        if (!empty($data)) {
+            $res = $user->registerUser($data);
+            $res2 = $userinfo->registerUserInfo($res);
+            ob_start();
+            require_once '../app/views/templates/emails/registerUser.php';
+            $message = ob_get_clean();
+            $subject = "Welcome " . $data['username'];
+            if ($res === false && $res2 === false) {
+            } else {
+                sendMail($data['email'], $subject, $message);
+                echo json_encode(["r" => true]);
+            }
         } else {
-            sendMail($data['email'], $subject, $message);
-            echo json_encode(["r" => true]);
+            redirect::to('');
+            exit();
         }
     }
 }

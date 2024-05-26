@@ -132,10 +132,9 @@ class user extends Model
         return $result;
     }
 
-    public function getUserInfo($params)
+    public function getUserInfo($userId)
     {
-        $userId = $params[2];
-        $result = $this->select(['a.id, a.username, a.email, a.role, a.active, a.registered_at, b.*'])
+        $result = $this->select(['a.id, a.username, a.email, a.role, a.active, a.registered_at, b.age, b.nacionality, b.description, b.profilePic'])
             ->join('userinfo b', 'a.id=b.userId')
             ->where([['a.id', $userId]])
             ->get();

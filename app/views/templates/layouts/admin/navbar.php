@@ -34,7 +34,7 @@
                 </li>
 
                 <li class="nav-link">
-                    <a href="<?= URL; ?>users">
+                    <a href="<?= URL; ?>user">
                         <i class="fa-duotone fa-user-group icon"></i>
                         <span class="text nav-text">Users</span>
                     </a>
@@ -99,14 +99,3 @@
         </div>
     </div>
 </nav>
-
-<script>
-    const links = document.querySelectorAll('.siderbar li a');
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            link.style.backgroundColor = '#002df3;';
-        });
-    });
-
-    let mediaQuery = window.matchMedia('(max-width: 768px)');
-</script>

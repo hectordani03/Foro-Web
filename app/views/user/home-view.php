@@ -1,14 +1,20 @@
 <?php
 require_once LAYOUTS_US . 'header.php';
 ?>
-
+<script src="/app.js"></script>
 <!-- MODALS --------------------------------------------------------------------->
 
 <!-- COMMENT MODAL -->
-<div id="commentsId" class="absolute z-50 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div id="commentsId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 </div>
 <!-- SHARE MODAL -->
-<div id="shareId" class="absolute z-50 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div id="shareId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+</div>
+<!-- AÑADIR CATEGORIA MODAL -->
+<div id="addCategoryId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+</div>
+<!-- MENU MODAL -->
+<div id="menuId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 </div>
 
 <!-- --------------------------------------------------------------------------- -->
@@ -21,7 +27,8 @@ require_once LAYOUTS_US . 'header.php';
 
         <?php if (isset($ua->sv) && $ua->sv) { ?>
             <a href="/profile">
-                <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;echo $ua->profilePic; ?>" alt="">
+                <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;
+                                                                                echo $ua->profilePic; ?>" alt="">
             </a>
         <?php } ?>
 
@@ -43,14 +50,9 @@ require_once LAYOUTS_US . 'header.php';
 
 <?php
 require_once LAYOUTS_US . 'footer.php';
-setFooter($d, "post", "comment")
 ?>
 <script>
     $(function() {
         app.allPosts();
-        app.categories();
-        post.addPosts();
-        post.sharePost();
-        comment.comment();
     });
 </script>

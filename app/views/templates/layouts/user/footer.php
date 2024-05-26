@@ -1,5 +1,5 @@
 <?php
-setFooter($d, "sweetalert2.all.min", "jquery", "functions", "contentPolicy", "navbarUser", "app");
+setFooter($d, "sweetalert2.all.min", "jquery", "functions", "contentPolicy", "navbarUser", "app", "objetive-info", "post", "comment");
 ?>
 <script>
     $(function() {
@@ -8,6 +8,14 @@ setFooter($d, "sweetalert2.all.min", "jquery", "functions", "contentPolicy", "na
         app.user.username = "<?= $ua->username ?? '' ?>";
         app.user.role = "<?= $ua->role ?? '' ?>";
         app.user.pic = "<?= $ua->profilePic ?? '' ?>";
+    });
+
+    $(function() {
+        app.categories();
+        post.addPosts();
+        post.sharePost();
+        comment.createComment();
+        comment.replyComment();
     });
 </script>
 

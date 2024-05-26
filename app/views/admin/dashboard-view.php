@@ -1,5 +1,5 @@
 <?php
-	require_once LAYOUTS_AD . 'header.php';
+require_once LAYOUTS_AD . 'header.php';
 ?>
 
 <style>
@@ -44,8 +44,7 @@
 			<i class='bx bxs-bell text-3xl mr-5 text-gray-500'></i>
 			<div class="rounded-full bg-sky-500 h-fit p-4"></div>
 			<div class="flex flex-col">
-				<p class="ml-5"><?=$ua->username?></p>
-				<!-- <small class="block ml-5">Administrator</small> -->
+				<p class="ml-5"><?= $ua->username ?></p>
 			</div>
 		</div>
 	</section>
@@ -184,69 +183,8 @@
 <?php
 require_once LAYOUTS_AD . 'footer.php';
 ?>
-
-
 <script>
 	$(function() {
 		app_ad.userDT();
 	})
-</script>
-
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const dataTable = $('#datatable').DataTable({
-            ajax: {
-                url: 'http://localhost/For-Us/app/user/requestControllers/reports/reportedpost.php',
-                dataSrc: json => json.data
-            },
-            columns: [{
-                    title: 'Post id',
-                    data: 'id_post'
-                },
-                {
-                    title: 'Reported user',
-                    data: 'id_user'
-                },
-                {
-                    title: 'Reporting user',
-                    data: 'id_reporting_user'
-                },
-                {
-                    title: 'Reports',
-                    data: 'reason'
-                },
-                {
-                    title: 'State',
-                    data: 'state'
-                },
-                {
-                    title: 'Actions',
-                    render: function(data, type, row) {
-                        var state = row.state;
-                        if (state === 0) {
-                            return '<button class="button danger-button btn-view-post" data-id_post="' + row.id_post + '">Delete</button>';
-                        } else {
-                            return '';
-                        }
-                    }
-                },
-            ],
-            drawCallback: function() {
-                $('#datatable thead th, tbody td').css('text-align', 'center', 'margin', '0', 'padding', '0');
-
-                $('.btn-view-post').on('click', function() {
-                    const rowData = dataTable.row($(this).closest('tr')).data();
-
-                    if (rowData) {
-                        openModal(rowData);
-                    } else {
-                        console.error('No se pudo obtener los datos de la fila.');
-                    }
-                });
-            }
-        });
-
-    });
 </script>

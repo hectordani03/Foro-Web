@@ -57,7 +57,7 @@ require_once LAYOUTS_US . 'header.php';
             <a href="#" id="userPosts" class="link-underline text-gray-400 font-semibold text-xl">Posts</a>
             <a href="#" id="userComments" class="link-underline text-gray-400 font-semibold text-xl">Comments</a>
             <a href="#" id="userLikes" class="link-underline text-gray-400 font-semibold text-xl">Likes</a>
-            <a href="#" id="userShares" class="link-underline text-gray-400 font-semibold text-xl">Shared</a>
+            <a href="#" id="userSharedPosts" class="link-underline text-gray-400 font-semibold text-xl">Shared</a>
         </div>
 
         <!-- IF THERE'S NO CONTENT -->

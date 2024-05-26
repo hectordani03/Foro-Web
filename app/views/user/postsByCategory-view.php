@@ -5,10 +5,10 @@ require_once LAYOUTS_US . 'header.php';
 <!-- MODALS --------------------------------------------------------------------->
 
 <!-- COMMENT MODAL -->
-<div id="commentsId" class="absolute z-50 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div id="commentsId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 </div>
 <!-- SHARE MODAL -->
-<div id="shareId" class="absolute z-50 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div id="shareId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 </div>
 
 <!-- --------------------------------------------------------------------------- -->
@@ -32,8 +32,9 @@ require_once LAYOUTS_US . 'header.php';
         require_once USER_VIEWS . 'add-post.php';
         ?>
 
-        <!-- OBJETIVE CARD -->
-        <a id="objetive-info" class=" mr-3 w-full mx-auto lg:w-2/12 order-first lg:order-last" href="#"><img class="rounded-lg w-64 h-56 mx-auto lg:mb-0 mb-10" src="<?php echo GIFT; ?>obj2.gif" alt=""></a>
+       <a id="objetive-info" class="mr-5 w-2/12 cursor-pointer" href="#">
+            <img class="rounded-lg w-64 h-56 mx-auto" src="<?php echo GIFT; ?>obj2.gif" alt="">
+        </a>
 
     </main>
 
@@ -53,15 +54,10 @@ require_once LAYOUTS_US . 'header.php';
 
 <?php
 require_once LAYOUTS_US . 'footer.php';
-setFooter($d, "post", "comment")
 ?>
 <script>
     $(function() {
         app.catPosts();
-        app.categories();
         app.getHashtags();
-        post.addPosts();
-        post.sharePost();
-        comment.comment();
     });
 </script>

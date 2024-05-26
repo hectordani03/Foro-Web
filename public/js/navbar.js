@@ -64,3 +64,12 @@ function updateModeText() {
     modeText.innerText = "Dark Mode";
   }
 }
+
+const links = document.querySelectorAll(".siderbar li a");
+links.forEach((link) => {
+  link.addEventListener("click", () => {
+    link.style.backgroundColor = "#002df3;";
+  });
+});
+
+let mediaQuery = window.matchMedia("(max-width: 768px)");

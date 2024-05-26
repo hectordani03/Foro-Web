@@ -79,11 +79,16 @@ class ReportsController extends Controller
     {
         $report = new reportuser;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-        $data['reportId'] = $this->createReport($data);
-        $res = $report->addUserReport($data);
-        if ($res === false) {
+        if (!empty($data)) {
+            $data['reportId'] = $this->createReport($data);
+            $res = $report->addUserReport($data);
+            if ($res === false) {
+            } else {
+                echo json_encode(["r" => true]);
+            }
         } else {
-            echo json_encode(["r" => true]);
+            redirect::to('');
+            exit();
         }
     }
 
@@ -91,11 +96,16 @@ class ReportsController extends Controller
     {
         $report = new reportpost;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-        $data['reportId'] = $this->createReport($data);
-        $res = $report->addPostReport($data);
-        if ($res === false) {
+        if (!empty($data)) {
+            $data['reportId'] = $this->createReport($data);
+            $res = $report->addPostReport($data);
+            if ($res === false) {
+            } else {
+                echo json_encode(["r" => true]);
+            }
         } else {
-            echo json_encode(["r" => true]);
+            redirect::to('');
+            exit();
         }
     }
 
@@ -103,11 +113,16 @@ class ReportsController extends Controller
     {
         $report = new reportcomt;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-        $data['reportId'] = $this->createReport($data);
-        $res = $report->addComtReport($data);
-        if ($res === false) {
+        if (!empty($data)) {
+            $data['reportId'] = $this->createReport($data);
+            $res = $report->addComtReport($data);
+            if ($res === false) {
+            } else {
+                echo json_encode(["r" => true]);
+            }
         } else {
-            echo json_encode(["r" => true]);
+            redirect::to('');
+            exit();
         }
     }
 }

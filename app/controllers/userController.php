@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\classes\redirect;
 use app\models\user;
 use app\classes\View;
 use app\controllers\auth\LoginController as session;
@@ -26,10 +27,16 @@ class UserController extends Controller
     public function deleteUser()
     {
         $user = new user;
-        $res = $user->deleteUser(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)));
-        if ($res === false) {
+        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
+        if (!empty($data)) {
+            $res = $user->deleteUser($data);
+            if ($res === false) {
+            } else {
+                echo json_encode(["r" => true]);
+            }
         } else {
-            echo json_encode(["r" => true]);
+            redirect::to('');
+            exit();
         }
     }
 

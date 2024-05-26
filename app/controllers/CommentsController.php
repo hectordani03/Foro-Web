@@ -20,29 +20,60 @@ class CommentsController extends Controller
         view::render('admin/comments', ['ua' => $ua, 'title' => 'For Us']);
     }
 
-    public function createComment($params = null)
+    public function createComment()
     {
+        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
+        if (!empty($data)) {
         $comment = new comments;
-        $res = $comment->addComment(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)), $params);
-        if ($res === false) {
+            $data['userId'] = session::sessionValidate()['id'];
+            $res = $comment->addComment($data);
+            if ($res === false) {
+            } else {
+                echo json_encode(["r" => true]);
+            }
         } else {
-            echo json_encode(["r" => true]);
+            redirect::to('');
+            exit();
         }
+       
     }
 
     public function deleteComt()
     {
-        $comment = new comments;
-        $res = $comment->deleteComment(filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS)));
-        if ($res === false) {
+        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
+        if (!empty($data)) {
+            $comment = new comments;
+            $res = $comment->deleteComment($data);
+            if ($res === false) {
+            } else {
+                echo json_encode(["r" => true]);
+            }
         } else {
-            echo json_encode(["r" => true]);
+            redirect::to('');
+            exit();
+        }
+    }
+
+    public function replyComment()
+    {
+        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
+        $comment = new comments;
+        if (!empty($data)) {
+            $data['userId'] = session::sessionValidate()['id'];
+            $res = $comment->addReply($data);
+            if ($res === false) {
+            } else {
+                echo json_encode(["r" => true]);
+            }
+        } else {
+            redirect::to('');
+            exit();
         }
     }
 
     public function getComments($params = null)
     {
-        $comments = new posts();
+        $comments = new comments();
         $result = $comments->getPostComments($params);
         echo $result;
     }
@@ -53,5 +84,4 @@ class CommentsController extends Controller
         $result = $comments->getComments();
         echo $result;
     }
-
 }
