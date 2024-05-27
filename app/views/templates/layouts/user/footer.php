@@ -1,5 +1,5 @@
 <?php
-setFooter($d, "sweetalert2.all.min", "jquery", "functions", "contentPolicy", "navbarUser", "app", "objetive-info", "post", "comment");
+setFooter($d, "sweetalert2.all.min", "jquery", "functions", "contentPolicy", "navbarUser", "app", "objetive-info", "addCategory", "post", "comment");
 ?>
 <script>
     $(function() {

@@ -30,7 +30,7 @@ define('ASSETS', RESOURCES . 'assets' . '/');
 define('VIDEO', ASSETS . 'video' . '/');
 define('IMG', ASSETS . 'img' . '/');
 define('GIFT', IMG . 'gift' . '/');
-define('LOGO', IMG . 'logo' . '/');
+define('LOGO', IMG . '/logo' . '/');
 define('CAT_IMG', IMG . 'categories' . '/');
 define('POSTS_IMG', IMG . 'post' . '/');
 define('PROF_IMG', IMG . 'profile' . '/');
