@@ -81,14 +81,6 @@
                 <form class="flex flex-col gap-2" action="/Posts/category" id="categories-form" method="GET" autocomplete="off" enctype="multipart/form-data">
                 </form>
 
-        <div class="flex items-center justify-center">
-        <a id="add-category" class="cursor-pointer text-white text-3xl pb-2" onclick="app.addCategory()">
-            <div class="bg-blue-500 rounded-lg w-10 h-10 flex items-center justify-center pb-1">
-                +
-            </div>
-            <span class="desplegableText hidden relative left-14 bottom-10 text-gray-400 text-nowrap text-base">Add a Category</span>
-        </a>
-    </div>
     </ul>
 </div>
 
@@ -127,7 +119,7 @@
     </li>
 </ul>
 <hr class="w-full mt-5 border-gray-300 px-10">
-<div id="contentId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div id="contentId" class="absolute z-50 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 </div>
 <ul class="flex flex-col gap-7 justify-between mt-10">
     <li id="content-button" class="cursor-pointer w-15 h-15" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -138,7 +130,7 @@
             <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Content Policy</span>
         </div>
     </li>
-    <div id="privacyId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div id="privacyId" class="absolute z-50 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     </div>
     <li id="privacy-button" class="cursor-pointer w-15 h-15">
         <div class="text-gray-400 w-8 h-8 mx-auto">
@@ -149,21 +141,25 @@
         </div>
     </li>
     <li class="w-15 h-15 relative -top-1">
-        <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
+        <div id="about-button" class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                 <path class="fill-current" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm80 256h64c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16c0-44.2 35.8-80 80-80zm-32-96a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zm256-32H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
             </svg>
             <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">About Us</span>
         </div>
     </li>
+    <div id="aboutId" class="absolute z-50 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    </div>
     <li class="w-15 h-15">
-        <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
+        <div id="agreementButton" class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                 <path class="fill-current" d="M0 80v48c0 17.7 14.3 32 32 32H48 96V80c0-26.5-21.5-48-48-48S0 53.5 0 80zM112 32c10 13.4 16 30 16 48V384c0 35.3 28.7 64 64 64s64-28.7 64-64v-5.3c0-32.4 26.3-58.7 58.7-58.7H480V128c0-53-43-96-96-96H112zM464 480c61.9 0 112-50.1 112-112c0-8.8-7.2-16-16-16H314.7c-14.7 0-26.7 11.9-26.7 26.7V384c0 53-43 96-96 96H368h96z" />
             </svg>
             <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">User Agreement</span>
         </div>
     </li>
+    <div id="userAgreementId" class="absolute z-50 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    </div>
 </ul>
 <hr class="w-full mt-5 border-gray-300 px-10">
 <?php

@@ -10,6 +10,7 @@ const profile = {
     userComts: "/Profile/getComts",
     userProfile: "/Profile/getUser",
     updateUser: "/Profile/updateUser",
+    updateColor: "/Profile/updateColor",
 
     like: "/Interactions/createLike",
   },
@@ -330,6 +331,28 @@ const profile = {
             backgroundClasses.add(colorClass);
           }
           saveColorToLocalStorage(colorClass);
+
+          
+          // Envía el color seleccionado al servidor
+          fetch(profile.routes.updateColor, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ color: colorClass }),
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Color guardado correctamente:', data);
+          })
+          .catch(error => {
+            console.error('Error al guardar el color:', error);
+          });
         }
 
         red.on("click", () => changeBackgroundColor("from-red-500"));

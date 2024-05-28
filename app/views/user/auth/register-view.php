@@ -3,8 +3,9 @@ setHeader($d, "register", "sweetalert2.min");
 ?>
 
 <div class="container-form">
-    <video autoplay loop muted src="<?php echo VIDEO; ?>gradient.mp4"></video>
-    <div class="login-form">
+    <div class="background-overlay"></div>
+    <img class="" src="http://forus.com/resources/assets/img/categories/banners/onu-3.jpg" alt="">
+    <div class="login-form z-50">
         <h1><b><span class="white-text">Create</span><span class="blue-text"> Account</span></b></h1>
 
         <form class="" id="register-form" method="POST" autocomplete="off" enctype="multipart/form-data">

@@ -806,9 +806,19 @@ body.dark #dashboard-cards div,
 body.dark #chart-card > div,
 body.dark .interact div,
 body.dark #postDT,
-body.dark .dataTables_wrapper {
+body.dark .dataTables_wrapper,
+body.dark #last-section > div {
   background: #334155;
   border-color: #1e293b;
+}
+
+body.dark #last-section li > div {
+  background: #475569;
+  border-color: #1e293b;
+}
+
+body.dark #last-section li #activity-text {
+  color: white;
 }
 
 body.dark p,
@@ -818,4 +828,22 @@ body.dark #forus  {
 
 body.dark header svg {
   fill: #d8d8d8;
+}
+
+
+#dashUsersDT_wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25vh;
+}
+
+#dashUsersDT_filter input{
+  border-radius: 10px !important; 
+  margin-left: 10px;
+}
+
+#dashUsersDT_filter{
+  display: none !important;
 }

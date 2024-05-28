@@ -1,7 +1,7 @@
 <?php
 require_once LAYOUTS_AD . 'header.php';
 ?>
-<div class="container pb-6 pt-6">
+<div class="container pb-6 pt-6 w-full mx-auto ml-20">
     <div class="text-content">
         <h2 class="title has-text-centered"><?= $ua->username ?></h2>
         <div class="text-center">

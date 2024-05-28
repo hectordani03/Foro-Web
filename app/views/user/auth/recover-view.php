@@ -3,7 +3,8 @@ setHeader($d, "recover", "sweetalert2.min");
 ?>
 
 <div class="container-form">
-    <video autoplay loop muted src="<?php echo VIDEO; ?>gradient.mp4"></video>
+    <div class="background-overlay"></div>
+    <img class="" src="http://forus.com/resources/assets/img/categories/banners/onu-4.jpeg" alt="">
     <div class="login-form">
         <h1><b><span class="white-text">Recover your</span><span class="blue-text"> Password</span></b></h1>
 		<form id="recover-form" method="POST" autocomplete="off" enctype="multipart/form-data">

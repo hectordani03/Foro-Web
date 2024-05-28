@@ -50,10 +50,11 @@ html {
 }
 
 .login-form a:nth-child(2) {
+  font-weight: bold;
   color: #007bff;
 }
 .login-form a:nth-child(2):hover {
-  color: blue;
+  color: #006fe6;
 }
 .login-form a:last-child {
   margin-right: 0px;

@@ -967,14 +967,6 @@ const app = {
             <span class="text-gray-400">${parentComment.content}</span>
         </div>
     </div>
-    <section class="icon-container flex gap-3 absolute z-10">
-        <span class="icon-wrapper flex items-center justify-center w-8 h-8 bg-slate-500 rounded-full">
-            <i class="fa-solid fa-pencil w-3 h-3 text-white text-center cursor-pointer"></i>
-        </span>
-        <span class="icon-wrapper flex items-center justify-center w-8 h-8 bg-slate-500 rounded-full">
-            <i class="fa-solid fa-trash w-3 h-3 text-white text-center cursor-pointer"></i>
-        </span>
-    </section>
 </div>
 
 

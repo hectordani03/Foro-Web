@@ -1177,17 +1177,17 @@ const app_ad = {
 
   logHtmlBuilder: function (log) {
     return `
-    <li class="mb-10 ms-6">
-      <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-slate-200 ">
+    <li class="mb-10 ms-6 w-11/12">
+      <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-slate-200 mt-3">
         <img class="rounded-full shadow-lg" src="http://forus.com/resources/assets/img/profile/${
           log.pic
         }" />
       </span>
-      <div class="items-center justify-between p-4 bg-slate-200 border border-gray-200 rounded-lg shadow-sm sm:flex ">
+      <div class="items-center justify-between p-4 bg-slate-300 border border-gray-200 rounded-lg shadow-lg sm:flex ml-2">
         <time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0">${formatTimeSincePost(
           log.date
         )}</time>
-        <div class="text-sm font-normal text-gray-500">${log.action} by ${
+        <div id="activity-text" class="text-sm font-normal text-gray-500">${log.action} by ${
       log.username
     } </div>
       </div>

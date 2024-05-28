@@ -138,11 +138,11 @@ require_once LAYOUTS_AD . 'header.php';
 		</div>
 
 	</section>
-	<section class="flex gap-5 relative flex-col lg:flex-row">
+	<section id="last-section" class="flex gap-5 relative flex-col lg:flex-row">
 		<div class="lg:w-4/12 w-12/12 rounded-lg bg-slate-100 mt-7 h-auto relative overflow-auto ml-8">
 			<p class="text-gray-700 font-semibold text-xl m-5">Activ<span class="text-blue-500">ity</span></p>
-			<div class="lg:absolute">
-				<ol id="activityLog" class="relative border-s border-gray-400 ml-7 mr-4">
+			<div class="lg:absolute w-11/12">
+				<ol id="activityLog" class="relative border-s border-gray-400 ml-7 w-full">
 
 				</ol>
 			</div>
