@@ -21,7 +21,7 @@ class categories extends Model
 
     public function getAllCategories()
     {
-        $result = $this->select(['name, gif, img, banner'])
+        $result = $this->select(['name, gif, img, banner, description'])
             ->get();
         return $result;
     }

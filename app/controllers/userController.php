@@ -74,4 +74,22 @@ class UserController extends Controller
 
         echo json_encode($response);
     }
+
+    public function helper(){
+
+        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
+        if (!empty($data)) {
+            $data['username'] = session::sessionValidate()['username'];
+            $data['email'] = session::sessionValidate()['email'];
+            ob_start();
+            require_once '../app/views/templates/emails/helper.php';
+            $subject = 'For us technical support';
+            $message = ob_get_clean();
+            sendMail('equiposportx@gmail.com', $subject, $message);
+                echo json_encode(["r" => true]);
+        } else {
+            redirect::to('');
+            exit();
+        }
+    }
 }

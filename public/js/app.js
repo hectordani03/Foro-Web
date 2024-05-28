@@ -16,6 +16,7 @@ const app = {
     like: "/Interactions/createLike",
     userNotificationsCount: "/Interactions/getNotificationCount",
     userNotifications: "/Interactions/getNotifications",
+    helper: "/User/helper",
   },
 
   user: {
@@ -50,9 +51,11 @@ const app = {
       });
     $(document).on("click", ".like", function () {
       var postId = $(this).data("post-id");
-      const userData = $.grep(usp, function (e) {return e.id === postId;})[0];
+      const userData = $.grep(usp, function (e) {
+        return e.id === postId;
+      })[0];
       var likes = $(".likes_count" + postId);
-      var likesc = likes.data('count') || 0;
+      var likesc = likes.data("count") || 0;
       var data = {
         postId: postId,
         type: "like",
@@ -72,15 +75,15 @@ const app = {
           if (likesc > 0) {
             if (likes.length > 0) {
               likes.html(likesc);
-              likes.data('count', likesc);
-              likes.show(); 
+              likes.data("count", likesc);
+              likes.show();
             } else {
               var newLikeHtml = `<span id="likes" class="likes_count${postId}" data-count="${likesc}">${likesc}</span>`;
               $('.like[data-post-id="' + postId + '"]').append(newLikeHtml);
             }
           } else {
             if (likes.length > 0) {
-              likes.data('count', 0); 
+              likes.data("count", 0);
               likes.hide();
             }
           }
@@ -104,9 +107,11 @@ const app = {
       });
     $(document).on("click", ".like", function () {
       var postId = $(this).data("post-id");
-      const userData = $.grep(usp, function (e) {return e.id === postId;})[0];
+      const userData = $.grep(usp, function (e) {
+        return e.id === postId;
+      })[0];
       var likes = $(".likes_count" + postId);
-      var likesc = likes.data('count') || 0;
+      var likesc = likes.data("count") || 0;
       var data = {
         postId: postId,
         type: "like",
@@ -126,15 +131,15 @@ const app = {
           if (likesc > 0) {
             if (likes.length > 0) {
               likes.html(likesc);
-              likes.data('count', likesc);
-              likes.show(); 
+              likes.data("count", likesc);
+              likes.show();
             } else {
               var newLikeHtml = `<span id="likes" class="likes_count${postId}" data-count="${likesc}">${likesc}</span>`;
               $('.like[data-post-id="' + postId + '"]').append(newLikeHtml);
             }
           } else {
             if (likes.length > 0) {
-              likes.data('count', 0); 
+              likes.data("count", 0);
               likes.hide();
             }
           }
@@ -225,7 +230,9 @@ const app = {
         const rp = $(".replyComment");
         rp.on("click", function (e) {
           const commentId = Number($(this).attr("data-comment-id"));
-          const comment = $.grep(com, function (e) {return e.id === commentId;})[0];
+          const comment = $.grep(com, function (e) {
+            return e.id === commentId;
+          })[0];
           const adrp = ".addReply" + commentId;
           $(adrp).html("");
           const html = app.repliesCommentHtml(postId, comment);
@@ -268,7 +275,7 @@ const app = {
     fetch(this.routes.getCategories)
       .then((res) => res.json())
       .then((categories) => {
-        catObjetive = categories;  
+        catObjetive = categories;
         html = "";
         for (let category of categories) {
           html += `<li class="w-10 h-10">
@@ -284,15 +291,21 @@ const app = {
         const urlParams = new URLSearchParams(queryString);
         const category = urlParams.get("category");
 
-        if (category) { 
-          const cat = $.grep(catObjetive, function(e) {
+        if (category) {
+          const cat = $.grep(catObjetive, function (e) {
             return e.name === category;
           })[0];
 
-          if (cat) {  
+          if (cat) {
             const img = $("#objetiveGif");
-            img.attr("src", "http://forus.com/resources/assets/img/categories/gifs/" + cat.gif);
+            img.attr(
+              "src",
+              "http://forus.com/resources/assets/img/categories/gifs/" + cat.gif
+            );
           }
+          $("#objetiveInfo").on("click", function () {
+            console.log(cat);
+          });
         }
       });
   },
@@ -301,11 +314,6 @@ const app = {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const category = urlParams.get("category");
-    if (category) { 
-      const cat = $.grep(catObjetive, function(e) {
-        return e.name === category;
-      })[0];
-    }
     let html = this.noContentPostsHtml();
     this.pp.html("");
 
@@ -321,11 +329,13 @@ const app = {
         });
         this.pp.html(html);
       });
-   $(document).on("click", ".like", function () {
+    $(document).on("click", ".like", function () {
       var postId = $(this).data("post-id");
-      const userData = $.grep(usp, function (e) {return e.id === postId;})[0];
+      const userData = $.grep(usp, function (e) {
+        return e.id === postId;
+      })[0];
       var likes = $(".likes_count" + postId);
-      var likesc = likes.data('count') || 0;
+      var likesc = likes.data("count") || 0;
       var data = {
         postId: postId,
         type: "like",
@@ -345,15 +355,15 @@ const app = {
           if (likesc > 0) {
             if (likes.length > 0) {
               likes.html(likesc);
-              likes.data('count', likesc);
-              likes.show(); 
+              likes.data("count", likesc);
+              likes.show();
             } else {
               var newLikeHtml = `<span id="likes" class="likes_count${postId}" data-count="${likesc}">${likesc}</span>`;
               $('.like[data-post-id="' + postId + '"]').append(newLikeHtml);
             }
           } else {
             if (likes.length > 0) {
-              likes.data('count', 0); 
+              likes.data("count", 0);
               likes.hide();
             }
           }
@@ -363,9 +373,8 @@ const app = {
   },
 
   getCategoryInfo: function () {
-
+    
   },
-
 
   getHashtags: function () {
     const queryString = window.location.search;
@@ -420,18 +429,143 @@ const app = {
       });
   },
 
+  helper: function () {
+    const modalContainer = $("<div></div>");
+
+    let html = this.helperModalHtml();
+    modalContainer.html(html);
+
+    $('body').append(modalContainer);
+
+    const modal = $('#image-modal');
+    modal.removeClass('hidden');
+    $(function () {
+      $("body").removeClass("overflow-auto").addClass("overflow-hidden");
+    });
+    const close = $(".close-modal");
+    close.on("click", () => {
+      modal.addClass("hidden");
+      $("body").removeClass("overflow-hidden").addClass("overflow-auto");
+    });
+  },
+
+  helperModalHtml: function () {
+    return `
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-40 transition-opacity hidden"></div>
+      <div id="image-modal" class="hidden fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 modal-close">
+      <div class="bg-slate-700 rounded-lg p-4 sm:p-6 lg:p-8 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl w-full">        
+            <div class="relative flex justify-center items-center mb-4">
+            <h1 class="text-black text-2xl sm:text-3xl font-bold dark:text-white">FOR<span class="text-blue-500 ml-2">US</span></h1>                
+                <button id="close-modal" class="absolute right-0 text-gray-600 hover:text-gray-800 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-5">          
+            <div class="w-full pr-2 flex flex-col">
+              <form class="" id="helper-form" method="POST" autocomplete="off" enctype="multipart/form-data">
+                <div class="mb-5 mt-9">
+                  <p class="text-center text-lg sm:text-xl text-gray-400 font-semibold rounded-xl w-full px-2">How can we assist you today?</p>
+                </div>
+                <div class="mb-5">
+                  <textarea class="auto-expand text-lg sm:text-xl border-b-2 border-gray-300 py-2 focus:border-gray-400 transition-colors focus:outline-none bg-slate-200 dark:bg-slate-600 text-gray-400 font-semibold shadow-md rounded-xl w-full px-2 h-[160px] sm:h-[180px] md:h-[200px] lg:h-[220px] max-h-[220px] overflow-y-auto" id="helperDescripcion" name="description" placeholder="Tell us how we can help you"></textarea>
+                </div>
+                <div class="flex justify-center mb-5 mt-2">
+                    <button type="submit" onclick="app.sendHelp()" class="text-xl bg-sky-400 text-white text-center w-1/2 py-2 rounded-lg font-semibold sm:text-xl">Send</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+    `;
+  },
+
+  sendHelp: function () {
+    const hpr = $("#helper-form");
+    hpr.off("submit").on("submit", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const submitButton = hpr.find('button[type="submit"]');
+      submitButton.prop("disabled", true);
+      let em = $("#helperEmail");
+      let de = $("#helperDescripcion");
+      if (em.val() === "" || de.val() === "") {
+        alerts({
+          type: "function",
+          icon: "error",
+          text: "Fields cannot be empty",
+          callback: function () {
+            submitButton.prop("disabled", false);
+          },
+        });
+      } else {
+        const data = new FormData(this);
+        $.ajax({
+          url: app.routes.helper,
+          type: "POST",
+          data: data,
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (res) {
+            if (res.r === true) {
+              alerts({
+                type: "function",
+                icon: "success",
+                text: "Your request has been sent",
+                callback: function () {
+                  location.reload();
+                },
+              });
+            } else if (res.r === "e") {
+              alerts({
+                type: "function",
+                icon: "error",
+                text: "Fields cannot be empty",
+                callback: function () {
+                  submitButton.prop("disabled", false);
+                },
+              });
+            } else if (res.r === "q") {
+              alerts({
+                type: "error",
+                text: "Unexpected error, please try again",
+              });
+            }
+          },
+          error: function () {
+            alerts({
+              type: "error",
+              text: "Unexpected error, please try again",
+            });
+            submitButton.prop("disabled", false);
+          }
+        });
+      }
+    });
+  },
+  
   /* HTML */
   postsHtmlBuilder: function (post) {
-    
-    var likesHtml = post.likes > 0 ? `
-    <span id="likes" class="likes_count${post.id}" data-count="${post.likes}">${post.likes}</span>` : ''; 
-    
-    var sharesHtml = post.shares > 0 ? `
-    <span id="shares" class="shares_count${post.id}" data-counts="${post.shares}">${post.shares}</span>
-    ` : '';
-    var commentsHtml = post.comments > 0 ? `
-    <span id="comments" class="comments_count${post.id}" data-countc="${post.comments}">${post.comments}</span>` : '';
+    var likesHtml =
+      post.likes > 0
+        ? `
+    <span id="likes" class="likes_count${post.id}" data-count="${post.likes}">${post.likes}</span>`
+        : "";
 
+    var sharesHtml =
+      post.shares > 0
+        ? `
+    <span id="shares" class="shares_count${post.id}" data-counts="${post.shares}">${post.shares}</span>
+    `
+        : "";
+    var commentsHtml =
+      post.comments > 0
+        ? `
+    <span id="comments" class="comments_count${post.id}" data-countc="${post.comments}">${post.comments}</span>`
+        : "";
 
     let postHtml = "";
     if (post.postId) {
@@ -522,19 +656,33 @@ const app = {
       ${postHtml}
     <input type="hidden" name"category" value="${post.category}">
     <div class="flex w-10/12 relative mt-10 mb-5 mx-auto">
-        <div data-post-id="${post.id}" class="like text-gray-400 w-8 h-8 transition-all cursor-pointer">
+        <div data-post-id="${post.id}" class="${
+      !app.user.sv ? "nologued" : "like"
+    } text-gray-400 w-8 h-8 transition-all cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path class="fill-current" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
             </svg>
             ${likesHtml}
         </div>
-        <div ${!app.user.sv ? "": `id="comment-button" onclick="app.postComments(${post.id})"`} class="text-gray-400 w-7 h-7 ml-5 mt-1 cursor-pointer comment-button ${!app.user.sv ? "nologued" : ""}">
+        <div ${
+          !app.user.sv
+            ? ""
+            : `id="comment-button" onclick="app.postComments(${post.id})"`
+        } class="text-gray-400 w-7 h-7 ml-5 mt-1 cursor-pointer comment-button ${
+      !app.user.sv ? "nologued" : ""
+    }">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path class="fill-current" d="M64 0C28.7 0 0 28.7 0 64V352c0 35.3 28.7 64 64 64h96v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64z" />
             </svg>
             ${commentsHtml}
         </div>
-        <div ${!app.user.sv? "": `id="share-button" onclick="app.sharePost(${post.id})"`} class="text-gray-400 w-8 h-8 absolute right-3 cursor-pointer share-button ${!app.user.sv ? "nologued" : ""}">
+        <div ${
+          !app.user.sv
+            ? ""
+            : `id="share-button" onclick="app.sharePost(${post.id})"`
+        } class="text-gray-400 w-8 h-8 absolute right-3 cursor-pointer share-button ${
+      !app.user.sv ? "nologued" : ""
+    }">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path class="fill-current" d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z" />
             </svg>
@@ -616,7 +764,11 @@ const app = {
                            ${this.buildHashtagsHtml(post.hashtag)}
                         </div>
                         <hr class="w-full mt-10 mb-5">
-                        <button type="submit" onclick="post.sharePost(${post.id}, '${post.category}', '${post.userId}')" id="sharebtn" class="btn mr-10 ml-10 mb-5 bg-sky-500 rounded-xl p-3 text-white">Share</button>
+                        <button type="submit" onclick="post.sharePost(${
+                          post.id
+                        }, '${post.category}', '${
+      post.userId
+    }')" id="sharebtn" class="btn mr-10 ml-10 mb-5 bg-sky-500 rounded-xl p-3 text-white">Share</button>
                         </form>
                 </div>
             </div>
@@ -784,9 +936,7 @@ const app = {
 `;
   },
 
-  categoryHtml: function () {
-
-  }
+  categoryHtml: function () {},
 };
 
 function formatTimeSincePost(postDate) {
@@ -824,17 +974,22 @@ function loadDoc() {
           } catch (e) {
             response = null;
           }
-          if (Array.isArray(response) && response.length > 0 && response[0].tt != null) {
+          if (
+            Array.isArray(response) &&
+            response.length > 0 &&
+            response[0].tt != null
+          ) {
             var notificationsCount = response[0].tt;
-            document.getElementById("userNotifications").innerHTML = notificationsCount;
+            document.getElementById("userNotifications").innerHTML =
+              notificationsCount;
           } else {
-            document.getElementById("userNotifications").innerHTML = '';
+            document.getElementById("userNotifications").innerHTML = "";
           }
         } else {
-          document.getElementById("userNotifications").innerHTML = '';
+          document.getElementById("userNotifications").innerHTML = "";
         }
       } else if (this.readyState == 4) {
-        document.getElementById("userNotifications").innerHTML = '';
+        document.getElementById("userNotifications").innerHTML = "";
       }
     };
     xhttp.open("GET", app.routes.userNotificationsCount, true);
@@ -855,5 +1010,20 @@ $(function () {
       const isVisible = postText.includes(value) || username.includes(value);
       $(this).toggleClass("hide", !isVisible);
     });
+  });
+});
+
+$(document).on("click", ".nologued", function () {
+  event.preventDefault();
+  Swal.fire({
+    icon: "error",
+    title: "Login / Register",
+    text: "Login or register to continue viewing the page without interruptions",
+    confirmButtonColor: "#28a745",
+    confirmButtonText:
+      '<a class="botoniniciar text-light text-decoration-none" href="/login">Login / Register</a>',
+    showCancelButton: false,
+    backdrop: true,
+    timer: 1000,
   });
 });

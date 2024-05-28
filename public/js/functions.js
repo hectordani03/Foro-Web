@@ -43,22 +43,6 @@ function alerts(alert) {
 }
 
 /*----------------------------- ALERTS-------------------------------------- */
-$(function () {
-  $(".nologued").on("click", function (event) {
-    event.preventDefault();
-    Swal.fire({
-      icon: "error",
-      title: "Login / Register",
-      text: "Login or register to continue viewing the page without interruptions",
-      confirmButtonColor: "#28a745",
-      confirmButtonText:
-        '<a class="botoniniciar text-light text-decoration-none" href="/login">Login / Register</a>',
-      showCancelButton: false,
-      backdrop: true,
-      timer: 1000,
-    });
-  });
-});
 
 $(function () {
   $(".requestForm").on("submit", function (e) {
