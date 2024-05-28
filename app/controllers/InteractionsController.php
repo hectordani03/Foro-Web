@@ -56,9 +56,26 @@ class InteractionsController extends Controller
     public function getNotifications()
     {
         $userId = session::sessionValidate()['id'];
-        $Inter = new Inter;
-        $result = $Inter->getUserNotifications($userId);
-        echo $result;
+        $inter = new inter();
+        $notifications = json_decode($inter->getUserNotifications($userId));
+
+        $response = [];
+
+        foreach ($notifications as $notification) {
+            switch ($notification->type) {
+                case 'like':
+                    $response['like'][] = $notification;
+                    break;
+                case 'comment':
+                    $response['comment'][] = $notification;
+                    break;
+                case 'share':
+                    $response['share'][] = $notification;
+                    break;
+            }
+        }
+
+        echo json_encode($response);
     }
 
     public function getNotificationCount()
@@ -69,7 +86,8 @@ class InteractionsController extends Controller
         echo $result;
     }
 
-    public function updateUserNotifications(){
+    public function updateUserNotifications()
+    {
         $Interposts = new Interposts;
         $intercomts = new intercomts;
 
@@ -93,21 +111,21 @@ class InteractionsController extends Controller
             if (count($interPostsData) > 0) {
                 $res = $Interposts->notificationSeen($data);
             } else {
-                echo json_encode(["r" => 'n']);  
+                echo json_encode(["r" => 'n']);
             }
             if (count($interComtsData) > 0) {
                 $res2 = $intercomts->notificationSeen($data);
             } else {
-                echo json_encode(["r" => 'n']);  
+                echo json_encode(["r" => 'n']);
             }
-
         } else {
             redirect::to('');
             exit();
         }
     }
 
-    public function getTotalLikes() {
+    public function getTotalLikes()
+    {
         $interactions = new inter;
         $limitDate = date('Y-m-d H:i:s', strtotime('-5 days'));
 

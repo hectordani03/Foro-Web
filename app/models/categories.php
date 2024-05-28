@@ -106,4 +106,14 @@ class categories extends Model
             return false;
         }
     }
+
+    public function getuserCategories($userId){
+        $result = $this->select(['a.img'])
+            ->join('posts b', 'a.name=b.category')
+            ->join('user c', 'b.userId=c.id')
+            ->where([['b.userId', $userId['userId']]])
+            ->groupBy([['b.category']])
+            ->get();
+        return $result;
+    }
 }

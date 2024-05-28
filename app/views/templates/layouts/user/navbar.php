@@ -30,7 +30,7 @@
     }
 </style>
 
-<div id="responsive-desplegable" class="text-gray-400 w-12 h-12 z-50 mt-10 cursor-pointer dark:bg-slate-700 rounded-r-xl p-3">
+<div id="responsive-desplegable" class="text-gray-400 w-12 h-12 z-50 mt-10 cursor-pointer bg-slate-200 dark:bg-slate-700 rounded-r-xl p-3 fixed -top-7">
     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
         <path class="fill-current" d="M438.6 150.6c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 96 32 96C14.3 96 0 110.3 0 128s14.3 32 32 32l306.7 0-41.4 41.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96zm-333.3 352c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 416 416 416c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0 41.4-41.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96z" />
     </svg>
@@ -61,41 +61,36 @@
                         <span class="desplegableText hidden relative left-12 bottom-8">Home</span>
                 </a>
             </li>
+            <li class="w-15 h-15">
+                <a href="<?= URL; ?>popular">
+                    <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path class="fill-current" d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z" />
+                        </svg>
+                        <span class="desplegableText hidden relative left-12 bottom-8">Popular</span>
+                    </div>
+                </a>
+            </li>
         </ul>
-        <li class="w-15 h-15">
-            <a href="<?= URL; ?>popular">
-                <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                        <path class="fill-current" d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z" />
-                    </svg>
-                    <span class="desplegableText hidden relative left-12 bottom-8">Popular</span>
-                </div>
-            </a>
-        </li>
         <hr class="w-full mt-5 border-gray-300 px-10">
-
         <!-- CATEGORIES -->
-        <div class="relative h-64 overflow-hidden-scroll scrollbar-hidden">
+        <div class="relative h-64 overflow-hidden-scroll">
             <ul class="flex flex-col gap-7 justify-between mt-5 relative">
                 <form class="flex flex-col gap-2" action="/Posts/category" id="categories-form" method="GET" autocomplete="off" enctype="multipart/form-data">
                 </form>
 
-                <!-- ADD BUTTON -->
-                <li class="rounded-lg bg-blue-400 text-center flex flex-col justify-center items-center w-10 h-10">
-                    <a class="text-white w-full text-3xl pb-1">
-                        +
+                <div class="flex items-center justify-center">
+                    <a id="add-category" class="cursor-pointer text-white text-3xl pb-2" onclick="app.addCategory()">
                     </a>
-                </li>
+                </div>
             </ul>
         </div>
-
-
         <hr class="w-full mt-5 border-gray-300 px-10">
         <span class="desplegableText hidden relative text-gray-400 text-nowrap text-xl font-semibold mt-4">Resources</span>
         <ul class="flex flex-col gap-7 justify-between mt-5">
             <?php if (isset($ua->sv) && $ua->sv && $ua->role != 3) : ?>
                 <li class="w-15 h-15">
-                    <a href="<?= URL; ?>dashboard">
+                    <a href="<?= URL; ?>home/dashboard">
                         <div class="text-gray-400 w-9 h-9 mx-auto cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <path class="fill-current" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
@@ -105,15 +100,7 @@
                     </a>
                 </li>
             <?php endif; ?>
-            <li class="w-15 h-15">
-                <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                        <path class="fill-current" d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
-                    </svg>
-                    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Notifications</span>
-                </div>
-            </li>
-            <li class="w-15 h-15 cursor-pointer">
+            <li class="w-15 h-15 cursor-pointer relative -top-2">
                 <div id="dark-mode-icon" class="text-gray-400 w-7 h-7 mx-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                         <path class="fill-current" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z" />
@@ -129,14 +116,6 @@
                         <path class="fill-current" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM169.8 165.3c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
                     </svg>
                     <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Help</span>
-                </div>
-            </li>
-            <li class="w-15 h-15">
-                <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                        <path class="fill-current" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm80 256h64c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16c0-44.2 35.8-80 80-80zm-32-96a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zm256-32H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
-                    </svg>
-                    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">About Us</span>
                 </div>
             </li>
         </ul>
@@ -160,6 +139,14 @@
                         <path class="fill-current" d="M384 32H512c17.7 0 32 14.3 32 32s-14.3 32-32 32H398.4c-5.2 25.8-22.9 47.1-46.4 57.3V448H512c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 128c-17.7 0-32-14.3-32-32s14.3-32 32-32H288V153.3c-23.5-10.3-41.2-31.6-46.4-57.3H128c-17.7 0-32-14.3-32-32s14.3-32 32-32H256c14.6-19.4 37.8-32 64-32s49.4 12.6 64 32zm55.6 288H584.4L512 195.8 439.6 320zM512 416c-62.9 0-115.2-34-126-78.9c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C627.2 382 574.9 416 512 416zM126.8 195.8L54.4 320H199.3L126.8 195.8zM.9 337.1c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C242 382 189.7 416 126.8 416S11.7 382 .9 337.1z" />
                     </svg>
                     <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Privacy Policy</span>
+                </div>
+            </li>
+            <li class="w-15 h-15 relative -top-1">
+                <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <path class="fill-current" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm80 256h64c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16c0-44.2 35.8-80 80-80zm-32-96a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zm256-32H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+                    </svg>
+                    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">About Us</span>
                 </div>
             </li>
             <li class="w-15 h-15">

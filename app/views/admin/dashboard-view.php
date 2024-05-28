@@ -33,7 +33,7 @@ require_once LAYOUTS_AD . 'header.php';
 	}
 </style>
 
-<main class="w-10/12 h-screen relative right-0 ml-auto bg-slate-200 mr-10">
+<main class="w-10/12 h-screen relative right-0 ml-auto bg-slate-200 mr-10 overflow-x-hidden">
 	<!-- SEARCHER AND PROFILE -->
 	<section class="min-h-20 flex justify-between">
 		<div class="mt-5 text-gray-500 font-semibold ml-3">
@@ -50,7 +50,7 @@ require_once LAYOUTS_AD . 'header.php';
 	</section>
 
 	<!-- FIRTS CARDS -->
-	<section class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-items-center">
+	<section id="dashboard-cards" class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-items-center">
 		<div class="bg-slate-100 border-r-2 border-b-2 h-32 h-max-32 max-h-32 w-full p-7 rounded-l-lg text-center lg:p-8 pt-3">
 			<div class="flex gap-1 lg:gap-3 flex-col lg:flex-row items-center lg:ml-10">
 				<i class="fa-duotone fa-user-group text-3xl text-slate-500"></i>
@@ -119,21 +119,39 @@ require_once LAYOUTS_AD . 'header.php';
 	</section>
 
 	<!-- CHART ANF CATEGORIES -->
-	<section class="flex gap-5 flex-col lg:flex-row">
+	<section id="chart-card" class="flex gap-5 flex-col lg:flex-row">
 		<div class="lg:w-9/12 w-12-12 rounded-lg bg-slate-100 mt-7 h-64 relative px-4 py-2 pl-10">
 			<!-- HTML -->
-			<div id="chartdiv" class="absolute"></div>
+			<section id="chartdiv" class="absolute"></section>
 		</div>
 
 		<div class="lg:w-3/12 w-12-12 rounded-lg bg-gradient-to-t from-slate-100 to-slate-100 mt-7 overflow-auto relative h-auto">
 			<p class="text-slate-700 font-semibold text-xl m-5">Cate<span class="text-blue-500">gories</span></p>
-			<ul id="categorieslist" class=" ml-7 flex lg:flex-col gap-2 lg:absolute">
-
+			<ul class=" ml-7 flex lg:flex-col gap-2 lg:absolute">
+				<li class="flex w-full gap-5 flex-col lg:flex-row text-center lg:text-start">
+					<img class="rounded-lg w-10 h-10 mx-auto lg:m-0" src="<?php echo CAT_IMG; ?>obj2.png" alt="" class="w-full">
+					<span class="text-slate-500 w-full font-semibold text-sm mt-1">Zero Hunger</span>
+				</li>
+				<li class="flex w-full gap-5 flex-col lg:flex-row text-center lg:text-start">
+					<img class="rounded-lg w-10 h-10 mx-auto lg:m-0" src="<?php echo CAT_IMG; ?>obj4.png" alt="" class="w-full">
+					<span class="text-slate-500 w-full font-semibold text-sm mt-1">Quality Education</span>
+				</li>
+				<li class="flex w-full gap-5 flex-col lg:flex-row text-center lg:text-start">
+					<img class="rounded-lg w-10 h-10 mx-auto lg:m-0" src="<?php echo CAT_IMG; ?>obj13.png" alt="" class="w-full">
+					<span class="text-slate-500 w-full font-semibold text-sm mt-1">Climate Action</span>
+				</li>
+				<li class="flex w-full gap-5 flex-col lg:flex-row text-center lg:text-start">
+					<img class="rounded-lg w-10 h-10 mx-auto lg:m-0" src="<?php echo CAT_IMG; ?>obj14.png" alt="" class="w-full">
+					<span class="text-slate-500 w-full font-semibold text-sm mt-1">Life Below Water</span>
+				</li>
+				<li class="flex w-full gap-5 mb-5 flex-col lg:flex-row text-center lg:text-start">
+					<img class="rounded-lg w-10 h-10 mx-auto lg:m-0" src="<?php echo CAT_IMG; ?>obj10.png" alt="" class="w-full">
+					<span class="text-slate-500 w-full font-semibold text-sm mt-1">Reduced Inequalities</span>
+				</li>
 			</ul>
 		</div>
 
 	</section>
-	
 	<section class="flex gap-5 relative flex-col lg:flex-row">
 		<div class="lg:w-4/12 w-12/12 rounded-lg bg-slate-100 mt-7 h-auto relative overflow-auto ml-8">
 			<p class="text-gray-700 font-semibold text-xl m-5">Activ<span class="text-blue-500">ity</span></p>

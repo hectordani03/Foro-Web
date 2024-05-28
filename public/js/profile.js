@@ -10,6 +10,8 @@ const profile = {
     userComts: "/Profile/getComts",
     userProfile: "/Profile/getUser",
     updateUser: "/Profile/updateUser",
+    updateColor: "/Profile/updateColor",
+    userCat: "/Profile/userCategories",
 
     like: "/Interactions/createLike",
   },
@@ -330,6 +332,28 @@ const profile = {
             backgroundClasses.add(colorClass);
           }
           saveColorToLocalStorage(colorClass);
+
+          
+          // Envía el color seleccionado al servidor
+          fetch(profile.routes.updateColor, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ color: colorClass }),
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Color guardado correctamente:', data);
+          })
+          .catch(error => {
+            console.error('Error al guardar el color:', error);
+          });
         }
 
         red.on("click", () => changeBackgroundColor("from-red-500"));
@@ -716,6 +740,19 @@ ${sharesHtml}
 </div>
     `;
   },
+
+  userCat: function() {
+    let html = ``;
+    let cat = $("#userCat")
+    fetch(this.routes.userCat)
+      .then((res) => res.json())
+      .then((cats) => {
+        cats.forEach((cat) => {
+          html += `<img class="rounded-lg w-12 h-12" src="http://forus.com/resources/assets/img/categories/${cat.img}" alt="">`
+        });
+        cat.html(html);
+      });
+  }
 };
 
 $("#userComments").on("click", function () {

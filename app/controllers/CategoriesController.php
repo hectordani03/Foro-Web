@@ -64,7 +64,7 @@ class CategoriesController extends Controller
             exit();
         }
     }
-    
+
     public function deteleCategory()
     {
         $cat = new cat;
