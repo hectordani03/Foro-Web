@@ -19,7 +19,7 @@ const app_ad = {
 
     totalUsers: "/User/totalUsers",
     totalPosts: "/Posts/totalPosts",
-    totalLikes: "/Interactions/totalLikes",
+    totalLikes: "/Interactions/getTotalLikes",
     totalBannedUsers: "/Suspensions/totalBannedUsers",
     totalCategories: "/Categories/totalCategories",
 
@@ -1114,15 +1114,17 @@ const app_ad = {
       },
     });
 
-    // $.ajax({
-    //   url: this.routes.totalLikes,
-    //   type: "GET",
-    //   dataType: "json",
-    //   success: function(users) {
-    // $("#likes").html(likes[0].tt);
-
-    //   }
-    // });
+    $.ajax({
+      url: this.routes.totalLikes,
+      type: "GET",
+      dataType: "json",
+      success: function(likes) {
+    if (likes.oldlikes && likes.oldlikes.length > 0) {
+      $("#likes").html(likes.oldlikes[0].tt);
+    }
+    $("#likesQuantity").html("+" + likes.newlikes[0].tt);
+      }
+    });
 
     $.ajax({
       url: this.routes.totalBannedUsers,
@@ -1198,7 +1200,7 @@ const app_ad = {
   categoriesHtmlBuilder: function (category) {
     return `
     <li class="flex w-full gap-5 flex-col lg:flex-row text-center lg:text-start">
-      <img class="rounded-lg w-10 h-10 mx-auto lg:m-0" src="http://forus.com/resources/assets/img/categories/${category.gif}" alt="" class="w-full">
+      <img class="rounded-lg w-10 h-10 mx-auto lg:m-0" src="http://forus.com/resources/assets/img/categories/${category.img}" alt="" class="w-full">
       <span class="text-slate-500 w-full font-semibold text-sm mt-1">${category.name}</span>
     </li>
     `;

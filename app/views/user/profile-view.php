@@ -60,7 +60,6 @@ require_once LAYOUTS_US . 'header.php';
         <div class="flex gap-16 justify-center mt-5 mb-10">
             <a href="#" id="userPosts" class="link-underline text-gray-400 font-semibold text-xl">Posts</a>
             <a href="#" id="userComments" class="link-underline text-gray-400 font-semibold text-xl">Comments</a>
-            <a href="#" id="userLikes" class="link-underline text-gray-400 font-semibold text-xl">Likes</a>
             <a href="#" id="userSharedPosts" class="link-underline text-gray-400 font-semibold text-xl">Shared</a>
         </div>
 

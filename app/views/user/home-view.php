@@ -48,5 +48,6 @@ require_once LAYOUTS_US . 'footer.php';
 <script>
     $(function() {
         app.allPosts();
+        window.onload = loadDoc;
     });
 </script>

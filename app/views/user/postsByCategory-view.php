@@ -60,5 +60,6 @@ require_once LAYOUTS_US . 'footer.php';
         app.catPosts();
         app.getHashtags();
         post.addPosts();
+        window.onload = loadDoc;
     });
 </script>

@@ -49,5 +49,6 @@ require_once LAYOUTS_US . 'footer.php';
 <script>
     $(function() {
         app.mostPopularPost();
+        window.onload = loadDoc;
     });
 </script>

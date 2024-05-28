@@ -100,4 +100,24 @@ class interactions extends Model
 
         return $result;
     }
+
+    public function getTotalInteractionsUntil($limitDate) {
+        $result = $this->select(['count(*) as tt'])
+            ->where([
+                ['created_at', $limitDate, '<='],
+                ['type', 'like']
+                ])
+            ->get();
+        return $result;
+    }
+
+    public function getNewInteractions($limitDate) {
+        $result = $this->select(['count(*) as tt'])
+            ->where([
+                ['created_at', $limitDate, '>'],
+                ['type', 'like']
+                ])
+            ->get();
+        return $result;
+    }
 }

@@ -301,7 +301,11 @@ const app = {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const category = urlParams.get("category");
-
+    if (category) { 
+      const cat = $.grep(catObjetive, function(e) {
+        return e.name === category;
+      })[0];
+    }
     let html = this.noContentPostsHtml();
     this.pp.html("");
 
@@ -841,11 +845,6 @@ function loadDoc() {
 
   setInterval(fetchNotifications, 20000);
 }
-
-window.onload = loadDoc;
-
-
-
 
 $(function () {
   $("[data-search]").on("input", function () {

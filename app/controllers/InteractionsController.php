@@ -106,4 +106,22 @@ class InteractionsController extends Controller
             exit();
         }
     }
+
+    public function getTotalLikes() {
+        $interactions = new inter;
+        $limitDate = date('Y-m-d H:i:s', strtotime('-5 days'));
+
+        $totalInteractionsUntil = $interactions->getTotalInteractionsUntil($limitDate);
+        $totalInteractionsUntil = json_decode($totalInteractionsUntil);
+
+        $newInteractions = $interactions->getNewInteractions($limitDate);
+        $newInteractions = json_decode($newInteractions);
+
+        $response = [
+            'oldLikes' => $totalInteractionsUntil,
+            'newLikes' => $newInteractions,
+        ];
+
+        echo json_encode($response);
+    }
 }
