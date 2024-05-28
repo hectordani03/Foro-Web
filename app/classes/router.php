@@ -13,6 +13,8 @@ use app\controllers\auth\RegisterController as Register;
 use app\controllers\ProfileController as Profile;
 use app\controllers\auth\AccountController as Account;
 use app\controllers\CategoriesController as Cat;
+use app\controllers\LogController as Log;
+use app\controllers\InteractionsController as Inter;
 
 class router
 {
@@ -60,6 +62,12 @@ class router
                 break;
             case 'CategoriesController':
                 $controller = new Cat();
+                break;
+            case 'LogController':
+                $controller = new Log();
+                break;
+            case 'InteractionsController':
+                $controller = new Inter();
                 break;
             default:
                 $controller = new Error();

@@ -61,30 +61,30 @@ height: 650px;
 
 .comment-interactions {
     position: relative;
-    overflow: hidden; /* Ensure icons are hidden when outside */
+    overflow: hidden;
 }
 
 .icon-container {
     position: absolute;
     top: 50%;
-    left: 110px; /* Start at the left edge of the comment-container */
-    transform: translateX(-100%) translateY(-50%); /* Hidden to the left */
+    left: 110px;
+    transform: translateX(-100%) translateY(-50%);
     display: flex;
     gap: 10px;
-    transition: transform 0.5s ease-in-out; /* Smooth transition */
+    transition: transform 0.5s ease-in-out; 
 }
 
 .comment-interactions:hover ~ .icon-container {
-    transform: translateX(100%) translateY(-50%); /* Slide into view to the right of the comment-interactions */
+    transform: translateX(100%) translateY(-50%);
 }
 
 .icon-container:hover {
-  transform: translateX(100%) translateY(-50%); /* Slide into view to the right of the comment-interactions */
+  transform: translateX(100%) translateY(-50%); 
 }
 
 
 .comment-interactions:hover ~ .icon-container .icon-wrapper {
-    opacity: 1; /* Show icons on hover */
+    opacity: 1;
 }
 
 

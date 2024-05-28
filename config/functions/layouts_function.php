@@ -1,8 +1,9 @@
 <?php
 function setHeader($args, ...$links)
 {
+	if(isset($args->ua)){
 	$ua = as_object($args->ua);
-
+	}
 ?>
 	<!DOCTYPE html>
 	<html lang="en">

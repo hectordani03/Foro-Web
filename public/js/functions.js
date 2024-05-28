@@ -40,19 +40,6 @@ function alerts(alert) {
       ...defaults,
     });
   }
-  //   else if (alert.type == "clean") {
-  //       Swal.fire({
-  //         icon: alert.icon,
-  //         text: alert.text,
-  //         ...defaults,
-  //       }).then((result) => {
-  //         if (result.isConfirmed) {
-  //           $(".requestForm").trigger("reset");
-  //         }
-  //       });
-  //     } else if (alert.type == "redirect") {
-  //       window.location.href = alert.url;
-  //     }
 }
 
 /*----------------------------- ALERTS-------------------------------------- */

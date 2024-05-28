@@ -1,8 +1,8 @@
 const post = {
-routes: {
-  addPosts: "/Posts/createPosts",
-  sharePost: "/Posts/sharePost",
-},
+  routes: {
+    addPosts: "/Posts/createPosts",
+    sharePost: "/Posts/sharePost",
+  },
 
   addPosts: function () {
     const queryString = window.location.search;
@@ -14,69 +14,99 @@ routes: {
     apf.on("submit", function (e) {
       e.preventDefault();
       e.stopPropagation();
-      $("#hashtags-selected .hashtag span").each(function() {
-          var hashtagValue = $(this).text().substring(1);
-          selectedHashtags.push(hashtagValue);
+      $("#hashtags-selected .hashtag span").each(function () {
+        var hashtagValue = $(this).text().substring(1);
+        selectedHashtags.push(hashtagValue);
       });
-      $("<input>").attr("type", "hidden").attr("name", "hashtags").val(selectedHashtags.join(",")).appendTo(apf);
+      $("<input>")
+        .attr("type", "hidden")
+        .attr("name", "hashtags")
+        .val(selectedHashtags.join(","))
+        .appendTo(apf);
+      $("<input>")
+        .attr("type", "hidden")
+        .attr("name", "category")
+        .val(category)
+        .appendTo($("#add-post-form"));
 
       const data = new FormData(this);
-      fetch(post.routes.addPosts + '/' + category, {
+      fetch(post.routes.addPosts + "/" + category, {
         method: "POST",
         body: data,
-      }) .then((res) => res.json())
-        .then((res) => { 
-          
+      })
+        .then((res) => res.json())
+        .then((res) => {
           alerts({
-          type: "function",
-          icon: "error",
-          text: "Fields can not be empty",
-          callback: function () {
-            e.preventDefault();
-          },
-        });
+            type: "function",
+            icon: "error",
+            text: "Fields can not be empty",
+            callback: function () {
+              e.preventDefault();
+            },
+          });
 
-        alerts({
-          type: "normal",
-          icon: "error",
-          text: "Filds can not be empty",
-        });
+          alerts({
+            type: "normal",
+            icon: "error",
+            text: "Filds can not be empty",
+          });
 
           if (res.r === true) {
             alerts({
               type: "success",
-              text: "Post added successfully"
-          });
-          } else if (res.r === 'e') {
+              text: "Post added successfully",
+            });
+          } else if (res.r === "e") {
             alerts({
               type: "function",
               icon: "error",
               text: "Filds can not be empty",
-              callback: function() {
-                  apf[0].reset(); 
-              }
-          });
-        } else if (res.r === 'q') {
-          alerts({
+              callback: function () {
+                apf[0].reset();
+              },
+            });
+          } else if (res.r === "i") {
+            alerts({
+              type: "function",
+              icon: "error",
+              text: "The selected image is incorrect! please try another one",
+              callback: function () {
+                e.preventDefault();
+              },
+            });
+          } else if (res.r === "q") {
+            alerts({
               type: "error",
               text: "Unexpected error, please try again",
-          });
+            });
           }
         })
         .catch(() => {
           alerts({
             type: "error",
             text: "Unexpected error, please try again",
-        });
+          });
         });
     });
   },
 
-  sharePost: function (postId, category) {
+  sharePost: function (postId, category, userId) {
     const spf = $("#sharePost-form");
-    $("<input>").attr("type", "hidden").attr("name", "postId").val(postId).appendTo(spf);
-    $("<input>").attr("type", "hidden").attr("name", "category").val(category).appendTo(spf);
-
+    $("<input>")
+      .attr("type", "hidden")
+      .attr("name", "postId")
+      .val(postId)
+      .appendTo(spf);
+    $("<input>")
+      .attr("type", "hidden")
+      .attr("name", "category")
+      .val(category)
+      .appendTo(spf);
+      $("<input>")
+      .attr("type", "hidden")
+      .attr("name", "ownerId")
+      .val(userId)
+      .appendTo(spf);
     spf.on("submit", function (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -90,29 +120,29 @@ routes: {
           if (res.r === true) {
             alerts({
               type: "success",
-              text: "Post shared successfully"
-          });
-          } else if (res.r === 'e') {
+              text: "Post shared successfully",
+            });
+          } else if (res.r === "e") {
             alerts({
               type: "function",
               icon: "error",
               text: "Filds can not be empty",
-              callback: function() {
-                  spf[0].reset(); 
-              }
-          });
-        } else if (res.r === 'q') {
-          alerts({
+              callback: function () {
+                spf[0].reset();
+              },
+            });
+          } else if (res.r === "q") {
+            alerts({
               type: "error",
               text: "Unexpected error, please try again",
-          });
+            });
           }
-        }) 
+        })
         .catch(() => {
           alerts({
             type: "error",
             text: "Unexpected error, please try again",
-        });
+          });
         });
     });
   },
@@ -144,7 +174,7 @@ inputFile.on("change", function () {
     reader.onload = function (event) {
       const img = $("<img>", {
         src: event.target.result,
-        class: "w-8/12 h-auto object-cover rounded"
+        class: "w-8/12 h-auto object-cover rounded",
       });
       imagePreview.empty();
       imagePreview.append(img);
@@ -161,5 +191,3 @@ textArea.on("input", function () {
   textArea.css("height", "auto");
   textArea.css("height", textArea[0].scrollHeight + "px");
 });
-
-

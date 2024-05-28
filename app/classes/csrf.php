@@ -2,29 +2,33 @@
 
 namespace app\classes;
 
-class csrf
+class Csrf
 {
     private $length = 32;
+    private static $token_exp_key = 'csrf_token_exp';
+    private static $code_exp_key = 'csrf_code_exp';
     private $token;
-    private $token_exp;
-    private $time_exp = 60 * 10;
-
+    private $code;
 
     public function __construct()
     {
         session_start();
-        if (!isset($_SESSION['csrf_token'])) {
+        if (!isset($_SESSION['csrf_token']) || !isset($_SESSION[self::$token_exp_key]) || $_SESSION[self::$token_exp_key] < time()) {
             $this->generate();
-            $_SESSION['csrf_token'] = [
-                'token' => $this->token,
-                'exp' => $this->token_exp
-            ];
-            session_write_close();
-            return $this;
+            $_SESSION['csrf_token'] = $this->token;
+            $_SESSION[self::$token_exp_key] = time() + 180;
+        } else {
+            $this->token = $_SESSION['csrf_token'];
         }
-        
-        $this->token = $_SESSION['csrf_token']['token'];
-        $this->token_exp = $_SESSION['csrf_token']['exp'];
+
+        if (!isset($_SESSION['csrf_code']) || !isset($_SESSION[self::$code_exp_key]) || $_SESSION[self::$code_exp_key] < time()) {
+            $this->generateCode();
+            $_SESSION['csrf_code'] = $this->code;
+            $_SESSION[self::$code_exp_key] = time() + 180;
+        } else {
+            $this->code = $_SESSION['csrf_code'];
+        }
+
         session_write_close();
         return $this;
     }
@@ -32,27 +36,77 @@ class csrf
     private function generate()
     {
         $this->token = bin2hex(random_bytes($this->length));
-        $this->token_exp = time() + $this->time_exp;
-    }
-    
-    public static function validate($csrf_token, $validate_exp = false)
-    {
-        $self = new self;
-        if ($validate_exp && $self->getExpiration() < time()) {
-            return false;
-        }
-        if ($csrf_token !== $self->get_token()) {
-            return false;
-        }
     }
 
-    public function get_token()
+    private function generateCode()
+    {
+        $this->code = bin2hex(random_bytes(4));
+    }
+
+    public static function validateToken($csrf_token)
+    {
+        session_start();
+        $token_exp = isset($_SESSION['csrf_token']) ? $_SESSION[self::$token_exp_key] : 0;
+
+        if (empty($csrf_token) || empty($token_exp) || $token_exp < time()) {
+            session_write_close();
+            return false;
+        }
+
+        if ($csrf_token !== $_SESSION['csrf_token']) {
+            session_write_close();
+            return false;
+        }
+
+        session_write_close();
+        return true;
+    }
+
+    public static function validateCode($csrf_code)
+    {
+        session_start();
+        $code_exp = isset($_SESSION['csrf_code']) ? $_SESSION[self::$code_exp_key] : 0;
+
+        if (empty($csrf_code) || empty($code_exp) || $code_exp < time()) {
+            session_write_close();
+            return false;
+        }
+
+        if ($csrf_code !== $_SESSION['csrf_code']) {
+            session_write_close();
+            return false;
+        }
+
+        session_write_close();
+        return true;
+    }
+
+
+    public function getToken()
     {
         return $this->token;
     }
 
-    private function getExpiration()
+    public function getCode()
     {
-        return $this->token_exp;
+        return $this->code;
+    }
+
+    public static function unsetToken()
+    {
+        session_start();
+        unset($_SESSION['csrf_token']);
+        unset($_SESSION['csrf_token_exp']);
+        unset($_SESSION['token']);
+        unset($_SESSION['emailpw']);
+        session_write_close();
+    }
+    public static function unsetCode()
+    {
+        session_start();
+        unset($_SESSION['verification_code']);
+        unset($_SESSION['verification_code_exp']);
+        unset($_SESSION['code']);
+        session_write_close();
     }
 }

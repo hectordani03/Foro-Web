@@ -4,9 +4,12 @@ namespace app\controllers;
 
 use app\classes\view;
 use app\classes\redirect;
-use app\models\posts;
+use app\models\log;
 use app\models\comments;
 use app\controllers\auth\LoginController as session;
+use app\models\interactions as Inter;
+use app\models\Intercomts;
+use app\models\Interposts;
 
 class CommentsController extends Controller
 {
@@ -24,9 +27,15 @@ class CommentsController extends Controller
     {
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         if (!empty($data)) {
-        $comment = new comments;
+            $comment = new comments;
+            $Inter = new Inter;
+            $Interposts = new Interposts;
             $data['userId'] = session::sessionValidate()['id'];
             $res = $comment->addComment($data);
+            $data['type'] = 'comment';
+            $res2 = $Inter->addInteraction($data);
+            $data['interId'] = $res2;
+            $res3 = $Interposts->interPost($data);
             if ($res === false) {
             } else {
                 echo json_encode(["r" => true]);
@@ -35,15 +44,19 @@ class CommentsController extends Controller
             redirect::to('');
             exit();
         }
-       
     }
 
     public function deleteComt()
     {
+        $log = new log;
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         if (!empty($data)) {
             $comment = new comments;
             $res = $comment->deleteComment($data);
+            if (isset($data['action']) && !empty($data['action'])) {
+                $data['idUser'] = session::sessionValidate()['id'];
+                $log->logActions($data);
+            }
             if ($res === false) {
             } else {
                 echo json_encode(["r" => true]);
@@ -57,10 +70,16 @@ class CommentsController extends Controller
     public function replyComment()
     {
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
-        $comment = new comments;
         if (!empty($data)) {
+            $comment = new comments;
+            $Inter = new Inter;
+            $Intercomts = new Intercomts;
             $data['userId'] = session::sessionValidate()['id'];
             $res = $comment->addReply($data);
+            $data['type'] = 'reply';
+            $res2 = $Inter->addInteraction($data);
+            $data['interId'] = $res2;
+            $res3 = $Intercomts->InterComt($data);
             if ($res === false) {
             } else {
                 echo json_encode(["r" => true]);

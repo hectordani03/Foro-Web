@@ -7,6 +7,11 @@ require_once LAYOUTS_US . 'header.php';
 <div id="notificationsId" class="absolute z-50 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 </div>
 
+<div id="commentsId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+</div>
+<div id="shareId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+</div>
+
 </div>
 <section class="w-full md:w-11/12 relative md:left-32 z-40">
     <!-- HEADER -->
@@ -14,15 +19,17 @@ require_once LAYOUTS_US . 'header.php';
         <h1 class="text-black flex justify-center w-full text-4xl font-bold mt-5 dark:text-white">FOR <span class="text-blue-500 ml-2">US</span></h1>
 
         <div class="flex gap-5">
-            <div id="bell-icon" class="text-gray-400 w-9 h-9 mx-auto cursor-pointer mt-6" onclick="app.notifications()">
+            <div id="bell-icon" class="text-gray-400 w-9 h-9 mx-auto cursor-pointer mt-6 relative" onclick="app.notifications()">
                 <svg id="bell-active"fill="#9ca3af" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56">
                     <path class="fill-current" d="M 9.4257 43.2461 L 46.5742 43.2461 C 48.8005 43.2461 50.1133 42.0977 50.1133 40.4102 C 50.1133 38.0664 47.7460 35.9570 45.7070 33.8711 C 44.1601 32.2539 43.7382 28.9258 43.5742 26.2305 C 43.3867 17.2305 41.0195 11.0195 34.7617 8.7695 C 33.8945 5.7226 31.4570 3.2852 28.0117 3.2852 C 24.5429 3.2852 22.1289 5.7226 21.2382 8.7695 C 15.0039 11.0195 12.6132 17.2305 12.4492 26.2305 C 12.2617 28.9258 11.8632 32.2539 10.2929 33.8711 C 8.2773 35.9570 5.8867 38.0664 5.8867 40.4102 C 5.8867 42.0977 7.2226 43.2461 9.4257 43.2461 Z M 20.8632 46.4336 C 21.1445 49.8555 24.0273 52.7148 28.0117 52.7148 C 31.9726 52.7148 34.8554 49.8555 35.1601 46.4336 Z"></path>
                 </svg>
+                <div id="userNotifications" class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900"></div>
             </div>
+
+            <!-- CAMBIO ESTEBAN -->
             <?php if (isset($ua->sv) && $ua->sv) { ?>
-                <a href="/profile">
-                    <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;
-                                                                                echo $ua->profilePic; ?>" alt="">
+            <a href="/profile">
+                    <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?= PROF_IMG; echo $ua->profilePic; ?>" alt="">
             </a>
             <?php } ?>
         </div>

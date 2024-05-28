@@ -61,23 +61,25 @@
                         <span class="desplegableText hidden relative left-12 bottom-8">Home</span>
                 </a>
             </li>
-            <li class="w-15 h-15">
+                    <li class="w-15 h-15">
+                        <a href="<?= URL; ?>Posts/popular">
                 <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                        <path class="fill-current" d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z" />
-                    </svg>
-                    <span class="desplegableText hidden relative left-12 bottom-8">Popular</span>
-                </div>
-            </li>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                    <path class="fill-current" d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z" />
+                                </svg>
+                                <span class="desplegableText hidden relative left-12 bottom-8">Popular</span>
+                            </div>
+                        </a>
+        </li>
         </ul>
 
-<hr class="w-full mt-5 border-gray-300 px-10">
+        <hr class="w-full mt-5 border-gray-300 px-10">
 
-<!-- CATEGORIES -->
-<div class="relative h-64 overflow-hidden-scroll">
-    <ul class="flex flex-col gap-7 justify-between mt-5 relative">
-        <form class="flex flex-col gap-2" action="/Posts/category" id="categories-form" method="GET" autocomplete="off" enctype="multipart/form-data">
-        </form>
+        <!-- CATEGORIES -->
+        <div class="relative h-64 overflow-hidden-scroll">
+            <ul class="flex flex-col gap-7 justify-between mt-5 relative">
+                <form class="flex flex-col gap-2" action="/Posts/category" id="categories-form" method="GET" autocomplete="off" enctype="multipart/form-data">
+                </form>
 
         <div class="flex items-center justify-center">
         <a id="add-category" class="cursor-pointer text-white text-3xl pb-2" onclick="app.addCategory()">
@@ -166,27 +168,27 @@
 <hr class="w-full mt-5 border-gray-300 px-10">
 <?php
 
-if (isset($ua->sv) && $ua->sv) {
-    $url = '/Login/logout';
-    $text = 'Logout';
-    $logoutId = 'btn_logout';
-} else {
-    $logoutId = '';
-    $url = '/login';
-    $text = 'Login';
-}
-?>
+        if (isset($ua->sv) && $ua->sv) {
+            $url = '/logout';
+            $text = 'Logout';
+            $logoutId = 'btn_logout';
+        } else {
+            $logoutId = '';
+            $url = '/login';
+            $text = 'Login';
+        }
+        ?>
 
-<a id="<?= $logoutId; ?>" href="<?= $url; ?>">
-    <div class="text-gray-400 w-8 h-8 mx-auto mt-5 cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path class="fill-current" d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
-        </svg>
-    </div>
-    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap"><?= $text; ?></span>
-</a>
+        <a id="<?= $logoutId; ?>" href="<?= $url; ?>">
+            <div class="text-gray-400 w-8 h-8 mx-auto mt-5 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path class="fill-current" d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
+                </svg>
+            </div>
+            <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap"><?= $text; ?></span>
+        </a>
 
-<hr class="w-full mt-5 border-gray-300 px-10">
-<span class="text-gray-400 text-xs text-center mt-5 w-full mx-auto">For Us @2024</span>
-</nav>
+        <hr class="w-full mt-5 border-gray-300 px-10">
+        <span class="text-gray-400 text-xs text-center mt-5 w-full mx-auto">For Us @2024</span>
+    </nav>
 </div>

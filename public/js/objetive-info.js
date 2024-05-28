@@ -34,7 +34,7 @@ if (objetiveInfo) {
 
                     <!-- Contenedor de imagen y texto a la derecha -->
                     <div class="w-auto p-4 flex flex-col items-center relative top-14">
-                        <img class="w-40 h-40 rounded-xl" src="http://forus.com/resources/assets/img/gift/obj2.gif" alt="Half Image" class="rounded-lg max-w-full h-auto mt-2">
+                        <img class="w-40 h-40 rounded-xl" src="http://forus.com/resources/assets/img/categories/gifs/E_GIF_02.gif" alt="Half Image" class="rounded-lg max-w-full h-auto mt-2">
                         <div class="hashtag text-white font-bold bg-gray-400 dark:bg-gray-500 rounded-full px-4 py-1 text-center h-fit cursor-pointer relative mt-5" href="">
                           <span class="z-10">Zero Hunger</span>
                       </div>
