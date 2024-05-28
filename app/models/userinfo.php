@@ -4,7 +4,6 @@ namespace app\models;
 
 class userinfo extends Model
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -68,5 +67,32 @@ class userinfo extends Model
             echo json_encode(["r" => 'e']);
             return false;
         }
+    }
+
+    public function updateUserColor($userId, $color)
+    {
+        if (!empty($userId) && !empty($color)) {
+            $this->values['background_color'] = $color;
+            session_start();
+            $_SESSION['background_color'] = $this->values['background_color'];
+            session_write_close();
+            $result = $this->where([['userId', $userId]])->update();
+
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function getUserColor($userId)
+    {
+        $result = $this->select(['background_color'])
+            ->where([['userId', $userId]])
+            ->get();
+
+        if (!empty($result) && isset($result[0]['background_color'])) {
+            return $result[0]['background_color'];
+        }
+        return null;
     }
 }

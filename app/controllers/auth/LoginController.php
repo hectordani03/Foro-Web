@@ -36,7 +36,7 @@ class LoginController extends Controller
 
         if (!empty($data['email']) && !empty($data['password'])) {
             $stmt = $user
-                ->select(['a.*, b.profilePic, b.age, b.nacionality, b.description, c.period, c.duration'])
+                ->select(['a.*, b.profilePic, b.age, b.nacionality, b.description, b.background_color, c.period, c.duration'])
                 ->join('userinfo b', 'a.id=b.userId')
                 ->join('suspensions c', 'a.id=c.userId', 'LEFT')
                 ->where([["a.email", $data['email']]])
@@ -88,6 +88,7 @@ class LoginController extends Controller
         $_SESSION['age'] = $data[0]->age;
         $_SESSION['nacionality'] = $data[0]->nacionality;
         $_SESSION['description'] = $data[0]->description;
+        $_SESSION['background_color'] = $data[0]->background_color;
         session_write_close();
         return json_encode(["r" => true]);
     }
@@ -102,7 +103,7 @@ class LoginController extends Controller
                 ->get();
             if (count(json_decode($stmt)) > 0 && $data['ip'] == $_SERVER['REMOTE_ADDR']) {
                 session_write_close();
-                return ['sv' => $data['sv'], 'id' => $data['id'], 'username' => $data['username'], 'email' => $data['email'], 'role' => $data['role'], 'profilePic' => $data['profilePic'], 'age' => $data['age'], 'nacionality' => $data['nacionality'], 'description' => $data['description']];
+                return ['sv' => $data['sv'], 'id' => $data['id'], 'username' => $data['username'], 'email' => $data['email'], 'role' => $data['role'], 'profilePic' => $data['profilePic'], 'age' => $data['age'], 'nacionality' => $data['nacionality'], 'description' => $data['description'], 'background_color' => $data['background_color']];
             } else {
                 session_write_close();
                 self::sessionDestroy();

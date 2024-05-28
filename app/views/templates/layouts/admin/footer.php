@@ -1,6 +1,6 @@
 
 <?php
-setFooter($d, "sweetalert2.all.min", "jquery", "jquery.DT.min", "functions", "app", "navbar", "modal", "app_ad");
+setFooter($d, "sweetalert2.all.min", "jquery", "jquery.DT.min", "functions", "app", "navbar", "modal", "app_ad", );
 ?>
 <script>
     $(function() {

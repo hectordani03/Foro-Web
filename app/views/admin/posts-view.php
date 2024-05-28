@@ -38,7 +38,7 @@ require_once LAYOUTS_AD . 'header.php';
     </form>
 </div>
 
-<table id="postDT" class="hover row-border table"></table>
+<table id="postDT" class="hover row-border table" style="width: 100%"></table>
 <?php
 require_once LAYOUTS_AD . 'footer.php';
 ?>

@@ -335,9 +335,15 @@ body.dark .sidebar a:hover .dropdown {
 /* ============================== DataTable ============================== */
 
 .dataTables_wrapper {
-  margin-top: 0px;
+  margin-top: 50px;
   padding: 20px;
   transition: var(--tran-04);
+  width: 82%;
+  position: relative;
+  left: 17%;
+  background-color: #f1f5f9;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 body.side .dataTables_wrapper {
   transition: var(--tran-04);
@@ -364,7 +370,7 @@ body.dark {
 body.dark .dataTables_filter input,
 body.dark .dataTables_length select {
   border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: #18191a;
+  background-color: #1e293b;
   transition: var(--tran-01);
 }
 body.dark table.dataTable.row-border > tbody > tr > th,
@@ -692,8 +698,9 @@ body.dark .profile-img {
 /* ============================== Buttons ============================== */
 .primary-button {
   position: absolute;
-  top: 80px;
-  left: 45%;
+  top: 65px;
+  left: 35%;
+  margin-left: 20px;
   transform: translateX(-50%);
   z-index: 999;
   background-color: #007bff;
@@ -777,4 +784,38 @@ body.dark .profile-img {
     display: flex;
     justify-content: center;
   }
+}
+
+
+
+/* DARK MODE             */
+body.dark .modal-content {
+  background: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+
+}
+
+body.dark main, 
+body.dark nav,
+body.dark,
+body.dark .interact .activity-cards {
+  background: #1e293b;
+}
+
+body.dark #dashboard-cards div,
+body.dark #chart-card > div,
+body.dark .interact div,
+body.dark #postDT,
+body.dark .dataTables_wrapper {
+  background: #334155;
+  border-color: #1e293b;
+}
+
+body.dark p,
+body.dark #forus  {
+  color: #d8d8d8;
+}
+
+body.dark header svg {
+  fill: #d8d8d8;
 }

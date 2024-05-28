@@ -87,4 +87,30 @@ class ProfileController extends Controller
         $res = $posts->getUserSharedPosts($userId);
         echo $res;
     }
+    
+    public function updateColor()
+    {
+        $ua = session::sessionValidate();
+        if (is_null($ua)) {
+            echo json_encode(['success' => false, 'message' => 'Usuario no autenticado']);
+            exit();
+        }
+    
+        $data = json_decode(file_get_contents('php://input'), true);
+        $color = $data['color'];
+        $userId = $ua['id'];
+    
+        if ($userId && $color) {
+            $userinfo = new userinfo();
+            $res = $userinfo->updateUserColor($userId, $color);
+    
+            if ($res) { 
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al guardar el color']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
+        }
+    }
 }

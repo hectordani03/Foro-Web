@@ -4,13 +4,13 @@ const profile = {
     /* Views */
     home: "http://forus.com/",
     profile: "/profile",
-
     /* Controllers */
     userPosts: "/Profile/getPosts",
-    userPosts: "/Profile/getSharedPosts",
+    userSharedPosts: "/Profile/getSharedPosts",
     userComts: "/Profile/getComts",
     userProfile: "/Profile/getUser",
     updateUser: "/Profile/updateUser",
+    updateColor: "/Profile/updateColor",
   },
 
   up: $("#userprofPosts"),
@@ -110,7 +110,7 @@ const profile = {
                 }</a>
             </div>
       
-            <div class="flex w-10/12 relative mt-10 mb-5 mx-auto">
+            <div id="post-footer" class="flex w-10/12 relative mt-10 mb-5 mx-auto">
                 <div id="" class="text-gray-400 w-8 h-8 transition-all cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path class="fill-current" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
@@ -136,8 +136,7 @@ const profile = {
                 `;
           postComments.forEach((comment) => {
             html += `
-                    <hr class="w-full mt-5 border dark:border-slate-600">
-                    <div class="w-10/12 mx-auto mb-24">
+                    <div class="w-10/12 mx-auto mb-10">
                         <div class="flex gap-5 mt-10">
                           <img class="w-12 h-10 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${app.user.pic}" alt="">
                           <div class="rounded-xl bg-gray-200 dark:bg-slate-600 shadow-lg">
@@ -148,7 +147,6 @@ const profile = {
                           </div>
                         </div>
                     </div>
-                    <hr class="w-full mt-5 border dark:border-slate-600">
                                 `;
           });
         }
@@ -185,14 +183,24 @@ const profile = {
         this.up.html(html);
       })
       .catch((err) => console.error("Error: ", err));
-  },
 
+          const profPost = document.querySelector("#userprofPosts");
+
+    document.addEventListener("DOMContentLoaded", e =>{                            
+        console.log(profPost)
+    })
+  },
 
   userProfile: function () {
     let html = ``;
     this.modal.html("");
     fetch(this.routes.userProfile)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
       .then((u) => {
         const user = u[0];
         html += `
@@ -231,9 +239,7 @@ const profile = {
                       <div class="w-8/12 shadow-lg mx-auto h-fit rounded-xl bg-slate-200 dark:bg-slate-600 py-5">
                         <div class="border-2 border-dashed border-blue-500 w-7/12 mx-auto text-center flex flex-col justify-center items-center rounded-xl h-40 hover:border-gray-400 transition-colors">
                           <input type="file" id="profilePic" name="profilePic" accept=".jpg, .png, .jpeg" hidden>
-                          <svg class="w-20 h-20 mt-5 mx-auto cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-                            <path class="fill-blue-500 hover:fill-gray-400 transition-colors" d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z" />
-                          </svg>
+                          <i class="fa-solid fa-cloud-arrow-up text-5xl mt-5 mx-auto cursor-pointer text-blue-500"></i>
                           <h1 class="text-black flex justify-center w-full text-xs font-bold mt-1 dark:text-white">Drag File Here To Upload</h1>
                           <h2 class="text-blue-500 flex justify-center w-full font-bold mb-10" style="font-size: 10px;">Max File Size 5mb</h2>
                         </div>
@@ -261,7 +267,7 @@ const profile = {
           </section>
         </section>
         `;
-  
+
         this.modal.html(html);
         this.modal.on("click", function (e) {
           e.stopPropagation();
@@ -276,7 +282,7 @@ const profile = {
           capa.toggleClass("hidden");
           $("body").removeClass("overflow-hidden").addClass("overflow-auto");
         });
-  
+
         const background = document.getElementById("background");
         const backgroundClasses = background.classList;
         const red = $("#red");
@@ -289,11 +295,11 @@ const profile = {
         const gray = $("#gray");
         const black = $("#black");
         const white = $("#white");
-  
+
         function saveColorToLocalStorage(color) {
           localStorage.setItem("selectedColor", color);
         }
-  
+
         function loadColorFromLocalStorage() {
           const savedColor = localStorage.getItem("selectedColor");
           if (savedColor) {
@@ -305,9 +311,9 @@ const profile = {
             }
           }
         }
-  
+
         loadColorFromLocalStorage();
-  
+
         function changeBackgroundColor(colorClass) {
           const currentClass = Array.from(backgroundClasses).find(cls => cls.startsWith("from-"));
           if (currentClass) {
@@ -316,8 +322,29 @@ const profile = {
             backgroundClasses.add(colorClass);
           }
           saveColorToLocalStorage(colorClass);
+
+          // Envía el color seleccionado al servidor
+          fetch(profile.routes.updateColor, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ color: colorClass }),
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Color guardado correctamente:', data);
+          })
+          .catch(error => {
+            console.error('Error al guardar el color:', error);
+          });
         }
-  
+
         red.on("click", () => changeBackgroundColor("from-red-500"));
         green.on("click", () => changeBackgroundColor("from-green-400"));
         blue.on("click", () => changeBackgroundColor("from-sky-500"));
@@ -329,7 +356,9 @@ const profile = {
         black.on("click", () => changeBackgroundColor("from-black"));
         white.on("click", () => changeBackgroundColor("from-gray-100"));
       })
-      .catch((err) => console.error("Error: ", err));
+      .catch((err) => {
+        console.error("Error: ", err);
+      });
   },
 
   updateUser: function () {

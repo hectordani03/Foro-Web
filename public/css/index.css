@@ -47,9 +47,47 @@
 }
 
 .profile-modal{
-height: 600px;
-
+height: 650px;
 }
+
+
+
+.comment-container {
+    position: relative; /* Ensure the parent container is relative for absolute positioning of icons */
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.comment-interactions {
+    position: relative;
+    overflow: hidden; /* Ensure icons are hidden when outside */
+}
+
+.icon-container {
+    position: absolute;
+    top: 50%;
+    left: 110px; /* Start at the left edge of the comment-container */
+    transform: translateX(-100%) translateY(-50%); /* Hidden to the left */
+    display: flex;
+    gap: 10px;
+    transition: transform 0.5s ease-in-out; /* Smooth transition */
+}
+
+.comment-interactions:hover ~ .icon-container {
+    transform: translateX(100%) translateY(-50%); /* Slide into view to the right of the comment-interactions */
+}
+
+.icon-container:hover {
+  transform: translateX(100%) translateY(-50%); /* Slide into view to the right of the comment-interactions */
+}
+
+
+.comment-interactions:hover ~ .icon-container .icon-wrapper {
+    opacity: 1; /* Show icons on hover */
+}
+
+
 
 @media screen and (max-width: 652px){
   .content .posts-section{

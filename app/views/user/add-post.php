@@ -1,4 +1,4 @@
-<div id="initial-card" class="bg-gray-100 dark:bg-slate-700 shadow-lg lg:ml-20 lg:mr-10 lg:w-10/12 min-h-56 flex justify-start items-start relative rounded-xl w-10/12 mx-auto">
+<div id="initial-card" class="bg-gray-100 dark:bg-slate-700 shadow-lg lg:ml-20 lg:mr-36 lg:w-8/12 xl:w-9/12  min-h-56 flex justify-start items-start relative rounded-xl w-11/12 md:w-9/12 mx-auto lg:left-24 md:left-16 left-0">
     <?php
     $profile_img = isset($ua->sv) && $ua->sv ? $ua->profilePic : 'default.png';
     $id = isset($ua->sv) && $ua->sv ? $ua->id : '';

@@ -1,5 +1,4 @@
 <?php
-
 namespace app\classes;
 
 use app\controllers\HomeController as Home;
