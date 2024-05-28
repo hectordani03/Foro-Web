@@ -90,7 +90,7 @@ const post = {
     });
   },
 
-  sharePost: function (postId, category) {
+  sharePost: function (postId, category, userId) {
     const spf = $("#sharePost-form");
     $("<input>")
       .attr("type", "hidden")
@@ -102,7 +102,11 @@ const post = {
       .attr("name", "category")
       .val(category)
       .appendTo(spf);
-
+      $("<input>")
+      .attr("type", "hidden")
+      .attr("name", "ownerId")
+      .val(userId)
+      .appendTo(spf);
     spf.on("submit", function (e) {
       e.preventDefault();
       e.stopPropagation();

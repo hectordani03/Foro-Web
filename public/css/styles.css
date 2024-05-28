@@ -547,7 +547,9 @@ video {
 .container {
   width: 100%;
 }
-
+.hide {
+  display: none;
+}
 @media (min-width: 640px) {
   .container {
     max-width: 640px;

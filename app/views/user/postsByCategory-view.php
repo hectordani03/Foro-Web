@@ -20,6 +20,7 @@ require_once LAYOUTS_US . 'header.php';
         <h1 class="text-black flex justify-center w-full text-4xl font-bold mt-5 dark:text-white">FOR <span class="text-blue-500 ml-2">US</span></h1>
 
         <?php if (isset($ua->sv) && $ua->sv) { ?>
+            <i id="userNotifications" class='bx bxs-bell text-3xl mr-5 text-gray-500'></i>
             <a href="/profile">
                 <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;echo $ua->profilePic; ?>" alt="">
             </a>
@@ -33,7 +34,7 @@ require_once LAYOUTS_US . 'header.php';
         ?>
 
         <!-- OBJETIVE CARD -->
-        <a id="objetive-info" class=" mr-3 w-full mx-auto lg:w-2/12 order-first lg:order-last" href="#"><img class="rounded-lg w-64 h-56 mx-auto lg:mb-0 mb-10" src="<?php echo GIFT; ?>obj2.gif" alt=""></a>
+        <a id="objetiveInfo" class=" mr-3 w-full mx-auto lg:w-2/12 order-first lg:order-last" href="#"><img id="objetiveGif" class="rounded-lg w-64 h-56 mx-auto lg:mb-0 mb-10" src="" alt=""></a>
 
     </main>
 

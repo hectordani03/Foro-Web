@@ -13,23 +13,22 @@ require_once LAYOUTS_US . 'header.php';
     <!-- HEADER -->
     <header class="flex justify-between items-center mb-7">
         <h1 class="text-black flex justify-center w-full text-3xl font-bold mt-5 dark:text-white">FOR <span class="text-blue-500 ml-2">US</span></h1>
-        <img class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;
-                                                                        echo $ua->profilePic; ?>" alt="">
+        <img id="profilePics" class="w-11 h-10 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG; echo $ua->profilePic; ?>" alt="">
     </header>
     <main id="background" class="bg-gradient-to-b from-gray-100 rounded-xl w-12/12 h-80 mr-5 ml-5 relative">
         <section class="absolute -bottom-56 left-10 z-50 flex">
-            <img class="min-w-52 max-w-52 min-h-52 max-h-52 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG;
-                                                                                                        echo $ua->profilePic; ?>" alt="">
+            
+        <img id="profilePicb" class="min-w-52 max-w-52 min-h-52 max-h-52 bg-blue-500 rounded-full mr-10 mt-5" src="<?php echo PROF_IMG; echo $ua->profilePic; ?>" alt="">
 
             <div class="relative -bottom-20 flex flex-col text-center justify-start w-3/12">
-                <h1 class="text-3xl font-bold text-gray-600 mb-5 dark:text-white"><?= $ua->username ?></h1>
-                <p class=" text-gray-400 font-normal text-center dark:text-white"><?= $ua->description ?></p>
+                <h1 id="username" class="text-3xl font-bold text-gray-600 mb-5 dark:text-white"><?= $ua->username ?></h1>
+                <p id="description" class=" text-gray-400 font-normal text-center dark:text-white"><?= $ua->description ?></p>
                 <div class="flex gap-3 mt-5 justify-center">
                     <div class="bg-sky-400 rounded-full py-1">
-                        <span class="text-white font-semibold px-5"><?= $ua->age ?></span>
+                        <span id="age" class="text-white font-semibold px-5"><?= $ua->age ?></span>
                     </div>
                     <div class="bg-sky-400 rounded-full py-1">
-                        <span class="text-white font-semibold px-5"><?= $ua->nacionality ?></span>
+                        <span id="nacionality" class="text-white font-semibold px-5"><?= $ua->nacionality ?></span>
                     </div>
                     <!-- <div class="bg-sky-400 rounded-full py-1">
                         <span class="text-white font-semibold px-5">Pacifist</span>

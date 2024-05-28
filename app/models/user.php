@@ -144,18 +144,30 @@ class user extends Model
     public function getTotalUsersUntil($date)
     {
         $result = $this->select(['id'])
-        ->count('id')
-        ->where([['registered_at', $date, '<=']])
-        ->get();
+            ->count('id')
+            ->where([['registered_at', $date, '<=']])
+            ->get();
         return $result;
     }
 
     public function getNewUsers($date)
     {
         $result = $this->select(['id'])
-        ->count('id')
-        ->where([['registered_at', $date,'>']])
-        ->get();
+            ->count('id')
+            ->where([['registered_at', $date, '>']])
+            ->get();
         return $result;
+    }
+
+    public function changePasswd($data)
+    {
+        if (!empty($data) || !empty($data['password'])) {
+            $this->values['password'] = password_hash(sanitizeString($data["password"]), PASSWORD_BCRYPT, ["cost" => 10]);
+            $this->where([['email', $data['email']]]);
+            return $this->update();
+        } else {
+            echo json_encode(["r" => 'e']);
+            return false;
+        }
     }
 }

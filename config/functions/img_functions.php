@@ -17,7 +17,7 @@ function getUserImg($file)
             return false;
         }
 
-        if (($_FILES[$file]['size'] / 1024) > 1025) {
+        if (($_FILES[$file]['size'] / 1024) > 5120) {
             echo json_encode(["r" => 'i']);
             return false;
         }

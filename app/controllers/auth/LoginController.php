@@ -2,7 +2,6 @@
 
 namespace app\controllers\auth;
 
-use app\controllers\suspensionController;
 use app\controllers\Controller;
 use app\classes\View;
 use app\models\user;
@@ -20,7 +19,6 @@ class LoginController extends Controller
     public function index($params = null)
     {
         $response = [
-            'ua' => self::sessionValidate() ?? ['sv' => false],
             'title' => "Account – For Us",
             'code' => 200
         ];

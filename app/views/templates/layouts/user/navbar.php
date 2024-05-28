@@ -62,137 +62,139 @@
                 </a>
             </li>
         </ul>
-<li class="w-15 h-15">
-    <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path class="fill-current" d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z" />
-        </svg>
-        <span class="desplegableText hidden relative left-12 bottom-8">Popular</span>
-    </div>
-</li>
-<hr class="w-full mt-5 border-gray-300 px-10">
-
-<!-- CATEGORIES -->
-<div class="relative h-64 overflow-hidden-scroll scrollbar-hidden">
-    <ul class="flex flex-col gap-7 justify-between mt-5 relative">
-        <form class="flex flex-col gap-2" action="/Posts/category" id="categories-form" method="GET" autocomplete="off" enctype="multipart/form-data">
-        </form>
-
-        <!-- ADD BUTTON -->
-        <li class="rounded-lg bg-blue-400 text-center flex flex-col justify-center items-center w-10 h-10">
-            <a class="text-white w-full text-3xl pb-1">
-                +
-            </a>
-        </li>
-    </ul>
-</div>
-
-
-<hr class="w-full mt-5 border-gray-300 px-10">
-<span class="desplegableText hidden relative text-gray-400 text-nowrap text-xl font-semibold mt-4">Resources</span>
-<ul class="flex flex-col gap-7 justify-between mt-5">
-    <?php if (isset($ua->sv) && $ua->sv && $ua->role != 3) : ?>
         <li class="w-15 h-15">
-            <a href="<?= URL; ?>dashboard">
-                <div class="text-gray-400 w-9 h-9 mx-auto cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path class="fill-current" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
+            <a href="<?= URL; ?>Posts/popular">
+                <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path class="fill-current" d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z" />
                     </svg>
-                    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Admin</span>
+                    <span class="desplegableText hidden relative left-12 bottom-8">Popular</span>
                 </div>
             </a>
         </li>
-    <?php endif; ?>
-    <li class="w-15 h-15">
-        <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                <path class="fill-current" d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
-            </svg>
-            <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Notifications</span>
-        </div>
-    </li>
-    <li class="w-15 h-15 cursor-pointer">
-        <div id="dark-mode-icon" class="text-gray-400 w-7 h-7 mx-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                <path class="fill-current" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z" />
-            </svg>
-            <span class="desplegableText hidden relative left-12 bottom-8 text-nowrap">Dark Mode</span>
+        <hr class="w-full mt-5 border-gray-300 px-10">
 
+        <!-- CATEGORIES -->
+        <div class="relative h-64 overflow-hidden-scroll scrollbar-hidden">
+            <ul class="flex flex-col gap-7 justify-between mt-5 relative">
+                <form class="flex flex-col gap-2" action="/Posts/category" id="categories-form" method="GET" autocomplete="off" enctype="multipart/form-data">
+                </form>
+
+                <!-- ADD BUTTON -->
+                <li class="rounded-lg bg-blue-400 text-center flex flex-col justify-center items-center w-10 h-10">
+                    <a class="text-white w-full text-3xl pb-1">
+                        +
+                    </a>
+                </li>
+            </ul>
         </div>
+
+
+        <hr class="w-full mt-5 border-gray-300 px-10">
+        <span class="desplegableText hidden relative text-gray-400 text-nowrap text-xl font-semibold mt-4">Resources</span>
+        <ul class="flex flex-col gap-7 justify-between mt-5">
+            <?php if (isset($ua->sv) && $ua->sv && $ua->role != 3) : ?>
+                <li class="w-15 h-15">
+                    <a href="<?= URL; ?>dashboard">
+                        <div class="text-gray-400 w-9 h-9 mx-auto cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path class="fill-current" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
+                            </svg>
+                            <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Admin</span>
+                        </div>
+                    </a>
+                </li>
+            <?php endif; ?>
+            <li class="w-15 h-15">
+                <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path class="fill-current" d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
+                    </svg>
+                    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Notifications</span>
+                </div>
+            </li>
+            <li class="w-15 h-15 cursor-pointer">
+                <div id="dark-mode-icon" class="text-gray-400 w-7 h-7 mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                        <path class="fill-current" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z" />
+                    </svg>
+                    <span class="desplegableText hidden relative left-12 bottom-8 text-nowrap">Dark Mode</span>
+
+                </div>
+                </a>
+            </li>
+            <li class="w-15 h-15">
+                <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path class="fill-current" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                    </svg>
+                    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Help</span>
+                </div>
+            </li>
+            <li class="w-15 h-15">
+                <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <path class="fill-current" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm80 256h64c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16c0-44.2 35.8-80 80-80zm-32-96a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zm256-32H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+                    </svg>
+                    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">About Us</span>
+                </div>
+            </li>
+        </ul>
+        <hr class="w-full mt-5 border-gray-300 px-10">
+        <div id="contentId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        </div>
+        <ul class="flex flex-col gap-7 justify-between mt-10">
+            <li id="content-button" class="cursor-pointer w-15 h-15" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div class="text-gray-400 w-8 h-8 mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path class="fill-current" d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+                    </svg>
+                    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Content Policy</span>
+                </div>
+            </li>
+            <div id="privacyId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            </div>
+            <li id="privacy-button" class="cursor-pointer w-15 h-15">
+                <div class="text-gray-400 w-8 h-8 mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                        <path class="fill-current" d="M384 32H512c17.7 0 32 14.3 32 32s-14.3 32-32 32H398.4c-5.2 25.8-22.9 47.1-46.4 57.3V448H512c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 128c-17.7 0-32-14.3-32-32s14.3-32 32-32H288V153.3c-23.5-10.3-41.2-31.6-46.4-57.3H128c-17.7 0-32-14.3-32-32s14.3-32 32-32H256c14.6-19.4 37.8-32 64-32s49.4 12.6 64 32zm55.6 288H584.4L512 195.8 439.6 320zM512 416c-62.9 0-115.2-34-126-78.9c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C627.2 382 574.9 416 512 416zM126.8 195.8L54.4 320H199.3L126.8 195.8zM.9 337.1c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C242 382 189.7 416 126.8 416S11.7 382 .9 337.1z" />
+                    </svg>
+                    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Privacy Policy</span>
+                </div>
+            </li>
+            <li class="w-15 h-15">
+                <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <path class="fill-current" d="M0 80v48c0 17.7 14.3 32 32 32H48 96V80c0-26.5-21.5-48-48-48S0 53.5 0 80zM112 32c10 13.4 16 30 16 48V384c0 35.3 28.7 64 64 64s64-28.7 64-64v-5.3c0-32.4 26.3-58.7 58.7-58.7H480V128c0-53-43-96-96-96H112zM464 480c61.9 0 112-50.1 112-112c0-8.8-7.2-16-16-16H314.7c-14.7 0-26.7 11.9-26.7 26.7V384c0 53-43 96-96 96H368h96z" />
+                    </svg>
+                    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">User Agreement</span>
+                </div>
+            </li>
+        </ul>
+        <hr class="w-full mt-5 border-gray-300 px-10">
+        <?php
+
+        if (isset($ua->sv) && $ua->sv) {
+            $url = '/logout';
+            $text = 'Logout';
+            $logoutId = 'btn_logout';
+        } else {
+            $logoutId = '';
+            $url = '/login';
+            $text = 'Login';
+        }
+        ?>
+
+        <a id="<?= $logoutId; ?>" href="<?= $url; ?>">
+            <div class="text-gray-400 w-8 h-8 mx-auto mt-5 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path class="fill-current" d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
+                </svg>
+            </div>
+            <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap"><?= $text; ?></span>
         </a>
-    </li>
-    <li class="w-15 h-15">
-        <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path class="fill-current" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
-            </svg>
-            <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Help</span>
-        </div>
-    </li>
-    <li class="w-15 h-15">
-        <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                <path class="fill-current" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm80 256h64c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16c0-44.2 35.8-80 80-80zm-32-96a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zm256-32H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
-            </svg>
-            <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">About Us</span>
-        </div>
-    </li>
-</ul>
-<hr class="w-full mt-5 border-gray-300 px-10">
-<div id="contentId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-</div>
-<ul class="flex flex-col gap-7 justify-between mt-10">
-    <li id="content-button" class="cursor-pointer w-15 h-15" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="text-gray-400 w-8 h-8 mx-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                <path class="fill-current" d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
-            </svg>
-            <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Content Policy</span>
-        </div>
-    </li>
-    <div id="privacyId" class="absolute z-10 flex justify-center w-full mx-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    </div>
-    <li id="privacy-button" class="cursor-pointer w-15 h-15">
-        <div class="text-gray-400 w-8 h-8 mx-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-                <path class="fill-current" d="M384 32H512c17.7 0 32 14.3 32 32s-14.3 32-32 32H398.4c-5.2 25.8-22.9 47.1-46.4 57.3V448H512c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 128c-17.7 0-32-14.3-32-32s14.3-32 32-32H288V153.3c-23.5-10.3-41.2-31.6-46.4-57.3H128c-17.7 0-32-14.3-32-32s14.3-32 32-32H256c14.6-19.4 37.8-32 64-32s49.4 12.6 64 32zm55.6 288H584.4L512 195.8 439.6 320zM512 416c-62.9 0-115.2-34-126-78.9c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C627.2 382 574.9 416 512 416zM126.8 195.8L54.4 320H199.3L126.8 195.8zM.9 337.1c-2.6-11 1-22.3 6.7-32.1l95.2-163.2c5-8.6 14.2-13.8 24.1-13.8s19.1 5.3 24.1 13.8l95.2 163.2c5.7 9.8 9.3 21.1 6.7 32.1C242 382 189.7 416 126.8 416S11.7 382 .9 337.1z" />
-            </svg>
-            <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">Privacy Policy</span>
-        </div>
-    </li>
-    <li class="w-15 h-15">
-        <div class="text-gray-400 w-8 h-8 mx-auto cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                <path class="fill-current" d="M0 80v48c0 17.7 14.3 32 32 32H48 96V80c0-26.5-21.5-48-48-48S0 53.5 0 80zM112 32c10 13.4 16 30 16 48V384c0 35.3 28.7 64 64 64s64-28.7 64-64v-5.3c0-32.4 26.3-58.7 58.7-58.7H480V128c0-53-43-96-96-96H112zM464 480c61.9 0 112-50.1 112-112c0-8.8-7.2-16-16-16H314.7c-14.7 0-26.7 11.9-26.7 26.7V384c0 53-43 96-96 96H368h96z" />
-            </svg>
-            <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap">User Agreement</span>
-        </div>
-    </li>
-</ul>
-<hr class="w-full mt-5 border-gray-300 px-10">
-<?php
 
-if (isset($ua->sv) && $ua->sv) {
-    $url = '/logout';
-    $text = 'Logout';
-    $logoutId = 'btn_logout';
-} else {
-    $logoutId = '';
-    $url = '/login';
-    $text = 'Login';
-}
-?>
-
-<a id="<?= $logoutId; ?>" href="<?= $url; ?>">
-    <div class="text-gray-400 w-8 h-8 mx-auto mt-5 cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path class="fill-current" d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
-        </svg>
-    </div>
-    <span class="desplegableText hidden relative left-12 bottom-8 text-gray-400 text-nowrap"><?= $text; ?></span>
-</a>
-
-<hr class="w-full mt-5 border-gray-300 px-10">
-<span class="text-gray-400 text-xs text-center mt-5 w-full mx-auto">For Us @2024</span>
-</nav>
+        <hr class="w-full mt-5 border-gray-300 px-10">
+        <span class="text-gray-400 text-xs text-center mt-5 w-full mx-auto">For Us @2024</span>
+    </nav>
 </div>

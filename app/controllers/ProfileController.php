@@ -37,6 +37,7 @@ class ProfileController extends Controller
         }
         View::render('admin/userUpdate', ['ua' => $ua, 'title' => 'Profile – For Us']);
     }
+    
     public function updateUser()
     {
         $user = new user;

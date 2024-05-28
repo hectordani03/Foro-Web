@@ -75,7 +75,7 @@ class posts extends Model
         }
     }
 
-    public function getAllPosts()
+    public function getAllPosts($userId)
     {
         $result = $this->select([
             'a.*',
@@ -86,7 +86,13 @@ class posts extends Model
             'd.hashtag as originalhtsg',
             'd.created_at as originalCreatedAt',
             'e.username as originalUsername',
-            'f.profilePic as originalProfilePic'
+            'f.profilePic as originalProfilePic',
+            '(SELECT COUNT(*) FROM interactions i JOIN interposts ip ON i.id = ip.interId WHERE i.type = "like" AND ip.postId = a.id) as likes',
+            '(SELECT COUNT(*) FROM comments h WHERE h.postId = a.id) as comments',
+            '(SELECT COUNT(*) FROM posts t WHERE t.postId = a.id) as shares',
+            '(SELECT COUNT(*) FROM interactions i JOIN interposts ip ON i.id = ip.interId WHERE ip.postId = a.id AND i.type = "like" AND i.userId = ' . $userId . ') as userLiked'
+
+
         ])
             ->join('user b', 'a.userId = b.id')
             ->join('userinfo c', 'b.id = c.userId')
@@ -101,10 +107,18 @@ class posts extends Model
 
     public function getUserPosts($userId)
     {
-        $result = $this->select(['a.*, b.username, c.profilePic'])
+        $result = $this->select([
+            'a.id, a.text, a.img, a.hashtag, a.userId, a.category, a.created_at, b.username, c.profilePic',
+            '(SELECT COUNT(*) FROM interactions i JOIN interposts ip ON i.id = ip.interId WHERE i.type = "like" AND ip.postId = a.id) as likes',
+            '(SELECT COUNT(*) FROM comments h WHERE h.postId = a.id) as comments',
+            '(SELECT COUNT(*) FROM posts t WHERE t.postId = a.id) as shares'
+        ])
             ->join('user b', 'a.userId=b.id')
             ->join('userinfo c', 'b.id=c.userId')
-            ->where([['a.userId', $userId]])
+            ->where([
+                ['a.userId', $userId],
+                ['a.postId', 'NULL', 'IS']
+            ])
             ->orderBy([['a.created_at', 'DESC']])
             ->get();
         return $result;
@@ -121,7 +135,10 @@ class posts extends Model
             'd.hashtag as originalhtsg',
             'd.created_at as originalCreatedAt',
             'e.username as originalUsername',
-            'f.profilePic as originalProfilePic'
+            'f.profilePic as originalProfilePic',
+            '(SELECT COUNT(*) FROM interactions i JOIN interposts ip ON i.id = ip.interId WHERE i.type = "like" AND ip.postId = a.id) as likes',
+            '(SELECT COUNT(*) FROM comments h WHERE h.postId = a.id) as comments',
+            '(SELECT COUNT(*) FROM posts t WHERE t.postId = a.id) as shares'
         ])
             ->join('user b', 'a.userId = b.id')
             ->join('userinfo c', 'b.id = c.userId')
@@ -134,6 +151,39 @@ class posts extends Model
         return $result;
     }
 
+    public function getMostPopularPosts()
+    {
+        $fields = [
+            'a.*',
+            'b.username',
+            'c.profilePic',
+            'd.text as originalText',
+            'd.img as originalImg',
+            'd.hashtag as originalhtsg',
+            'd.created_at as originalCreatedAt',
+            'e.username as originalUsername',
+            'f.profilePic as originalProfilePic',
+            '(SELECT COUNT(*) FROM interactions i JOIN interposts ip ON i.id = ip.interId WHERE i.type = "like" AND ip.postId = a.id) as likes',
+            '(SELECT COUNT(*) FROM comments h WHERE h.postId = a.id) as comments',
+            '(SELECT COUNT(*) FROM posts t WHERE t.postId = a.id) as shares'
+        ];
+        $result = $this->select($fields)
+            ->join('user b', 'a.userId = b.id')
+            ->join('userinfo c', 'b.id = c.userId')
+            ->join('posts d', 'a.postId = d.id', 'LEFT')
+            ->join('user e', 'd.userId = e.id', 'LEFT')
+            ->join('userinfo f', 'e.id = f.userId', 'LEFT')
+            ->where([
+                ['(SELECT COUNT(*) FROM interactions i JOIN interposts ip ON i.id = ip.interId WHERE i.type = "like" AND ip.postId = a.id)', 5, '>']
+            ])
+            ->orderBy([['a.created_at', 'DESC']])
+            ->get();
+
+        return $result;
+    
+    }
+
+
     public function getUserSharedPosts($userId)
     {
         $result = $this->select([
@@ -145,20 +195,25 @@ class posts extends Model
             'd.hashtag as originalhtsg',
             'd.created_at as originalCreatedAt',
             'e.username as originalUsername',
-            'f.profilePic as originalProfilePic'
+            'f.profilePic as originalProfilePic',
+            '(SELECT COUNT(*) FROM interactions i JOIN interposts ip ON i.id = ip.interId WHERE i.type = "like" AND ip.postId = a.id) as likes',
+            '(SELECT COUNT(*) FROM comments h WHERE h.postId = a.id) as comments',
+            '(SELECT COUNT(*) FROM posts t WHERE t.postId = a.id) as shares'
         ])
             ->join('user b', 'a.userId = b.id')
             ->join('userinfo c', 'b.id = c.userId')
             ->join('posts d', 'a.postId = d.id', 'LEFT')
             ->join('user e', 'd.userId = e.id', 'LEFT')
             ->join('userinfo f', 'e.id = f.userId', 'LEFT')
-            ->where([['b.id', $userId]])
+            ->where([
+                ['b.id', $userId],
+                ['a.postId', NULL, '<>']
+            ])
             ->orderBy([['a.created_at', 'DESC']])
             ->get();
 
         return $result;
     }
-
 
     public function getTotalPostsUntil($date)
     {
@@ -186,6 +241,18 @@ class posts extends Model
             ->groupBy([['a.category']])
             ->orderBy([['tt', 'DESC']])
             ->limit(5)
+            ->get();
+        return $result;
+    }
+
+    public function getLikes()
+    {
+        $result = $this
+            ->select(['a.id'])
+            ->count('a.id')
+            ->join('interposts b', 'a.id = b.postId', 'LEFT')
+            ->join('interactions c', 'b.interId = c.id')
+            ->where([['c.type', 'like']])
             ->get();
         return $result;
     }

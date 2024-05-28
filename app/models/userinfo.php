@@ -66,7 +66,6 @@ class userinfo extends Model
                 return $result;
             }
             session_write_close();
-            return false;
         } else {
             echo json_encode(["r" => 'e']);
             return false;

@@ -6,6 +6,7 @@ const app_ad = {
     register: "/Register/register",
     deleteUser: "/User/deleteUser",
     updateAdProfile: "/Profile/updateUser",
+    userProfile: "/Profile/getUser",
 
     suspendUser: "/Suspensions/createSuspension",
     removeBanUser: "/Suspensions/removeSuspension",
@@ -103,11 +104,11 @@ const app_ad = {
   },
 
   updateUser: function () {
+    var self = this;
     const uuf = $("#updateUser-form");
-    uuf.on("submit", function (e) {
+    uuf.off("submit").on("submit", function (e) {
       e.preventDefault();
       e.stopPropagation();
-      uuf.find('button[type="submit"]').prop("disabled", true);
       const us = $("#username");
       const em = $("#email");
       const p1 = $("#password");
@@ -121,17 +122,15 @@ const app_ad = {
           text: "Fields can not be empty",
           callback: function () {
             e.preventDefault();
-            uuf.find('button[type="submit"]').prop("disabled", false);
           },
         });
-      } else if (file && file.size / (1024 * 1024) > 2) {
+      } else if (file && file.size / (1024 * 1024) > 5) {
         alerts({
           type: "function",
           icon: "error",
-          text: "The image you have selected exceeds the allowed weight 2 MB.",
+          text: "The image you have selected exceeds the allowed weight 5 MB.",
           callback: function () {
             e.preventDefault();
-            uuf.find('button[type="submit"]').prop("disabled", false);
           },
         });
       } else if (p1.val() !== p2.val()) {
@@ -143,23 +142,25 @@ const app_ad = {
             p2.val("");
             p2.trigger("focus");
             e.preventDefault();
-            uuf.find('button[type="submit"]').prop("disabled", false);
           },
         });
       } else {
-        fetch(app_ad.routes.updateAdProfile, {
-          method: "POST",
-          body: data,
-        })
-          .then((res) => res.json())
-          .then((res) => {
+        $.ajax({
+          url: app_ad.routes.updateAdProfile,
+          type: "POST",
+          data: data,
+          contentType: false,
+          processData: false,
+          dataType: "json",
+          success: function (res) {
             if (res.r === true) {
               alerts({
                 type: "function",
-                text: "Changes made successfully",
                 icon: "success",
+                text: "Changes made successfully",
                 callback: function () {
-                  location.reload();
+                  $("#updateUser-form").trigger("reset");
+                  self.userData();
                 },
               });
             } else if (res.r === "r") {
@@ -168,7 +169,7 @@ const app_ad = {
                 icon: "error",
                 text: "The EMAIL you just entered is already registered in the system, please check and try again",
                 callback: function () {
-                  uuf.find('button[type="submit"]').prop("disabled", false);
+                  $("#updateUser-form").trigger("reset");
                 },
               });
             } else if (res.r === "e") {
@@ -177,7 +178,16 @@ const app_ad = {
                 icon: "error",
                 text: "Filds can not be empty",
                 callback: function () {
-                  uuf.find('button[type="submit"]').prop("disabled", false);
+                  $("#updateUser-form").trigger("reset");
+                },
+              });
+            } else if (res.r === "i") {
+              alerts({
+                type: "function",
+                icon: "error",
+                text: "The selected image is incorrect! please try another one",
+                callback: function () {
+                  $("#updateUser-form").trigger("reset");
                 },
               });
             } else if (res.r === "q") {
@@ -186,23 +196,41 @@ const app_ad = {
                 type: "error",
                 text: "Unexpected error, please try again",
                 callback: function () {
-                  uuf.find('button[type="submit"]').prop("disabled", false);
+                  $("#updateUser-form").trigger("reset");
                 },
               });
             }
-          })
-          .catch(() => {
+          },
+          error: function () {
             alerts({
               type: "function",
               type: "error",
               text: "Unexpected error, please try again",
               callback: function () {
-                uuf.find('button[type="submit"]').prop("disabled", false);
+                $("#updateUser-form").trigger("reset");
               },
             });
-          });
+          },
+        });
       }
     });
+  },
+  
+  userData: function () {
+    const us = $("#username");
+    const em = $("#email");
+    const img = $("#preview_image");
+
+    fetch(this.routes.userProfile)
+      .then((res) => res.json())
+      .then((u) => {
+        const user = u[0];
+        us.val(user.username)
+        em.val(user.email)
+        if (user.profilePic) {
+          om("src", "http://forus.com/resources/assets/img/profile/"+user.profilePic); 
+        }
+      });
   },
 
   deleteUser: function () {
@@ -1070,10 +1098,10 @@ const app_ad = {
         if (users.odlUsers && users.odlUsers.length > 0) {
           $("#users").html(users.odlUsers[0].tt);
         }
-        $("#usersQuantity").html('+'+users.newUsers[0].tt);
+        $("#usersQuantity").html("+" + users.newUsers[0].tt);
       },
     });
-    
+
     $.ajax({
       url: this.routes.totalPosts,
       type: "GET",
@@ -1082,7 +1110,7 @@ const app_ad = {
         if (posts.oldPosts && posts.oldPosts.length > 0) {
           $("#posts").html(posts.oldPosts[0].tt);
         }
-        $("#postsQuantity").html('+'+posts.newPosts[0].tt);
+        $("#postsQuantity").html("+" + posts.newPosts[0].tt);
       },
     });
 
@@ -1104,7 +1132,7 @@ const app_ad = {
         if (bannedUsers.oldSp && bannedUsers.oldSp.length > 0) {
           $("#bannedUsers").html(bannedUsers.oldSp[0].tt);
         }
-        $("#banUQuantity").html('+'+bannedUsers.newSp[0].tt);
+        $("#banUQuantity").html("+" + bannedUsers.newSp[0].tt);
       },
     });
 
@@ -1116,7 +1144,7 @@ const app_ad = {
         if (categories.oldCat && categories.oldCat.length > 0) {
           $("#categories").html(categories.oldCat[0].tt);
         }
-        $("#catQuantity").html('+'+categories.newCat[0].tt);
+        $("#catQuantity").html("+" + categories.newCat[0].tt);
       },
     });
 

@@ -42,7 +42,9 @@ require_once LAYOUTS_AD . 'header.php';
 		</div>
 		<div class="mt-5 mr-20 flex">
 			<i class='bx bxs-bell text-3xl mr-5 text-gray-500'></i>
-			<div class="rounded-full bg-sky-500 h-fit p-4"></div>
+			<div class="rounded-full bg-sky-500 h-fit p-4">
+				<img src="<?=PROF_IMG?><?=$ua->profilePic?>" alt="">
+			</div>
 			<div class="flex flex-col">
 				<p class="ml-5"><?= $ua->username ?></p>
 			</div>

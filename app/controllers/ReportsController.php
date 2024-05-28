@@ -103,10 +103,11 @@ class ReportsController extends Controller
 
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         if (!empty($data)) {
+            $data['userId'] = session::sessionValidate()['id'];
             $data['reportId'] = $this->createReport($data);
             $res = $report->addPostReport($data);
             $data['action'] = "Post reported";
-            $data['idUser'] = session::sessionValidate()['id'];
+            $data['idUser'] = $data['userId'];
             $log->logActions($data);
             if ($res === false) {
             } else {
@@ -125,16 +126,18 @@ class ReportsController extends Controller
 
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         if (!empty($data)) {
+            $data['userId'] = session::sessionValidate()['id'];
             $data['reportId'] = $this->createReport($data);
             $res = $report->addComtReport($data);
             $data['action'] = "Comment reported";
-            $data['idUser'] = session::sessionValidate()['id'];
+            $data['idUser'] = $data['userId'];
             $log->logActions($data);
             if ($res === false) {
             } else {
                 echo json_encode(["r" => true]);
             }
-        } else {
+        } 
+        else {
             redirect::to('');
             exit();
         }

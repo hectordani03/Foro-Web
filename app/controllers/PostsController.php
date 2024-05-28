@@ -8,6 +8,8 @@ use app\models\posts;
 use app\controllers\auth\LoginController as session;
 use app\models\categories as cat;
 use app\models\log;
+use app\models\interactions as Inter;
+use app\models\interPosts;
 
 class PostsController extends Controller
 {
@@ -55,6 +57,15 @@ class PostsController extends Controller
         }
     }
 
+    public function popular($params = null){
+        $response = [
+            'ua' => session::sessionValidate() ?? ['sv' => false],
+            'title' => 'For Us',
+            'code' => 200
+        ];
+        View::render('user/mostPopularPost', $response);
+    }
+    
     public function createPosts()
     {
         $posts = new posts;
@@ -77,8 +88,14 @@ class PostsController extends Controller
         $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
         if (!empty($data)) {
             $posts = new posts;
+            $Inter = new Inter;
+            $InterPosts = new InterPosts;
             $data['userId'] = session::sessionValidate()['id'];
             $res = $posts->sharePost($data);
+            $data['type'] = 'share';
+            $res2 = $Inter->addInteraction($data);
+            $data['interId'] = $res2;
+            $res3 = $InterPosts->interPost($data);
             if ($res === false) {
             } else {
                 echo json_encode(["r" => true]);
@@ -113,7 +130,8 @@ class PostsController extends Controller
     public function getPosts()
     {
         $posts = new posts();
-        $result = $posts->getAllPosts();
+        $userId = session::sessionValidate()['id'];
+        $result = $posts->getAllPosts($userId);
         echo $result;
     }
 
@@ -153,4 +171,17 @@ class PostsController extends Controller
         echo $result;
     }
 
+    public function getMostPopularPosts()
+    {
+        $posts = new posts();
+        $result = $posts->getMostPopularPosts();
+        echo $result;
+    }
+
+    public function getPostsLikes()
+    {
+        $posts = new posts();
+        $result = $posts->getLikes();
+        echo $result;
+    }
 }

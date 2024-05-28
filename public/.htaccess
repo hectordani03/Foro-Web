@@ -31,5 +31,17 @@ RewriteCond %{THE_REQUEST} \s/Login/logout[/?\s] [NC]
 RewriteRule ^Login/logout$ /logout [R=301,L]
 RewriteRule ^logout$ Login/logout [L,QSA]
 
+RewriteCond %{THE_REQUEST} \s/Account/account[/?\s] [NC]
+RewriteRule ^Account/account$ /account [R=301,L]
+RewriteRule ^account$ Account/account [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/Account/verify[/?\s] [NC]
+RewriteRule ^Account/verify$ /verify [R=301,L]
+RewriteRule ^verify$ Account/verify [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/Account/recover[/?\s] [NC]
+RewriteRule ^Account/recover$ /recover [R=301,L]
+RewriteRule ^recover$ Account/recover [L,QSA]
+
 RewriteCond %{QUERY_STRING} !^url=
 RewriteRule ^([a-zA-Z0-9/ñÑ-]+)$ index.php?url=$1 [QSA]
