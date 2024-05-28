@@ -90,6 +90,21 @@ class CommentsController extends Controller
         }
     }
 
+    public function updateComment(){
+        $data = filter_input_array(sanitizeString(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS));
+        if (!empty($data)) {
+            $comment = new comments;
+            $res = $comment->updateComment($data);          
+            if ($res === false) {
+            } else {
+                echo json_encode(["r" => true]);
+            }
+        } else {
+            redirect::to('');
+            exit();
+        }
+    }
+
     public function getComments($params = null)
     {
         $comments = new comments();

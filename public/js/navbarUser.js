@@ -7,6 +7,7 @@ const desplegableText = document.querySelectorAll(".desplegableText");
 const icon = document.getElementById("icons");
 const forusText = document.getElementById("forus");
 const body = document.querySelector("body");
+// const categoriesNavbar = document.querySelector("#nav-header .categories-navbar");
 
 if(window.matchMedia('(min-width: 768px)')){
   desplegable.addEventListener("click", (e) => {
@@ -45,6 +46,7 @@ body.addEventListener("click", (e) => {
 
 function toggleSidebar() {
   navHeader.classList.toggle("w-2/12");
+  // categoriesNavbar.classList.add("w-40");
   capa3.classList.toggle("hidden");
   nav.classList.toggle("items-center");
   nav.classList.toggle("items-start");

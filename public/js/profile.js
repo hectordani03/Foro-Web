@@ -11,6 +11,7 @@ const profile = {
     userProfile: "/Profile/getUser",
     updateUser: "/Profile/updateUser",
     updateColor: "/Profile/updateColor",
+    userCat: "/Profile/userCategories",
 
     like: "/Interactions/createLike",
   },
@@ -739,6 +740,19 @@ ${sharesHtml}
 </div>
     `;
   },
+
+  userCat: function() {
+    let html = ``;
+    let cat = $("#userCat")
+    fetch(this.routes.userCat)
+      .then((res) => res.json())
+      .then((cats) => {
+        cats.forEach((cat) => {
+          html += `<img class="rounded-lg w-12 h-12" src="http://forus.com/resources/assets/img/categories/${cat.img}" alt="">`
+        });
+        cat.html(html);
+      });
+  }
 };
 
 $("#userComments").on("click", function () {

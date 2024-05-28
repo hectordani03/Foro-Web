@@ -6,6 +6,7 @@ use app\classes\View;
 use app\classes\redirect;
 use app\models\posts;
 use app\models\comments;
+use app\models\categories as cat;
 use app\models\user;
 use app\models\userinfo;
 use app\controllers\auth\LoginController as session;
@@ -114,5 +115,13 @@ class ProfileController extends Controller
         } else {
             echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
         }
+    }
+
+    public function userCategories()
+    {
+        $cat = new cat();
+        $data['userId'] = session::sessionValidate()['id'];
+        $result = $cat->getuserCategories($data);
+        echo $result;
     }
 }

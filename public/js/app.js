@@ -53,9 +53,11 @@ const app = {
       });
     $(document).on("click", ".like", function () {
       var postId = $(this).data("post-id");
-      const userData = $.grep(usp, function (e) {return e.id === postId;})[0];
+      const userData = $.grep(usp, function (e) {
+        return e.id === postId;
+      })[0];
       var likes = $(".likes_count" + postId);
-      var likesc = likes.data('count') || 0;
+      var likesc = likes.data("count") || 0;
       var data = {
         postId: postId,
         type: "like",
@@ -75,15 +77,15 @@ const app = {
           if (likesc > 0) {
             if (likes.length > 0) {
               likes.html(likesc);
-              likes.data('count', likesc);
-              likes.show(); 
+              likes.data("count", likesc);
+              likes.show();
             } else {
               var newLikeHtml = `<span id="likes" class="likes_count${postId}" data-count="${likesc}">${likesc}</span>`;
               $('.like[data-post-id="' + postId + '"]').append(newLikeHtml);
             }
           } else {
             if (likes.length > 0) {
-              likes.data('count', 0); 
+              likes.data("count", 0);
               likes.hide();
             }
           }
@@ -107,9 +109,11 @@ const app = {
       });
     $(document).on("click", ".like", function () {
       var postId = $(this).data("post-id");
-      const userData = $.grep(usp, function (e) {return e.id === postId;})[0];
+      const userData = $.grep(usp, function (e) {
+        return e.id === postId;
+      })[0];
       var likes = $(".likes_count" + postId);
-      var likesc = likes.data('count') || 0;
+      var likesc = likes.data("count") || 0;
       var data = {
         postId: postId,
         type: "like",
@@ -129,15 +133,15 @@ const app = {
           if (likesc > 0) {
             if (likes.length > 0) {
               likes.html(likesc);
-              likes.data('count', likesc);
-              likes.show(); 
+              likes.data("count", likesc);
+              likes.show();
             } else {
               var newLikeHtml = `<span id="likes" class="likes_count${postId}" data-count="${likesc}">${likesc}</span>`;
               $('.like[data-post-id="' + postId + '"]').append(newLikeHtml);
             }
           } else {
             if (likes.length > 0) {
-              likes.data('count', 0); 
+              likes.data("count", 0);
               likes.hide();
             }
           }
@@ -228,7 +232,9 @@ const app = {
         const rp = $(".replyComment");
         rp.on("click", function (e) {
           const commentId = Number($(this).attr("data-comment-id"));
-          const comment = $.grep(com, function (e) {return e.id === commentId;})[0];
+          const comment = $.grep(com, function (e) {
+            return e.id === commentId;
+          })[0];
           const adrp = ".addReply" + commentId;
           $(adrp).html("");
           const html = app.repliesCommentHtml(postId, comment);
@@ -265,10 +271,13 @@ const app = {
   },
 
   notifications: function () {
-
     let html = this.notificationsHtml();
     this.nt.html(html);
-
+    fetch(this.routes.userNotifications)
+      .then((res) => res.json())
+      .then((notif) => {
+        this.displayNotifications(notif);
+      });
     const modal = $("#notificationsModal");
     const bellIcon = $("#bell-icon");
     let isModalVisible = false;
@@ -278,7 +287,6 @@ const app = {
 
     // Añade el manejador de eventos click
     bellIcon.on("click", () => {
-      console.log("click");
       isModalVisible = !isModalVisible;
       if (isModalVisible) {
         modal.removeClass("hidden");
@@ -294,7 +302,7 @@ const app = {
       capa.addClass("hidden");
       $("body").removeClass("overflow-hidden").addClass("overflow-auto");
     });
-},
+  },
 
   categories: function () {
     let html = "";
@@ -303,12 +311,12 @@ const app = {
     fetch(this.routes.getCategories)
       .then((res) => res.json())
       .then((categories) => {
-        catObjetive = categories;  
+        catObjetive = categories;
         html = "";
         for (let category of categories) {
           html += `<li class="w-10 h-10">
             <button type="submit" name="category" value="${category.name}">
-              <img class="rounded-lg" src="http://forus.com/resources/assets/img/categories/${category.img}" alt="" class="w-full">
+              <img class="rounded-lg w-10 h-10" src="http://forus.com/resources/assets/img/categories/${category.img}" alt="" class="w-10 h-10">
             </button>
             <span class="desplegableText hidden relative left-14 bottom-8 text-gray-400 text-nowrap">${category.name}</span>
           </li>`;
@@ -319,14 +327,17 @@ const app = {
         const urlParams = new URLSearchParams(queryString);
         const category = urlParams.get("category");
 
-        if (category) { 
-          const cat = $.grep(catObjetive, function(e) {
+        if (category) {
+          const cat = $.grep(catObjetive, function (e) {
             return e.name === category;
           })[0];
 
-          if (cat) {  
+          if (cat) {
             const img = $("#objetiveGif");
-            img.attr("src", "http://forus.com/resources/assets/img/categories/gifs/" + cat.gif);
+            img.attr(
+              "src",
+              "http://forus.com/resources/assets/img/categories/gifs/" + cat.gif
+            );
           }
         }
       });
@@ -352,11 +363,13 @@ const app = {
         });
         this.pp.html(html);
       });
-   $(document).on("click", ".like", function () {
+    $(document).on("click", ".like", function () {
       var postId = $(this).data("post-id");
-      const userData = $.grep(usp, function (e) {return e.id === postId;})[0];
+      const userData = $.grep(usp, function (e) {
+        return e.id === postId;
+      })[0];
       var likes = $(".likes_count" + postId);
-      var likesc = likes.data('count') || 0;
+      var likesc = likes.data("count") || 0;
       var data = {
         postId: postId,
         type: "like",
@@ -376,15 +389,15 @@ const app = {
           if (likesc > 0) {
             if (likes.length > 0) {
               likes.html(likesc);
-              likes.data('count', likesc);
-              likes.show(); 
+              likes.data("count", likesc);
+              likes.show();
             } else {
               var newLikeHtml = `<span id="likes" class="likes_count${postId}" data-count="${likesc}">${likesc}</span>`;
               $('.like[data-post-id="' + postId + '"]').append(newLikeHtml);
             }
           } else {
             if (likes.length > 0) {
-              likes.data('count', 0); 
+              likes.data("count", 0);
               likes.hide();
             }
           }
@@ -392,7 +405,6 @@ const app = {
       });
     });
   },
-
 
   getHashtags: function () {
     const queryString = window.location.search;
@@ -455,12 +467,10 @@ const app = {
     let html = this.menuCardHtmlBuilder(post);
     let menuContainer = $(`#menuId-${postId}`);
     menuContainer.html(html);
-    console.log(menuContainer);
 
     menuContainer.on("click", function (e) {
       e.stopPropagation();
     });
-
 
     const modal = $(".modal-close");
     const capa = $(".capa-close");
@@ -471,26 +481,23 @@ const app = {
       capa.addClass("hidden");
       $("body").removeClass("overflow-hidden").addClass("overflow-auto");
     });
-},
+  },
 
   likeBtn: function (postId) {
     let likeButton = document.querySelector(`#likeId-${postId}`);
-    console.log(likeButton);
-    if (likeButton.classList.contains('text-gray-400')) {
-      likeButton.classList.remove('text-gray-400');
-      likeButton.classList.add('text-red-500');
+    if (likeButton.classList.contains("text-gray-400")) {
+      likeButton.classList.remove("text-gray-400");
+      likeButton.classList.add("text-red-500");
     } else {
-      likeButton.classList.remove('text-red-500');
-      likeButton.classList.add('text-gray-400');
+      likeButton.classList.remove("text-red-500");
+      likeButton.classList.add("text-gray-400");
     }
 
     // Se puede usar el toggle tmb we
     // likeButton.classList.toggle('text-red-500');
-    
   },
 
   addCategory: function () {
-
     let html = this.addCategoryHtmlBuilder();
     this.ac.html(html);
 
@@ -516,52 +523,145 @@ const app = {
       $("body").removeClass("overflow-hidden").addClass("overflow-auto");
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       const addCategoryBtn = document.getElementById("add-category");
       const modal = document.getElementById("myModal");
       const modalOverlay = document.getElementById("modal-overlay");
       const closeModalBtn = document.getElementById("closeModal");
-      const descripcionTextarea = document.getElementById('descripcion');
+      const descripcionTextarea = document.getElementById("descripcion");
       const maxHeight = 220; // Máxima altura en píxeles
-      
-      descripcionTextarea.addEventListener('input', function() {
-          this.style.height = 'auto';
-          const newHeight = this.scrollHeight;
-          if (newHeight > maxHeight) {
-              this.style.height = maxHeight + '220px';
-          } else {
-              this.style.height = newHeight + '220px';
-          }
+
+      descripcionTextarea.addEventListener("input", function () {
+        this.style.height = "auto";
+        const newHeight = this.scrollHeight;
+        if (newHeight > maxHeight) {
+          this.style.height = maxHeight + "220px";
+        } else {
+          this.style.height = newHeight + "220px";
+        }
       });
-      
-  
-      addCategoryBtn.addEventListener("click", function() {
-          modal.classList.remove("hidden");
-          modalOverlay.classList.remove("hidden");
+
+      addCategoryBtn.addEventListener("click", function () {
+        modal.classList.remove("hidden");
+        modalOverlay.classList.remove("hidden");
       });
-  
-      closeModalBtn.addEventListener("click", function() {
-          modal.classList.add("hidden");
-          modalOverlay.classList.add("hidden");
+
+      closeModalBtn.addEventListener("click", function () {
+        modal.classList.add("hidden");
+        modalOverlay.classList.add("hidden");
       });
-  
-      modalOverlay.addEventListener("click", function() {
-          modal.classList.add("hidden");
-          modalOverlay.classList.add("hidden");
+
+      modalOverlay.addEventListener("click", function () {
+        modal.classList.add("hidden");
+        modalOverlay.classList.add("hidden");
       });
-  });
+    });
+  },
+
+  helper: function () {
+    const modalContainer = $("<div></div>");
+
+    let html = this.helperModalHtml();
+    modalContainer.html(html);
+
+    $("body").append(modalContainer);
+
+    const modal = $("#image-modal");
+    modal.removeClass("hidden");
+    $(function () {
+      $("body").removeClass("overflow-auto").addClass("overflow-hidden");
+    });
+    const close = $("#close-modal");
+    close.on("click", () => {
+      modal.addClass("hidden");
+      $("body").removeClass("overflow-hidden").addClass("overflow-auto");
+    });
+  },
+
+  sendHelp: function () {
+    const hpr = $("#helper-form");
+    hpr.off("submit").on("submit", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const submitButton = hpr.find('button[type="submit"]');
+      submitButton.prop("disabled", true);
+      let em = $("#helperEmail");
+      let de = $("#helperDescripcion");
+      if (em.val() === "" || de.val() === "") {
+        alerts({
+          type: "function",
+          icon: "error",
+          text: "Fields cannot be empty",
+          callback: function () {
+            submitButton.prop("disabled", false);
+          },
+        });
+      } else {
+        const data = new FormData(this);
+        $.ajax({
+          url: app.routes.helper,
+          type: "POST",
+          data: data,
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (res) {
+            if (res.r === true) {
+              alerts({
+                type: "function",
+                icon: "success",
+                text: "Your request has been sent",
+                callback: function () {
+                  location.reload();
+                },
+              });
+            } else if (res.r === "e") {
+              alerts({
+                type: "function",
+                icon: "error",
+                text: "Fields cannot be empty",
+                callback: function () {
+                  submitButton.prop("disabled", false);
+                },
+              });
+            } else if (res.r === "q") {
+              alerts({
+                type: "error",
+                text: "Unexpected error, please try again",
+              });
+            }
+          },
+          error: function () {
+            alerts({
+              type: "error",
+              text: "Unexpected error, please try again",
+            });
+            submitButton.prop("disabled", false);
+          },
+        });
+      }
+    });
   },
 
   /* HTML */
   postsHtmlBuilder: function (post) {
-    var likesHtml = post.likes > 0 ? `
-    <span id="likes" class="likes_count${post.id} text-gray-400 text-2xl mb-1 transition-all" data-count="${post.likes}">${post.likes}</span>` : ''; 
-    
-    var sharesHtml = post.shares > 0 ? `
+    var likesHtml =
+      post.likes > 0
+        ? `
+    <span id="likes" class="likes_count${post.id} text-gray-400 text-2xl mb-1 transition-all" data-count="${post.likes}">${post.likes}</span>`
+        : "";
+
+    var sharesHtml =
+      post.shares > 0
+        ? `
     <span id="shares" class="shares_count${post.id} text-gray-400 text-2xl mb-1 transition-all" data-counts="${post.shares}">${post.shares}</span>
-    ` : '';
-    var commentsHtml = post.comments > 0 ? `
-    <span id="comments" class="comments_count${post.id} text-gray-400 text-2xl mb-1 transition-all" data-countc="${post.comments}">${post.comments}</span>` : '';
+    `
+        : "";
+    var commentsHtml =
+      post.comments > 0
+        ? `
+    <span id="comments" class="comments_count${post.id} text-gray-400 text-2xl mb-1 transition-all" data-countc="${post.comments}">${post.comments}</span>`
+        : "";
 
     let postHtml = "";
     if (post.postId) {
@@ -578,12 +678,14 @@ const app = {
         <p class="text-gray-400">${formatTimeSincePost(post.created_at)}</p>
         <h1 data-postText class="mb-3 text-lg text-gray-400 font-semibold w-11/12 mt-3">${
           post.text
-}</h1>
+        }</h1>
         </div> 
     </div>
     <div id="post-card" class="bg-gray-100 dark:bg-slate-700 shadow-lg w-full rounded-xl flex flex-col relative h-fit self-start opacity-100">
     <!-- MENU MODAL -->
-            <div id="menuId-${post.id}" class="absolute flex justify-center w-full mx-auto h-full" aria-labelledby="modal-title" role="dialog" aria-modal="true"></div>
+            <div id="menuId-${
+              post.id
+            }" class="absolute flex justify-center w-full mx-auto h-full" aria-labelledby="modal-title" role="dialog" aria-modal="true"></div>
     <div class="flex mt-5 ml-5">
     <img id="profile_picture" class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${
       post.originalProfilePic
@@ -597,9 +699,6 @@ const app = {
         )}</p>
         </div>
         <!-- CARD MENU -->
-            <div class="absolute right-5 top-0 h-fit z-50">
-                <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none menu-card" onclick="app.menuCard(${post.id})">...</span>
-            </div>
     </div>
     <p data-postText class="text-gray-400 w-10/12 mx-auto text-xl mt-8">${
       post.originalText
@@ -617,7 +716,9 @@ const app = {
       postHtml += `
       <div class="bg-gray-100 dark:bg-slate-700 shadow-lg w-full rounded-xl flex flex-col relative mt-5 h-fit self-start opacity-100">
       <!-- MENU MODAL -->
-            <div id="menuId-${post.id}" class="absolute flex justify-center w-full mx-auto h-full" aria-labelledby="modal-title" role="dialog" aria-modal="true"></div>
+            <div id="menuId-${
+              post.id
+            }" class="absolute flex justify-center w-full mx-auto h-full" aria-labelledby="modal-title" role="dialog" aria-modal="true"></div>
       <div class="flex mt-5 ml-5">
       <img id="profile_picture" class="w-12 h-11 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${
         post.profilePic
@@ -631,9 +732,6 @@ const app = {
                 )}</p>
               </div>
               <!-- CARD MENU -->
-              <div class="absolute right-5 top-0 h-fit z-50">
-                  <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none h-fit" onclick="app.menuCard(${post.id})">...</span>
-              </div>  
       </div>
   
   <p data-postText class="text-gray-400 w-10/12 mx-auto text-xl mt-8">${
@@ -834,7 +932,11 @@ const app = {
                            ${this.buildHashtagsHtml(post.hashtag)}
                         </div>
                         <hr class="w-full mt-10 mb-5">
-                        <button type="submit" onclick="post.sharePost(${post.id}, '${post.category}', '${post.userId}')" id="sharebtn" class="w-full mx-auto btn bg-sky-500 rounded-xl p-3 text-white">Share</button>
+                        <button type="submit" onclick="post.sharePost(${
+                          post.id
+                        }, '${post.category}', '${
+      post.userId
+    }')" id="sharebtn" class="w-full mx-auto btn bg-sky-500 rounded-xl p-3 text-white">Share</button>
                         </form>
                 </div>
             </div>
@@ -915,9 +1017,6 @@ const app = {
                 <div class="flex flex-col ml-5">
                     <h2 class="text-xl text-gray-400 font-semibold">${post.username}</h2>
                 </div>
-                <div class="absolute right-5 top-0">
-                    <span id="menu-card" class="text-5xl text-gray-400 cursor-pointer select-none">...</span>
-                </div>
             </div>
             <p class="text-gray-400 w-10/12 mx-auto text-xl mt-8">${post.text}</p>
             <img class="w-10/12 mx-auto rounded-xl mt-7" src="http://forus.com/resources/assets/img/post/${post.img}" alt="">
@@ -957,21 +1056,28 @@ const app = {
     return `
     <div class="w-10/12 mx-auto relative">
     <div class="comment-container flex gap-5 mt-10 relative">
-    <img class="w-12 h-10 bg-blue-500 rounded-full top-8 left-8 z-50" src="http://forus.com/resources/assets/img/profile/${parentComment.profilePic}" alt="">
+    <img class="w-12 h-10 bg-blue-500 rounded-full top-8 left-8 z-50" src="http://forus.com/resources/assets/img/profile/${
+      parentComment.profilePic
+    }" alt="">
     <div class="rounded-xl bg-gray-200 dark:bg-slate-600 shadow-lg comment-interactions z-50">
         <div class="ml-5 mr-5 mt-1 mb-2">
             <div class="flex gap-2">
                 <p class="text-gray-400 font-bold">${parentComment.username}</p>
-                <small class="text-gray-400 relative top-0.5">${formatTimeSincePost(parentComment.created_at)}</small>
+                <small class="text-gray-400 relative top-0.5">${formatTimeSincePost(
+                  parentComment.created_at
+                )}</small>
             </div>
             <span class="text-gray-400">${parentComment.content}</span>
         </div>
     </div>
+    
 </div>
 
 
         <div class="flex w-10/12 mx-auto mt-3 gap-5 relative flex-col">
-            <div data-comment-id="${parentComment.id}" class="replyComment text-gray-400 h-6 cursor-pointer flex gap-2 ml-5">
+            <div data-comment-id="${
+              parentComment.id
+            }" class="replyComment text-gray-400 h-6 cursor-pointer flex gap-2 ml-5">
                 <i class="fa-duotone fa-messages icon mt-1"></i>
                 <span class="">Reply</span>
             </div>
@@ -990,12 +1096,16 @@ const app = {
   </svg>
   </div>
     <div class="flex gap-5">
-      <img class="w-12 h-10 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${childComment.profilePic}" alt="">
+      <img class="w-12 h-10 bg-blue-500 rounded-full top-8 left-8" src="http://forus.com/resources/assets/img/profile/${
+        childComment.profilePic
+      }" alt="">
       <div class="rounded-xl bg-gray-200 dark:bg-slate-600 shadow-lg">
           <div class="ml-5 mr-5 mt-1 mb-2">
               <div class="flex gap-2">
                 <p class="text-gray-400 font-bold">${childComment.username}</p>
-                <small class="text-gray-400 relative top-0.5">${formatTimeSincePost(childComment.created_at)}</small>
+                <small class="text-gray-400 relative top-0.5">${formatTimeSincePost(
+                  childComment.created_at
+                )}</small>
               </div>
               <span class="text-gray-400">${childComment.content}</span>
           </div>
@@ -1019,49 +1129,40 @@ const app = {
 `;
   },
 
-  notificationsHtml: function () {
-    return `
-    <div id="notificationsModal" class="w-full max-w-xs p-4 text-gray-900 bg-white shadow-2xl z-50 dark:bg-slate-800 dark:text-gray-300 fixed right-0 top-16 rounded-3xl" role="alert">
-      <div class="flex items-center mb-3">
-        <span class="mb-1 text-xl font-semibold text-gray-900 dark:text-white">New notifications</span>
-        <button type="button" class=" close-modal ms-auto -mx-1.5 -my-1.5 bg-white justify-center items-center flex-shrink-0 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-notification" aria-label="Close">
-            <span class="sr-only">Close</span>
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-            </svg>
-        </button>
-      </div>
-      <div class="flex flex-col gap-1">
+  displayNotifications: function (notif) {
+    const container = this.nt;
+    container.html("");
+    const allNotifications = [
+      ...notif.like,
+      ...notif.comment,
+      ...notif.share,
+    ];
+    allNotifications.sort(
+      (a, b) => new Date(b.created_at) - new Date(a.created_at)
+    );
+    allNotifications.forEach((notification) => {
+      if (notification) {
+        const html = this.notificationsHtml(notification);
+        if (html) {
+          container.append(html);
+        }
+      }
+    });
+  },
+  
 
-
-
-      <!-- NOTIFICATION COMMENT PUTO -->
+  notificationsHtml: function (notification) {
+    if (!notification || !notification.type) {
+      return ''; 
+    }
+    let html = "";
+    switch (notification.type) {
+      case "like":
+        html = `
+        <!-- NOTIFICATION LIKE -->
         <div class="flex items-center hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer hover:rounded-lg p-2">
           <div class="relative inline-block shrink-0">
-            <img class="w-12 h-12 rounded-full" src="http://forus.com/resources/assets/img/profile/Cali_24.jpg" alt=""/>
-            
-            <span class="absolute bottom-0 right-0 inline-flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full">
-            <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" fill="currentColor">
-            <path d="M18 4H16V9C16 10.0609 15.5786 11.0783 14.8284 11.8284C14.0783 12.5786 13.0609 13 12 13H9L6.846 14.615C7.17993 14.8628 7.58418 14.9977 8 15H11.667L15.4 17.8C15.5731 17.9298 15.7836 18 16 18C16.2652 18 16.5196 17.8946 16.7071 17.7071C16.8946 17.5196 17 17.2652 17 17V15H18C18.5304 15 19.0391 14.7893 19.4142 14.4142C19.7893 14.0391 20 13.5304 20 13V6C20 5.46957 19.7893 4.96086 19.4142 4.58579C19.0391 4.21071 18.5304 4 18 4Z" fill="currentColor"/>
-            <path d="M12 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V9C0 9.53043 0.210714 10.0391 0.585786 10.4142C0.960859 10.7893 1.46957 11 2 11H3V13C3 13.1857 3.05171 13.3678 3.14935 13.5257C3.24698 13.6837 3.38668 13.8114 3.55279 13.8944C3.71889 13.9775 3.90484 14.0126 4.08981 13.996C4.27477 13.9793 4.45143 13.9114 4.6 13.8L8.333 11H12C12.5304 11 13.0391 10.7893 13.4142 10.4142C13.7893 10.0391 14 9.53043 14 9V2C14 1.46957 13.7893 0.960859 13.4142 0.585786C13.0391 0.210714 12.5304 0 12 0Z" fill="currentColor"/>
-            
-            </svg>
-            <span class="sr-only">Message icon</span>
-            </span>
-          </div>
-          <div class="ms-3 text-sm font-normal">
-            <div class="text-sm font-semibold text-gray-900 dark:text-white">Jose Joshua</div>
-            <div class="text-sm font-normal">commented on your post</div> 
-            <span class="text-xs font-medium text-blue-600 dark:text-blue-500">a few seconds ago</span>   
-          </div>
-        </div>
-        
-        
-
-        <!-- NOTIFICATION LIKE PUTO -->
-        <div class="flex items-center hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer hover:rounded-lg p-2">
-          <div class="relative inline-block shrink-0">
-            <img class="w-12 h-12 rounded-full" src="http://forus.com/resources/assets/img/profile/Cali_24.jpg" alt=""/>
+            <img class="w-12 h-12 rounded-full" src="http://forus.com/resources/assets/img/profile/${notification.profilePic}" alt=""/>
             <span class="absolute bottom-0 right-0 inline-flex items-center justify-center w-6 h-6 bg-red-600 rounded-full">
             <svg class="w-3 h-3 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="fill-current" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
             <path d="M5 10a1 1 0 0 1 .993 .883l.007 .117v9a1 1 0 0 1 -.883 .993l-.117 .007h-1a2 2 0 0 1 -1.995 -1.85l-.005 -.15v-7a2 2 0 0 1 1.85 -1.995l.15 -.005h1z" stroke-width="0" fill="currentColor" />
@@ -1070,35 +1171,142 @@ const app = {
             </span>
           </div>
           <div class="ms-3 text-sm font-normal">
-            <div class="text-sm font-semibold text-gray-900 dark:text-white">Jose Joshua</div>
-            <div class="text-sm font-normal">liked your post</div> 
+            <div class="text-sm font-semibold text-gray-900 dark:text-white">${notification.username}</div>
+            <div class="text-sm font-normal">Liked your post</div> 
             <span class="text-xs font-medium text-blue-600 dark:text-blue-500">2 minutes ago</span>   
           </div>
         </div>
-
-
-
-        <!-- NOTIFICATION SHARE PUTO -->
+          `;
+        break;
+      case "comment":
+        html = `
+        <!-- NOTIFICATION COMMENT -->
         <div class="flex items-center hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer hover:rounded-lg p-2">
           <div class="relative inline-block shrink-0">
-            <img class="w-12 h-12 rounded-full" src="http://forus.com/resources/assets/img/profile/Cali_24.jpg" alt=""/>
-            <span class="absolute bottom-0 right-0 inline-flex items-center justify-center w-6 h-6 bg-green-600 rounded-full">
-            <svg class="w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="fill-current" d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z"/></svg>
-            <span class="sr-only">Message icon</span>
+            <img class="w-12 h-12 rounded-full" src="http://forus.com/resources/assets/img/profile/${
+              notification.profilePic
+            }" alt=""/>
+            <span class="absolute bottom-0 right-0 inline-flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full">
+              <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" fill="currentColor">
+              <path d="M18 4H16V9C16 10.0609 15.5786 11.0783 14.8284 11.8284C14.0783 12.5786 13.0609 13 12 13H9L6.846 14.615C7.17993 14.8628 7.58418 14.9977 8 15H11.667L15.4 17.8C15.5731 17.9298 15.7836 18 16 18C16.2652 18 16.5196 17.8946 16.7071 17.7071C16.8946 17.5196 17 17.2652 17 17V15H18C18.5304 15 19.0391 14.7893 19.4142 14.4142C19.7893 14.0391 20 13.5304 20 13V6C20 5.46957 19.7893 4.96086 19.4142 4.58579C19.0391 4.21071 18.5304 4 18 4Z" fill="currentColor"/>
+              <path d="M12 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V9C0 9.53043 0.210714 10.0391 0.585786 10.4142C0.960859 10.7893 1.46957 11 2 11H3V13C3 13.1857 3.05171 13.3678 3.14935 13.5257C3.24698 13.6837 3.38668 13.8114 3.55279 13.8944C3.71889 13.9775 3.90484 14.0126 4.08981 13.996C4.27477 13.9793 4.45143 13.9114 4.6 13.8L8.333 11H12C12.5304 11 13.0391 10.7893 13.4142 10.4142C13.7893 10.0391 14 9.53043 14 9V2C14 1.46957 13.7893 0.960859 13.4142 0.585786C13.0391 0.210714 12.5304 0 12 0Z" fill="currentColor"/>
+              </svg>
+              <span class="sr-only">Message icon</span>
             </span>
           </div>
           <div class="ms-3 text-sm font-normal">
-            <div class="text-sm font-semibold text-gray-900 dark:text-white">Jose Joshua</div>
-            <div class="text-sm font-normal">shared your post</div> 
-            <span class="text-xs font-medium text-blue-600 dark:text-blue-500">2 minutes ago</span>   
+            <div class="text-sm font-semibold text-gray-900 dark:text-white">${
+              notification.username
+            }</div>
+            <div class="text-sm font-normal">Comment your post</div> 
+            <span class="text-xs font-medium text-blue-600 dark:text-blue-500">${formatTimeSincePost(
+              notification.created_at
+            )}</span>   
+          </div>
+        </div>
+            `;
+        break;
+      case "share":
+        html = `
+        <!-- NOTIFICATION REPLY -->
+        <div class="flex items-center hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer hover:rounded-lg p-2">
+          <div class="relative inline-block shrink-0">
+            <img class="w-12 h-12 rounded-full" src="http://forus.com/resources/assets/img/profile/${
+              notification.profilePic
+            }" alt=""/>
+            <span class="absolute bottom-0 right-0 inline-flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full">
+              <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" fill="currentColor">
+              <path d="M18 4H16V9C16 10.0609 15.5786 11.0783 14.8284 11.8284C14.0783 12.5786 13.0609 13 12 13H9L6.846 14.615C7.17993 14.8628 7.58418 14.9977 8 15H11.667L15.4 17.8C15.5731 17.9298 15.7836 18 16 18C16.2652 18 16.5196 17.8946 16.7071 17.7071C16.8946 17.5196 17 17.2652 17 17V15H18C18.5304 15 19.0391 14.7893 19.4142 14.4142C19.7893 14.0391 20 13.5304 20 13V6C20 5.46957 19.7893 4.96086 19.4142 4.58579C19.0391 4.21071 18.5304 4 18 4Z" fill="currentColor"/>
+              <path d="M12 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V9C0 9.53043 0.210714 10.0391 0.585786 10.4142C0.960859 10.7893 1.46957 11 2 11H3V13C3 13.1857 3.05171 13.3678 3.14935 13.5257C3.24698 13.6837 3.38668 13.8114 3.55279 13.8944C3.71889 13.9775 3.90484 14.0126 4.08981 13.996C4.27477 13.9793 4.45143 13.9114 4.6 13.8L8.333 11H12C12.5304 11 13.0391 10.7893 13.4142 10.4142C13.7893 10.0391 14 9.53043 14 9V2C14 1.46957 13.7893 0.960859 13.4142 0.585786C13.0391 0.210714 12.5304 0 12 0Z" fill="currentColor"/>
+              </svg>
+              <span class="sr-only">Message icon</span>
+            </span>
+          </div>
+          <div class="ms-3 text-sm font-normal">
+            <div class="text-sm font-semibold text-gray-900 dark:text-white">${
+              notification.username
+            }</div>
+            <div class="text-sm font-normal">Replied to your comment</div> 
+            <span class="text-xs font-medium text-blue-600 dark:text-blue-500">${formatTimeSincePost(
+              notification.created_at
+            )}</span>   
+          </div>
+        </div>
+            `;
+        break;
+      case "reply":
+        html = `
+        <!-- NOTIFICATION SHARE -->
+        <div class="flex items-center hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer hover:rounded-lg p-2">
+          <div class="relative inline-block shrink-0">
+            <img class="w-12 h-12 rounded-full" src="http://forus.com/resources/assets/img/profile/${notification.profilePic}" alt=""/>
+            <span class="absolute bottom-0 right-0 inline-flex items-center justify-center w-6 h-6 bg-green-600 rounded-full">
+              <svg class="w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="fill-current" d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z"/></svg>
+              <span class="sr-only">Message icon</span>
+            </span>
+          </div>
+          <div class="ms-3 text-sm font-normal">
+            <div class="text-sm font-semibold text-gray-900 dark:text-white">${notification.username}</div>
+            <div class="text-sm font-normal">Shared your post</div> 
+            <span class="text-xs font-medium text-blue-600 dark:text-blue-500">${formatTimeSincePost(notification.created_at)}</span>   
+          </div>
+        </div>
+            `;
+        break;
+    }
+    return `
+    <div id="notificationsModal" class="w-full max-w-xs p-4 text-gray-900 bg-white shadow-2xl z-50 dark:bg-slate-800 dark:text-gray-300 fixed right-0 top-16 rounded-3xl" role="alert">
+    <div class="flex items-center mb-3">
+      <span class="mb-1 text-xl font-semibold text-gray-900 dark:text-white">New notifications</span>
+      <button type="button" class=" close-modal ms-auto -mx-1.5 -my-1.5 bg-white justify-center items-center flex-shrink-0 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-notification" aria-label="Close">
+          <span class="sr-only">Close</span>
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+          </svg>
+      </button>
+    </div>
+    <div class="flex flex-col gap-1">
+
+  ${html}
+
+    </div>
+  </div>
+    `
+  },
+
+  helperModalHtml: function () {
+    return `
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-40 transition-opacity hidden"></div>
+    <div id="image-modal" class="hidden fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 modal-close z-50">
+    <div class="bg-slate-700 rounded-lg p-4 sm:p-6 lg:p-8 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl w-full">        
+          <div class="relative flex justify-center items-center mb-4">
+          <h1 class="text-black text-2xl sm:text-3xl font-bold dark:text-white">FOR<span class="text-blue-500 ml-2">US</span></h1>                
+              <button id="close-modal" class="absolute right-0 text-gray-600 hover:text-gray-800 focus:outline-none">
+                  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+              </button>
+          </div>
+          <div class="flex flex-col space-y-5">          
+          <div class="w-full pr-2 flex flex-col">
+            <form class="" id="helper-form" method="POST" autocomplete="off" enctype="multipart/form-data">
+              <div class="mb-5 mt-9">
+                <p class="text-center text-lg sm:text-xl text-gray-400 font-semibold rounded-xl w-full px-2">How can we assist you today?</p>
+              </div>
+              <div class="mb-5">
+                <textarea class="auto-expand text-lg sm:text-xl border-b-2 border-gray-300 py-2 focus:border-gray-400 transition-colors focus:outline-none bg-slate-200 dark:bg-slate-600 text-gray-400 font-semibold shadow-md rounded-xl w-full px-2 h-[160px] sm:h-[180px] md:h-[200px] lg:h-[220px] max-h-[220px] overflow-y-auto p-4" id="helperDescripcion" name="description" placeholder="Tell us how we can help you"></textarea>
+              </div>
+              <div class="flex justify-center mb-5 mt-2">
+                  <button type="submit" onclick="app.sendHelp()" class="text-xl bg-sky-400 text-white text-center w-1/2 py-2 rounded-lg font-semibold sm:text-xl">Send</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    </div>
+  </div>
   `;
-},
-              
-              /* NO CONTENT */
+  },
+  /* NO CONTENT */
   noContentPostsHtml: function () {
     return `
     <div class=" relative left-64 flex flex-col justify-center items-center mx-auto text-center w-full mb-10">
@@ -1124,9 +1332,7 @@ const app = {
 `;
   },
 
-  categoryHtml: function () {
-
-  }
+  categoryHtml: function () {},
 };
 
 function formatTimeSincePost(postDate) {
@@ -1164,17 +1370,22 @@ function loadDoc() {
           } catch (e) {
             response = null;
           }
-          if (Array.isArray(response) && response.length > 0 && response[0].tt != null) {
+          if (
+            Array.isArray(response) &&
+            response.length > 0 &&
+            response[0].tt != null
+          ) {
             var notificationsCount = response[0].tt;
-            document.getElementById("userNotifications").innerHTML = notificationsCount;
+            document.getElementById("userNotifications").innerHTML =
+              notificationsCount;
           } else {
-            document.getElementById("userNotifications").innerHTML = '';
+            document.getElementById("userNotifications").innerHTML = "";
           }
         } else {
-          document.getElementById("userNotifications").innerHTML = '';
+          document.getElementById("userNotifications").innerHTML = "";
         }
       } else if (this.readyState == 4) {
-        document.getElementById("userNotifications").innerHTML = '';
+        document.getElementById("userNotifications").innerHTML = "";
       }
     };
     xhttp.open("GET", app.routes.userNotificationsCount, true);
@@ -1186,11 +1397,6 @@ function loadDoc() {
   setInterval(fetchNotifications, 20000);
 }
 
-window.onload = loadDoc;
-
-
-
-
 $(function () {
   $("[data-search]").on("input", function () {
     const value = $(this).val().toLowerCase();
@@ -1200,5 +1406,20 @@ $(function () {
       const isVisible = postText.includes(value) || username.includes(value);
       $(this).toggleClass("hide", !isVisible);
     });
+  });
+});
+
+$(document).on("click", ".nologued", function () {
+  event.preventDefault();
+  Swal.fire({
+    icon: "error",
+    title: "Login / Register",
+    text: "Login or register to continue viewing the page without interruptions",
+    confirmButtonColor: "#28a745",
+    confirmButtonText:
+      '<a class="botoniniciar text-light text-decoration-none" href="/login">Login / Register</a>',
+    showCancelButton: false,
+    backdrop: true,
+    timer: 1000,
   });
 });

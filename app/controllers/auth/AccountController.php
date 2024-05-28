@@ -39,7 +39,6 @@ class AccountController extends Controller
                 $CT = date("Y-m-d H:i:s");
                 if ($CT >= $userData[0]->period && $userData[0]->duration != "0") {
                     ob_start();
-
                     $Csrf = new Csrf;
                     session_start();
                     $_SESSION['token'] = $Csrf->getToken();
@@ -50,7 +49,7 @@ class AccountController extends Controller
                     require_once '../app/views/templates/emails/changePasswd.php';
                     $subject = 'Verification Code';
                     $message = ob_get_clean();
-                    sendMail($data['email'], $subject, $message);
+                    sendMail($userData[0]->email, $subject, $message);
                     echo json_encode(["r" => true]);
                 } else {
                     echo json_encode(["r" => 's']);
@@ -65,7 +64,6 @@ class AccountController extends Controller
 
     public function verify($params = null)
     {
-
         session_start();
         $token = $_SESSION['token'];
         $code = $_SESSION['code'];

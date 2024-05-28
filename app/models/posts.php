@@ -75,7 +75,7 @@ class posts extends Model
         }
     }
 
-    public function getAllPosts($userId)
+    public function getAllPosts()
     {
         $result = $this->select([
             'a.*',
@@ -90,9 +90,6 @@ class posts extends Model
             '(SELECT COUNT(*) FROM interactions i JOIN interposts ip ON i.id = ip.interId WHERE i.type = "like" AND ip.postId = a.id) as likes',
             '(SELECT COUNT(*) FROM comments h WHERE h.postId = a.id) as comments',
             '(SELECT COUNT(*) FROM posts t WHERE t.postId = a.id) as shares',
-            '(SELECT COUNT(*) FROM interactions i JOIN interposts ip ON i.id = ip.interId WHERE ip.postId = a.id AND i.type = "like" AND i.userId = ' . $userId . ') as userLiked'
-
-
         ])
             ->join('user b', 'a.userId = b.id')
             ->join('userinfo c', 'b.id = c.userId')

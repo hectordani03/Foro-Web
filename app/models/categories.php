@@ -21,7 +21,7 @@ class categories extends Model
 
     public function getAllCategories()
     {
-        $result = $this->select(['name, gif, img, banner'])
+        $result = $this->select(['name, gif, img, banner, description'])
             ->get();
         return $result;
     }
@@ -105,5 +105,15 @@ class categories extends Model
             echo json_encode(["r" => 'e']);
             return false;
         }
+    }
+
+    public function getuserCategories($userId){
+        $result = $this->select(['a.img'])
+            ->join('posts b', 'a.name=b.category')
+            ->join('user c', 'b.userId=c.id')
+            ->where([['b.userId', $userId['userId']]])
+            ->groupBy([['b.category']])
+            ->get();
+        return $result;
     }
 }

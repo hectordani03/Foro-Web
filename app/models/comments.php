@@ -49,6 +49,20 @@ class comments extends Model
         }
     }
 
+    public function updateComment($data){
+        if (!empty($data['content']) && !empty($data['commentId'])) {
+            $this->values = [
+                $data['content'],
+            ];
+            return $this
+            ->where([['id', 'commentId']])
+            ->update();
+        } else {
+            echo json_encode(["r" => 'e']);
+            return false;
+        }
+    }
+
     public function deleteComment($data)
     {
         if (!empty($data['commentId'])) {

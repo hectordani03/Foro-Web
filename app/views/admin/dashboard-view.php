@@ -35,6 +35,7 @@ require_once LAYOUTS_AD . 'header.php';
 
 <main class="w-10/12 h-screen relative right-0 ml-auto bg-slate-200 mr-10 overflow-x-hidden">
 
+
 	<!-- FIRTS CARDS -->
 	<section id="dashboard-cards" class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-items-center">
 		<div class="bg-slate-100 border-r-2 border-b-2 h-32 h-max-32 max-h-32 w-full p-7 rounded-l-lg text-center lg:p-8 pt-3">

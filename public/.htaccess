@@ -43,5 +43,9 @@ RewriteCond %{THE_REQUEST} \s/Account/recover[/?\s] [NC]
 RewriteRule ^Account/recover$ /recover [R=301,L]
 RewriteRule ^recover$ Account/recover [L,QSA]
 
+RewriteCond %{THE_REQUEST} \s/Posts/popular[/?\s] [NC]
+RewriteRule ^Posts/popular$ /popular [R=301,L]
+RewriteRule ^popular$ Posts/popular [L,QSA]
+
 RewriteCond %{QUERY_STRING} !^url=
 RewriteRule ^([a-zA-Z0-9/ñÑ-]+)$ index.php?url=$1 [QSA]

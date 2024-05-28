@@ -130,8 +130,7 @@ class PostsController extends Controller
     public function getPosts()
     {
         $posts = new posts();
-        $userId = session::sessionValidate()['id'];
-        $result = $posts->getAllPosts($userId);
+        $result = $posts->getAllPosts();
         echo $result;
     }
 

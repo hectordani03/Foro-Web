@@ -73,14 +73,18 @@ class interactions extends Model
             'a.type',
             'a.userId as actionUserId',
             'b.postId',
-            'a.created_at'
+            'a.created_at',
+            'c.username as actionUsername',
+            'd.profilePic as actionUserProfilePic'
         ])
-        ->join('interposts b', 'i.id = b.interId')
+        ->join('interposts b', 'a.id = b.interId')
+        ->join('user c', 'a.userId = c.id')
+        ->join('userinfo d', 'c.id = d.userId')
         ->where([
             ['b.userId', $userId],
             ['b.seen', 0]
         ])
-        ->orderBy([['i.created_at', 'DESC']])
+        ->orderBy([['a.created_at', 'DESC']])
         ->get();
 
         return $result;
@@ -98,6 +102,26 @@ class interactions extends Model
             ->count('a.id')
             ->get();
 
+        return $result;
+    }
+
+    public function getTotalInteractionsUntil($limitDate) {
+        $result = $this->select(['count(*) as tt'])
+            ->where([
+                ['created_at', $limitDate, '<='],
+                ['type', 'like']
+                ])
+            ->get();
+        return $result;
+    }
+
+    public function getNewInteractions($limitDate) {
+        $result = $this->select(['count(*) as tt'])
+            ->where([
+                ['created_at', $limitDate, '>'],
+                ['type', 'like']
+                ])
+            ->get();
         return $result;
     }
 }

@@ -54,16 +54,8 @@ require_once LAYOUTS_US . 'header.php';
                     </div> -->
                 </div>
             </div>
-            <div class="relative w-9/12 h-32 rounded-xl flex justify-center shadow-lg gap-5 flex-wrap overflow-auto">
-            <img class="rounded-lg w-12 h-12" src="http://forus.com/resources/assets/img/categories/obj1.png" alt="">
-            <img class="rounded-lg w-12 h-12" src="http://forus.com/resources/assets/img/categories/obj5.png" alt="">
-            <img class="rounded-lg w-12 h-12" src="http://forus.com/resources/assets/img/categories/obj7.png" alt="">
-            <img class="rounded-lg w-12 h-12" src="http://forus.com/resources/assets/img/categories/obj13.png" alt="">
-            <img class="rounded-lg w-12 h-12" src="http://forus.com/resources/assets/img/categories/obj14.png" alt="">
-            <img class="rounded-lg w-12 h-12" src="http://forus.com/resources/assets/img/categories/obj10.png" alt="">
-            <img class="rounded-lg w-12 h-12" src="http://forus.com/resources/assets/img/categories/obj4.png" alt="">
-            <img class="rounded-lg w-12 h-12" src="http://forus.com/resources/assets/img/categories/obj9.png" alt="">
-            <img class="rounded-lg w-12 h-12" src="http://forus.com/resources/assets/img/categories/obj8.png" alt="">
+            <div id="userCat" class="relative w-9/12 h-32 rounded-xl flex justify-center shadow-lg gap-5 flex-wrap overflow-auto">
+          
             </div>
 
 
@@ -83,7 +75,6 @@ require_once LAYOUTS_US . 'header.php';
         <div class="flex gap-16 justify-center mt-5 mb-10">
             <a href="#" id="userPosts" class="link-underline text-gray-400 font-semibold text-xl">Posts</a>
             <a href="#" id="userComments" class="link-underline text-gray-400 font-semibold text-xl">Comments</a>
-            <a href="#" id="userLikes" class="link-underline text-gray-400 font-semibold text-xl">Likes</a>
             <a href="#" id="userSharedPosts" class="link-underline text-gray-400 font-semibold text-xl">Shared</a>
         </div>
 
@@ -101,6 +92,7 @@ setFooter($d,"profile")
     $(function() {
         app.categories();
         profile.userPosts();
+        profile.userCat();
     });
 
     const underlineLinks = document.querySelectorAll('.link-underline');
